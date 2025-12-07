@@ -19,12 +19,20 @@
 </section>
 
 @code {
+    private static readonly Guid DemoAgentId = Guid.Parse("11111111-1111-1111-1111-111111111111");
     private string? _lastRunMessage;
 
     private async Task RunAgentAsync()
     {
-        var result = await AgentRunner.RunAgentOnceAsync(Guid.NewGuid());
-        _lastRunMessage = $"Agent {result.AgentId} exécuté à {result.CompletedAt:t}. Valeur portefeuille : {result.Portfolio.TotalValue:C0}.";
+        try
+        {
+            var result = await AgentRunner.RunAgentOnceAsync(DemoAgentId);
+            _lastRunMessage = $"Agent {result.AgentId} exécuté à {result.CompletedAt:t}. Valeur portefeuille : {result.Portfolio.TotalValue:C0}.";
+        }
+        catch (Exception ex)
+        {
+            _lastRunMessage = $"Échec de l'exécution de l'agent : {ex.Message}";
+        }
     }
 }
 

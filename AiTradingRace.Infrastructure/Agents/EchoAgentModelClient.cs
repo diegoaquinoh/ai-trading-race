@@ -1,5 +1,6 @@
 using AiTradingRace.Application.Agents;
 using AiTradingRace.Application.Common.Models;
+using AiTradingRace.Domain.Entities;
 
 namespace AiTradingRace.Infrastructure.Agents;
 

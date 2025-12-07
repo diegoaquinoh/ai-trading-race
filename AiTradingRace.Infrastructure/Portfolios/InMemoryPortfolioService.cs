@@ -1,6 +1,7 @@
 using System.Collections.Concurrent;
 using AiTradingRace.Application.Common.Models;
 using AiTradingRace.Application.Portfolios;
+using AiTradingRace.Domain.Entities;
 
 namespace AiTradingRace.Infrastructure.Portfolios;
 
@@ -85,6 +86,14 @@ public sealed class InMemoryPortfolioService : IPortfolioService
                         Quantity = remainingQty,
                         CurrentPrice = price
                     };
+                    break;
+
+                case TradeSide.Hold:
+                    // No changes for hold orders; keep snapshot as-is.
+                    if (existingPosition is not null)
+                    {
+                        positions[asset] = existingPosition with { CurrentPrice = price };
+                    }
                     break;
 
                 default:

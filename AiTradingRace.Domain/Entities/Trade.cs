@@ -14,6 +14,6 @@ public class Trade
 
     public decimal Price { get; set; }
 
-    public string Side { get; set; } = "Buy";
+    public TradeSide Side { get; set; } = TradeSide.Buy;
 }
 

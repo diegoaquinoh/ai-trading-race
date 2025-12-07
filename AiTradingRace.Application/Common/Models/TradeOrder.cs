@@ -1,3 +1,5 @@
+using AiTradingRace.Domain.Entities;
+
 namespace AiTradingRace.Application.Common.Models;
 
 public record TradeOrder(

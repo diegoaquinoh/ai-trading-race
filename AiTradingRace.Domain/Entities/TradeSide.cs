@@ -1,4 +1,4 @@
-namespace AiTradingRace.Application.Common.Models;
+namespace AiTradingRace.Domain.Entities;
 
 public enum TradeSide
 {
