@@ -96,4 +96,11 @@ dotnet restore
 dotnet build
 dotnet run --project AiTradingRace.Web
 func start --csharp --script-root AiTradingRace.Functions # si Azure Functions Core Tools est installé
+# Base de données (Phase 2)
+# 1) Installer l’outil EF si besoin : dotnet tool install --global dotnet-ef
+# 2) Ajouter la chaîne de connexion `ConnectionStrings:TradingDb` dans :
+#    - AiTradingRace.Web/appsettings.Development.json
+#    - AiTradingRace.Functions/local.settings.json (ou secrets d’environnement)
+# 3) Générer la migration initiale : dotnet ef migrations add InitialCreate -p AiTradingRace.Infrastructure -s AiTradingRace.Web
+# 4) Appliquer la migration : dotnet ef database update -p AiTradingRace.Infrastructure -s AiTradingRace.Web
 ```
