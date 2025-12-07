@@ -6,8 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\\AiTradingRace.Application\\AiTradingRace.Application.csproj" />
-    <ProjectReference Include="..\\AiTradingRace.Domain\\AiTradingRace.Domain.csproj" />
+    <ProjectReference Include="../AiTradingRace.Application/AiTradingRace.Application.csproj" />
+    <ProjectReference Include="../AiTradingRace.Domain/AiTradingRace.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

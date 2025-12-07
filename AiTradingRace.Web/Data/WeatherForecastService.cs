@@ -1,5 +1,3 @@
-using System.Linq;
-
 namespace AiTradingRace.Web.Data;
 
 public class WeatherForecastService

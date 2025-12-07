@@ -1,3 +1,4 @@
+using AiTradingRace.Application.Common;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -10,17 +11,5 @@ public static class ServiceCollectionExtensions
         services.TryAddSingleton<AgentOrchestrationClock>();
         return services;
     }
-}
-
-public sealed class AgentOrchestrationClock
-{
-    private readonly TimeProvider _timeProvider;
-
-    public AgentOrchestrationClock(TimeProvider? timeProvider = null)
-    {
-        _timeProvider = timeProvider ?? TimeProvider.System;
-    }
-
-    public DateTimeOffset UtcNow => _timeProvider.GetUtcNow();
 }
 

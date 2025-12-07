@@ -1,4 +1,3 @@
-using System.Linq;
 using AiTradingRace.Application.Common.Models;
 using AiTradingRace.Application.MarketData;
 

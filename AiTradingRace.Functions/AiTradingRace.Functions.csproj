@@ -14,8 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\\AiTradingRace.Application\\AiTradingRace.Application.csproj" />
-    <ProjectReference Include="..\\AiTradingRace.Infrastructure\\AiTradingRace.Infrastructure.csproj" />
+    <ProjectReference Include="../AiTradingRace.Application/AiTradingRace.Application.csproj" />
+    <ProjectReference Include="../AiTradingRace.Infrastructure/AiTradingRace.Infrastructure.csproj" />
   </ItemGroup>
 </Project>
 

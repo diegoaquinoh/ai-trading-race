@@ -1,5 +1,4 @@
 using System.Collections.Concurrent;
-using System.Linq;
 using AiTradingRace.Application.Common.Models;
 using AiTradingRace.Application.Portfolios;
 
@@ -117,9 +116,14 @@ public sealed class InMemoryPortfolioService : IPortfolioService
 
     private static decimal CalculateAveragePrice(PositionSnapshot? existing, decimal notional, decimal quantity)
     {
+        if (quantity <= 0)
+        {
+            return existing?.AveragePrice ?? 0m;
+        }
+
         if (existing is null || existing.Quantity <= 0)
         {
-            return quantity <= 0 ? 0m : notional / quantity;
+            return notional / quantity;
         }
 
         var totalCost = (existing.AveragePrice * existing.Quantity) + notional;
