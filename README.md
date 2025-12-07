@@ -74,3 +74,26 @@ Manipuler une base SQL avec EF Core et des données temporelles.
 Intégrer des LLM multiples et les orchestrer.
 Utiliser les services managés Azure (Functions, App Service, SQL, Key Vault, App Insights).
 Mettre en place un système distribué avec jobs planifiés et simulation de trading.
+
+5. Architecture solution .NET
+
+Projets créés dans `AiTradingRace.sln` :
+
+- `AiTradingRace.Web` : Blazor Server (UI + API future) avec DI configurée.
+- `AiTradingRace.Domain` : entités métier (Agent, Portfolio, Trade, etc.).
+- `AiTradingRace.Application` : modèles partagés + interfaces (`IMarketDataProvider`, `IPortfolioService`, `IAgentRunner`, `IAgentModelClient`).
+- `AiTradingRace.Infrastructure` : implémentations mémoire et extension DI.
+- `AiTradingRace.Functions` : Azure Functions isolé (.NET 8) avec timers `MarketDataFunction` et `RunAgentsFunction`.
+
+Pré-requis locaux :
+
+- .NET SDK 8.x (`https://dotnet.microsoft.com/download`).
+
+Commandes utiles :
+
+```bash
+dotnet restore
+dotnet build
+dotnet run --project AiTradingRace.Web
+func start --csharp --script-root AiTradingRace.Functions # si Azure Functions Core Tools est installé
+```
