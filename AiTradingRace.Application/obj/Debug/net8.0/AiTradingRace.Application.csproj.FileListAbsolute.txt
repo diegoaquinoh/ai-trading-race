@@ -1,0 +1,16 @@
+/Users/diegoaquino/Projets/ai-trading-race/AiTradingRace.Application/obj/Debug/net8.0/AiTradingRace.Application.csproj.AssemblyReference.cache
+/Users/diegoaquino/Projets/ai-trading-race/AiTradingRace.Application/obj/Debug/net8.0/AiTradingRace.Application.GeneratedMSBuildEditorConfig.editorconfig
+/Users/diegoaquino/Projets/ai-trading-race/AiTradingRace.Application/obj/Debug/net8.0/AiTradingRace.Application.AssemblyInfoInputs.cache
+/Users/diegoaquino/Projets/ai-trading-race/AiTradingRace.Application/obj/Debug/net8.0/AiTradingRace.Application.AssemblyInfo.cs
+/Users/diegoaquino/Projets/ai-trading-race/AiTradingRace.Application/obj/Debug/net8.0/AiTradingRace.Application.csproj.CoreCompileInputs.cache
+/Users/diegoaquino/Projets/ai-trading-race/AiTradingRace.Application/obj/Debug/net8.0/AiTradingRace.Application.sourcelink.json
+/Users/diegoaquino/Projets/ai-trading-race/AiTradingRace.Application/bin/Debug/net8.0/AiTradingRace.Application.deps.json
+/Users/diegoaquino/Projets/ai-trading-race/AiTradingRace.Application/bin/Debug/net8.0/AiTradingRace.Application.dll
+/Users/diegoaquino/Projets/ai-trading-race/AiTradingRace.Application/bin/Debug/net8.0/AiTradingRace.Application.pdb
+/Users/diegoaquino/Projets/ai-trading-race/AiTradingRace.Application/bin/Debug/net8.0/AiTradingRace.Domain.dll
+/Users/diegoaquino/Projets/ai-trading-race/AiTradingRace.Application/bin/Debug/net8.0/AiTradingRace.Domain.pdb
+/Users/diegoaquino/Projets/ai-trading-race/AiTradingRace.Application/obj/Debug/net8.0/AiTradin.7B4D187F.Up2Date
+/Users/diegoaquino/Projets/ai-trading-race/AiTradingRace.Application/obj/Debug/net8.0/AiTradingRace.Application.dll
+/Users/diegoaquino/Projets/ai-trading-race/AiTradingRace.Application/obj/Debug/net8.0/refint/AiTradingRace.Application.dll
+/Users/diegoaquino/Projets/ai-trading-race/AiTradingRace.Application/obj/Debug/net8.0/AiTradingRace.Application.pdb
+/Users/diegoaquino/Projets/ai-trading-race/AiTradingRace.Application/obj/Debug/net8.0/ref/AiTradingRace.Application.dll

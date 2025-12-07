@@ -1,0 +1,38 @@
+[
+  {
+    "name": "MarketDataFunction",
+    "scriptFile": "AiTradingRace.Functions.dll",
+    "entryPoint": "AiTradingRace.Functions.Functions.MarketDataFunction.RunAsync",
+    "language": "dotnet-isolated",
+    "properties": {
+      "IsCodeless": false
+    },
+    "bindings": [
+      {
+        "name": "timerInfo",
+        "direction": "In",
+        "type": "timerTrigger",
+        "schedule": "0 */15 * * * *",
+        "properties": {}
+      }
+    ]
+  },
+  {
+    "name": "RunAgentsFunction",
+    "scriptFile": "AiTradingRace.Functions.dll",
+    "entryPoint": "AiTradingRace.Functions.Functions.RunAgentsFunction.RunAsync",
+    "language": "dotnet-isolated",
+    "properties": {
+      "IsCodeless": false
+    },
+    "bindings": [
+      {
+        "name": "timerInfo",
+        "direction": "In",
+        "type": "timerTrigger",
+        "schedule": "0 */30 * * * *",
+        "properties": {}
+      }
+    ]
+  }
+]

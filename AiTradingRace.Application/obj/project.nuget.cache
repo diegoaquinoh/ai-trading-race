@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "UcheMP5sFe0=",
+  "success": true,
+  "projectFilePath": "/Users/diegoaquino/Projets/ai-trading-race/AiTradingRace.Application/AiTradingRace.Application.csproj",
+  "expectedPackageFiles": [
+    "/Users/diegoaquino/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/8.0.0/microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

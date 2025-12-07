@@ -1,0 +1,63 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = AiTradingRace.Web
+build_property.RootNamespace = AiTradingRace.Web
+build_property.ProjectDir = /Users/diegoaquino/Projets/ai-trading-race/AiTradingRace.Web/
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = /Users/diegoaquino/Projets/ai-trading-race/AiTradingRace.Web
+build_property._RazorSourceGeneratorDebug = 
+
+[/Users/diegoaquino/Projets/ai-trading-race/AiTradingRace.Web/Components/App.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9BcHAucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/diegoaquino/Projets/ai-trading-race/AiTradingRace.Web/Components/Layout/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9MYXlvdXQvTWFpbkxheW91dC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/diegoaquino/Projets/ai-trading-race/AiTradingRace.Web/Components/Layout/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9MYXlvdXQvTmF2TWVudS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/diegoaquino/Projets/ai-trading-race/AiTradingRace.Web/Components/Pages/Agents.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9BZ2VudHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/diegoaquino/Projets/ai-trading-race/AiTradingRace.Web/Components/Pages/Counter.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Db3VudGVyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/diegoaquino/Projets/ai-trading-race/AiTradingRace.Web/Components/Pages/FetchData.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9GZXRjaERhdGEucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/diegoaquino/Projets/ai-trading-race/AiTradingRace.Web/Components/Pages/Home.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Ib21lLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/diegoaquino/Projets/ai-trading-race/AiTradingRace.Web/Components/Pages/Ingestion.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Jbmdlc3Rpb24ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/diegoaquino/Projets/ai-trading-race/AiTradingRace.Web/Components/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9fSW1wb3J0cy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/diegoaquino/Projets/ai-trading-race/AiTradingRace.Web/Pages/_Host.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX0hvc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/diegoaquino/Projets/ai-trading-race/AiTradingRace.Web/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
