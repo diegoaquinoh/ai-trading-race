@@ -1,0 +1,38 @@
+@page "/"
+@using AiTradingRace.Application.Agents
+@inject IAgentRunner AgentRunner
+
+<PageTitle>Dashboard</PageTitle>
+
+<section class="content-section">
+    <h2>Bienvenue dans AI Trading Race</h2>
+    <p>Ce dashboard affiche l’état actuel de la solution. Les données sont simulées pour la Phase 1.</p>
+</section>
+
+<section class="content-section">
+    <button class="btn btn-primary" @onclick="RunAgentAsync">Lancer un agent de test</button>
+
+    @if (_lastRunMessage is not null)
+    {
+        <p class="status">@_lastRunMessage</p>
+    }
+</section>
+
+@code {
+    private static readonly Guid DemoAgentId = Guid.Parse("11111111-1111-1111-1111-111111111111");
+    private string? _lastRunMessage;
+
+    private async Task RunAgentAsync()
+    {
+        try
+        {
+            var result = await AgentRunner.RunAgentOnceAsync(DemoAgentId);
+            _lastRunMessage = $"Agent {result.AgentId} exécuté à {result.CompletedAt:t}. Valeur portefeuille : {result.Portfolio.TotalValue:C0}.";
+        }
+        catch (Exception ex)
+        {
+            _lastRunMessage = $"Échec de l'exécution de l'agent : {ex.Message}";
+        }
+    }
+}
+

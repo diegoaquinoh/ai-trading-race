@@ -1,0 +1,28 @@
+# Build results
+bin/
+obj/
+
+# Visual Studio files
+.vs/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Dotnet artifacts
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Logs
+*.log
+
+# Azure Functions local settings
+AiTradingRace.Functions/local.settings.json
+
+# OS files
+.DS_Store
+
+

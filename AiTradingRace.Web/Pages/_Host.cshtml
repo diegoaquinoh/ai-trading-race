@@ -1,0 +1,31 @@
+@page "/"
+@namespace AiTradingRace.Web.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Trading Race</title>
+    <base href="~/" />
+    <link rel="stylesheet" href="css/app.css" />
+</head>
+<body>
+    <component type="typeof(AiTradingRace.Web.Components.App)" render-mode="ServerPrerendered" />
+
+    <div id="blazor-error-ui">
+        <environment include="Staging,Production">
+            Une erreur s'est produite. Cette application peut ne plus répondre jusqu'à ce qu'elle soit rechargée.
+        </environment>
+        <environment include="Development">
+            Une exception non gérée s'est produite. Consultez les outils de développement pour plus d'informations.
+        </environment>
+        <a href="" class="reload">Recharger</a>
+        <a class="dismiss">✖</a>
+    </div>
+
+    <script src="_framework/blazor.server.js"></script>
+</body>
+</html>
+
