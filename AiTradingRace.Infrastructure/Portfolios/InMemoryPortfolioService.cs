@@ -57,6 +57,11 @@ public sealed class InMemoryPortfolioService : IPortfolioService
             switch (order.Side)
             {
                 case TradeSide.Buy:
+                    if (notional > cash)
+                    {
+                        throw new InvalidOperationException($"Insufficient cash ({cash:C}) to buy {order.Quantity} {asset} at {price}.");
+                    }
+
                     cash -= notional;
                     var newQuantity = (existingPosition?.Quantity ?? 0m) + order.Quantity;
                     var averagePrice = CalculateAveragePrice(existingPosition, notional, order.Quantity);
@@ -68,21 +73,22 @@ public sealed class InMemoryPortfolioService : IPortfolioService
                     break;
 
                 case TradeSide.Sell:
-                    cash += notional;
-                    if (existingPosition is not null)
+                    if (existingPosition is null || existingPosition.Quantity < order.Quantity)
                     {
-                        var remainingQty = Math.Max(0, existingPosition.Quantity - order.Quantity);
-                        positions[asset] = existingPosition with
-                        {
-                            Quantity = remainingQty,
-                            CurrentPrice = price
-                        };
+                        throw new InvalidOperationException($"Cannot sell {order.Quantity} {asset} without sufficient holdings.");
                     }
+
+                    cash += notional;
+                    var remainingQty = Math.Max(0, existingPosition.Quantity - order.Quantity);
+                    positions[asset] = existingPosition with
+                    {
+                        Quantity = remainingQty,
+                        CurrentPrice = price
+                    };
                     break;
 
                 default:
-                    positions[asset] = existingPosition ?? new PositionSnapshot(asset, 0m, price, price);
-                    break;
+                    throw new InvalidOperationException($"Unsupported trade side '{order.Side}'.");
             }
         }
 
@@ -106,6 +112,7 @@ public sealed class InMemoryPortfolioService : IPortfolioService
     private static decimal EstimatePrice(string assetSymbol)
     {
         var symbol = assetSymbol.ToUpperInvariant();
+        // Placeholder prices for demo purposes only.
         return symbol switch
         {
             "ETH" => 3_000m,

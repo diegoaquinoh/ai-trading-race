@@ -87,7 +87,7 @@ Projets créés dans `AiTradingRace.sln` :
 
 Pré-requis locaux :
 
-- .NET SDK 8.x (`https://dotnet.microsoft.com/download`).
+- .NET SDK 8.x (`https://dotnet.microsoft.com/en-us/download`).
 
 Commandes utiles :
 

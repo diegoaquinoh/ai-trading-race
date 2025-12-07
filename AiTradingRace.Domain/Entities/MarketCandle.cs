@@ -6,7 +6,7 @@ public class MarketCandle
 
     public Guid MarketAssetId { get; set; }
 
-    public DateTime TimestampUtc { get; set; }
+    public DateTimeOffset TimestampUtc { get; set; }
 
     public decimal Open { get; set; }
 
