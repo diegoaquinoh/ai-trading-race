@@ -1,0 +1,381 @@
+<mxfile host="app.diagrams.net" modified="2025-12-11T12:00:00.000Z" agent="Claude" etag="class-diagram" version="21.0.0" type="device">
+  <diagram id="class-diagram" name="Class Diagram">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ========== LAYER SEPARATORS ========== -->
+        
+        <!-- Domain Layer Background -->
+        <mxCell id="domain-bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;opacity=30;" vertex="1" parent="1">
+          <mxGeometry x="20" y="60" width="540" height="520" as="geometry" />
+        </mxCell>
+        <mxCell id="domain-label" value="📦 Domain Layer" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=14;fontColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="30" y="30" width="150" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Application Layer Background -->
+        <mxCell id="app-bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;opacity=30;" vertex="1" parent="1">
+          <mxGeometry x="580" y="60" width="580" height="520" as="geometry" />
+        </mxCell>
+        <mxCell id="app-label" value="📦 Application Layer" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=14;fontColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="590" y="30" width="180" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Infrastructure Layer Background -->
+        <mxCell id="infra-bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;opacity=30;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="60" width="580" height="520" as="geometry" />
+        </mxCell>
+        <mxCell id="infra-label" value="📦 Infrastructure Layer" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=14;fontColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="30" width="180" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- ========== DOMAIN ENTITIES ========== -->
+
+        <!-- Agent Entity -->
+        <mxCell id="agent" value="Agent" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=22;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="30" y="80" width="160" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="agent-attrs" value="+ Id : Guid&#xa;+ Name : string&#xa;+ Provider : string&#xa;+ IsActive : bool&#xa;+ CreatedAt : DateTimeOffset" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=10;" vertex="1" parent="agent">
+          <mxGeometry y="22" width="160" height="88" as="geometry" />
+        </mxCell>
+
+        <!-- MarketAsset Entity -->
+        <mxCell id="marketasset" value="MarketAsset" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=22;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="210" y="80" width="160" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="marketasset-attrs" value="+ Id : Guid&#xa;+ Symbol : string&#xa;+ Name : string&#xa;+ QuoteCurrency : string&#xa;+ IsEnabled : bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=10;" vertex="1" parent="marketasset">
+          <mxGeometry y="22" width="160" height="88" as="geometry" />
+        </mxCell>
+
+        <!-- Portfolio Entity -->
+        <mxCell id="portfolio" value="Portfolio" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=22;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="390" y="80" width="160" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="portfolio-attrs" value="+ Id : Guid&#xa;+ AgentId : Guid&#xa;+ Cash : decimal&#xa;+ BaseCurrency : string&#xa;+ Positions : List&lt;Position&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=10;" vertex="1" parent="portfolio">
+          <mxGeometry y="22" width="160" height="88" as="geometry" />
+        </mxCell>
+
+        <!-- MarketCandle Entity -->
+        <mxCell id="marketcandle" value="MarketCandle" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=22;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="30" y="210" width="160" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="marketcandle-attrs" value="+ Id : Guid&#xa;+ MarketAssetId : Guid&#xa;+ TimestampUtc : DateTimeOffset&#xa;+ Open : decimal&#xa;+ High : decimal&#xa;+ Low : decimal&#xa;+ Close : decimal&#xa;+ Volume : decimal" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=10;" vertex="1" parent="marketcandle">
+          <mxGeometry y="22" width="160" height="118" as="geometry" />
+        </mxCell>
+
+        <!-- Position Entity -->
+        <mxCell id="position" value="Position" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=22;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="210" y="210" width="160" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="position-attrs" value="+ Id : Guid&#xa;+ PortfolioId : Guid&#xa;+ MarketAssetId : Guid&#xa;+ Quantity : decimal&#xa;+ AverageEntryPrice : decimal" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=10;" vertex="1" parent="position">
+          <mxGeometry y="22" width="160" height="78" as="geometry" />
+        </mxCell>
+
+        <!-- Trade Entity -->
+        <mxCell id="trade" value="Trade" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=22;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="390" y="210" width="160" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="trade-attrs" value="+ Id : Guid&#xa;+ PortfolioId : Guid&#xa;+ MarketAssetId : Guid&#xa;+ ExecutedAt : DateTimeOffset&#xa;+ Quantity : decimal&#xa;+ Price : decimal&#xa;+ Side : TradeSide" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=10;" vertex="1" parent="trade">
+          <mxGeometry y="22" width="160" height="98" as="geometry" />
+        </mxCell>
+
+        <!-- EquitySnapshot Entity -->
+        <mxCell id="equitysnapshot" value="EquitySnapshot" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=22;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="30" y="370" width="160" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="equitysnapshot-attrs" value="+ Id : Guid&#xa;+ PortfolioId : Guid&#xa;+ CapturedAt : DateTimeOffset&#xa;+ TotalValue : decimal&#xa;+ UnrealizedPnL : decimal" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=10;" vertex="1" parent="equitysnapshot">
+          <mxGeometry y="22" width="160" height="78" as="geometry" />
+        </mxCell>
+
+        <!-- TradeSide Enum -->
+        <mxCell id="tradeside" value="«enum»&#xa;TradeSide" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=36;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="210" y="370" width="120" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="tradeside-vals" value="Hold = 0&#xa;Buy = 1&#xa;Sell = 2" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=10;" vertex="1" parent="tradeside">
+          <mxGeometry y="36" width="120" height="54" as="geometry" />
+        </mxCell>
+
+        <!-- ========== APPLICATION INTERFACES ========== -->
+
+        <!-- IMarketDataProvider Interface -->
+        <mxCell id="imarketdataprovider" value="«interface»&#xa;IMarketDataProvider" style="swimlane;fontStyle=3;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=36;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="590" y="80" width="260" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="imarketdataprovider-methods" value="+ GetLatestCandlesAsync(symbol, limit) : Task&lt;List&lt;MarketCandleDto&gt;&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=10;fontStyle=2;" vertex="1" parent="imarketdataprovider">
+          <mxGeometry y="36" width="260" height="34" as="geometry" />
+        </mxCell>
+
+        <!-- IPortfolioService Interface -->
+        <mxCell id="iportfolioservice" value="«interface»&#xa;IPortfolioService" style="swimlane;fontStyle=3;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=36;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="870" y="80" width="280" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="iportfolioservice-methods" value="+ GetPortfolioAsync(agentId) : Task&lt;PortfolioState&gt;&#xa;+ ApplyDecisionAsync(agentId, decision) : Task&lt;PortfolioState&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=10;fontStyle=2;" vertex="1" parent="iportfolioservice">
+          <mxGeometry y="36" width="280" height="34" as="geometry" />
+        </mxCell>
+
+        <!-- IAgentRunner Interface -->
+        <mxCell id="iagentrunner" value="«interface»&#xa;IAgentRunner" style="swimlane;fontStyle=3;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=36;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="590" y="170" width="260" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iagentrunner-methods" value="+ RunAgentOnceAsync(agentId) : Task&lt;AgentRunResult&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=10;fontStyle=2;" vertex="1" parent="iagentrunner">
+          <mxGeometry y="36" width="260" height="24" as="geometry" />
+        </mxCell>
+
+        <!-- IAgentModelClient Interface -->
+        <mxCell id="iagentmodelclient" value="«interface»&#xa;IAgentModelClient" style="swimlane;fontStyle=3;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=36;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="870" y="170" width="280" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iagentmodelclient-methods" value="+ GenerateDecisionAsync(context) : Task&lt;AgentDecision&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=10;fontStyle=2;" vertex="1" parent="iagentmodelclient">
+          <mxGeometry y="36" width="280" height="24" as="geometry" />
+        </mxCell>
+
+        <!-- ========== APPLICATION MODELS (Records) ========== -->
+
+        <!-- MarketCandleDto -->
+        <mxCell id="marketcandledto" value="«record»&#xa;MarketCandleDto" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=36;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="590" y="250" width="170" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="marketcandledto-attrs" value="+ AssetSymbol : string&#xa;+ TimestampUtc : DateTimeOffset&#xa;+ Open : decimal&#xa;+ High : decimal&#xa;+ Low : decimal&#xa;+ Close : decimal&#xa;+ Volume : decimal" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=10;" vertex="1" parent="marketcandledto">
+          <mxGeometry y="36" width="170" height="94" as="geometry" />
+        </mxCell>
+
+        <!-- PortfolioState -->
+        <mxCell id="portfoliostate" value="«record»&#xa;PortfolioState" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=36;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="780" y="250" width="180" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="portfoliostate-attrs" value="+ PortfolioId : Guid&#xa;+ AgentId : Guid&#xa;+ Cash : decimal&#xa;+ Positions : List&lt;PositionSnapshot&gt;&#xa;+ AsOf : DateTimeOffset&#xa;+ TotalValue : decimal" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=10;" vertex="1" parent="portfoliostate">
+          <mxGeometry y="36" width="180" height="94" as="geometry" />
+        </mxCell>
+
+        <!-- PositionSnapshot -->
+        <mxCell id="positionsnapshot" value="«record»&#xa;PositionSnapshot" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=36;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="980" y="250" width="170" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="positionsnapshot-attrs" value="+ AssetSymbol : string&#xa;+ Quantity : decimal&#xa;+ AveragePrice : decimal&#xa;+ CurrentPrice : decimal" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=10;" vertex="1" parent="positionsnapshot">
+          <mxGeometry y="36" width="170" height="64" as="geometry" />
+        </mxCell>
+
+        <!-- AgentContext -->
+        <mxCell id="agentcontext" value="«record»&#xa;AgentContext" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=36;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="590" y="400" width="180" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="agentcontext-attrs" value="+ AgentId : Guid&#xa;+ Portfolio : PortfolioState&#xa;+ RecentCandles : List&lt;MarketCandleDto&gt;&#xa;+ Instructions : string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=10;" vertex="1" parent="agentcontext">
+          <mxGeometry y="36" width="180" height="64" as="geometry" />
+        </mxCell>
+
+        <!-- AgentDecision -->
+        <mxCell id="agentdecision" value="«record»&#xa;AgentDecision" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=36;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="790" y="400" width="170" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="agentdecision-attrs" value="+ AgentId : Guid&#xa;+ CreatedAt : DateTimeOffset&#xa;+ Orders : List&lt;TradeOrder&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=10;" vertex="1" parent="agentdecision">
+          <mxGeometry y="36" width="170" height="49" as="geometry" />
+        </mxCell>
+
+        <!-- TradeOrder -->
+        <mxCell id="tradeorder" value="«record»&#xa;TradeOrder" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=36;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="980" y="400" width="170" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="tradeorder-attrs" value="+ AssetSymbol : string&#xa;+ Side : TradeSide&#xa;+ Quantity : decimal&#xa;+ LimitPrice : decimal?" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=10;" vertex="1" parent="tradeorder">
+          <mxGeometry y="36" width="170" height="64" as="geometry" />
+        </mxCell>
+
+        <!-- AgentRunResult -->
+        <mxCell id="agentrunresult" value="«record»&#xa;AgentRunResult" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=36;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="590" y="520" width="180" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="agentrunresult-attrs" value="+ AgentId : Guid&#xa;+ StartedAt : DateTimeOffset&#xa;+ CompletedAt : DateTimeOffset&#xa;+ Portfolio : PortfolioState&#xa;+ Decision : AgentDecision" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=10;" vertex="1" parent="agentrunresult">
+          <mxGeometry y="36" width="180" height="74" as="geometry" />
+        </mxCell>
+
+        <!-- AgentOrchestrationClock -->
+        <mxCell id="agentclock" value="AgentOrchestrationClock" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=22;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="790" y="520" width="180" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="agentclock-attrs" value="- _timeProvider : TimeProvider&#xa;+ UtcNow : DateTimeOffset {get}" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=10;" vertex="1" parent="agentclock">
+          <mxGeometry y="22" width="180" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- ========== INFRASTRUCTURE IMPLEMENTATIONS ========== -->
+
+        <!-- TradingDbContext -->
+        <mxCell id="tradingdbcontext" value="TradingDbContext" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=22;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="80" width="200" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="tradingdbcontext-attrs" value="+ Agents : DbSet&lt;Agent&gt;&#xa;+ MarketAssets : DbSet&lt;MarketAsset&gt;&#xa;+ MarketCandles : DbSet&lt;MarketCandle&gt;&#xa;+ Portfolios : DbSet&lt;Portfolio&gt;&#xa;+ Positions : DbSet&lt;Position&gt;&#xa;+ Trades : DbSet&lt;Trade&gt;&#xa;+ EquitySnapshots : DbSet&lt;EquitySnapshot&gt;&#xa;# OnModelCreating(builder)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=10;" vertex="1" parent="tradingdbcontext">
+          <mxGeometry y="22" width="200" height="128" as="geometry" />
+        </mxCell>
+
+        <!-- TradingDbContextFactory -->
+        <mxCell id="tradingdbcontextfactory" value="TradingDbContextFactory" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=22;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="1410" y="80" width="200" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="tradingdbcontextfactory-m" value="+ CreateDbContext(args) : TradingDbContext" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=10;" vertex="1" parent="tradingdbcontextfactory">
+          <mxGeometry y="22" width="200" height="33" as="geometry" />
+        </mxCell>
+
+        <!-- EfMarketDataProvider -->
+        <mxCell id="efmarketdataprovider" value="EfMarketDataProvider" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=22;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="250" width="260" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="efmarketdataprovider-m" value="- _dbContext : TradingDbContext&#xa;+ GetLatestCandlesAsync(symbol, limit) : Task&lt;List&lt;…&gt;&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=10;" vertex="1" parent="efmarketdataprovider">
+          <mxGeometry y="22" width="260" height="33" as="geometry" />
+        </mxCell>
+
+        <!-- InMemoryMarketDataProvider -->
+        <mxCell id="inmemorymarketdataprovider" value="InMemoryMarketDataProvider" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=22;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="1470" y="250" width="260" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="inmemorymarketdataprovider-m" value="+ GetLatestCandlesAsync(symbol, limit) : Task&lt;List&lt;…&gt;&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=10;" vertex="1" parent="inmemorymarketdataprovider">
+          <mxGeometry y="22" width="260" height="33" as="geometry" />
+        </mxCell>
+
+        <!-- EfPortfolioService -->
+        <mxCell id="efportfolioservice" value="EfPortfolioService" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=22;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="325" width="260" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="efportfolioservice-m" value="- _dbContext : TradingDbContext&#xa;+ GetPortfolioAsync(agentId) : Task&lt;PortfolioState&gt;&#xa;+ ApplyDecisionAsync(agentId, decision) : Task&lt;…&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=10;" vertex="1" parent="efportfolioservice">
+          <mxGeometry y="22" width="260" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- InMemoryPortfolioService -->
+        <mxCell id="inmemoryportfolioservice" value="InMemoryPortfolioService" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=22;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="1470" y="325" width="260" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="inmemoryportfolioservice-m" value="- _store : ConcurrentDictionary&lt;Guid, PortfolioState&gt;&#xa;+ GetPortfolioAsync(agentId) : Task&lt;PortfolioState&gt;&#xa;+ ApplyDecisionAsync(agentId, decision) : Task&lt;…&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=10;" vertex="1" parent="inmemoryportfolioservice">
+          <mxGeometry y="22" width="260" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- NoOpAgentRunner -->
+        <mxCell id="noopagentrunner" value="NoOpAgentRunner" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=22;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="415" width="260" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="noopagentrunner-m" value="- _modelClient : IAgentModelClient&#xa;- _portfolioService : IPortfolioService&#xa;- _marketDataProvider : IMarketDataProvider&#xa;+ RunAgentOnceAsync(agentId) : Task&lt;AgentRunResult&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=10;" vertex="1" parent="noopagentrunner">
+          <mxGeometry y="22" width="260" height="63" as="geometry" />
+        </mxCell>
+
+        <!-- EchoAgentModelClient -->
+        <mxCell id="echoagentmodelclient" value="EchoAgentModelClient" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=22;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="1470" y="415" width="260" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="echoagentmodelclient-m" value="+ GenerateDecisionAsync(context) : Task&lt;AgentDecision&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=10;" vertex="1" parent="echoagentmodelclient">
+          <mxGeometry y="22" width="260" height="33" as="geometry" />
+        </mxCell>
+
+        <!-- ========== RELATIONSHIPS ========== -->
+
+        <!-- Implementation arrows (dashed) -->
+        
+        <!-- EfMarketDataProvider implements IMarketDataProvider -->
+        <mxCell id="impl-ef-market" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;strokeWidth=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="efmarketdataprovider" target="imarketdataprovider">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="1100" y="277" as="sourcePoint" />
+            <mxPoint x="860" y="115" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1100" y="278" />
+              <mxPoint x="1100" y="115" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- InMemoryMarketDataProvider implements IMarketDataProvider -->
+        <mxCell id="impl-inmem-market" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;strokeWidth=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="inmemorymarketdataprovider" target="imarketdataprovider">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="1200" y="288" as="sourcePoint" />
+            <mxPoint x="860" y="125" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1100" y="278" />
+              <mxPoint x="1100" y="115" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- EfPortfolioService implements IPortfolioService -->
+        <mxCell id="impl-ef-portfolio" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;strokeWidth=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="efportfolioservice" target="iportfolioservice">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="1190" y="360" as="sourcePoint" />
+            <mxPoint x="1150" y="115" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1160" y="360" />
+              <mxPoint x="1160" y="115" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- InMemoryPortfolioService implements IPortfolioService -->
+        <mxCell id="impl-inmem-portfolio" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;strokeWidth=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="inmemoryportfolioservice" target="iportfolioservice">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="1200" y="370" as="sourcePoint" />
+            <mxPoint x="1160" y="125" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1160" y="360" />
+              <mxPoint x="1160" y="115" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- NoOpAgentRunner implements IAgentRunner -->
+        <mxCell id="impl-noop-runner" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;strokeWidth=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="noopagentrunner" target="iagentrunner">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="1190" y="458" as="sourcePoint" />
+            <mxPoint x="850" y="200" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1080" y="458" />
+              <mxPoint x="1080" y="200" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- EchoAgentModelClient implements IAgentModelClient -->
+        <mxCell id="impl-echo-client" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;strokeWidth=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="echoagentmodelclient" target="iagentmodelclient">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="1200" y="443" as="sourcePoint" />
+            <mxPoint x="860" y="210" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1160" y="443" />
+              <mxPoint x="1160" y="200" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Dependency: NoOpAgentRunner uses interfaces -->
+        <mxCell id="dep-runner-model" value="«uses»" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;strokeWidth=1;exitX=0;exitY=0.3;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1">
+          <mxGeometry x="-0.5" y="10" width="160" relative="1" as="geometry">
+            <mxPoint x="1190" y="445" as="sourcePoint" />
+            <mxPoint x="1150" y="215" as="targetPoint" />
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="1170" y="445" />
+              <mxPoint x="1170" y="215" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ========== LEGEND ========== -->
+        <mxCell id="legend" value="Legend" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=20;horizontalStack=0;resizeParent=1;collapsible=0;marginBottom=0;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="20" y="600" width="320" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-1" value="🟡 Domain: Entities (data model)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;" vertex="1" parent="legend">
+          <mxGeometry y="20" width="320" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-2" value="🔵 Application: Interfaces + 🟣 DTOs/Records" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;" vertex="1" parent="legend">
+          <mxGeometry y="38" width="320" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-3" value="🟢 Infrastructure: Implementations (EF/InMemory)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;" vertex="1" parent="legend">
+          <mxGeometry y="56" width="320" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-4" value="- - - ▷  «implements» interface" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;" vertex="1" parent="legend">
+          <mxGeometry y="74" width="320" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-5" value="- - - →  «uses» dependency" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;" vertex="1" parent="legend">
+          <mxGeometry y="92" width="320" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-6" value="🔴 Common: Utility classes (Clock)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;" vertex="1" parent="legend">
+          <mxGeometry y="110" width="320" height="18" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

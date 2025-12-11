@@ -17,11 +17,11 @@ namespace AiTradingRace.Infrastructure.Migrations
                 name: "Agents",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 128, nullable: false),
-                    Provider = table.Column<string>(type: "TEXT", maxLength: 128, nullable: false),
-                    IsActive = table.Column<bool>(type: "INTEGER", nullable: false, defaultValue: true),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: false, defaultValueSql: "SYSUTCDATETIME()")
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    Provider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, defaultValueSql: "SYSUTCDATETIME()")
                 },
                 constraints: table =>
                 {
@@ -32,11 +32,11 @@ namespace AiTradingRace.Infrastructure.Migrations
                 name: "MarketAssets",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Symbol = table.Column<string>(type: "TEXT", maxLength: 16, nullable: false),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 128, nullable: false),
-                    QuoteCurrency = table.Column<string>(type: "TEXT", maxLength: 16, nullable: false),
-                    IsEnabled = table.Column<bool>(type: "INTEGER", nullable: false, defaultValue: true)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Symbol = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    QuoteCurrency = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false),
+                    IsEnabled = table.Column<bool>(type: "bit", nullable: false, defaultValue: true)
                 },
                 constraints: table =>
                 {
@@ -47,10 +47,10 @@ namespace AiTradingRace.Infrastructure.Migrations
                 name: "Portfolios",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    AgentId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AgentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Cash = table.Column<decimal>(type: "decimal(18,8)", nullable: false, defaultValue: 0m),
-                    BaseCurrency = table.Column<string>(type: "TEXT", maxLength: 16, nullable: false, defaultValue: "USD")
+                    BaseCurrency = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false, defaultValue: "USD")
                 },
                 constraints: table =>
                 {
@@ -68,9 +68,9 @@ namespace AiTradingRace.Infrastructure.Migrations
                 name: "MarketCandles",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    MarketAssetId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    TimestampUtc = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    MarketAssetId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TimestampUtc = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     Open = table.Column<decimal>(type: "decimal(18,8)", nullable: false),
                     High = table.Column<decimal>(type: "decimal(18,8)", nullable: false),
                     Low = table.Column<decimal>(type: "decimal(18,8)", nullable: false),
@@ -94,9 +94,9 @@ namespace AiTradingRace.Infrastructure.Migrations
                 name: "EquitySnapshots",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    PortfolioId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    CapturedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PortfolioId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CapturedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     TotalValue = table.Column<decimal>(type: "decimal(18,8)", nullable: false),
                     UnrealizedPnL = table.Column<decimal>(type: "decimal(18,8)", nullable: false)
                 },
@@ -115,9 +115,9 @@ namespace AiTradingRace.Infrastructure.Migrations
                 name: "Positions",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    PortfolioId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    MarketAssetId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PortfolioId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    MarketAssetId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Quantity = table.Column<decimal>(type: "decimal(18,8)", nullable: false),
                     AverageEntryPrice = table.Column<decimal>(type: "decimal(18,8)", nullable: false)
                 },
@@ -144,13 +144,13 @@ namespace AiTradingRace.Infrastructure.Migrations
                 name: "Trades",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    PortfolioId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    MarketAssetId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    ExecutedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PortfolioId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    MarketAssetId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ExecutedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     Quantity = table.Column<decimal>(type: "decimal(18,8)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,8)", nullable: false),
-                    Side = table.Column<int>(type: "INTEGER", nullable: false)
+                    Side = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -176,9 +176,9 @@ namespace AiTradingRace.Infrastructure.Migrations
                 columns: new[] { "Id", "CreatedAt", "IsActive", "Name", "Provider" },
                 values: new object[,]
                 {
-                    { new Guid("11111111-1111-1111-1111-111111111111"), new DateTimeOffset(new DateTime(2025, 12, 7, 12, 34, 26, 792, DateTimeKind.Unspecified).AddTicks(4940), new TimeSpan(0, 0, 0, 0, 0)), true, "GPT", "AzureOpenAI" },
-                    { new Guid("22222222-2222-2222-2222-222222222222"), new DateTimeOffset(new DateTime(2025, 12, 7, 12, 34, 26, 792, DateTimeKind.Unspecified).AddTicks(4940), new TimeSpan(0, 0, 0, 0, 0)), true, "Claude", "Anthropic" },
-                    { new Guid("33333333-3333-3333-3333-333333333333"), new DateTimeOffset(new DateTime(2025, 12, 7, 12, 34, 26, 792, DateTimeKind.Unspecified).AddTicks(4940), new TimeSpan(0, 0, 0, 0, 0)), true, "Grok", "xAI" }
+                    { new Guid("11111111-1111-1111-1111-111111111111"), new DateTimeOffset(new DateTime(2025, 12, 11, 17, 46, 18, 461, DateTimeKind.Unspecified).AddTicks(8800), new TimeSpan(0, 0, 0, 0, 0)), true, "GPT", "AzureOpenAI" },
+                    { new Guid("22222222-2222-2222-2222-222222222222"), new DateTimeOffset(new DateTime(2025, 12, 11, 17, 46, 18, 461, DateTimeKind.Unspecified).AddTicks(8800), new TimeSpan(0, 0, 0, 0, 0)), true, "Claude", "Anthropic" },
+                    { new Guid("33333333-3333-3333-3333-333333333333"), new DateTimeOffset(new DateTime(2025, 12, 11, 17, 46, 18, 461, DateTimeKind.Unspecified).AddTicks(8800), new TimeSpan(0, 0, 0, 0, 0)), true, "Grok", "xAI" }
                 });
 
             migrationBuilder.InsertData(
