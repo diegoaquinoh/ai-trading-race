@@ -12,10 +12,10 @@ This document tracks completed milestones.
 - Documentation: expanded `README.md` with architecture overview, prerequisites, and common commands.
 - Tooling fixes: aligned Azure Functions packages (worker/SDK v2.0.0 + timer 4.3.1), added DI package references for Application/Infrastructure, removed WebAssembly import, and validated `dotnet restore`, `dotnet build`, `dotnet run` (only expected dev warnings remain).
 
-## Phase 2 Progress (model & SQL)
+## Phase 2 Progress (model & SQL) — Completed 11/12/2025
 - EF Core data model built with constraints/seeds (Agents, MarketAssets, MarketCandles, Portfolios, Positions, Trades, EquitySnapshots) and design-time factory with SQL Server env var fallback to SQLite.
-- Migration `20251207123426_InitialCreate` + snapshot added; DI updated to pick SQL Server when `ConnectionStrings:TradingDb` is set, otherwise in-memory for dev.
+- Migration SQL Server `20251211174618_InitialCreate` régénérée avec types natifs (uniqueidentifier, nvarchar, decimal(18,8)) + snapshot; appliquée sur SQL Server local (Docker).
 - Services persistants EF : `EfMarketDataProvider` (lecture bougies) et `EfPortfolioService` (création portefeuille, trades buy/sell/hold, snapshots equity) enregistrés en DI (Web + Functions).
-- Config examples renseignés : `AiTradingRace.Web/appsettings.Development.json` et `AiTradingRace.Functions/local.settings.json.example` contiennent la chaîne SQL Server locale; README mentionne les commandes EF (`migrations add`, `database update`).
-- Restant Phase 2 : régénérer la migration avec SQL Server actif (la version commise est issue du fallback SQLite), ajouter ingestion de vraies données de marché, tests d’intégration EF (seed/ingestion/PNL), et documenter/automatiser la gestion des secrets + logs ingestion/trades.
-
+- Environnement dev configuré : conteneur Docker SQL Server 2022 avec mot de passe conforme aux règles (8+ caractères, 3 types), chaîne de connexion stockée dans `dotnet user-secrets` (Web) et variable d'environnement pour EF CLI, `appsettings.Development.json` nettoyé (pas de secret committé).
+- Config examples fournis : `AiTradingRace.Functions/local.settings.json.example` avec chaîne SQL Server; README documente les commandes EF (`migrations add`, `database update`) et la gestion des secrets.
+- **Restant Phase 2 :** ajouter ingestion de vraies données de marché (API externe), tests d'intégration EF (seed/ingestion/PnL +/-), et logs basiques sur l'ingestion/trades.
