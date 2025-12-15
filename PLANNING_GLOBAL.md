@@ -39,25 +39,18 @@ Voici un planning de tâches structuré, sans parler de durée, mais dans **un o
 
 **Objectif :** définir et persister tous les objets métier.
 
-**Tâches :**
+**État actuel (07/12/2025) :** fondations EF livrées (`TradingDbContext`, contraintes, seeds BTC/ETH + agents, premières bougies). Services persistants EF (`EfMarketDataProvider`, `EfPortfolioService`) enregistrés en DI avec fallback in-memory si pas de `ConnectionStrings:TradingDb`. Web/Functions câblés sur la config. Migration initiale à générer/appliquer côté dev.
 
-* Dans `Domain`, créer les entités :
+**Tâches prioritaires (restant à faire) :**
 
-  * `Agent`, `MarketAsset`, `MarketCandle`
-  * `Portfolio`, `Position`, `Trade`
-  * `EquitySnapshot`
-* Dans `Infrastructure` :
+* P0 – Finaliser schéma
+  * Générer la migration initiale + script SQL ; vérifier la création locale.
+* P1 – Services persistants
+  * Ajouter tests d’intégration (SQLite in-memory ou LocalDB) pour seed, ingestion candle, PnL +/-.
+* P2 – Opérations
+  * Documenter/automatiser la gestion des secrets (user-secrets, Key Vault) et ajouter logs ingestion/trades.
 
-  * Créer `TradingDbContext` avec EF Core.
-  * Configurer les `DbSet<>` et les relations.
-  * Ajouter la config de la connexion BD (dev) dans `appsettings.Development.json`.
-  * Créer les migrations initiales.
-* Mettre en place un script de seed minimal :
-
-  * Quelques `MarketAsset` (BTC, ETH).
-  * Quelques agents “fictifs” (GPT, Claude, Grok).
-
-**Critère de sortie :** la BD se crée depuis les migrations et contient les tables + données de base.
+**Critère de sortie :** la BD se crée depuis les migrations, contient les seeds de base, et les services DI utilisent EF Core en dev (in-memory en fallback explicite).
 
 ---
 

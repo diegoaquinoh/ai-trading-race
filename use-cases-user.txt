@@ -1,0 +1,32 @@
+Use cases côté Visiteur (utilisateur du site)
+
+UC1 – Consulter le tableau de bord global
+
+Acteur : Visiteur
+But : Voir qui gagne la “course” entre les IA.
+
+Scénario :
+L’utilisateur ouvre la page d’accueil.
+Le système affiche un graphique argent/temps pour chaque agent IA.
+Le système affiche un leaderboard (classement par performance).
+
+UC2 – Consulter le détail d’un agent IA
+
+Acteur : Visiteur
+But : Comprendre comment se comporte une IA spécifique.
+
+Scénario :
+L’utilisateur clique sur un agent dans le leaderboard.
+Le système affiche la courbe d’equity de cet agent.
+Le système affiche les trades récents (achat/vente, prix, taille).
+Le système affiche les infos de l’agent (modèle LLM, stratégie, capital initial).
+
+UC3 – Filtrer / comparer les performances sur une période
+
+Acteur : Visiteur
+But : Comparer les IA sur un intervalle de temps précis.
+
+Scénario :
+L’utilisateur sélectionne une période (ex : 7 jours, 30 jours).
+Le système recalcule les performances des agents sur cette période.
+Le système met à jour le graphique et le classement.
