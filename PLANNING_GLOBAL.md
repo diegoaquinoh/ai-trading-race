@@ -16,11 +16,12 @@ Voici un planning de tâches structuré, sans parler de durée, mais dans **un o
 
 * Créer la solution `.NET` avec les projets suivants :
 
-  * `AiTradingRace.Web` → Blazor Server (UI + API).
+  * `AiTradingRace.Web` → ASP.NET Core Web API (backend uniquement).
   * `AiTradingRace.Domain` → entités métier (Agent, Trade, Portfolio…).
   * `AiTradingRace.Application` → services métier, interfaces (use cases).
   * `AiTradingRace.Infrastructure` → EF Core, accès BD, appel APIs externes.
   * `AiTradingRace.Functions` → Azure Functions (market data, agents).
+  * `ai-trading-race-web/` → Frontend React (Vite + TypeScript, séparé du backend).
 * Configurer l’injection de dépendances (DI) :
 
   * Enregistrer les services de domaine / application dans `Web` et `Functions`.
@@ -147,9 +148,111 @@ Voici un planning de tâches structuré, sans parler de durée, mais dans **un o
 
 ---
 
+## Phase 5b – Intégration d'un modèle ML custom (Python + FastAPI)
+
+**Objectif :** créer un agent piloté par un modèle ML entraîné maison (scikit-learn → PyTorch), exposé via une API Python.
+
+**Architecture :**
+
+```
+┌─────────────────────┐       HTTP/REST        ┌────────────────────────┐
+│  .NET Application   │  ───────────────────►  │   Python FastAPI       │
+│  (AiTradingRace)    │                        │   (ML Model Service)   │
+│                     │  ◄───────────────────  │   - scikit-learn       │
+│  PyTorchAgentClient │      JSON Response     │   - PyTorch            │
+└─────────────────────┘                        └────────────────────────┘
+```
+
+**Tâches :**
+
+* Projet Python `ai-trading-race-ml/` :
+
+  * Initialiser un projet Python (venv, requirements.txt ou Poetry/PDM).
+  * Dépendances : `fastapi`, `uvicorn`, `pandas`, `scikit-learn`, `torch`, `pydantic`.
+  * Structure suggérée :
+
+    ```
+    ai-trading-race-ml/
+    ├── app/
+    │   ├── main.py          # Endpoints FastAPI
+    │   ├── models/          # Définitions de modèles Pydantic (AgentContext, AgentDecision)
+    │   ├── ml/
+    │   │   ├── trainer.py   # Scripts d'entraînement
+    │   │   ├── predictor.py # Chargement du modèle + inférence
+    │   │   └── model.pt     # Modèle sauvegardé (ou .pkl pour sklearn)
+    │   └── config.py        # Configuration (chemins, hyperparamètres)
+    ├── notebooks/           # Jupyter notebooks pour exploration
+    ├── data/                # Datasets d'entraînement (candles historiques)
+    ├── tests/
+    ├── Dockerfile
+    └── requirements.txt
+    ```
+
+* Endpoint FastAPI `/predict` :
+
+  * Reçoit un `AgentContext` (JSON) : `candles[]`, `positions[]`, `cash`.
+  * Retourne un `AgentDecision` (JSON) : `orders[]` avec `action`, `asset`, `quantity`.
+  * Exemple de contrat :
+
+    ```json
+    // POST /predict
+    {
+      "candles": [{"timestamp": "...", "open": 100, "high": 105, "low": 98, "close": 102}],
+      "positions": [{"asset": "BTC", "quantity": 0.5}],
+      "cash": 5000.0
+    }
+    // Response
+    {
+      "orders": [{"action": "BUY", "asset": "ETH", "quantity": 0.2}]
+    }
+    ```
+
+* Pipeline d'entraînement ML :
+
+  * Charger les données historiques de `MarketCandle` (export depuis la BD ou via API).
+  * Feature engineering : indicateurs techniques (RSI, SMA, MACD, etc.).
+  * Entraînement avec scikit-learn (modèle baseline) puis migration vers PyTorch si besoin.
+  * Sauvegarder le modèle (`model.pt` ou `model.pkl`).
+  * Script CLI ou notebook pour ré-entraînement.
+
+* Dans `AiTradingRace.Infrastructure` :
+
+  * Implémenter `PyTorchAgentModelClient : IAgentModelClient` :
+
+    * Appelle `POST http://<python-service>/predict`.
+    * Mappe `AgentContext` → JSON request.
+    * Parse la réponse JSON → `AgentDecision`.
+  * Configurer l'URL du service Python via `appsettings.json` :
+
+    ```json
+    "PyTorchAgent": {
+      "BaseUrl": "http://localhost:8000"
+    }
+    ```
+
+* Dans `AiTradingRace.Domain` :
+
+  * Ajouter un champ `ModelType` (enum) sur l'entité `Agent` : `LLM`, `CustomML`.
+  * L'`AgentRunner` sélectionne le bon `IAgentModelClient` selon le type.
+
+* Tests :
+
+  * Test unitaire Python : endpoint `/predict` avec mock data.
+  * Test d'intégration .NET : appeler le service Python local.
+
+* Docker (optionnel mais recommandé) :
+
+  * Dockerfile pour le service FastAPI.
+  * `docker-compose.yml` pour lancer SQL + Python + .NET ensemble.
+
+**Critère de sortie :** un agent de type `CustomML` peut être exécuté via l'AgentRunner, le modèle Python répond avec des ordres, et les trades sont appliqués comme pour un agent LLM.
+
+---
+
 ## Phase 6 – Azure Functions (scheduler & automatisation)
 
 **Objectif :** automatiser ingestion de marché + exécution des agents.
+
 
 **Tâches :**
 
@@ -175,13 +278,13 @@ Voici un planning de tâches structuré, sans parler de durée, mais dans **un o
 
 ---
 
-## Phase 7 – UI Blazor : dashboard & détail agent
+## Phase 7 – UI React : dashboard & détail agent
 
 **Objectif :** afficher visuellement la “course” entre les IA.
 
 **Tâches :**
 
-* Structure Blazor :
+* Projet React `ai-trading-race-web/` :
 
   * Layout (sidebar/topbar).
   * Pages :
@@ -195,7 +298,7 @@ Voici un planning de tâches structuré, sans parler de durée, mais dans **un o
 
     * La liste des agents.
     * La courbe d’equity de chaque agent (échantillonnée).
-  * Intégration d’un composant de graphique (via MudBlazor, Chart.js, etc.).
+  * Intégration d’un composant de graphique (Recharts ou Chart.js).
   * Tableau leaderboard :
 
     * Nom agent, valeur actuelle, % de performance, drawdown éventuel.

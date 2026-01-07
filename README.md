@@ -1,13 +1,15 @@
 # ai-trading-race
 
-Course entre agents IA de trading (LLM) qui pilotent chacun un portefeuille crypto simulé. Les prix de marché sont ingérés, les agents décident (buy/sell/hold), et le dashboard Blazor affiche l’equity et le classement.
+Course entre agents IA de trading (LLM) qui pilotent chacun un portefeuille crypto simulé. Les prix de marché sont ingérés, les agents décident (buy/sell/hold), et le dashboard React affiche l’equity et le classement.
 
 ## Architecture
-- `AiTradingRace.Web` : Blazor Server (UI + API future), DI configurée.
+- `AiTradingRace.Web` : ASP.NET Core Web API (backend uniquement), DI configurée.
 - `AiTradingRace.Domain` : entités métier (Agents, Assets, Candles, Portfolios, Positions, Trades, EquitySnapshots).
 - `AiTradingRace.Application` : contrats partagés (`IMarketDataProvider`, `IPortfolioService`, `IAgentRunner`, `IAgentModelClient`).
 - `AiTradingRace.Infrastructure` : implémentations EF Core (SQL Server + fallback in-memory), agents/market data/portefeuilles, factory design-time.
 - `AiTradingRace.Functions` : Azure Functions isolé (.NET 8) avec timers `MarketDataFunction` et `RunAgentsFunction`.
+- `ai-trading-race-web/` : Frontend React (Vite + TypeScript) pour le dashboard et leaderboard.
+- `ai-trading-race-ml/` : Service Python FastAPI pour modèle ML custom (scikit-learn/PyTorch).
 
 
 
@@ -55,7 +57,7 @@ Sans chaîne définie, l’appli Web tombe en base in-memory (données éphémè
 
 ## Fonctionnalités visées
 - Simulation de portefeuilles multi-agents avec PnL et courbe d’equity.
-- Leaderboard et détails de trades sur le dashboard Blazor.
+- Leaderboard et détails de trades sur le dashboard React.
 - Jobs planifiés : ingestion de marché (`MarketDataFunction`) puis appel des agents (`RunAgentsFunction`) pour générer des ordres structurés.
 - Intégrations LLM multiples (Azure OpenAI, Claude, Grok) orchestrées via les interfaces Application.
 

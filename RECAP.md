@@ -19,3 +19,36 @@ This document tracks completed milestones.
 - Environnement dev configuré : conteneur Docker SQL Server 2022 avec mot de passe conforme aux règles (8+ caractères, 3 types), chaîne de connexion stockée dans `dotnet user-secrets` (Web) et variable d'environnement pour EF CLI, `appsettings.Development.json` nettoyé (pas de secret committé).
 - Config examples fournis : `AiTradingRace.Functions/local.settings.json.example` avec chaîne SQL Server; README documente les commandes EF (`migrations add`, `database update`) et la gestion des secrets.
 - **Restant Phase 2 :** ajouter ingestion de vraies données de marché (API externe), tests d'intégration EF (seed/ingestion/PnL +/-), et logs basiques sur l'ingestion/trades.
+
+## Session 07/01/2026 — Architecture Updates
+
+### Planning Updates
+- Added **Phase 5b** (Python ML model integration with FastAPI) to `PLANNING_GLOBAL.md`:
+  - FastAPI microservice structure (`ai-trading-race-ml/`)
+  - API contract for `/predict` endpoint
+  - `PyTorchAgentModelClient` integration in .NET
+  - `ModelType` enum on `Agent` entity (LLM vs CustomML)
+
+- Switched frontend from **Blazor to React**:
+  - Updated Phase 1 & Phase 7 in `PLANNING_GLOBAL.md`
+  - Updated `README.md` architecture section
+
+### React Frontend (`ai-trading-race-web/`)
+- Scaffolded Vite + React 18 + TypeScript project
+- Installed dependencies: `react-router-dom`, `@tanstack/react-query`, `axios`, `recharts`
+- Created project structure:
+  - `src/types/index.ts` — TypeScript interfaces (Agent, Trade, EquitySnapshot, etc.)
+  - `src/services/api.ts` — Axios client for .NET API
+  - `src/hooks/useApi.ts` — React Query hooks (useAgents, useEquity, useTrades, useLeaderboard)
+  - `src/pages/Dashboard.tsx` — Leaderboard table + equity chart placeholder
+  - `src/pages/AgentDetail.tsx` — Agent info, equity curve, trades table
+  - `src/App.css` — Dark theme styling
+- Verified builds pass (`npm run build`)
+
+### Backend Changes
+- Added CORS policy in `AiTradingRace.Web/Program.cs` for React dev server (`http://localhost:5173`)
+- Added API Controllers support (`AddControllers()` + `MapControllers()`)
+- Blazor files kept for now (to be removed when React is fully ready)
+
+### Remaining
+- API controllers (`AgentsController`, `LeaderboardController`, `TradesController`) — left as Phase 7 to-do
