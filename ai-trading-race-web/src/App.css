@@ -1,0 +1,282 @@
+:root {
+  --primary: #6366f1;
+  --primary-dark: #4f46e5;
+  --secondary: #10b981;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --bg-dark: #0f172a;
+  --bg-card: #1e293b;
+  --bg-hover: #334155;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --border: #334155;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+.app {
+  min-height: 100vh;
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Dashboard */
+.dashboard-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.dashboard-header h1 {
+  font-size: 2.5rem;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  margin-top: 0.5rem;
+}
+
+/* Sections */
+section {
+  background: var(--bg-card);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border: 1px solid var(--border);
+}
+
+section h2 {
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+
+/* Leaderboard Table */
+.leaderboard-table,
+.trades-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.leaderboard-table th,
+.trades-table th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--border);
+}
+
+.leaderboard-table td,
+.trades-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.leaderboard-table tr:hover,
+.trades-table tr:hover {
+  background: var(--bg-hover);
+}
+
+.rank {
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.agent-link {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.agent-link:hover {
+  color: var(--primary);
+}
+
+.value {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+}
+
+.positive {
+  color: var(--secondary);
+}
+
+.negative {
+  color: var(--danger);
+}
+
+/* Badges */
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.badge.llm {
+  background: rgba(99, 102, 241, 0.2);
+  color: var(--primary);
+}
+
+.badge.customml {
+  background: rgba(16, 185, 129, 0.2);
+  color: var(--secondary);
+}
+
+/* Status */
+.status {
+  font-size: 0.875rem;
+  margin-left: 1rem;
+}
+
+.status.active {
+  color: var(--secondary);
+}
+
+.status.inactive {
+  color: var(--text-secondary);
+}
+
+/* Chart Container */
+.chart-container {
+  background: var(--bg-dark);
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+/* Agent Detail */
+.breadcrumb {
+  margin-bottom: 1.5rem;
+  color: var(--text-secondary);
+}
+
+.breadcrumb a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.agent-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.agent-header h1 {
+  font-size: 2rem;
+}
+
+.agent-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.info-card {
+  background: var(--bg-card);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+}
+
+.info-card h3 {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+/* Trade Actions */
+td.buy {
+  color: var(--secondary);
+  font-weight: 600;
+}
+
+td.sell {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+/* Loading */
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  color: var(--text-secondary);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Error */
+.error {
+  text-align: center;
+  padding: 3rem;
+  color: var(--danger);
+}
+
+.error a {
+  color: var(--primary);
+  display: block;
+  margin-top: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .app {
+    padding: 1rem;
+  }
+
+  .dashboard-header h1 {
+    font-size: 1.75rem;
+  }
+
+  .leaderboard-table,
+  .trades-table {
+    font-size: 0.875rem;
+  }
+
+  .leaderboard-table th,
+  .leaderboard-table td,
+  .trades-table th,
+  .trades-table td {
+    padding: 0.5rem;
+  }
+}

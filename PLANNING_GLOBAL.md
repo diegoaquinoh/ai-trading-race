@@ -16,11 +16,12 @@ Voici un planning de tâches structuré, sans parler de durée, mais dans **un o
 
 * Créer la solution `.NET` avec les projets suivants :
 
-  * `AiTradingRace.Web` → Blazor Server (UI + API).
+  * `AiTradingRace.Web` → ASP.NET Core Web API (backend uniquement).
   * `AiTradingRace.Domain` → entités métier (Agent, Trade, Portfolio…).
   * `AiTradingRace.Application` → services métier, interfaces (use cases).
   * `AiTradingRace.Infrastructure` → EF Core, accès BD, appel APIs externes.
   * `AiTradingRace.Functions` → Azure Functions (market data, agents).
+  * `ai-trading-race-web/` → Frontend React (Vite + TypeScript, séparé du backend).
 * Configurer l’injection de dépendances (DI) :
 
   * Enregistrer les services de domaine / application dans `Web` et `Functions`.
@@ -277,13 +278,13 @@ Voici un planning de tâches structuré, sans parler de durée, mais dans **un o
 
 ---
 
-## Phase 7 – UI Blazor : dashboard & détail agent
+## Phase 7 – UI React : dashboard & détail agent
 
 **Objectif :** afficher visuellement la “course” entre les IA.
 
 **Tâches :**
 
-* Structure Blazor :
+* Projet React `ai-trading-race-web/` :
 
   * Layout (sidebar/topbar).
   * Pages :
@@ -297,7 +298,7 @@ Voici un planning de tâches structuré, sans parler de durée, mais dans **un o
 
     * La liste des agents.
     * La courbe d’equity de chaque agent (échantillonnée).
-  * Intégration d’un composant de graphique (via MudBlazor, Chart.js, etc.).
+  * Intégration d’un composant de graphique (Recharts ou Chart.js).
   * Tableau leaderboard :
 
     * Nom agent, valeur actuelle, % de performance, drawdown éventuel.
