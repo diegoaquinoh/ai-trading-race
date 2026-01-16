@@ -30,6 +30,9 @@ public sealed class CoinGeckoMarketDataClient : IExternalMarketDataClient
         _httpClient.BaseAddress = new Uri(_options.BaseUrl);
         _httpClient.Timeout = TimeSpan.FromSeconds(_options.TimeoutSeconds);
 
+        // Add User-Agent header (required by CoinGecko to avoid 403)
+        _httpClient.DefaultRequestHeaders.Add("User-Agent", "AiTradingRace/1.0 (https://github.com/ai-trading-race)");
+        
         // Add API key header if configured (for CoinGecko Pro)
         if (!string.IsNullOrWhiteSpace(_options.ApiKey))
         {
@@ -52,7 +55,7 @@ public sealed class CoinGeckoMarketDataClient : IExternalMarketDataClient
             throw new ArgumentOutOfRangeException(nameof(days), "Days must be positive.");
         }
 
-        var endpoint = $"/coins/{coinId.ToLowerInvariant()}/ohlc?vs_currency={vsCurrency.ToLowerInvariant()}&days={days}";
+        var endpoint = $"coins/{coinId.ToLowerInvariant()}/ohlc?vs_currency={vsCurrency.ToLowerInvariant()}&days={days}";
 
         _logger.LogInformation("Fetching OHLC data from CoinGecko: {Endpoint}", endpoint);
 
