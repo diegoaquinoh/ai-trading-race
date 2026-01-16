@@ -1,68 +1,172 @@
 # ai-trading-race
 
-Course entre agents IA de trading (LLM) qui pilotent chacun un portefeuille crypto simulé. Les prix de marché sont ingérés, les agents décident (buy/sell/hold), et le dashboard React affiche l’equity et le classement.
+Course entre agents IA de trading (LLM) qui pilotent chacun un portefeuille crypto simulé. Les prix de marché sont ingérés depuis CoinGecko, les agents décident (buy/sell/hold), et le dashboard React affiche l'equity et le classement.
+
+## 📊 Statut du Projet
+
+| Phase   | Description                            | Status      |
+| ------- | -------------------------------------- | ----------- |
+| Phase 1 | Architecture & Solution .NET           | ✅ Terminée |
+| Phase 2 | Modèle de données & Base SQL           | ✅ Terminée |
+| Phase 3 | Ingestion des données de marché        | ✅ Terminée |
+| Phase 4 | Moteur de simulation (Portfolio & PnL) | 🔄 En cours |
+| Phase 5 | Intégration agents IA                  | ⏳ À venir  |
+| Phase 6 | Azure Functions (scheduler)            | ⏳ À venir  |
+| Phase 7 | UI React Dashboard                     | 🔄 Partiel  |
+| Phase 8 | Déploiement Azure                      | ⏳ À venir  |
 
 ## Architecture
-- `AiTradingRace.Web` : ASP.NET Core Web API (backend uniquement), DI configurée.
-- `AiTradingRace.Domain` : entités métier (Agents, Assets, Candles, Portfolios, Positions, Trades, EquitySnapshots).
-- `AiTradingRace.Application` : contrats partagés (`IMarketDataProvider`, `IPortfolioService`, `IAgentRunner`, `IAgentModelClient`).
-- `AiTradingRace.Infrastructure` : implémentations EF Core (SQL Server + fallback in-memory), agents/market data/portefeuilles, factory design-time.
-- `AiTradingRace.Functions` : Azure Functions isolé (.NET 8) avec timers `MarketDataFunction` et `RunAgentsFunction`.
-- `ai-trading-race-web/` : Frontend React (Vite + TypeScript) pour le dashboard et leaderboard.
-- `ai-trading-race-ml/` : Service Python FastAPI pour modèle ML custom (scikit-learn/PyTorch).
 
-
+```
+ai-trading-race/
+├── AiTradingRace.Web/           # ASP.NET Core Web API (backend)
+├── AiTradingRace.Domain/        # Entités métier (Agent, Asset, Candle, Portfolio...)
+├── AiTradingRace.Application/   # Interfaces & DTOs (IMarketDataProvider, IPortfolioService...)
+├── AiTradingRace.Infrastructure/# Implémentations EF Core, clients API externes
+├── AiTradingRace.Functions/     # Azure Functions (timers pour ingestion & agents)
+├── AiTradingRace.Tests/         # Tests unitaires (xUnit + Moq)
+├── ai-trading-race-web/         # Frontend React (Vite + TypeScript)
+└── ai-trading-race-ml/          # Service Python FastAPI (modèle ML custom)
+```
 
 ## Prérequis
+
 - .NET 8 SDK
-- Azure Functions Core Tools (optionnel pour exécuter les Functions)
-- Docker (pour SQL Server local) ou un SQL Server existant
+- Docker (pour SQL Server local)
+- Node.js 18+ (pour le frontend React)
+- Azure Functions Core Tools (optionnel)
 
 ## Démarrage rapide
-```bash
-dotnet restore
-dotnet build
-dotnet run --project AiTradingRace.Web              # utilise SQL si présent, sinon in-memory
-func start --csharp --script-root AiTradingRace.Functions  # nécessite la chaîne SQL
-```
 
-## Base de données (dev SQL Server)
-1) Lancer un SQL Server local (exemple Docker) :
+### 1. Base de données (Docker SQL Server)
+
 ```bash
-docker run -d --name sqltrading \
+docker run -d --name sqlserver \
   -e "ACCEPT_EULA=Y" \
-  -e "MSSQL_SA_PASSWORD=<votre_mot_de_passe_fort>" \
+  -e "MSSQL_SA_PASSWORD=Project!Azure0" \
   -p 1433:1433 mcr.microsoft.com/mssql/server:2022-latest
 ```
-2) Définir la chaîne de connexion (Web) via secrets user :
+
+### 2. Configuration des secrets
+
 ```bash
-dotnet user-secrets set "ConnectionStrings:TradingDb" "Server=localhost,1433;Database=AiTradingRace;User Id=sa;Password=<votre_mot_de_passe_fort>;TrustServerCertificate=True;" --project AiTradingRace.Web
+dotnet user-secrets set "ConnectionStrings:TradingDb" \
+  "Server=localhost,1433;Database=AiTradingRace;User Id=sa;Password=Project!Azure0;Encrypt=True;TrustServerCertificate=True;" \
+  --project AiTradingRace.Web
 ```
-3) Pour l’EF CLI, exporter la même chaîne avant les commandes :
+
+### 3. Appliquer les migrations
+
 ```bash
-export ConnectionStrings__TradingDb="Server=localhost,1433;Database=AiTradingRace;User Id=sa;Password=<votre_mot_de_passe_fort>;TrustServerCertificate=True;"
-```
-4) Appliquer la migration initiale :
-```bash
+export ConnectionStrings__TradingDb="Server=localhost,1433;Database=AiTradingRace;User Id=sa;Password=Project!Azure0;Encrypt=True;TrustServerCertificate=True;"
 dotnet ef database update -p AiTradingRace.Infrastructure -s AiTradingRace.Web
 ```
-5) Exemple Functions : copier `AiTradingRace.Functions/local.settings.json.example` en `local.settings.json` et y placer la même chaîne dans `ConnectionStrings:TradingDb`.
 
-Sans chaîne définie, l’appli Web tombe en base in-memory (données éphémères).
+### 4. Lancer l'API
 
-## Migrations EF
-- Ajouter : `dotnet ef migrations add <Name> -p AiTradingRace.Infrastructure -s AiTradingRace.Web`
-- Mettre à jour : `dotnet ef database update -p AiTradingRace.Infrastructure -s AiTradingRace.Web`
-- La factory design-time lit `ConnectionStrings__TradingDb`; à défaut, fallback SQLite (fichier `design.db`) pour générer la migration.
+```bash
+dotnet run --project AiTradingRace.Web
+```
 
-## Fonctionnalités visées
-- Simulation de portefeuilles multi-agents avec PnL et courbe d’equity.
-- Leaderboard et détails de trades sur le dashboard React.
-- Jobs planifiés : ingestion de marché (`MarketDataFunction`) puis appel des agents (`RunAgentsFunction`) pour générer des ordres structurés.
-- Intégrations LLM multiples (Azure OpenAI, Claude, Grok) orchestrées via les interfaces Application.
+### 5. Tester l'ingestion de données
+
+```bash
+curl -k -X POST https://localhost:7240/api/admin/ingest
+```
+
+## Ingestion des données de marché
+
+L'API se connecte à **CoinGecko** pour récupérer les chandeliers OHLC des cryptos (BTC, ETH).
+
+| Endpoint                          | Description                                     |
+| --------------------------------- | ----------------------------------------------- |
+| `POST /api/admin/ingest`          | Ingère les candles pour tous les actifs activés |
+| `POST /api/admin/ingest/{symbol}` | Ingère les candles pour un actif spécifique     |
+
+**Configuration** (`appsettings.json`):
+
+```json
+{
+  "CoinGecko": {
+    "BaseUrl": "https://api.coingecko.com/api/v3/",
+    "TimeoutSeconds": 30,
+    "DefaultDays": 1
+  }
+}
+```
+
+## Tests
+
+```bash
+# Exécuter tous les tests
+dotnet test
+
+# Tests avec détails
+dotnet test --verbosity normal
+```
+
+**Couverture actuelle (16 tests):**
+
+- `CoinGeckoMarketDataClientTests` : Parsing JSON, erreurs HTTP, validation
+- `MarketDataIngestionServiceTests` : Insertion, déduplication, gestion des assets
+
+## Migrations EF Core
+
+```bash
+# Ajouter une migration
+dotnet ef migrations add <Name> -p AiTradingRace.Infrastructure -s AiTradingRace.Web
+
+# Appliquer les migrations
+dotnet ef database update -p AiTradingRace.Infrastructure -s AiTradingRace.Web
+```
+
+## Frontend React
+
+```bash
+cd ai-trading-race-web
+npm install
+npm run dev
+```
+
+Le dashboard affiche :
+
+- Liste des agents et leur performance
+- Courbe d'equity par agent
+- Historique des trades
+
+## Structure des entités
+
+| Entité           | Description                                         |
+| ---------------- | --------------------------------------------------- |
+| `Agent`          | Agent IA avec nom, provider (GPT/Claude/Grok)       |
+| `MarketAsset`    | Actif tradable (BTC, ETH) avec ExternalId CoinGecko |
+| `MarketCandle`   | Chandelier OHLC avec timestamp UTC                  |
+| `Portfolio`      | Portefeuille lié à un agent                         |
+| `Position`       | Position ouverte sur un actif                       |
+| `Trade`          | Ordre exécuté (Buy/Sell)                            |
+| `EquitySnapshot` | Valeur du portfolio à un instant T                  |
 
 ## Commandes utiles
-- Restaurer/build : `dotnet restore && dotnet build`
-- Lancer le front : `dotnet run --project AiTradingRace.Web`
-- Lancer les Functions : `func start --csharp --script-root AiTradingRace.Functions`
-- Outil EF (si besoin) : `dotnet tool install --global dotnet-ef`
+
+```bash
+# Build & Test
+dotnet restore && dotnet build
+dotnet test AiTradingRace.Tests
+
+# API
+dotnet run --project AiTradingRace.Web
+
+# Frontend
+cd ai-trading-race-web && npm run dev
+
+# Azure Functions (local)
+func start --csharp --script-root AiTradingRace.Functions
+
+# Docker SQL Server
+docker start sqlserver
+docker stop sqlserver
+```
+
+## Licence
+
+Projet académique - École 2024-2026
