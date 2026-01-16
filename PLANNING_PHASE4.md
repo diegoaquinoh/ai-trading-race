@@ -543,9 +543,9 @@ services.AddScoped<IEquityService, EquityService>();
 | 1    | Update domain entities (Trade, EquitySnapshot)          | Domain                              | P0       | ✅ Done |
 | 2    | Create DTOs (`EquitySnapshotDto`, `PerformanceMetrics`) | Application/Common/Models           | P0       | ✅ Done |
 | 3    | Create `IEquityService` interface                       | Application/Equity/                 | P0       | ✅ Done |
-| 4    | Implement `EquityService`                               | Infrastructure/Equity/              | P0       |         |
-| 5    | Generate migration for entity changes                   | Infrastructure/Migrations/          | P0       |         |
-| 6    | Register services in DI                                 | Infrastructure/DependencyInjection/ | P0       |         |
+| 4    | Implement `EquityService`                               | Infrastructure/Equity/              | P0       | ✅ Done |
+| 5    | Generate migration for entity changes                   | Infrastructure/Migrations/          | P0       | ✅ Done |
+| 6    | Register services in DI                                 | Infrastructure/DependencyInjection/ | P0       | ✅ Done |
 | 7    | Create `EquityController`                               | Web/Controllers/                    | P0       |         |
 | 8    | Create `AgentsController`                               | Web/Controllers/                    | P1       |         |
 | 9    | Create `PortfolioController`                            | Web/Controllers/                    | P1       |         |
@@ -706,9 +706,9 @@ dotnet test AiTradingRace.Tests
 ✅ Phase 4 is complete when:
 
 1. [x] `IEquityService` interface created with snapshot/curve/performance methods
-2. [ ] `EquityService` implemented with EF Core persistence
+2. [x] `EquityService` implemented with EF Core persistence
 3. [x] Domain entities updated (`Trade`, `EquitySnapshot` with navigation/extra fields)
-4. [ ] Migration generated and applied
+4. [x] Migration generated and applied
 5. [ ] `EquityController` with endpoints:
    - [ ] `GET /api/agents/{id}/equity` (curve)
    - [ ] `GET /api/agents/{id}/equity/latest` (latest snapshot)
@@ -717,7 +717,7 @@ dotnet test AiTradingRace.Tests
 6. [ ] `AgentsController` with leaderboard endpoint
 7. [ ] `PortfolioController` with portfolio/trades endpoints
 8. [ ] `TradesController` with trade history endpoint
-9. [ ] DI registrations added
+9. [x] DI registrations added
 10. [ ] Unit tests for equity calculations pass
 11. [ ] Manual verification passes (trades update portfolio, snapshots captured)
 

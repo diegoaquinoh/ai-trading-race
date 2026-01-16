@@ -153,18 +153,21 @@ public sealed class TradingDbContext : DbContext
             builder.HasIndex(x => x.PortfolioId);
             builder.HasIndex(x => x.MarketAssetId);
 
-            builder.HasOne<Portfolio>()
+            builder.HasOne(x => x.Portfolio)
                 .WithMany()
                 .HasForeignKey(x => x.PortfolioId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasOne<MarketAsset>()
+            builder.HasOne(x => x.MarketAsset)
                 .WithMany()
                 .HasForeignKey(x => x.MarketAssetId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasCheckConstraint("CK_Trade_Quantity_Positive", "[Quantity] > 0");
-            builder.HasCheckConstraint("CK_Trade_Price_Positive", "[Price] > 0");
+            builder.ToTable(t =>
+            {
+                t.HasCheckConstraint("CK_Trade_Quantity_Positive", "[Quantity] > 0");
+                t.HasCheckConstraint("CK_Trade_Price_Positive", "[Price] > 0");
+            });
         });
     }
 
@@ -176,11 +179,13 @@ public sealed class TradingDbContext : DbContext
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.TotalValue).HasColumnType("decimal(18,8)");
+            builder.Property(x => x.CashValue).HasColumnType("decimal(18,8)");
+            builder.Property(x => x.PositionsValue).HasColumnType("decimal(18,8)");
             builder.Property(x => x.UnrealizedPnL).HasColumnType("decimal(18,8)");
 
             builder.HasIndex(x => new { x.PortfolioId, x.CapturedAt });
 
-            builder.HasOne<Portfolio>()
+            builder.HasOne(x => x.Portfolio)
                 .WithMany()
                 .HasForeignKey(x => x.PortfolioId)
                 .OnDelete(DeleteBehavior.Cascade);
