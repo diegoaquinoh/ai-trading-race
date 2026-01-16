@@ -55,6 +55,7 @@ public sealed class TradingDbContext : DbContext
             builder.HasIndex(x => x.Symbol).IsUnique();
             builder.Property(x => x.Name).IsRequired().HasMaxLength(128);
             builder.Property(x => x.QuoteCurrency).IsRequired().HasMaxLength(16);
+            builder.Property(x => x.ExternalId).IsRequired().HasMaxLength(64);
             builder.Property(x => x.IsEnabled).HasDefaultValue(true);
         });
     }
@@ -206,6 +207,7 @@ public sealed class TradingDbContext : DbContext
                     Id = BtcId,
                     Symbol = "BTC",
                     Name = "Bitcoin",
+                    ExternalId = "bitcoin",
                     QuoteCurrency = "USD",
                     IsEnabled = true
                 },
@@ -214,6 +216,7 @@ public sealed class TradingDbContext : DbContext
                     Id = EthId,
                     Symbol = "ETH",
                     Name = "Ethereum",
+                    ExternalId = "ethereum",
                     QuoteCurrency = "USD",
                     IsEnabled = true
                 });

@@ -1,4 +1,4 @@
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34322.70
 MinimumVisualStudioVersion = 10.0.40219.1
@@ -11,6 +11,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AiTradingRace.Infrastructure", "AiTradingRace.Infrastructure\AiTradingRace.Infrastructure.csproj", "{51B1C486-F33C-4A90-9888-FAA7E864E745}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AiTradingRace.Functions", "AiTradingRace.Functions\AiTradingRace.Functions.csproj", "{C0E33EB2-569B-4D74-ADAB-AB8365B793F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AiTradingRace.Tests", "AiTradingRace.Tests\AiTradingRace.Tests.csproj", "{0A15DDC5-F35F-44CA-B5EC-239410A15DED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +40,10 @@ Global
 		{C0E33EB2-569B-4D74-ADAB-AB8365B793F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0E33EB2-569B-4D74-ADAB-AB8365B793F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0E33EB2-569B-4D74-ADAB-AB8365B793F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A15DDC5-F35F-44CA-B5EC-239410A15DED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A15DDC5-F35F-44CA-B5EC-239410A15DED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A15DDC5-F35F-44CA-B5EC-239410A15DED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A15DDC5-F35F-44CA-B5EC-239410A15DED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,4 +52,3 @@ Global
 		SolutionGuid = {5F0EF986-07A4-4917-815E-2014E1A5E9F9}
 	EndGlobalSection
 EndGlobal
-

@@ -36,6 +36,12 @@ public static class ServiceCollectionExtensions
         services.TryAddScoped<IPortfolioService, EfPortfolioService>();
         services.TryAddSingleton<IAgentModelClient, EchoAgentModelClient>();
         services.TryAddScoped<IAgentRunner, NoOpAgentRunner>();
+
+        // Market data ingestion
+        services.Configure<CoinGeckoOptions>(configuration.GetSection(CoinGeckoOptions.SectionName));
+        services.AddHttpClient<IExternalMarketDataClient, CoinGeckoMarketDataClient>();
+        services.TryAddScoped<IMarketDataIngestionService, MarketDataIngestionService>();
+
         return services;
     }
 }

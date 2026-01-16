@@ -10,6 +10,11 @@ public class MarketAsset
 
     public string QuoteCurrency { get; set; } = "USD";
 
+    /// <summary>
+    /// External identifier for API providers (e.g., "bitcoin" for CoinGecko).
+    /// </summary>
+    public string ExternalId { get; set; } = string.Empty;
+
     public bool IsEnabled { get; set; } = true;
 }
 
