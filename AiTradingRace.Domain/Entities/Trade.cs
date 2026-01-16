@@ -15,5 +15,9 @@ public class Trade
     public decimal Price { get; set; }
 
     public TradeSide Side { get; set; } = TradeSide.Buy;
+
+    // Navigation properties
+    public Portfolio Portfolio { get; set; } = null!;
+    public MarketAsset MarketAsset { get; set; } = null!;
 }
 

@@ -538,21 +538,21 @@ services.AddScoped<IEquityService, EquityService>();
 
 ## Implementation Order
 
-| Step | Task                                                    | Files                               | Priority |
-| ---- | ------------------------------------------------------- | ----------------------------------- | -------- |
-| 1    | Update domain entities (Trade, EquitySnapshot)          | Domain                              | P0       |
-| 2    | Create DTOs (`EquitySnapshotDto`, `PerformanceMetrics`) | Application/Common/Models           | P0       |
-| 3    | Create `IEquityService` interface                       | Application/Equity/                 | P0       |
-| 4    | Implement `EquityService`                               | Infrastructure/Equity/              | P0       |
-| 5    | Generate migration for entity changes                   | Infrastructure/Migrations/          | P0       |
-| 6    | Register services in DI                                 | Infrastructure/DependencyInjection/ | P0       |
-| 7    | Create `EquityController`                               | Web/Controllers/                    | P0       |
-| 8    | Create `AgentsController`                               | Web/Controllers/                    | P1       |
-| 9    | Create `PortfolioController`                            | Web/Controllers/                    | P1       |
-| 10   | Create `TradesController`                               | Web/Controllers/                    | P1       |
-| 11   | Add unit tests for EquityService                        | Tests/                              | P0       |
-| 12   | Add integration tests                                   | Tests/                              | P1       |
-| 13   | Manual verification via API                             | Swagger/curl                        | P0       |
+| Step | Task                                                    | Files                               | Priority | Status  |
+| ---- | ------------------------------------------------------- | ----------------------------------- | -------- | ------- |
+| 1    | Update domain entities (Trade, EquitySnapshot)          | Domain                              | P0       | ✅ Done |
+| 2    | Create DTOs (`EquitySnapshotDto`, `PerformanceMetrics`) | Application/Common/Models           | P0       | ✅ Done |
+| 3    | Create `IEquityService` interface                       | Application/Equity/                 | P0       | ✅ Done |
+| 4    | Implement `EquityService`                               | Infrastructure/Equity/              | P0       |         |
+| 5    | Generate migration for entity changes                   | Infrastructure/Migrations/          | P0       |         |
+| 6    | Register services in DI                                 | Infrastructure/DependencyInjection/ | P0       |         |
+| 7    | Create `EquityController`                               | Web/Controllers/                    | P0       |         |
+| 8    | Create `AgentsController`                               | Web/Controllers/                    | P1       |         |
+| 9    | Create `PortfolioController`                            | Web/Controllers/                    | P1       |         |
+| 10   | Create `TradesController`                               | Web/Controllers/                    | P1       |         |
+| 11   | Add unit tests for EquityService                        | Tests/                              | P0       |         |
+| 12   | Add integration tests                                   | Tests/                              | P1       |         |
+| 13   | Manual verification via API                             | Swagger/curl                        | P0       |         |
 
 ---
 
@@ -705,9 +705,9 @@ dotnet test AiTradingRace.Tests
 
 ✅ Phase 4 is complete when:
 
-1. [ ] `IEquityService` interface created with snapshot/curve/performance methods
+1. [x] `IEquityService` interface created with snapshot/curve/performance methods
 2. [ ] `EquityService` implemented with EF Core persistence
-3. [ ] Domain entities updated (`Trade`, `EquitySnapshot` with navigation/extra fields)
+3. [x] Domain entities updated (`Trade`, `EquitySnapshot` with navigation/extra fields)
 4. [ ] Migration generated and applied
 5. [ ] `EquityController` with endpoints:
    - [ ] `GET /api/agents/{id}/equity` (curve)
