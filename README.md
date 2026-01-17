@@ -4,16 +4,18 @@ Course entre agents IA de trading (LLM) qui pilotent chacun un portefeuille cryp
 
 ## 📊 Statut du Projet
 
-| Phase   | Description                            | Status      |
-| ------- | -------------------------------------- | ----------- |
-| Phase 1 | Architecture & Solution .NET           | ✅ Terminée |
-| Phase 2 | Modèle de données & Base SQL           | ✅ Terminée |
-| Phase 3 | Ingestion des données de marché        | ✅ Terminée |
-| Phase 4 | Moteur de simulation (Portfolio & PnL) | 🔄 En cours |
-| Phase 5 | Intégration agents IA                  | ⏳ À venir  |
-| Phase 6 | Azure Functions (scheduler)            | ⏳ À venir  |
-| Phase 7 | UI React Dashboard                     | 🔄 Partiel  |
-| Phase 8 | Déploiement Azure                      | ⏳ À venir  |
+| Phase    | Description                            | Status      |
+| -------- | -------------------------------------- | ----------- |
+| Phase 1  | Architecture & Solution .NET           | ✅ Terminée |
+| Phase 2  | Modèle de données & Base SQL           | ✅ Terminée |
+| Phase 3  | Ingestion des données de marché        | ✅ Terminée |
+| Phase 4  | Moteur de simulation (Portfolio & PnL) | ✅ Terminée |
+| Phase 5  | Intégration agents IA                  | ✅ Terminée |
+| Phase 6  | Azure Functions (scheduler)            | ⏳ À venir  |
+| Phase 7  | UI React Dashboard                     | 🔄 Partiel  |
+| Phase 8  | Déploiement Azure                      | ⏳ À venir  |
+| Phase 9  | Monitoring & Sécurité                  | ⏳ À venir  |
+| Phase 10 | GraphRAG-lite (Explainable AI)         | ⏳ À venir  |
 
 ## Architecture
 
@@ -95,6 +97,20 @@ L'API se connecte à **CoinGecko** pour récupérer les chandeliers OHLC des cry
 }
 ```
 
+## API Endpoints – Portfolio & Equity (Phase 4)
+
+| Method | Endpoint                              | Description                   |
+| ------ | ------------------------------------- | ----------------------------- |
+| GET    | `/api/agents`                         | Liste des agents (classement) |
+| GET    | `/api/agents/{id}`                    | Détails agent + performance   |
+| GET    | `/api/agents/{id}/portfolio`          | État du portefeuille          |
+| POST   | `/api/agents/{id}/portfolio/trades`   | Exécuter des trades manuels   |
+| GET    | `/api/agents/{id}/trades`             | Historique des trades         |
+| GET    | `/api/agents/{id}/equity`             | Courbe d'équité               |
+| GET    | `/api/agents/{id}/equity/latest`      | Dernier snapshot              |
+| POST   | `/api/agents/{id}/equity/snapshot`    | Capturer un snapshot          |
+| GET    | `/api/agents/{id}/equity/performance` | Métriques de performance      |
+
 ## Tests
 
 ```bash
@@ -105,10 +121,13 @@ dotnet test
 dotnet test --verbosity normal
 ```
 
-**Couverture actuelle (16 tests):**
+**Couverture actuelle (48 tests):**
 
 - `CoinGeckoMarketDataClientTests` : Parsing JSON, erreurs HTTP, validation
 - `MarketDataIngestionServiceTests` : Insertion, déduplication, gestion des assets
+- `EquityServiceTests` : Snapshots, courbe d'équité, métriques de performance
+- `PortfolioEquityIntegrationTests` : Flux complet portfolio + trades
+- `SqlServerIntegrationTests` : Tests Testcontainers contre SQL Server réel
 
 ## Migrations EF Core
 
@@ -145,6 +164,41 @@ Le dashboard affiche :
 | `Position`       | Position ouverte sur un actif                       |
 | `Trade`          | Ordre exécuté (Buy/Sell)                            |
 | `EquitySnapshot` | Valeur du portfolio à un instant T                  |
+| `DecisionLog`    | Décision IA avec citations de règles (Phase 10)     |
+
+## 🧠 GraphRAG-lite : Décisions Explicables (Phase 10)
+
+Fonctionnalité avancée permettant de tracer et expliquer les décisions des agents IA.
+
+### Concept
+
+```
+┌──────────────────┐     ┌─────────────────────┐     ┌─────────────────┐
+│  Knowledge Graph │ ──► │   LLM + Subgraph    │ ──► │  Decision Log   │
+│  (Rules/Regimes) │     │   (Cite node IDs)   │     │  (Audit Trail)  │
+└──────────────────┘     └─────────────────────┘     └─────────────────┘
+```
+
+### Fonctionnalités
+
+| Feature                    | Description                                                |
+| -------------------------- | ---------------------------------------------------------- |
+| **Graphe de règles**       | Nœuds pour chaque contrainte de risque (MaxPosition, etc.) |
+| **Régimes de marché**      | Détection automatique : volatile, bullish, bearish, stable |
+| **Citations obligatoires** | Le LLM doit citer les IDs de nœuds dans sa réponse         |
+| **Audit trail**            | Chaque décision stockée avec sous-graphe et explications   |
+
+### Exemple de réponse LLM avec citations
+
+```json
+{
+  "action": "BUY",
+  "asset": "ETH",
+  "quantity": 0.5,
+  "rationale": "ETH stable per [Regime:STABLE]. Position compliant with [R001:MaxPosition]. Cash reserves OK per [R002:MinCashReserve].",
+  "cited_nodes": ["Regime:STABLE", "R001", "R002"]
+}
+```
 
 ## Commandes utiles
 

@@ -65,7 +65,7 @@ public class SqlServerIntegrationTests : IAsyncLifetime
         var agents = await _dbContext.Agents.ToListAsync();
 
         Assert.Equal(3, agents.Count);
-        Assert.Contains(agents, a => a.Name == "GPT");
+        Assert.Contains(agents, a => a.Name == "GPT-4o");
         Assert.Contains(agents, a => a.Name == "Claude");
         Assert.Contains(agents, a => a.Name == "Grok");
     }

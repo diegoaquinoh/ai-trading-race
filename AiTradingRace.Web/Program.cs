@@ -25,7 +25,11 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddApplicationServices();
-builder.Services.AddInfrastructureServices(builder.Configuration);
+
+// Use Test AI client for E2E testing of risk validation
+// Generates aggressive orders that will be adjusted by RiskValidator
+builder.Services.AddInfrastructureServicesWithTestAI(builder.Configuration);
+
 builder.Services.AddSingleton<WeatherForecastService>();
 
 var app = builder.Build();
