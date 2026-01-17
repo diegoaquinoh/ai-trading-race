@@ -198,7 +198,9 @@ Created `AiTradingRace.Tests` project (xUnit + Moq):
 
 ---
 
-## Phase 5 Progress (AI Agent Integration) — Completed 17/01/2026 ✅
+## Phase 5 Progress (AI Agent Integration — LLM) — Completed 17/01/2026 ✅
+
+> **Note :** Phase 5b (Python ML model with FastAPI) is pending — see `PLANNING_GLOBAL.md`.
 
 ### Components Implemented
 
@@ -305,7 +307,15 @@ Real LLM credentials (OpenAI, Azure OpenAI, GitHub Models) will be configured du
 
 ---
 
-## Next Steps (Phase 6+)
+## Next Steps (Phase 5b+)
+
+### Phase 5b — Python ML Model Integration
+
+- FastAPI microservice (`ai-trading-race-ml/`)
+- `/predict` endpoint for ML-based trading decisions
+- `PyTorchAgentModelClient` in .NET calling Python API
+- Feature engineering (RSI, SMA, MACD)
+- Model training with scikit-learn/PyTorch
 
 ### Phase 6 — Azure Functions
 
