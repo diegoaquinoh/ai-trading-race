@@ -9,7 +9,7 @@ Course entre agents IA de trading (LLM) qui pilotent chacun un portefeuille cryp
 | Phase 1 | Architecture & Solution .NET           | ✅ Terminée |
 | Phase 2 | Modèle de données & Base SQL           | ✅ Terminée |
 | Phase 3 | Ingestion des données de marché        | ✅ Terminée |
-| Phase 4 | Moteur de simulation (Portfolio & PnL) | 🔄 En cours |
+| Phase 4 | Moteur de simulation (Portfolio & PnL) | ✅ Terminée |
 | Phase 5 | Intégration agents IA                  | ⏳ À venir  |
 | Phase 6 | Azure Functions (scheduler)            | ⏳ À venir  |
 | Phase 7 | UI React Dashboard                     | 🔄 Partiel  |
@@ -95,6 +95,20 @@ L'API se connecte à **CoinGecko** pour récupérer les chandeliers OHLC des cry
 }
 ```
 
+## API Endpoints – Portfolio & Equity (Phase 4)
+
+| Method | Endpoint                              | Description                   |
+| ------ | ------------------------------------- | ----------------------------- |
+| GET    | `/api/agents`                         | Liste des agents (classement) |
+| GET    | `/api/agents/{id}`                    | Détails agent + performance   |
+| GET    | `/api/agents/{id}/portfolio`          | État du portefeuille          |
+| POST   | `/api/agents/{id}/portfolio/trades`   | Exécuter des trades manuels   |
+| GET    | `/api/agents/{id}/trades`             | Historique des trades         |
+| GET    | `/api/agents/{id}/equity`             | Courbe d'équité               |
+| GET    | `/api/agents/{id}/equity/latest`      | Dernier snapshot              |
+| POST   | `/api/agents/{id}/equity/snapshot`    | Capturer un snapshot          |
+| GET    | `/api/agents/{id}/equity/performance` | Métriques de performance      |
+
 ## Tests
 
 ```bash
@@ -105,10 +119,13 @@ dotnet test
 dotnet test --verbosity normal
 ```
 
-**Couverture actuelle (16 tests):**
+**Couverture actuelle (48 tests):**
 
 - `CoinGeckoMarketDataClientTests` : Parsing JSON, erreurs HTTP, validation
 - `MarketDataIngestionServiceTests` : Insertion, déduplication, gestion des assets
+- `EquityServiceTests` : Snapshots, courbe d'équité, métriques de performance
+- `PortfolioEquityIntegrationTests` : Flux complet portfolio + trades
+- `SqlServerIntegrationTests` : Tests Testcontainers contre SQL Server réel
 
 ## Migrations EF Core
 

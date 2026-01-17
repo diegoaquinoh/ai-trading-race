@@ -122,13 +122,83 @@ Created `AiTradingRace.Tests` project (xUnit + Moq):
 
 ---
 
-## Next Steps (Phase 4+)
+## Phase 4 Progress (Simulation Engine) — Completed 17/01/2026 ✅
 
-### Phase 4 — Simulation Engine (Portfolio & PnL)
+### Components Implemented
 
-- Implement `IEquityService` for equity snapshots
-- Add `/api/agents/{id}/equity` endpoint
-- Unit tests for portfolio operations
+- **`IEquityService`** — Interface for equity curve management
+- **`EquityService`** — Full implementation with:
+  - Equity snapshot capture (cash + positions valuation)
+  - Equity curve retrieval with date filtering
+  - Performance metrics calculation (return %, max drawdown, win rate)
+  - Batch snapshot capture for all agents
+- **`EquityController`** — REST endpoints for equity data
+- **`AgentsController`** — Leaderboard endpoint with portfolio values
+- **`PortfolioController`** — Portfolio state and manual trade execution
+- **`TradesController`** — Trade history with pagination
+
+### DTOs Created
+
+- `EquitySnapshotDto` — Snapshot with cash/positions breakdown
+- `PerformanceMetrics` — Return, drawdown, Sharpe ratio, trade stats
+- `AgentSummaryDto`, `AgentDetailDto` — Leaderboard and detail views
+- `TradeDto`, `TradeHistoryResponse` — Trade history with pagination
+
+### Database Changes
+
+- Added `CashValue`, `PositionsValue` columns to `EquitySnapshots`
+- Regenerated `InitialCreate` migration with correct SQL Server types
+- Fixed design-time factory to prevent SQLite fallback
+
+### API Endpoints (Phase 4)
+
+| Method | Endpoint                              | Description                |
+| ------ | ------------------------------------- | -------------------------- |
+| GET    | `/api/agents`                         | Leaderboard (all agents)   |
+| GET    | `/api/agents/{id}`                    | Agent detail + performance |
+| GET    | `/api/agents/{id}/portfolio`          | Current portfolio state    |
+| POST   | `/api/agents/{id}/portfolio/trades`   | Execute manual trades      |
+| GET    | `/api/agents/{id}/trades`             | Trade history (paginated)  |
+| GET    | `/api/agents/{id}/equity`             | Equity curve               |
+| GET    | `/api/agents/{id}/equity/latest`      | Latest snapshot            |
+| POST   | `/api/agents/{id}/equity/snapshot`    | Capture new snapshot       |
+| GET    | `/api/agents/{id}/equity/performance` | Performance metrics        |
+
+### Tests — 48 Total (32 new in Phase 4)
+
+**EquityServiceTests** (14 tests):
+
+- Snapshot capture with/without positions
+- Equity curve ordering and filtering
+- Performance metrics calculation
+- Max drawdown calculation
+- Trade win/loss statistics
+
+**PortfolioEquityIntegrationTests** (12 tests):
+
+- Full trade execution flow
+- Positive/negative PnL tracking
+- Multi-asset portfolio valuation
+- Insufficient funds/position handling
+
+**SqlServerIntegrationTests** (7 tests):
+
+- Testcontainers-based real SQL Server tests
+- Migration verification
+- Schema validation
+- Service integration against real DB
+
+### Verification Results (17/01/2026)
+
+- ✅ All 48 tests pass (`dotnet test`)
+- ✅ API endpoints verified via curl
+- ✅ Equity snapshots capture correctly
+- ✅ Portfolio trades execute with PnL tracking
+- ✅ Performance metrics calculate accurately
+
+---
+
+## Next Steps (Phase 5+)
 
 ### Phase 5 — AI Agent Integration
 
@@ -140,9 +210,10 @@ Created `AiTradingRace.Tests` project (xUnit + Moq):
 
 - Timer-triggered market data ingestion
 - Timer-triggered agent execution
+- Scheduled equity snapshots
 
 ### Phase 7 — React Dashboard
 
 - Connect to backend API
 - Implement equity charts with Recharts
-- Real-time updates
+- Real-time updates via polling/WebSocket
