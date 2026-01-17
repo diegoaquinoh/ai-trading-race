@@ -546,10 +546,10 @@ services.AddScoped<IEquityService, EquityService>();
 | 4    | Implement `EquityService`                               | Infrastructure/Equity/              | P0       | ✅ Done |
 | 5    | Generate migration for entity changes                   | Infrastructure/Migrations/          | P0       | ✅ Done |
 | 6    | Register services in DI                                 | Infrastructure/DependencyInjection/ | P0       | ✅ Done |
-| 7    | Create `EquityController`                               | Web/Controllers/                    | P0       |         |
-| 8    | Create `AgentsController`                               | Web/Controllers/                    | P1       |         |
-| 9    | Create `PortfolioController`                            | Web/Controllers/                    | P1       |         |
-| 10   | Create `TradesController`                               | Web/Controllers/                    | P1       |         |
+| 7    | Create `EquityController`                               | Web/Controllers/                    | P0       | ✅ Done |
+| 8    | Create `AgentsController`                               | Web/Controllers/                    | P1       | ✅ Done |
+| 9    | Create `PortfolioController`                            | Web/Controllers/                    | P1       | ✅ Done |
+| 10   | Create `TradesController`                               | Web/Controllers/                    | P1       | ✅ Done |
 | 11   | Add unit tests for EquityService                        | Tests/                              | P0       |         |
 | 12   | Add integration tests                                   | Tests/                              | P1       |         |
 | 13   | Manual verification via API                             | Swagger/curl                        | P0       |         |
@@ -709,14 +709,14 @@ dotnet test AiTradingRace.Tests
 2. [x] `EquityService` implemented with EF Core persistence
 3. [x] Domain entities updated (`Trade`, `EquitySnapshot` with navigation/extra fields)
 4. [x] Migration generated and applied
-5. [ ] `EquityController` with endpoints:
-   - [ ] `GET /api/agents/{id}/equity` (curve)
-   - [ ] `GET /api/agents/{id}/equity/latest` (latest snapshot)
-   - [ ] `POST /api/agents/{id}/equity/snapshot` (capture)
-   - [ ] `GET /api/agents/{id}/equity/performance` (metrics)
-6. [ ] `AgentsController` with leaderboard endpoint
-7. [ ] `PortfolioController` with portfolio/trades endpoints
-8. [ ] `TradesController` with trade history endpoint
+5. [x] `EquityController` with endpoints:
+   - [x] `GET /api/agents/{id}/equity` (curve)
+   - [x] `GET /api/agents/{id}/equity/latest` (latest snapshot)
+   - [x] `POST /api/agents/{id}/equity/snapshot` (capture)
+   - [x] `GET /api/agents/{id}/equity/performance` (metrics)
+6. [x] `AgentsController` with leaderboard endpoint
+7. [x] `PortfolioController` with portfolio/trades endpoints
+8. [x] `TradesController` with trade history endpoint
 9. [x] DI registrations added
 10. [ ] Unit tests for equity calculations pass
 11. [ ] Manual verification passes (trades update portfolio, snapshots captured)
