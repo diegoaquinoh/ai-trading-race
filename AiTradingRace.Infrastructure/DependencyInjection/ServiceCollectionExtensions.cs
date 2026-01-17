@@ -115,7 +115,50 @@ public static class ServiceCollectionExtensions
         // AI Agent Integration with Mock client
         services.Configure<RiskValidatorOptions>(configuration.GetSection(RiskValidatorOptions.SectionName));
         services.TryAddScoped<IAgentContextBuilder, AgentContextBuilder>();
-        services.TryAddScoped<IAgentModelClient, EchoAgentModelClient>(); // Mock client
+        services.TryAddScoped<IAgentModelClient, EchoAgentModelClient>(); // Mock client - always HOLD
+        services.TryAddScoped<IRiskValidator, RiskValidator>();
+        services.TryAddScoped<IAgentRunner, AgentRunner>();
+
+        return services;
+    }
+
+    /// <summary>
+    /// Adds infrastructure services with TestAgentModelClient that generates aggressive orders.
+    /// Use this for E2E testing of risk validation.
+    /// </summary>
+    public static IServiceCollection AddInfrastructureServicesWithTestAI(
+        this IServiceCollection services,
+        IConfiguration configuration)
+    {
+        // Database
+        services.AddDbContext<TradingDbContext>(options =>
+        {
+            var connectionString = configuration.GetConnectionString("TradingDb");
+
+            if (string.IsNullOrWhiteSpace(connectionString))
+            {
+                options.UseInMemoryDatabase("AiTradingRace");
+            }
+            else
+            {
+                options.UseSqlServer(connectionString);
+            }
+        });
+
+        // Core services
+        services.TryAddScoped<IMarketDataProvider, EfMarketDataProvider>();
+        services.TryAddScoped<IPortfolioService, EfPortfolioService>();
+        services.TryAddScoped<IEquityService, EquityService>();
+
+        // Market data ingestion
+        services.Configure<CoinGeckoOptions>(configuration.GetSection(CoinGeckoOptions.SectionName));
+        services.AddHttpClient<IExternalMarketDataClient, CoinGeckoMarketDataClient>();
+        services.TryAddScoped<IMarketDataIngestionService, MarketDataIngestionService>();
+
+        // AI Agent Integration with Test client (generates aggressive orders)
+        services.Configure<RiskValidatorOptions>(configuration.GetSection(RiskValidatorOptions.SectionName));
+        services.TryAddScoped<IAgentContextBuilder, AgentContextBuilder>();
+        services.TryAddScoped<IAgentModelClient, TestAgentModelClient>(); // Test client - generates orders
         services.TryAddScoped<IRiskValidator, RiskValidator>();
         services.TryAddScoped<IAgentRunner, AgentRunner>();
 
