@@ -5,29 +5,34 @@ namespace AiTradingRace.Infrastructure.Database;
 
 /// <summary>
 /// Design-time factory to create the DbContext for EF Core CLI commands.
-/// Uses ConnectionStrings:TradingDb if provided via environment or falls back to LocalDB.
+/// Requires ConnectionStrings__TradingDb environment variable to be set.
 /// </summary>
+/// <remarks>
+/// Usage: export ConnectionStrings__TradingDb='Server=localhost,1433;...'
+///        dotnet ef migrations add MigrationName -p AiTradingRace.Infrastructure -s AiTradingRace.Web
+/// </remarks>
 public sealed class TradingDbContextFactory : IDesignTimeDbContextFactory<TradingDbContext>
 {
     public TradingDbContext CreateDbContext(string[] args)
     {
         var optionsBuilder = new DbContextOptionsBuilder<TradingDbContext>();
 
-        // Prefer environment variable (compatible with ASP.NET Core naming)
+        // Require environment variable - no fallback to prevent wrong DB provider in migrations
         var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__TradingDb");
 
-        if (!string.IsNullOrWhiteSpace(connectionString))
+        if (string.IsNullOrWhiteSpace(connectionString))
         {
-            optionsBuilder.UseSqlServer(connectionString);
-        }
-        else
-        {
-            // Cross-platform fallback for design-time tooling when no SQL Server connection is provided.
-            var sqlitePath = Path.Combine(AppContext.BaseDirectory, "design.db");
-            optionsBuilder.UseSqlite($"Data Source={sqlitePath}");
+            throw new InvalidOperationException(
+                "EF Core design-time: ConnectionStrings__TradingDb environment variable is required. " +
+                "Set it before running EF commands:\n\n" +
+                "  export ConnectionStrings__TradingDb='Server=localhost,1433;Database=AiTradingRace;" +
+                "User Id=sa;Password=YourPassword;Encrypt=True;TrustServerCertificate=True;'\n\n" +
+                "Then run: dotnet ef migrations add <Name> -p AiTradingRace.Infrastructure -s AiTradingRace.Web");
         }
 
+        optionsBuilder.UseSqlServer(connectionString);
         return new TradingDbContext(optionsBuilder.Options);
     }
 }
+
 

@@ -36,6 +36,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                     Symbol = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     QuoteCurrency = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false),
+                    ExternalId = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
                     IsEnabled = table.Column<bool>(type: "bit", nullable: false, defaultValue: true)
                 },
                 constraints: table =>
@@ -98,6 +99,8 @@ namespace AiTradingRace.Infrastructure.Migrations
                     PortfolioId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CapturedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     TotalValue = table.Column<decimal>(type: "decimal(18,8)", nullable: false),
+                    CashValue = table.Column<decimal>(type: "decimal(18,8)", nullable: false),
+                    PositionsValue = table.Column<decimal>(type: "decimal(18,8)", nullable: false),
                     UnrealizedPnL = table.Column<decimal>(type: "decimal(18,8)", nullable: false)
                 },
                 constraints: table =>
@@ -176,18 +179,18 @@ namespace AiTradingRace.Infrastructure.Migrations
                 columns: new[] { "Id", "CreatedAt", "IsActive", "Name", "Provider" },
                 values: new object[,]
                 {
-                    { new Guid("11111111-1111-1111-1111-111111111111"), new DateTimeOffset(new DateTime(2025, 12, 11, 17, 46, 18, 461, DateTimeKind.Unspecified).AddTicks(8800), new TimeSpan(0, 0, 0, 0, 0)), true, "GPT", "AzureOpenAI" },
-                    { new Guid("22222222-2222-2222-2222-222222222222"), new DateTimeOffset(new DateTime(2025, 12, 11, 17, 46, 18, 461, DateTimeKind.Unspecified).AddTicks(8800), new TimeSpan(0, 0, 0, 0, 0)), true, "Claude", "Anthropic" },
-                    { new Guid("33333333-3333-3333-3333-333333333333"), new DateTimeOffset(new DateTime(2025, 12, 11, 17, 46, 18, 461, DateTimeKind.Unspecified).AddTicks(8800), new TimeSpan(0, 0, 0, 0, 0)), true, "Grok", "xAI" }
+                    { new Guid("11111111-1111-1111-1111-111111111111"), new DateTimeOffset(new DateTime(2026, 1, 17, 11, 38, 51, 415, DateTimeKind.Unspecified).AddTicks(2710), new TimeSpan(0, 0, 0, 0, 0)), true, "GPT", "AzureOpenAI" },
+                    { new Guid("22222222-2222-2222-2222-222222222222"), new DateTimeOffset(new DateTime(2026, 1, 17, 11, 38, 51, 415, DateTimeKind.Unspecified).AddTicks(2710), new TimeSpan(0, 0, 0, 0, 0)), true, "Claude", "Anthropic" },
+                    { new Guid("33333333-3333-3333-3333-333333333333"), new DateTimeOffset(new DateTime(2026, 1, 17, 11, 38, 51, 415, DateTimeKind.Unspecified).AddTicks(2720), new TimeSpan(0, 0, 0, 0, 0)), true, "Grok", "xAI" }
                 });
 
             migrationBuilder.InsertData(
                 table: "MarketAssets",
-                columns: new[] { "Id", "IsEnabled", "Name", "QuoteCurrency", "Symbol" },
+                columns: new[] { "Id", "ExternalId", "IsEnabled", "Name", "QuoteCurrency", "Symbol" },
                 values: new object[,]
                 {
-                    { new Guid("b1fa9f8a-626b-4253-9a5d-0c9c9fb5c9fd"), true, "Ethereum", "USD", "ETH" },
-                    { new Guid("c3d4b060-55bb-4e48-8f04-3452ec0c9d4c"), true, "Bitcoin", "USD", "BTC" }
+                    { new Guid("b1fa9f8a-626b-4253-9a5d-0c9c9fb5c9fd"), "ethereum", true, "Ethereum", "USD", "ETH" },
+                    { new Guid("c3d4b060-55bb-4e48-8f04-3452ec0c9d4c"), "bitcoin", true, "Bitcoin", "USD", "BTC" }
                 });
 
             migrationBuilder.InsertData(

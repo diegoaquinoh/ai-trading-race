@@ -550,9 +550,9 @@ services.AddScoped<IEquityService, EquityService>();
 | 8    | Create `AgentsController`                               | Web/Controllers/                    | P1       | ✅ Done |
 | 9    | Create `PortfolioController`                            | Web/Controllers/                    | P1       | ✅ Done |
 | 10   | Create `TradesController`                               | Web/Controllers/                    | P1       | ✅ Done |
-| 11   | Add unit tests for EquityService                        | Tests/                              | P0       |         |
-| 12   | Add integration tests                                   | Tests/                              | P1       |         |
-| 13   | Manual verification via API                             | Swagger/curl                        | P0       |         |
+| 11   | Add unit tests for EquityService                        | Tests/                              | P0       | ✅ Done |
+| 12   | Add integration tests                                   | Tests/                              | P1       | ✅ Done |
+| 13   | Manual verification via API                             | Swagger/curl                        | P0       | ✅ Done |
 
 ---
 
@@ -718,8 +718,8 @@ dotnet test AiTradingRace.Tests
 7. [x] `PortfolioController` with portfolio/trades endpoints
 8. [x] `TradesController` with trade history endpoint
 9. [x] DI registrations added
-10. [ ] Unit tests for equity calculations pass
-11. [ ] Manual verification passes (trades update portfolio, snapshots captured)
+10. [x] Unit tests for equity calculations pass
+11. [x] Manual verification passes (trades update portfolio, snapshots captured)
 
 ---
 
