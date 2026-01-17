@@ -352,6 +352,8 @@
 
 **Critère de sortie :** l’application est accessible via une URL Azure, les Functions tournent, les données sont stockées dans Azure SQL.
 
+> **Note Phase 5 :** Les clés API LLM (GitHub Models, OpenAI, Azure OpenAI) seront configurées ici. Modifier `Program.cs` pour utiliser `AddInfrastructureServices()` au lieu de `AddInfrastructureServicesWithTestAI()`.
+
 ---
 
 ## Phase 9 – Monitoring, sécurité minimale & polish CV

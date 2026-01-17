@@ -10,7 +10,7 @@ Course entre agents IA de trading (LLM) qui pilotent chacun un portefeuille cryp
 | Phase 2  | Modèle de données & Base SQL           | ✅ Terminée |
 | Phase 3  | Ingestion des données de marché        | ✅ Terminée |
 | Phase 4  | Moteur de simulation (Portfolio & PnL) | ✅ Terminée |
-| Phase 5  | Intégration agents IA                  | ⏳ À venir  |
+| Phase 5  | Intégration agents IA                  | ✅ Terminée |
 | Phase 6  | Azure Functions (scheduler)            | ⏳ À venir  |
 | Phase 7  | UI React Dashboard                     | 🔄 Partiel  |
 | Phase 8  | Déploiement Azure                      | ⏳ À venir  |

@@ -198,13 +198,114 @@ Created `AiTradingRace.Tests` project (xUnit + Moq):
 
 ---
 
-## Next Steps (Phase 5+)
+## Phase 5 Progress (AI Agent Integration) — Completed 17/01/2026 ✅
 
-### Phase 5 — AI Agent Integration
+### Components Implemented
 
-- Implement real `IAgentModelClient` (Azure OpenAI)
-- Implement `AgentRunner` with trade execution
-- Add agent execution endpoint
+- **`ModelProvider` enum** — Support for AzureOpenAI, OpenAI, CustomML, Mock
+- **`Agent` entity updates** — Added `Strategy`, `Instructions`, `ModelProvider`
+- **`IAgentContextBuilder`** — Interface for building agent execution context
+- **`AgentContextBuilder`** — Loads agent, portfolio state, and market candles
+- **`IAgentModelClient`** — Interface for LLM integration (existing)
+- **`AzureOpenAiAgentModelClient`** — Azure OpenAI integration with:
+  - System/user prompt construction
+  - JSON response parsing
+  - Error handling with HOLD fallback
+- **`TestAgentModelClient`** — Generates aggressive test orders for E2E testing
+- **`IRiskValidator`** — Interface for server-side risk validation
+- **`RiskValidator`** — Enforces all risk constraints:
+  - Max position size per asset (50%)
+  - Minimum cash reserve ($100)
+  - Maximum single trade value ($5,000)
+  - Minimum order value ($10)
+  - Allowed assets whitelist (BTC, ETH)
+  - Order quantity adjustments
+  - Short selling prevention
+- **`IAgentRunner`** — Interface for agent execution (existing)
+- **`AgentRunner`** — Full orchestration:
+  1. Build context (portfolio + candles)
+  2. Generate AI decision
+  3. Validate against risk constraints
+  4. Execute trades
+  5. Capture equity snapshot
+
+### Database Changes
+
+- Migration `20260117160003_AddAgentInstructionsAndModelProvider`:
+  - Added `Instructions`, `ModelProvider`, `Strategy` columns to Agents
+  - Dropped old `Provider` column
+  - Updated seed data
+
+### API Endpoints (Phase 5)
+
+| Method | Endpoint               | Description                 |
+| ------ | ---------------------- | --------------------------- |
+| POST   | `/api/agents/{id}/run` | Execute agent trading cycle |
+
+### DI Registration
+
+Three registration methods available:
+
+- `AddInfrastructureServices()` — Full Azure OpenAI (requires credentials)
+- `AddInfrastructureServicesWithMockAI()` — EchoAgentModelClient (always HOLD)
+- `AddInfrastructureServicesWithTestAI()` — TestAgentModelClient (generates orders)
+
+### Configuration
+
+```json
+"AzureOpenAI": {
+  "Endpoint": "",
+  "ApiKey": "",
+  "DeploymentName": "gpt-4o",
+  "Temperature": 0.7,
+  "MaxTokens": 500
+}
+
+"RiskValidator": {
+  "MaxPositionSizePercent": 0.50,
+  "MinCashReserve": 100,
+  "MaxSingleTradeValue": 5000,
+  "AllowedAssets": ["BTC", "ETH"]
+}
+```
+
+### Tests — 65 Total (17 new in Phase 5)
+
+**RiskValidatorTests** (11 tests):
+
+- Allowed/unknown asset validation
+- Cash reserve enforcement
+- Max trade value limits
+- Dust order rejection
+- Sell validation (no position, short selling)
+- Order count limits
+- Position size limits
+
+**AgentContextBuilderTests** (6 tests):
+
+- Active/inactive agent handling
+- Non-existent agent errors
+- Portfolio state inclusion
+- Market candle fetching
+- Graceful error handling
+
+### E2E Verification Results (17/01/2026)
+
+- ✅ Mock flow test passed (EchoAgentModelClient)
+- ✅ Test flow verified risk validation:
+  - Proposed: Buy 1.5 BTC ($63k) → Adjusted to 0.106 BTC ($4,450)
+  - Proposed: Buy 10 ETH ($25k) → Adjusted to 1.55 ETH ($3,870)
+- ✅ Orders correctly capped to MaxSingleTradeValue ($5k)
+- ✅ Trades executed, portfolio updated
+- ✅ All 65 tests pass
+
+### Note: LLM API Keys Deferred to Phase 8
+
+Real LLM credentials (OpenAI, Azure OpenAI, GitHub Models) will be configured during Phase 8 (Azure Deployment). For development and testing, use `TestAgentModelClient` which validates the full flow without external API calls.
+
+---
+
+## Next Steps (Phase 6+)
 
 ### Phase 6 — Azure Functions
 
@@ -217,3 +318,10 @@ Created `AiTradingRace.Tests` project (xUnit + Moq):
 - Connect to backend API
 - Implement equity charts with Recharts
 - Real-time updates via polling/WebSocket
+
+### Phase 8 — Azure Deployment
+
+- Deploy to Azure App Service
+- Configure Azure Key Vault for secrets
+- **Configure LLM API keys** (OpenAI, Azure OpenAI, or GitHub Models)
+- Set up CI/CD pipeline
