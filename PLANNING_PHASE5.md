@@ -791,8 +791,8 @@ public sealed class AgentRunner : IAgentRunner
 | 7    | Implement `AzureOpenAiAgentModelClient`   | Infrastructure/Agents/              | P0       | ✅ Done |
 | 8    | **Create `IRiskValidator` interface**     | Application/Agents/                 | P0       | ✅ Done |
 | 9    | **Create `RiskValidatorOptions`**         | Infrastructure/Agents/              | P0       | ✅ Done |
-| 10   | **Implement `RiskValidator`**             | Infrastructure/Agents/              | P0       |         |
-| 11   | Implement `AgentRunner` (with validation) | Infrastructure/Agents/              | P0       |         |
+| 10   | **Implement `RiskValidator`**             | Infrastructure/Agents/              | P0       | ✅ Done |
+| 11   | Implement `AgentRunner` (with validation) | Infrastructure/Agents/              | P0       | ✅ Done |
 | 12   | Register services in DI                   | Infrastructure/DependencyInjection/ | P0       |         |
 | 13   | Add `POST /api/agents/{id}/run` endpoint  | Web/Controllers/AgentsController.cs | P0       |         |
 | 14   | Add configuration to appsettings          | Web/appsettings.json                | P0       |         |
@@ -934,12 +934,12 @@ dotnet test AiTradingRace.Tests
    - [x] Azure OpenAI API call
    - [x] JSON response parsing
    - [x] Error handling
-7. [x] **Server-side risk validation (partial):** ✅ **17/01/2026**
+7. [x] **Server-side risk validation implemented:** ✅ **17/01/2026**
    - [x] `IRiskValidator` interface created
    - [x] `RiskValidatorOptions` with configurable limits
-   - [ ] `RiskValidator` enforces all constraints
-   - [ ] Orders adjusted/rejected before execution
-8. [ ] `AgentRunner` implemented with full orchestration + validation
+   - [x] `RiskValidator` enforces all constraints
+   - [x] Orders adjusted/rejected before execution
+8. [x] `AgentRunner` implemented with full orchestration + validation ✅ **17/01/2026**
 9. [ ] `POST /api/agents/{id}/run` endpoint added
 10. [ ] DI registrations updated
 11. [ ] Configuration added (appsettings + user-secrets docs)
