@@ -788,9 +788,9 @@ public sealed class AgentRunner : IAgentRunner
 | 4    | Create `AzureOpenAiOptions`               | Infrastructure/Agents/              | P0       | ✅ Done |
 | 5    | Create `IAgentContextBuilder` interface   | Application/Agents/                 | P0       | ✅ Done |
 | 6    | Implement `AgentContextBuilder`           | Infrastructure/Agents/              | P0       | ✅ Done |
-| 7    | Implement `AzureOpenAiAgentModelClient`   | Infrastructure/Agents/              | P0       |         |
-| 8    | **Create `IRiskValidator` interface**     | Application/Agents/                 | P0       |         |
-| 9    | **Create `RiskValidatorOptions`**         | Infrastructure/Agents/              | P0       |         |
+| 7    | Implement `AzureOpenAiAgentModelClient`   | Infrastructure/Agents/              | P0       | ✅ Done |
+| 8    | **Create `IRiskValidator` interface**     | Application/Agents/                 | P0       | ✅ Done |
+| 9    | **Create `RiskValidatorOptions`**         | Infrastructure/Agents/              | P0       | ✅ Done |
 | 10   | **Implement `RiskValidator`**             | Infrastructure/Agents/              | P0       |         |
 | 11   | Implement `AgentRunner` (with validation) | Infrastructure/Agents/              | P0       |         |
 | 12   | Register services in DI                   | Infrastructure/DependencyInjection/ | P0       |         |
@@ -929,14 +929,14 @@ dotnet test AiTradingRace.Tests
 3. [x] Migration generated and applied ✅ **17/01/2026** (`AddAgentInstructionsAndModelProvider`)
 4. [x] `AzureOpenAiOptions` configuration class created ✅ **17/01/2026**
 5. [x] `IAgentContextBuilder` interface and implementation created ✅ **17/01/2026**
-6. [ ] `AzureOpenAiAgentModelClient` implemented with:
-   - [ ] Prompt construction
-   - [ ] Azure OpenAI API call
-   - [ ] JSON response parsing
-   - [ ] Error handling
-7. [ ] **Server-side risk validation implemented:**
-   - [ ] `IRiskValidator` interface created
-   - [ ] `RiskValidatorOptions` with configurable limits
+6. [x] `AzureOpenAiAgentModelClient` implemented with: ✅ **17/01/2026**
+   - [x] Prompt construction
+   - [x] Azure OpenAI API call
+   - [x] JSON response parsing
+   - [x] Error handling
+7. [x] **Server-side risk validation (partial):** ✅ **17/01/2026**
+   - [x] `IRiskValidator` interface created
+   - [x] `RiskValidatorOptions` with configurable limits
    - [ ] `RiskValidator` enforces all constraints
    - [ ] Orders adjusted/rejected before execution
 8. [ ] `AgentRunner` implemented with full orchestration + validation
