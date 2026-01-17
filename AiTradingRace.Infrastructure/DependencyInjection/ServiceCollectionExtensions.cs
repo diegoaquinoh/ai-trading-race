@@ -1,8 +1,10 @@
 using AiTradingRace.Application.Agents;
+using AiTradingRace.Application.Equity;
 using AiTradingRace.Application.MarketData;
 using AiTradingRace.Application.Portfolios;
 using AiTradingRace.Infrastructure.Agents;
 using AiTradingRace.Infrastructure.Database;
+using AiTradingRace.Infrastructure.Equity;
 using AiTradingRace.Infrastructure.MarketData;
 using AiTradingRace.Infrastructure.Portfolios;
 using Microsoft.EntityFrameworkCore;
@@ -34,6 +36,7 @@ public static class ServiceCollectionExtensions
 
         services.TryAddScoped<IMarketDataProvider, EfMarketDataProvider>();
         services.TryAddScoped<IPortfolioService, EfPortfolioService>();
+        services.TryAddScoped<IEquityService, EquityService>();
         services.TryAddSingleton<IAgentModelClient, EchoAgentModelClient>();
         services.TryAddScoped<IAgentRunner, NoOpAgentRunner>();
 
@@ -45,4 +48,5 @@ public static class ServiceCollectionExtensions
         return services;
     }
 }
+
 
