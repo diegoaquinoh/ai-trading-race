@@ -167,6 +167,16 @@ Le dashboard affiche :
 | `EquitySnapshot` | Valeur du portfolio à un instant T                  |
 | `DecisionLog`    | Décision IA avec citations de règles (Phase 10)     |
 
+## 🛡️ Production Enhancements
+
+| Enhancement                   | Phase | Description                                                   |
+| ----------------------------- | ----- | ------------------------------------------------------------- |
+| **Contract Versioning**       | 5b    | `schemaVersion`, `modelVersion`, `requestId` in API contracts |
+| **Structured Explainability** | 5b    | `ExplanationSignal` with feature contributions                |
+| **API Key Security**          | 5b    | Service-to-service authentication (`X-API-Key`)               |
+| **Idempotency**               | 8     | Redis cache for retry safety                                  |
+| **OpenTelemetry**             | 9     | Distributed tracing across .NET ↔ Python                      |
+
 ## 🧠 GraphRAG-lite : Décisions Explicables (Phase 10)
 
 Fonctionnalité avancée permettant de tracer et expliquer les décisions des agents IA.

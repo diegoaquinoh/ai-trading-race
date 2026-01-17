@@ -350,7 +350,14 @@
 
 - Configurer les migrations de BD au démarrage (ou script SQL dédié).
 
-**Critère de sortie :** l’application est accessible via une URL Azure, les Functions tournent, les données sont stockées dans Azure SQL.
+- **Idempotency pour le service ML (Phase 5b) :**
+
+  - Déployer Azure Cache for Redis.
+  - Implémenter `Idempotency-Key` header dans le service Python.
+  - Cache `(key -> response)` avec TTL 1h.
+  - Évite les décisions dupliquées lors des retries .NET.
+
+**Critère de sortie :** l’application est accessible via une URL Azure, les Functions tournent, les données sont stockées dans Azure SQL, et le service ML gère l'idempotency.
 
 > **Note Phase 5 :** Les clés API LLM (GitHub Models, OpenAI, Azure OpenAI) seront configurées ici. Modifier `Program.cs` pour utiliser `AddInfrastructureServices()` au lieu de `AddInfrastructureServicesWithTestAI()`.
 
@@ -371,6 +378,13 @@
 
   - Exécution des agents (agent, temps de réponse, erreurs).
   - Appels aux APIs externes (succès / échecs).
+
+- **OpenTelemetry (distributed tracing) :**
+
+  - Configurer OpenTelemetry dans .NET et Python.
+  - Propager `traceparent` / `X-Request-Id` headers.
+  - Exporter vers Azure Monitor / Application Insights.
+  - Métriques : latence ML, taux d'erreur, distribution BUY/SELL/HOLD.
 
 - Gérer les erreurs UI :
 
