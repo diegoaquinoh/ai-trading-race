@@ -42,7 +42,7 @@ public class EquityServiceTests : IDisposable
         {
             Id = _agentId,
             Name = "TestAgent",
-            Provider = "Test",
+            Strategy = "Test Strategy",
             IsActive = true
         });
 
@@ -607,7 +607,7 @@ public class EquityServiceTests : IDisposable
         {
             Id = agent2Id,
             Name = "TestAgent2",
-            Provider = "Test",
+            Strategy = "Test Strategy 2",
             IsActive = true
         });
         await _dbContext.SaveChangesAsync();

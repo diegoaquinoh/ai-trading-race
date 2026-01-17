@@ -47,7 +47,7 @@ public class AgentsController : ControllerBase
             summaries.Add(new AgentSummaryDto(
                 agent.Id,
                 agent.Name,
-                agent.Provider,
+                agent.Strategy,
                 agent.IsActive,
                 latestSnapshot?.TotalValue ?? 100_000m,  // Default starting value
                 latestSnapshot?.PercentChange ?? 0m,
@@ -83,7 +83,7 @@ public class AgentsController : ControllerBase
         return Ok(new AgentDetailDto(
             agent.Id,
             agent.Name,
-            agent.Provider,
+            agent.Strategy,
             agent.IsActive,
             agent.CreatedAt,
             latestSnapshot,
@@ -97,7 +97,7 @@ public class AgentsController : ControllerBase
 public record AgentSummaryDto(
     Guid Id,
     string Name,
-    string Provider,
+    string Strategy,
     bool IsActive,
     decimal TotalValue,
     decimal? PercentChange,
@@ -109,7 +109,7 @@ public record AgentSummaryDto(
 public record AgentDetailDto(
     Guid Id,
     string Name,
-    string Provider,
+    string Strategy,
     bool IsActive,
     DateTimeOffset CreatedAt,
     EquitySnapshotDto? LatestSnapshot,

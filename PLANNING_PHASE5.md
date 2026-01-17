@@ -780,25 +780,25 @@ public sealed class AgentRunner : IAgentRunner
 
 ## Implementation Order
 
-| Step | Task                                      | Files                               | Priority |
-| ---- | ----------------------------------------- | ----------------------------------- | -------- |
-| 1    | Add `ModelProvider` enum                  | Domain/Entities/                    | P0       |
-| 2    | Update `Agent` entity                     | Domain/Entities/Agent.cs            | P0       |
-| 3    | Generate and apply migration              | Infrastructure/Migrations/          | P0       |
-| 4    | Create `AzureOpenAiOptions`               | Infrastructure/Agents/              | P0       |
-| 5    | Create `IAgentContextBuilder` interface   | Application/Agents/                 | P0       |
-| 6    | Implement `AgentContextBuilder`           | Infrastructure/Agents/              | P0       |
-| 7    | Implement `AzureOpenAiAgentModelClient`   | Infrastructure/Agents/              | P0       |
-| 8    | **Create `IRiskValidator` interface**     | Application/Agents/                 | P0       |
-| 9    | **Create `RiskValidatorOptions`**         | Infrastructure/Agents/              | P0       |
-| 10   | **Implement `RiskValidator`**             | Infrastructure/Agents/              | P0       |
-| 11   | Implement `AgentRunner` (with validation) | Infrastructure/Agents/              | P0       |
-| 12   | Register services in DI                   | Infrastructure/DependencyInjection/ | P0       |
-| 13   | Add `POST /api/agents/{id}/run` endpoint  | Web/Controllers/AgentsController.cs | P0       |
-| 14   | Add configuration to appsettings          | Web/appsettings.json                | P0       |
-| 15   | Add unit tests (incl. risk validator)     | Tests/                              | P0       |
-| 16   | Add integration tests                     | Tests/                              | P1       |
-| 17   | Manual verification                       | Swagger/curl                        | P0       |
+| Step | Task                                      | Files                               | Priority | Status  |
+| ---- | ----------------------------------------- | ----------------------------------- | -------- | ------- |
+| 1    | Add `ModelProvider` enum                  | Domain/Entities/                    | P0       | ✅ Done |
+| 2    | Update `Agent` entity                     | Domain/Entities/Agent.cs            | P0       | ✅ Done |
+| 3    | Generate and apply migration              | Infrastructure/Migrations/          | P0       | ✅ Done |
+| 4    | Create `AzureOpenAiOptions`               | Infrastructure/Agents/              | P0       | ✅ Done |
+| 5    | Create `IAgentContextBuilder` interface   | Application/Agents/                 | P0       | ✅ Done |
+| 6    | Implement `AgentContextBuilder`           | Infrastructure/Agents/              | P0       | ✅ Done |
+| 7    | Implement `AzureOpenAiAgentModelClient`   | Infrastructure/Agents/              | P0       |         |
+| 8    | **Create `IRiskValidator` interface**     | Application/Agents/                 | P0       |         |
+| 9    | **Create `RiskValidatorOptions`**         | Infrastructure/Agents/              | P0       |         |
+| 10   | **Implement `RiskValidator`**             | Infrastructure/Agents/              | P0       |         |
+| 11   | Implement `AgentRunner` (with validation) | Infrastructure/Agents/              | P0       |         |
+| 12   | Register services in DI                   | Infrastructure/DependencyInjection/ | P0       |         |
+| 13   | Add `POST /api/agents/{id}/run` endpoint  | Web/Controllers/AgentsController.cs | P0       |         |
+| 14   | Add configuration to appsettings          | Web/appsettings.json                | P0       |         |
+| 15   | Add unit tests (incl. risk validator)     | Tests/                              | P0       |         |
+| 16   | Add integration tests                     | Tests/                              | P1       |         |
+| 17   | Manual verification                       | Swagger/curl                        | P0       |         |
 
 ---
 
@@ -924,11 +924,11 @@ dotnet test AiTradingRace.Tests
 
 ✅ Phase 5 is complete when:
 
-1. [ ] `ModelProvider` enum created
-2. [ ] `Agent` entity updated with `Instructions`, `ModelProvider`, `IsActive`
-3. [ ] Migration generated and applied
-4. [ ] `AzureOpenAiOptions` configuration class created
-5. [ ] `IAgentContextBuilder` interface and implementation created
+1. [x] `ModelProvider` enum created ✅ **17/01/2026**
+2. [x] `Agent` entity updated with `Instructions`, `ModelProvider`, `Strategy` ✅ **17/01/2026**
+3. [x] Migration generated and applied ✅ **17/01/2026** (`AddAgentInstructionsAndModelProvider`)
+4. [x] `AzureOpenAiOptions` configuration class created ✅ **17/01/2026**
+5. [x] `IAgentContextBuilder` interface and implementation created ✅ **17/01/2026**
 6. [ ] `AzureOpenAiAgentModelClient` implemented with:
    - [ ] Prompt construction
    - [ ] Azure OpenAI API call

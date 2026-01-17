@@ -39,9 +39,20 @@ public sealed class TradingDbContext : DbContext
             builder.ToTable("Agents");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Name).IsRequired().HasMaxLength(128);
-            builder.Property(x => x.Provider).HasMaxLength(128);
+            builder.Property(x => x.Strategy).HasMaxLength(512);
+            builder.Property(x => x.Instructions).HasMaxLength(4000);
+            builder.Property(x => x.ModelProvider)
+                .HasConversion<string>()
+                .HasMaxLength(32)
+                .HasDefaultValue(ModelProvider.AzureOpenAI);
             builder.Property(x => x.CreatedAt).HasDefaultValueSql("SYSUTCDATETIME()");
             builder.Property(x => x.IsActive).HasDefaultValue(true);
+
+            // One-to-one with Portfolio
+            builder.HasOne(x => x.Portfolio)
+                .WithOne()
+                .HasForeignKey<Portfolio>(p => p.AgentId)
+                .OnDelete(DeleteBehavior.Cascade);
         });
     }
 
@@ -97,10 +108,7 @@ public sealed class TradingDbContext : DbContext
 
             builder.HasIndex(x => x.AgentId).IsUnique();
 
-            builder.HasOne<Agent>()
-                .WithMany()
-                .HasForeignKey(x => x.AgentId)
-                .OnDelete(DeleteBehavior.Cascade);
+            // Note: Agent-Portfolio relationship configured in ConfigureAgents()
 
             builder.HasMany(x => x.Positions)
                 .WithOne()
@@ -230,22 +238,28 @@ public sealed class TradingDbContext : DbContext
                 new Agent
                 {
                     Id = AgentGptId,
-                    Name = "GPT",
-                    Provider = "AzureOpenAI",
+                    Name = "GPT-4o",
+                    Strategy = "Momentum-based trading with risk management",
+                    Instructions = "You are a conservative trader. Focus on momentum signals and always maintain diversification.",
+                    ModelProvider = ModelProvider.AzureOpenAI,
                     IsActive = true
                 },
                 new Agent
                 {
                     Id = AgentClaudeId,
                     Name = "Claude",
-                    Provider = "Anthropic",
+                    Strategy = "Value-oriented with technical analysis",
+                    Instructions = "You are a value investor. Look for undervalued opportunities and use technical indicators for timing.",
+                    ModelProvider = ModelProvider.Mock,  // Using Mock until Anthropic integration
                     IsActive = true
                 },
                 new Agent
                 {
                     Id = AgentGrokId,
                     Name = "Grok",
-                    Provider = "xAI",
+                    Strategy = "Aggressive trend following",
+                    Instructions = "You are an aggressive trader. Follow trends and capitalize on momentum, but respect position limits.",
+                    ModelProvider = ModelProvider.Mock,  // Using Mock until xAI integration
                     IsActive = true
                 });
 

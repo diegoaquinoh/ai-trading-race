@@ -47,7 +47,7 @@ public class PortfolioEquityIntegrationTests : IDisposable
         {
             Id = _agentId,
             Name = "IntegrationTestAgent",
-            Provider = "Test",
+            Strategy = "Integration Test Strategy",
             IsActive = true
         });
 
