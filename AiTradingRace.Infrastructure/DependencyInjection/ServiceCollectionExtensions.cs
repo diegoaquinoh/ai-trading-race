@@ -1,3 +1,4 @@
+using System;
 using AiTradingRace.Application.Agents;
 using AiTradingRace.Application.Equity;
 using AiTradingRace.Application.MarketData;
@@ -7,10 +8,13 @@ using AiTradingRace.Infrastructure.Database;
 using AiTradingRace.Infrastructure.Equity;
 using AiTradingRace.Infrastructure.MarketData;
 using AiTradingRace.Infrastructure.Portfolios;
+using Azure;
+using Azure.AI.OpenAI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Options;
 
 namespace AiTradingRace.Infrastructure.DependencyInjection;
 
@@ -20,6 +24,7 @@ public static class ServiceCollectionExtensions
         this IServiceCollection services,
         IConfiguration configuration)
     {
+        // Database
         services.AddDbContext<TradingDbContext>(options =>
         {
             var connectionString = configuration.GetConnectionString("TradingDb");
@@ -34,16 +39,85 @@ public static class ServiceCollectionExtensions
             }
         });
 
+        // Core services
         services.TryAddScoped<IMarketDataProvider, EfMarketDataProvider>();
         services.TryAddScoped<IPortfolioService, EfPortfolioService>();
         services.TryAddScoped<IEquityService, EquityService>();
-        services.TryAddSingleton<IAgentModelClient, EchoAgentModelClient>();
-        services.TryAddScoped<IAgentRunner, NoOpAgentRunner>();
 
         // Market data ingestion
         services.Configure<CoinGeckoOptions>(configuration.GetSection(CoinGeckoOptions.SectionName));
         services.AddHttpClient<IExternalMarketDataClient, CoinGeckoMarketDataClient>();
         services.TryAddScoped<IMarketDataIngestionService, MarketDataIngestionService>();
+
+        // AI Agent Integration (Phase 5)
+        services.Configure<AzureOpenAiOptions>(configuration.GetSection(AzureOpenAiOptions.SectionName));
+        services.Configure<RiskValidatorOptions>(configuration.GetSection(RiskValidatorOptions.SectionName));
+
+        // Azure OpenAI Client - create singleton from options
+        services.AddSingleton<AzureOpenAIClient>(sp =>
+        {
+            var options = sp.GetRequiredService<IOptions<AzureOpenAiOptions>>().Value;
+
+            if (string.IsNullOrWhiteSpace(options.Endpoint) || string.IsNullOrWhiteSpace(options.ApiKey))
+            {
+                // Return a mock/null client for development without Azure OpenAI
+                // In production, this should throw or use a mock implementation
+                throw new InvalidOperationException(
+                    "Azure OpenAI not configured. Set AzureOpenAI:Endpoint and AzureOpenAI:ApiKey in appsettings or user-secrets.");
+            }
+
+            return new AzureOpenAIClient(
+                new Uri(options.Endpoint),
+                new AzureKeyCredential(options.ApiKey));
+        });
+
+        // Agent services
+        services.TryAddScoped<IAgentContextBuilder, AgentContextBuilder>();
+        services.TryAddScoped<IAgentModelClient, AzureOpenAiAgentModelClient>();
+        services.TryAddScoped<IRiskValidator, RiskValidator>();
+        services.TryAddScoped<IAgentRunner, AgentRunner>();
+
+        return services;
+    }
+
+    /// <summary>
+    /// Adds infrastructure services with a mock AI model client (for testing/development).
+    /// </summary>
+    public static IServiceCollection AddInfrastructureServicesWithMockAI(
+        this IServiceCollection services,
+        IConfiguration configuration)
+    {
+        // Database
+        services.AddDbContext<TradingDbContext>(options =>
+        {
+            var connectionString = configuration.GetConnectionString("TradingDb");
+
+            if (string.IsNullOrWhiteSpace(connectionString))
+            {
+                options.UseInMemoryDatabase("AiTradingRace");
+            }
+            else
+            {
+                options.UseSqlServer(connectionString);
+            }
+        });
+
+        // Core services
+        services.TryAddScoped<IMarketDataProvider, EfMarketDataProvider>();
+        services.TryAddScoped<IPortfolioService, EfPortfolioService>();
+        services.TryAddScoped<IEquityService, EquityService>();
+
+        // Market data ingestion
+        services.Configure<CoinGeckoOptions>(configuration.GetSection(CoinGeckoOptions.SectionName));
+        services.AddHttpClient<IExternalMarketDataClient, CoinGeckoMarketDataClient>();
+        services.TryAddScoped<IMarketDataIngestionService, MarketDataIngestionService>();
+
+        // AI Agent Integration with Mock client
+        services.Configure<RiskValidatorOptions>(configuration.GetSection(RiskValidatorOptions.SectionName));
+        services.TryAddScoped<IAgentContextBuilder, AgentContextBuilder>();
+        services.TryAddScoped<IAgentModelClient, EchoAgentModelClient>(); // Mock client
+        services.TryAddScoped<IRiskValidator, RiskValidator>();
+        services.TryAddScoped<IAgentRunner, AgentRunner>();
 
         return services;
     }

@@ -793,9 +793,9 @@ public sealed class AgentRunner : IAgentRunner
 | 9    | **Create `RiskValidatorOptions`**         | Infrastructure/Agents/              | P0       | ✅ Done |
 | 10   | **Implement `RiskValidator`**             | Infrastructure/Agents/              | P0       | ✅ Done |
 | 11   | Implement `AgentRunner` (with validation) | Infrastructure/Agents/              | P0       | ✅ Done |
-| 12   | Register services in DI                   | Infrastructure/DependencyInjection/ | P0       |         |
-| 13   | Add `POST /api/agents/{id}/run` endpoint  | Web/Controllers/AgentsController.cs | P0       |         |
-| 14   | Add configuration to appsettings          | Web/appsettings.json                | P0       |         |
+| 12   | Register services in DI                   | Infrastructure/DependencyInjection/ | P0       | ✅ Done |
+| 13   | Add `POST /api/agents/{id}/run` endpoint  | Web/Controllers/AgentsController.cs | P0       | ✅ Done |
+| 14   | Add configuration to appsettings          | Web/appsettings.json                | P0       | ✅ Done |
 | 15   | Add unit tests (incl. risk validator)     | Tests/                              | P0       |         |
 | 16   | Add integration tests                     | Tests/                              | P1       |         |
 | 17   | Manual verification                       | Swagger/curl                        | P0       |         |
@@ -940,9 +940,9 @@ dotnet test AiTradingRace.Tests
    - [x] `RiskValidator` enforces all constraints
    - [x] Orders adjusted/rejected before execution
 8. [x] `AgentRunner` implemented with full orchestration + validation ✅ **17/01/2026**
-9. [ ] `POST /api/agents/{id}/run` endpoint added
-10. [ ] DI registrations updated
-11. [ ] Configuration added (appsettings + user-secrets docs)
+9. [x] `POST /api/agents/{id}/run` endpoint added ✅ **17/01/2026**
+10. [x] DI registrations updated ✅ **17/01/2026**
+11. [x] Configuration added (appsettings + user-secrets docs) ✅ **17/01/2026**
 12. [ ] Unit tests pass (incl. `RiskValidatorTests`)
 13. [ ] Manual verification passes (LLM generates trades, risky trades rejected)
 
