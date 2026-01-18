@@ -5,6 +5,7 @@ Converts market data to features, runs prediction, and generates trading decisio
 
 from datetime import datetime, timezone
 from decimal import Decimal
+from typing import Optional
 
 import pandas as pd
 
@@ -121,7 +122,7 @@ class DecisionService:
         confidence: float,
         symbol: str,
         context: AgentContextRequest,
-    ) -> TradeOrderResponse | None:
+    ) -> Optional[TradeOrderResponse]:
         """Create a trade order based on prediction."""
         # Calculate position size based on confidence
         base_size = Decimal("0.1")  # 10% of portfolio

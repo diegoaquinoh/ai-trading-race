@@ -247,6 +247,8 @@ Set via environment variables (`ML_SERVICE_` prefix):
 | `MODEL_VERSION` | `1.0.0`                    | Model version string                |
 | `API_KEY`       | `""`                       | API key for auth (empty = disabled) |
 
+> **Note:** Initial model uses `scikit-learn` (RandomForest). PyTorch implementation is planned for future phases.
+
 ### Architecture
 
 ```

@@ -317,7 +317,37 @@ Real LLM credentials (OpenAI, Azure OpenAI, GitHub Models) will be configured du
 - Feature engineering (RSI, SMA, MACD)
 - Model training with scikit-learn/PyTorch
 
-### Phase 6 — Azure Functions
+## Phase 5b Progress (Python ML Service) — Completed 18/01/2026 ✅
+
+### Components Implemented
+
+- **Python FastAPI Service** (`ai-trading-race-ml/`):
+  - FastAPI app with `/predict` and `/health` endpoints
+  - Pydantic schemas (Contract Versioning, Structured Explainability)
+  - Feature Engineering pipeline (RSI, SMA, features.py)
+  - API Key Middleware
+- **.NET Integration**:
+  - `CustomMlAgentModelClient` (HttpClient with API Key)
+  - `IAgentModelClientFactory` (Dynamic client selection)
+  - `CustomMlAgentOptions` (Configuration)
+- **ML Model Training**:
+  - Synthetic data generator (`scripts/generate_training_data.py`)
+  - Training pipeline (`scripts/train_model.py`) using **scikit-learn** (RandomForest)
+  - **Note:** PyTorch implementation deferred to future phases (as noted in planning)
+- **Infrastructure**:
+  - Dockerfile (Multi-stage build)
+  - DI registration updates
+
+### Verification Results (18/01/2026)
+
+- ✅ RandomForest model trained (50% accuracy on synthetic data)
+- ✅ 4 Integration tests passed for .NET client
+- ✅ Python tests passed for schemas and API
+- ✅ Docker build verified
+
+---
+
+## Phase 6 — Azure Functions
 
 - Timer-triggered market data ingestion
 - Timer-triggered agent execution

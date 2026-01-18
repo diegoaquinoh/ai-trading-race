@@ -2,6 +2,7 @@
 
 from contextlib import asynccontextmanager
 from pathlib import Path
+from typing import Optional
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -18,8 +19,8 @@ from app.models.schemas import (
 from app.services.decision_service import DecisionService
 
 # Global instances (initialized in lifespan)
-predictor: TradingPredictor | None = None
-decision_service: DecisionService | None = None
+predictor: Optional[TradingPredictor] = None
+decision_service: Optional[DecisionService] = None
 
 
 @asynccontextmanager

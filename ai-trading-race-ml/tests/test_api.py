@@ -1,6 +1,6 @@
 """Tests for FastAPI endpoints."""
 
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from decimal import Decimal
 
 import pytest
@@ -11,8 +11,9 @@ from app.main import app
 
 @pytest.fixture
 def client():
-    """Create a test client."""
-    return TestClient(app)
+    """Create a test client with proper lifespan initialization."""
+    with TestClient(app) as c:
+        yield c
 
 
 class TestHealthEndpoint:
@@ -43,7 +44,26 @@ class TestPredictEndpoint:
     """Tests for /predict endpoint."""
 
     def get_valid_context(self) -> dict:
-        """Create a valid request context."""
+        """Create a valid request context with realistic candle data."""
+        base_time = datetime.now(timezone.utc) - timedelta(days=30)
+        base_price = 42000
+        candles = []
+        
+        for i in range(30):
+            # Create varying prices to generate meaningful indicators
+            price_change = 1 + (0.01 * ((i % 5) - 2))  # Oscillate between -2% and +2%
+            current_price = base_price * price_change
+            
+            candles.append({
+                "symbol": "BTC",
+                "timestamp": (base_time + timedelta(days=i)).isoformat(),
+                "open": str(current_price),
+                "high": str(current_price * 1.01),
+                "low": str(current_price * 0.99),
+                "close": str(current_price * (1 + 0.005 * ((i % 3) - 1))),
+                "volume": str(1000 + i * 10),
+            })
+        
         return {
             "agentId": "test-agent",
             "portfolio": {
@@ -51,18 +71,7 @@ class TestPredictEndpoint:
                 "positions": [],
                 "totalValue": "10000",
             },
-            "candles": [
-                {
-                    "symbol": "BTC",
-                    "timestamp": datetime.now(timezone.utc).isoformat(),
-                    "open": "42000",
-                    "high": "42500",
-                    "low": "41500",
-                    "close": "42200",
-                    "volume": "1000",
-                }
-                for _ in range(25)  # Need enough for indicators
-            ],
+            "candles": candles,
             "instructions": "",
         }
 

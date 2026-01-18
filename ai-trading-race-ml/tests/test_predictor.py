@@ -9,13 +9,18 @@ from app.ml.predictor import PredictedAction, TradingPredictor
 from pathlib import Path
 
 
-def create_sample_candles(n: int = 30) -> pd.DataFrame:
-    """Create sample OHLCV data for testing."""
+def create_sample_candles(n: int = 50) -> pd.DataFrame:
+    """
+    Create sample OHLCV data for testing.
+    
+    Uses daily frequency and enough rows to compute all technical indicators
+    (need at least 21 for SMA_21, plus buffer for NaN dropping).
+    """
     np.random.seed(42)
     base_price = 42000
     
     data = {
-        "timestamp": pd.date_range("2024-01-01", periods=n, freq="h"),
+        "timestamp": pd.date_range("2024-01-01", periods=n, freq="D"),
         "open": [],
         "high": [],
         "low": [],
@@ -24,7 +29,8 @@ def create_sample_candles(n: int = 30) -> pd.DataFrame:
     }
     
     price = base_price
-    for _ in range(n):
+    for i in range(n):
+        # Create realistic price movements
         change = np.random.uniform(-0.02, 0.02)
         open_price = price
         close_price = price * (1 + change)

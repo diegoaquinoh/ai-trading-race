@@ -2,6 +2,7 @@
 
 from datetime import datetime
 from decimal import Decimal
+from typing import Optional
 from uuid import uuid4
 
 from pydantic import BaseModel, Field
@@ -102,7 +103,7 @@ class TradeOrderResponse(BaseModel):
     asset_symbol: str = Field(alias="assetSymbol")
     side: TradeSide
     quantity: Decimal
-    limit_price: Decimal | None = Field(default=None, alias="limitPrice")
+    limit_price: Optional[Decimal] = Field(default=None, alias="limitPrice")
 
     class Config:
         populate_by_name = True
