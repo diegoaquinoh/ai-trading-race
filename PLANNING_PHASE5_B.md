@@ -1053,30 +1053,30 @@ services:
 
 ## Implementation Order
 
-| Step | Task                                       | Files                              | Priority | Effort |
-| ---- | ------------------------------------------ | ---------------------------------- | -------- | ------ |
-| 1    | Create Python project structure            | `ai-trading-race-ml/`              | P0       | 30min  |
-| 2    | Implement Pydantic schemas (versioned)     | `app/models/schemas.py`            | P0       | 30min  |
-| 3    | Add `ExplanationSignal` for explainability | `app/models/schemas.py`            | P0       | 15min  |
-| 4    | Implement feature engineering              | `app/ml/features.py`               | P0       | 45min  |
-| 5    | Implement predictor with signal output     | `app/ml/predictor.py`              | P0       | 45min  |
-| 6    | Implement decision service with signals    | `app/services/decision_service.py` | P0       | 30min  |
-| 7    | Add API key middleware                     | `app/middleware/auth.py`           | P0       | 20min  |
-| 8    | Implement FastAPI endpoints                | `app/main.py`                      | P0       | 20min  |
-| 9    | Add Python tests                           | `tests/`                           | P0       | 30min  |
-| 10   | Create `CustomMlAgentOptions`              | Infrastructure                     | P0       | 10min  |
-| 11   | Create `CustomMlAgentModelClient`          | Infrastructure                     | P0       | 45min  |
-| 12   | Add API key header to .NET client          | Infrastructure                     | P0       | 10min  |
-| 13   | Create `IAgentModelClientFactory`          | Application/Infrastructure         | P0       | 20min  |
-| 14   | Update `AgentRunner`                       | Infrastructure                     | P0       | 20min  |
-| 15   | Update DI registrations                    | Infrastructure                     | P0       | 15min  |
-| 16   | Add configuration (incl. API key)          | Web/appsettings.json               | P0       | 10min  |
-| 17   | Add .NET integration tests                 | Tests                              | P1       | 30min  |
-| 18   | Create Dockerfile                          | ai-trading-race-ml                 | P1       | 15min  |
-| 19   | Update docker-compose                      | Root                               | P1       | 10min  |
-| 20   | Train initial ML model                     | notebooks/                         | P2       | 2h     |
+| Step | Task                                       | Files                              | Priority | Status     |
+| ---- | ------------------------------------------ | ---------------------------------- | -------- | ---------- |
+| 1    | Create Python project structure            | `ai-trading-race-ml/`              | P0       | ✅ Done    |
+| 2    | Implement Pydantic schemas (versioned)     | `app/models/schemas.py`            | P0       | ✅ Done    |
+| 3    | Add `ExplanationSignal` for explainability | `app/models/schemas.py`            | P0       | ✅ Done    |
+| 4    | Implement feature engineering              | `app/ml/features.py`               | P0       | ✅ Done    |
+| 5    | Implement predictor with signal output     | `app/ml/predictor.py`              | P0       | ✅ Done    |
+| 6    | Implement decision service with signals    | `app/services/decision_service.py` | P0       | ✅ Done    |
+| 7    | Add API key middleware                     | `app/middleware/auth.py`           | P0       | ✅ Done    |
+| 8    | Implement FastAPI endpoints                | `app/main.py`                      | P0       | ✅ Done    |
+| 9    | Add Python tests                           | `tests/`                           | P0       | ✅ Done    |
+| 10   | Create `CustomMlAgentOptions`              | Infrastructure                     | P0       | ✅ Done    |
+| 11   | Create `CustomMlAgentModelClient`          | Infrastructure                     | P0       | ✅ Done    |
+| 12   | Add API key header to .NET client          | Infrastructure                     | P0       | ✅ Done    |
+| 13   | Create `IAgentModelClientFactory`          | Application/Infrastructure         | P0       | ✅ Done    |
+| 14   | Update `AgentRunner`                       | Infrastructure                     | P0       | ✅ Done    |
+| 15   | Update DI registrations                    | Infrastructure                     | P0       | ✅ Done    |
+| 16   | Add configuration (incl. API key)          | Web/appsettings.json               | P0       | ✅ Done    |
+| 17   | Add .NET integration tests                 | Tests                              | P1       | ✅ Done    |
+| 18   | Create Dockerfile                          | ai-trading-race-ml                 | P1       | ✅ Done    |
+| 19   | Update documentation                       | README.md                          | P1       | ✅ Done    |
+| 20   | Train initial ML model                     | notebooks/                         | P2       | ⏳ Pending |
 
-**Estimated Total: ~9-10 hours**
+**Completed: 19/20 tasks**
 
 ---
 

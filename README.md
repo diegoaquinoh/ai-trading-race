@@ -211,6 +211,59 @@ Fonctionnalité avancée permettant de tracer et expliquer les décisions des ag
 }
 ```
 
+## 🤖 Phase 5b: Custom ML Service
+
+Python FastAPI service for ML-based trading decisions.
+
+### Quick Start
+
+```bash
+# Option 1: Run locally
+cd ai-trading-race-ml
+python -m venv venv && source venv/bin/activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload --port 8000
+
+# Option 2: Run with Docker
+cd ai-trading-race-ml
+docker build -t ai-trading-ml .
+docker run -p 8000:8000 -e ML_SERVICE_API_KEY=your-key ai-trading-ml
+```
+
+### API Endpoints
+
+| Method | Path       | Auth | Description               |
+| ------ | ---------- | ---- | ------------------------- |
+| GET    | `/health`  | ❌   | Health check              |
+| POST   | `/predict` | ✅   | Generate trading decision |
+
+### Configuration
+
+Set via environment variables (`ML_SERVICE_` prefix):
+
+| Variable        | Default                    | Description                         |
+| --------------- | -------------------------- | ----------------------------------- |
+| `MODEL_PATH`    | `models/trading_model.pkl` | Path to trained model               |
+| `MODEL_VERSION` | `1.0.0`                    | Model version string                |
+| `API_KEY`       | `""`                       | API key for auth (empty = disabled) |
+
+### Architecture
+
+```
+.NET App                          Python ML Service
+┌──────────────────┐              ┌──────────────────┐
+│ CustomMlAgent    │   HTTP/JSON  │ FastAPI          │
+│ ModelClient      │ ──────────►  │ /predict         │
+│ (X-API-Key)      │              │                  │
+└──────────────────┘              └──────────────────┘
+                                         │
+                                         ▼
+                                  ┌──────────────────┐
+                                  │ TradingPredictor │
+                                  │ (RSI, MACD, etc) │
+                                  └──────────────────┘
+```
+
 ## Commandes utiles
 
 ```bash
@@ -224,12 +277,19 @@ dotnet run --project AiTradingRace.Web
 # Frontend
 cd ai-trading-race-web && npm run dev
 
+# Python ML Service
+cd ai-trading-race-ml && uvicorn app.main:app --reload
+
 # Azure Functions (local)
 func start --csharp --script-root AiTradingRace.Functions
 
 # Docker SQL Server
 docker start sqlserver
 docker stop sqlserver
+
+# Docker ML Service
+cd ai-trading-race-ml && docker build -t ai-trading-ml .
+docker run -p 8000:8000 ai-trading-ml
 ```
 
 ## Licence
