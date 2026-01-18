@@ -31,11 +31,11 @@
 
 ## 🎯 Phase 7 Deliverables
 
-### 1. Layout & Navigation
+### 1. Layout & Navigation ✅ Sprint 7.2 Complete
 
-- [ ] **1.1** Create fixed Header/Topbar with logo and navigation
-- [ ] **1.2** Create responsive Sidebar with Dashboard/Agents links
-- [ ] **1.3** Add minimal Footer with last update status
+- [x] **1.1** Create fixed Header/Topbar with logo and navigation
+- [x] **1.2** Create responsive Sidebar with Dashboard/Agents links
+- [x] **1.3** Add minimal Footer with last update status
 - [ ] **1.4** Implement mobile adaptation (responsive design)
 
 ### 2. Dashboard Page (`/`) ✅ Sprint 7.3 Complete
@@ -139,15 +139,15 @@ ai-trading-race-web/
 | 7.2 | Create `GET /api/market/prices` endpoint | [x]    |
 | 7.3 | Verify existing DTOs                     | [x]    |
 
-### Sprint 7.2 — Layout & Design System (1 day)
+### Sprint 7.2 — Layout & Design System (1 day) ✅ Complete
 
 | #   | Task                                      | Status |
 | --- | ----------------------------------------- | ------ |
-| 6.1 | Implement CSS variables and design tokens | [ ]    |
-| 1.1 | Create Header component                   | [ ]    |
-| 1.2 | Create Sidebar component                  | [ ]    |
-| 1.3 | Create Footer component                   | [ ]    |
-| 6.5 | Add Google Fonts (Inter)                  | [ ]    |
+| 6.1 | Implement CSS variables and design tokens | [x]    |
+| 1.1 | Create Header component                   | [x]    |
+| 1.2 | Create Sidebar component                  | [x]    |
+| 1.3 | Create Footer component                   | [x]    |
+| 6.5 | Add Google Fonts (Inter)                  | [x]    |
 
 ### Sprint 7.3 — Dashboard Complete (1.5 days) ✅ Complete
 

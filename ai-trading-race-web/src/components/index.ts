@@ -4,3 +4,6 @@ export { LeaderboardTable } from './LeaderboardTable';
 export { EquityChart } from './EquityChart';
 export { MarketPrices } from './MarketPrices';
 export { RefreshIndicator } from './RefreshIndicator';
+
+// Layout components (re-export)
+export * from './layout';
