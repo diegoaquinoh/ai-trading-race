@@ -3,10 +3,21 @@
 export interface Agent {
   id: string;
   name: string;
-  modelType: 'LLM' | 'CustomML';
+  modelType: string;
   provider: string;
   isActive: boolean;
   createdAt: string;
+}
+
+export interface MarketPrice {
+  symbol: string;
+  name: string;
+  price: number;
+  change24h: number;
+  changePercent24h: number;
+  high24h: number;
+  low24h: number;
+  updatedAt: string;
 }
 
 export interface Position {
