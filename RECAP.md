@@ -91,7 +91,6 @@ Created `AiTradingRace.Tests` project (xUnit + Moq):
 ### Planning Updates
 
 - Added **Phase 5b** (Python ML model integration with FastAPI) to `PLANNING_GLOBAL.md`:
-
   - FastAPI microservice structure (`ai-trading-race-ml/`)
   - API contract for `/predict` endpoint
   - `PyTorchAgentModelClient` integration in .NET
@@ -347,13 +346,54 @@ Real LLM credentials (OpenAI, Azure OpenAI, GitHub Models) will be configured du
 
 ---
 
-## Phase 6 — Azure Functions
+## Phase 6 Progress (Azure Functions) — Completed 18/01/2026 ✅
 
-- Timer-triggered market data ingestion
-- Timer-triggered agent execution
-- Scheduled equity snapshots
+### Components Implemented
 
-### Phase 7 — React Dashboard
+- **Timer-Triggered Functions:**
+  - `MarketDataFunction` (every 15 min) — Ingests OHLC candles via `IMarketDataIngestionService`
+  - `RunAgentsFunction` (every 30 min) — Executes all active agents via `IAgentRunner`
+  - `EquitySnapshotFunction` (hourly) — Captures portfolio snapshots via `IEquityService`
+- **HTTP-Triggered Functions:**
+  - `HealthCheckFunction` (`/api/health`) — Returns DB status, agent count, latest candle
+- **Configuration:**
+  - `Program.cs` with full DI setup using `AddInfrastructureServicesWithTestAI()`
+  - `local.settings.json` with connection strings and service configs
+  - HTTP extensions package added to `.csproj`
+
+### Tests — 81 Total (12 new in Phase 6)
+
+**MarketDataFunctionTests** (4 tests):
+
+- Service call verification
+- Logging verification
+- Error propagation
+- Cancellation token handling
+
+**EquitySnapshotFunctionTests** (4 tests):
+
+- Service call verification
+- Logging verification
+- Error propagation
+- Zero agents edge case
+
+**RunAgentsFunctionTests** (4 tests):
+
+- Active agent execution
+- Inactive agent filtering
+- Failure isolation (continues on error)
+- Empty database handling
+
+### Verification Results (18/01/2026)
+
+- ✅ All 4 functions compile and run locally
+- ✅ DI correctly injects all services
+- ✅ 81 tests pass (`dotnet test`)
+- ✅ Build: 0 errors, 0 warnings (Functions project)
+
+---
+
+## Phase 7 — React Dashboard
 
 - Connect to backend API
 - Implement equity charts with Recharts

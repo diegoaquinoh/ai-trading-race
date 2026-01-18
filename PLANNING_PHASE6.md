@@ -1,8 +1,10 @@
-# Phase 6 – Azure Functions (Scheduler & Automation)
+# Phase 6 – Azure Functions (Scheduler & Automation) ✅ COMPLETED 18/01/2026
 
 > **Objective:** Automate market data ingestion and agent execution cycles using Azure Functions timer triggers.
 
 > **Prerequisites:** Phase 5b completed ✅ (LLM + ML agents, AgentRunner, RiskValidator, EquityService)
+
+> **Status:** ✅ All functions implemented and tested. 12 new unit tests passing (81 total).
 
 > **Date:** 18/01/2026
 
@@ -595,29 +597,29 @@ Ensure correct packages:
 
 | Step | Task                               | Files                                         | Priority | Status |
 | ---- | ---------------------------------- | --------------------------------------------- | -------- | ------ |
-| 1    | Update `Program.cs` with full DI   | Functions/Program.cs                          | P0       | ⬜     |
-| 2    | Update project references          | Functions/AiTradingRace.Functions.csproj      | P0       | ⬜     |
-| 3    | Create `local.settings.json`       | Functions/local.settings.json                 | P0       | ⬜     |
-| 4    | Implement `MarketDataFunction`     | Functions/Functions/MarketDataFunction.cs     | P0       | ⬜     |
-| 5    | Implement `RunAgentsFunction`      | Functions/Functions/RunAgentsFunction.cs      | P0       | ⬜     |
-| 6    | Implement `EquitySnapshotFunction` | Functions/Functions/EquitySnapshotFunction.cs | P1       | ⬜     |
-| 7    | Implement `HealthCheckFunction`    | Functions/Functions/HealthCheckFunction.cs    | P1       | ⬜     |
-| 8    | Test locally with Azurite          | Manual testing                                | P0       | ⬜     |
-| 9    | Add unit tests for functions       | Tests project                                 | P1       | ⬜     |
+| 1    | Update `Program.cs` with full DI   | Functions/Program.cs                          | P0       | ✅     |
+| 2    | Update project references          | Functions/AiTradingRace.Functions.csproj      | P0       | ✅     |
+| 3    | Create `local.settings.json`       | Functions/local.settings.json                 | P0       | ✅     |
+| 4    | Implement `MarketDataFunction`     | Functions/Functions/MarketDataFunction.cs     | P0       | ✅     |
+| 5    | Implement `RunAgentsFunction`      | Functions/Functions/RunAgentsFunction.cs      | P0       | ✅     |
+| 6    | Implement `EquitySnapshotFunction` | Functions/Functions/EquitySnapshotFunction.cs | P1       | ✅     |
+| 7    | Implement `HealthCheckFunction`    | Functions/Functions/HealthCheckFunction.cs    | P1       | ✅     |
+| 8    | Test locally with Azurite          | Manual testing                                | P0       | ✅     |
+| 9    | Add unit tests for functions       | Tests project                                 | P1       | ✅     |
 
 ---
 
-## Exit Criteria
+## Exit Criteria ✅
 
-✅ **Phase 6 is complete when:**
+**Phase 6 is complete:**
 
-- [ ] All four functions compile and run locally
-- [ ] `MarketDataFunction` ingests candles on schedule (can be triggered manually)
-- [ ] `RunAgentsFunction` executes all active agents without errors
-- [ ] `EquitySnapshotFunction` captures snapshots for all agents
-- [ ] `HealthCheckFunction` returns correct status
-- [ ] Local testing with Azurite and SQL Server passes
-- [ ] All existing tests continue to pass (`dotnet test`)
+- [x] All four functions compile and run locally
+- [x] `MarketDataFunction` ingests candles on schedule (can be triggered manually)
+- [x] `RunAgentsFunction` executes all active agents without errors
+- [x] `EquitySnapshotFunction` captures snapshots for all agents
+- [x] `HealthCheckFunction` returns correct status
+- [x] Local testing with Azurite and SQL Server passes
+- [x] All existing tests continue to pass (`dotnet test` — 81 tests)
 
 ---
 
