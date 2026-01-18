@@ -4,26 +4,49 @@ using Microsoft.Extensions.Logging;
 
 namespace AiTradingRace.Functions.Functions;
 
+/// <summary>
+/// Timer-triggered function to ingest market data (OHLC candles) from external APIs.
+/// </summary>
 public sealed class MarketDataFunction
 {
-    private readonly IMarketDataProvider _marketDataProvider;
+    private readonly IMarketDataIngestionService _ingestionService;
     private readonly ILogger<MarketDataFunction> _logger;
 
     public MarketDataFunction(
-        IMarketDataProvider marketDataProvider,
+        IMarketDataIngestionService ingestionService,
         ILogger<MarketDataFunction> logger)
     {
-        _marketDataProvider = marketDataProvider;
+        _ingestionService = ingestionService;
         _logger = logger;
     }
 
-    [Function(nameof(MarketDataFunction))]
-    public async Task RunAsync(
-        [TimerTrigger("0 */15 * * * *")] TimerInfo timerInfo,
+    /// <summary>
+    /// Ingest market data every 15 minutes.
+    /// CRON: 0 */15 * * * * (second, minute, hour, day, month, day-of-week)
+    /// </summary>
+    [Function(nameof(IngestMarketData))]
+    public async Task IngestMarketData(
+        [TimerTrigger("0 */15 * * * *")] TimerInfo timer,
         CancellationToken cancellationToken)
     {
-        var candles = await _marketDataProvider.GetLatestCandlesAsync("BTC", 5, cancellationToken);
-        _logger.LogInformation("Market data function ran at {Timestamp}, fetched {Count} candles.", DateTimeOffset.UtcNow, candles.Count);
+        _logger.LogInformation(
+            "Market data ingestion started at {Time}. Next run at {NextRun}",
+            DateTime.UtcNow,
+            timer.ScheduleStatus?.Next);
+
+        try
+        {
+            var insertedCount = await _ingestionService.IngestAllAssetsAsync(cancellationToken);
+
+            _logger.LogInformation(
+                "Market data ingestion completed. Inserted {Count} new candles",
+                insertedCount);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Market data ingestion failed");
+            throw; // Let Azure Functions handle retry
+        }
     }
 }
 

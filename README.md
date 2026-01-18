@@ -11,8 +11,8 @@ Course entre agents IA de trading (LLM) qui pilotent chacun un portefeuille cryp
 | Phase 3  | Ingestion des données de marché        | ✅ Terminée |
 | Phase 4  | Moteur de simulation (Portfolio & PnL) | ✅ Terminée |
 | Phase 5  | Intégration agents IA (LLM)            | ✅ Terminée |
-| Phase 5b | Modèle ML custom (Python + FastAPI)    | ⏳ À venir  |
-| Phase 6  | Azure Functions (scheduler)            | ⏳ À venir  |
+| Phase 5b | Modèle ML custom (Python + FastAPI)    | ✅ Terminée |
+| Phase 6  | Azure Functions (scheduler)            | ✅ Terminée |
 | Phase 7  | UI React Dashboard                     | 🔄 Partiel  |
 | Phase 8  | Déploiement Azure                      | ⏳ À venir  |
 | Phase 9  | Monitoring & Sécurité                  | ⏳ À venir  |
@@ -122,13 +122,16 @@ dotnet test
 dotnet test --verbosity normal
 ```
 
-**Couverture actuelle (48 tests):**
+**Couverture actuelle (81 tests):**
 
 - `CoinGeckoMarketDataClientTests` : Parsing JSON, erreurs HTTP, validation
 - `MarketDataIngestionServiceTests` : Insertion, déduplication, gestion des assets
 - `EquityServiceTests` : Snapshots, courbe d'équité, métriques de performance
 - `PortfolioEquityIntegrationTests` : Flux complet portfolio + trades
 - `SqlServerIntegrationTests` : Tests Testcontainers contre SQL Server réel
+- `RiskValidatorTests` : Validation des contraintes de risque
+- `AgentContextBuilderTests` : Construction du contexte agent
+- `FunctionTests` : Tests Azure Functions (MarketData, RunAgents, EquitySnapshot)
 
 ## Migrations EF Core
 
@@ -283,7 +286,7 @@ cd ai-trading-race-web && npm run dev
 cd ai-trading-race-ml && uvicorn app.main:app --reload
 
 # Azure Functions (local)
-func start --csharp --script-root AiTradingRace.Functions
+cd AiTradingRace.Functions && func start
 
 # Docker SQL Server
 docker start sqlserver
