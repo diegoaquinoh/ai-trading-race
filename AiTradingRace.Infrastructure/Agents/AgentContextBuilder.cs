@@ -68,6 +68,7 @@ public sealed class AgentContextBuilder : IAgentContextBuilder
 
         return new AgentContext(
             agentId,
+            agent.ModelProvider,
             portfolio,
             candles,
             agent.Instructions);

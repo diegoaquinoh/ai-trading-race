@@ -1,8 +1,10 @@
-# Phase 5 – AI Agent Integration ✅ COMPLETED 17/01/2026
+# Phase 5 – AI Agent Integration (LLM) ✅ COMPLETED 17/01/2026
 
 > **Objectif :** Brancher un premier LLM (Azure OpenAI) et obtenir des décisions de trading exécutées automatiquement.
 
 > **Note :** All components implemented. LLM API keys (OpenAI, Azure OpenAI, GitHub Models) will be configured in Phase 8 (Azure Deployment). For development, use `TestAgentModelClient` for E2E testing.
+
+> **Scope :** This document covers LLM-based agent integration only. Python ML model integration (FastAPI, scikit-learn, PyTorch) is covered in **Phase 5b** — see `PLANNING_GLOBAL.md`.
 
 ---
 

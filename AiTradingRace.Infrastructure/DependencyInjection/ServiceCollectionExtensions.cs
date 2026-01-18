@@ -51,17 +51,17 @@ public static class ServiceCollectionExtensions
 
         // AI Agent Integration (Phase 5)
         services.Configure<AzureOpenAiOptions>(configuration.GetSection(AzureOpenAiOptions.SectionName));
+        services.Configure<CustomMlAgentOptions>(configuration.GetSection(CustomMlAgentOptions.SectionName));
         services.Configure<RiskValidatorOptions>(configuration.GetSection(RiskValidatorOptions.SectionName));
 
-        // Azure OpenAI Client - create singleton from options
+        // Azure OpenAI Client - create singleton from options (only if configured)
         services.AddSingleton<AzureOpenAIClient>(sp =>
         {
             var options = sp.GetRequiredService<IOptions<AzureOpenAiOptions>>().Value;
 
             if (string.IsNullOrWhiteSpace(options.Endpoint) || string.IsNullOrWhiteSpace(options.ApiKey))
             {
-                // Return a mock/null client for development without Azure OpenAI
-                // In production, this should throw or use a mock implementation
+                // Return null - will throw when actually used
                 throw new InvalidOperationException(
                     "Azure OpenAI not configured. Set AzureOpenAI:Endpoint and AzureOpenAI:ApiKey in appsettings or user-secrets.");
             }
@@ -71,9 +71,22 @@ public static class ServiceCollectionExtensions
                 new AzureKeyCredential(options.ApiKey));
         });
 
+        // Register all AI model clients as concrete types for factory resolution
+        services.TryAddScoped<AzureOpenAiAgentModelClient>();
+        services.TryAddScoped<TestAgentModelClient>();
+        services.TryAddScoped<EchoAgentModelClient>();
+
+        // Custom ML client with dedicated HttpClient
+        services.AddHttpClient<CustomMlAgentModelClient>((sp, client) =>
+        {
+            var options = sp.GetRequiredService<IOptions<CustomMlAgentOptions>>().Value;
+            client.BaseAddress = new Uri(options.BaseUrl);
+            client.Timeout = TimeSpan.FromSeconds(options.TimeoutSeconds);
+        });
+
         // Agent services
         services.TryAddScoped<IAgentContextBuilder, AgentContextBuilder>();
-        services.TryAddScoped<IAgentModelClient, AzureOpenAiAgentModelClient>();
+        services.TryAddScoped<IAgentModelClientFactory, AgentModelClientFactory>();
         services.TryAddScoped<IRiskValidator, RiskValidator>();
         services.TryAddScoped<IAgentRunner, AgentRunner>();
 

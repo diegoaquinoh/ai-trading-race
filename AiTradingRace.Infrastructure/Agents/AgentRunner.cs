@@ -9,7 +9,7 @@ namespace AiTradingRace.Infrastructure.Agents;
 /// <summary>
 /// Orchestrates a complete agent execution cycle:
 /// 1. Build context (portfolio + market data)
-/// 2. Generate decision from AI model
+/// 2. Generate decision from AI model (selected by ModelProvider)
 /// 3. Validate against risk constraints
 /// 4. Execute validated trades
 /// 5. Capture equity snapshot
@@ -17,7 +17,7 @@ namespace AiTradingRace.Infrastructure.Agents;
 public sealed class AgentRunner : IAgentRunner
 {
     private readonly IAgentContextBuilder _contextBuilder;
-    private readonly IAgentModelClient _modelClient;
+    private readonly IAgentModelClientFactory _clientFactory;
     private readonly IRiskValidator _riskValidator;
     private readonly IPortfolioService _portfolioService;
     private readonly IEquityService _equityService;
@@ -25,14 +25,14 @@ public sealed class AgentRunner : IAgentRunner
 
     public AgentRunner(
         IAgentContextBuilder contextBuilder,
-        IAgentModelClient modelClient,
+        IAgentModelClientFactory clientFactory,
         IRiskValidator riskValidator,
         IPortfolioService portfolioService,
         IEquityService equityService,
         ILogger<AgentRunner> logger)
     {
         _contextBuilder = contextBuilder;
-        _modelClient = modelClient;
+        _clientFactory = clientFactory;
         _riskValidator = riskValidator;
         _portfolioService = portfolioService;
         _equityService = equityService;
@@ -54,9 +54,11 @@ public sealed class AgentRunner : IAgentRunner
             _logger.LogDebug("Step 1: Building context for agent {AgentId}", agentId);
             var context = await _contextBuilder.BuildContextAsync(agentId, candleCount: 24, cancellationToken);
 
-            // Step 2: Generate decision from AI
-            _logger.LogDebug("Step 2: Generating decision from AI model for agent {AgentId}", agentId);
-            var rawDecision = await _modelClient.GenerateDecisionAsync(context, cancellationToken);
+            // Step 2: Generate decision from AI model (using provider-specific client)
+            _logger.LogDebug("Step 2: Generating decision from {Provider} model for agent {AgentId}",
+                context.ModelProvider, agentId);
+            var modelClient = _clientFactory.GetClient(context.ModelProvider);
+            var rawDecision = await modelClient.GenerateDecisionAsync(context, cancellationToken);
 
             _logger.LogInformation("Agent {AgentId} proposed {OrderCount} orders",
                 agentId, rawDecision.Orders.Count);
