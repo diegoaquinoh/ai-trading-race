@@ -750,6 +750,7 @@ public sealed class CustomMlAgentModelClient : IAgentModelClient
     {
         return new MlContextRequest
         {
+            RequestId = Guid.NewGuid().ToString(),
             AgentId = context.AgentId.ToString(),
             Portfolio = new MlPortfolioState
             {
@@ -799,6 +800,8 @@ public sealed class CustomMlAgentModelClient : IAgentModelClient
 
     private record MlContextRequest
     {
+        public string SchemaVersion { get; init; } = "1.0";
+        public required string RequestId { get; init; }
         public required string AgentId { get; init; }
         public required MlPortfolioState Portfolio { get; init; }
         public required List<MlCandle> Candles { get; init; }
@@ -832,9 +835,13 @@ public sealed class CustomMlAgentModelClient : IAgentModelClient
 
     private record MlDecisionResponse
     {
+        public string SchemaVersion { get; init; } = "1.0";
+        public required string ModelVersion { get; init; }
+        public required string RequestId { get; init; }
         public required string AgentId { get; init; }
         public DateTimeOffset CreatedAt { get; init; }
         public required List<MlOrder> Orders { get; init; }
+        public List<MlExplanationSignal> Signals { get; init; } = [];
         public string Reasoning { get; init; } = "";
     }
 
@@ -844,6 +851,15 @@ public sealed class CustomMlAgentModelClient : IAgentModelClient
         public required string Side { get; init; }
         public decimal Quantity { get; init; }
         public decimal? LimitPrice { get; init; }
+    }
+
+    private record MlExplanationSignal
+    {
+        public required string Feature { get; init; }
+        public double Value { get; init; }
+        public required string Rule { get; init; }
+        public bool Fired { get; init; }
+        public required string Contribution { get; init; }
     }
 
     #endregion
