@@ -2,6 +2,7 @@ using AiTradingRace.Application.Agents;
 using AiTradingRace.Application.Common.Models;
 using AiTradingRace.Application.MarketData;
 using AiTradingRace.Application.Portfolios;
+using AiTradingRace.Domain.Entities;
 
 namespace AiTradingRace.Infrastructure.Agents;
 
@@ -28,7 +29,7 @@ public sealed class NoOpAgentRunner : IAgentRunner
         var startedAt = DateTimeOffset.UtcNow;
         var portfolio = await _portfolioService.GetPortfolioAsync(agentId, cancellationToken);
         var candles = await _marketDataProvider.GetLatestCandlesAsync("BTC", 10, cancellationToken);
-        var context = new AgentContext(agentId, portfolio, candles, "Bootstrap cycle");
+        var context = new AgentContext(agentId, ModelProvider.Mock, portfolio, candles, "Bootstrap cycle");
 
         var decision = await _modelClient.GenerateDecisionAsync(context, cancellationToken);
         portfolio = await _portfolioService.ApplyDecisionAsync(agentId, decision, cancellationToken);
