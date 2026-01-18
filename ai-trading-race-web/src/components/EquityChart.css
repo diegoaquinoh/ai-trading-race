@@ -1,0 +1,43 @@
+.equity-chart-container {
+    background: var(--bg-dark);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+}
+
+.equity-chart-title {
+    margin-bottom: 1rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+.equity-chart-wrapper {
+    min-height: 300px;
+}
+
+.equity-chart-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+/* Custom tooltip styles */
+.recharts-tooltip-wrapper {
+    z-index: 100;
+}
+
+/* Legend styling */
+.recharts-legend-wrapper {
+    padding-top: 1rem !important;
+}
+
+.recharts-legend-item {
+    margin-right: 1rem !important;
+}
+
+.recharts-legend-item-text {
+    color: var(--text-primary) !important;
+    font-size: 0.875rem;
+}

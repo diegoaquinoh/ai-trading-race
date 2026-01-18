@@ -38,13 +38,13 @@
 - [ ] **1.3** Add minimal Footer with last update status
 - [ ] **1.4** Implement mobile adaptation (responsive design)
 
-### 2. Dashboard Page (`/`)
+### 2. Dashboard Page (`/`) ✅ Sprint 7.3 Complete
 
-- [ ] **2.1** Build interactive Leaderboard with sorting and filtering
-- [ ] **2.2** Implement multi-agent EquityChart with Recharts (overlaid curves)
-- [ ] **2.3** Create StatCards (best agent, worst agent, total volume)
-- [ ] **2.4** Add market indicators (latest BTC/ETH prices)
-- [ ] **2.5** Configure auto-refresh with visual indicator
+- [x] **2.1** Build interactive Leaderboard with sorting and filtering
+- [x] **2.2** Implement multi-agent EquityChart with Recharts (overlaid curves)
+- [x] **2.3** Create StatCards (best agent, worst agent, total volume)
+- [x] **2.4** Add market indicators (latest BTC/ETH prices)
+- [x] **2.5** Configure auto-refresh with visual indicator
 
 ### 3. Agents List Page (`/agents`)
 
@@ -61,13 +61,13 @@
 - [ ] **4.4** Create paginated trade history with filters (BUY/SELL)
 - [ ] **4.5** Display agent info: strategy, provider, creation date
 
-### 5. Reusable Components
+### 5. Reusable Components (Partial - Core done)
 
-- [ ] **5.1** `<EquityChart>` — Configurable equity chart component
-- [ ] **5.2** `<LeaderboardTable>` — Ranked table component
+- [x] **5.1** `<EquityChart>` — Configurable equity chart component
+- [x] **5.2** `<LeaderboardTable>` — Ranked table component
 - [ ] **5.3** `<TradeHistory>` — Paginated trade list component
 - [ ] **5.4** `<PositionCard>` — Position display with PnL
-- [ ] **5.5** `<StatCard>` — Animated statistic card
+- [x] **5.5** `<StatCard>` — Animated statistic card
 - [ ] **5.6** `<LoadingSpinner>` — Loading indicator
 - [ ] **5.7** `<ErrorMessage>` — Formatted error message
 - [ ] **5.8** `<EmptyState>` — Empty state with illustration
@@ -149,17 +149,17 @@ ai-trading-race-web/
 | 1.3 | Create Footer component                   | [ ]    |
 | 6.5 | Add Google Fonts (Inter)                  | [ ]    |
 
-### Sprint 7.3 — Dashboard Complete (1.5 days)
+### Sprint 7.3 — Dashboard Complete (1.5 days) ✅ Complete
 
 | #   | Task                                     | Status |
 | --- | ---------------------------------------- | ------ |
-| 5.5 | Build StatCard component                 | [ ]    |
-| 5.2 | Build LeaderboardTable component         | [ ]    |
-| 2.1 | Implement Dashboard leaderboard          | [ ]    |
-| 5.1 | Build EquityChart component              | [ ]    |
-| 2.2 | Implement multi-agent chart on Dashboard | [ ]    |
-| 2.4 | Add market price indicators              | [ ]    |
-| 2.5 | Configure auto-refresh with indicator    | [ ]    |
+| 5.5 | Build StatCard component                 | [x]    |
+| 5.2 | Build LeaderboardTable component         | [x]    |
+| 2.1 | Implement Dashboard leaderboard          | [x]    |
+| 5.1 | Build EquityChart component              | [x]    |
+| 2.2 | Implement multi-agent chart on Dashboard | [x]    |
+| 2.4 | Add market price indicators              | [x]    |
+| 2.5 | Configure auto-refresh with indicator    | [x]    |
 
 ### Sprint 7.4 — Agent Pages (1.5 days)
 

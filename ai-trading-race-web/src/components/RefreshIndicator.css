@@ -1,0 +1,79 @@
+.refresh-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.refresh-indicator.refreshing {
+    border-color: var(--primary);
+}
+
+.refresh-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.refresh-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--secondary);
+}
+
+.refresh-dot.pulse {
+    animation: pulse-dot 1s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+    0%, 100% { 
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% { 
+        opacity: 0.5;
+        transform: scale(1.2);
+    }
+}
+
+.refresh-label {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.refreshing .refresh-label {
+    color: var(--primary);
+}
+
+.refresh-details {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.refresh-time {
+    color: var(--text-secondary);
+}
+
+.refresh-countdown {
+    color: var(--text-secondary);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    background: var(--bg-hover);
+    border-radius: 0.25rem;
+}
+
+@media (max-width: 640px) {
+    .refresh-indicator {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+}
