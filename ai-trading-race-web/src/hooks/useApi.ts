@@ -2,7 +2,7 @@ import { useQuery, useQueries } from '@tanstack/react-query';
 import { agentsApi, equityApi, tradesApi, marketApi } from '../services/api';
 import type { LeaderboardEntry } from '../types';
 
-// Fetch all agents
+// Fetch all agents (returns AgentSummary array)
 export function useAgents() {
     return useQuery({
         queryKey: ['agents'],

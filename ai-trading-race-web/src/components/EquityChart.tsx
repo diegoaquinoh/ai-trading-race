@@ -134,7 +134,15 @@ function buildChartData(agents: AgentEquityData[]): ChartDataPoint[] {
 }
 
 function formatTimestamp(timestamp: string): string {
+    if (!timestamp) return '';
+    
     const date = new Date(timestamp);
+    
+    // Check if date is valid
+    if (isNaN(date.getTime())) {
+        return timestamp.slice(0, 10); // Return raw date portion if parsing fails
+    }
+    
     return date.toLocaleDateString('en-US', { 
         month: 'short', 
         day: 'numeric',

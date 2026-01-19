@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useLeaderboard, useMarketPrices, useAllAgentEquity } from '../hooks/useApi';
-import { StatCard, LeaderboardTable, EquityChart, MarketPrices, RefreshIndicator } from '../components';
+import { StatCard, LeaderboardTable, EquityChart, MarketPrices, RefreshIndicator, LoadingSpinner, ErrorMessage } from '../components';
 import './Dashboard.css';
 
 export function Dashboard() {
-    const { data: leaderboard, isLoading, error, dataUpdatedAt, isFetching } = useLeaderboard();
+    const { data: leaderboard, isLoading, error, dataUpdatedAt, isFetching, refetch } = useLeaderboard();
     const { data: marketPrices, isLoading: pricesLoading } = useMarketPrices();
     const { data: equityData, isLoading: equityLoading } = useAllAgentEquity(leaderboard);
     
@@ -32,18 +32,20 @@ export function Dashboard() {
 
     if (isLoading) {
         return (
-            <div className="loading">
-                <div className="spinner"></div>
-                <p>Loading leaderboard...</p>
+            <div className="dashboard-loading">
+                <LoadingSpinner size="lg" message="Loading leaderboard..." />
             </div>
         );
     }
 
     if (error) {
         return (
-            <div className="error">
-                <p>Error loading data: {error.message}</p>
-            </div>
+            <ErrorMessage 
+                title="Failed to load dashboard"
+                message={error.message}
+                retryAction={() => refetch()}
+                backLink="/"
+            />
         );
     }
 

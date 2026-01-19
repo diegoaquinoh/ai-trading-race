@@ -3,6 +3,14 @@
 .dashboard {
     max-width: 1400px;
     margin: 0 auto;
+    animation: fadeIn var(--transition-slow);
+}
+
+.dashboard-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
 }
 
 /* Market Section */

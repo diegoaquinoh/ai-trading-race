@@ -1,13 +1,62 @@
 // API types matching the .NET domain models
 
-export interface Agent {
+// Agent summary from /api/agents endpoint
+export interface AgentSummary {
+  id: string;
+  name: string;
+  strategy: string;
+  isActive: boolean;
+  totalValue: number;
+  percentChange: number;
+  lastUpdated: string;
+}
+
+// Agent DTO from /api/leaderboard endpoint (nested in LeaderboardEntry)
+export interface LeaderboardAgent {
   id: string;
   name: string;
   modelType: string;
-  provider: string;
+  provider: string; // Note: this actually contains strategy text from backend
   isActive: boolean;
   createdAt: string;
 }
+
+// Full agent from /api/agents/:id endpoint
+export interface AgentDetail {
+  id: string;
+  name: string;
+  strategy: string;
+  isActive: boolean;
+  createdAt: string;
+  latestSnapshot?: {
+    id: string;
+    portfolioId: string;
+    agentId: string;
+    capturedAt: string;
+    totalValue: number;
+    cashValue: number;
+    positionsValue: number;
+    unrealizedPnL: number;
+    percentChange: number;
+  };
+  performance?: {
+    agentId: string;
+    initialValue: number;
+    currentValue: number;
+    totalReturn: number;
+    percentReturn: number;
+    maxDrawdown: number;
+    sharpeRatio: number | null;
+    totalTrades: number;
+    winningTrades: number;
+    losingTrades: number;
+    winRate: number;
+    calculatedAt: string;
+  };
+}
+
+// Backwards compat alias
+export type Agent = LeaderboardAgent;
 
 export interface MarketPrice {
   symbol: string;
@@ -30,11 +79,12 @@ export interface Position {
 
 export interface Trade {
   id: string;
-  agentId: string;
-  asset: string;
-  action: 'BUY' | 'SELL';
+  agentId?: string;
+  assetSymbol: string;
+  side: 'Buy' | 'Sell';
   quantity: number;
   price: number;
+  totalValue?: number;
   executedAt: string;
 }
 
@@ -57,7 +107,7 @@ export interface MarketCandle {
 }
 
 export interface LeaderboardEntry {
-  agent: Agent;
+  agent: LeaderboardAgent;
   currentValue: number;
   performancePercent: number;
   drawdown: number;

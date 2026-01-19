@@ -161,28 +161,28 @@ ai-trading-race-web/
 | 2.4 | Add market price indicators              | [x]    |
 | 2.5 | Configure auto-refresh with indicator    | [x]    |
 
-### Sprint 7.4 — Agent Pages (1.5 days)
+### Sprint 7.4 — Agent Pages (1.5 days) ✅ Complete
 
 | #   | Task                                  | Status |
 | --- | ------------------------------------- | ------ |
-| 3.1 | Create AgentList page with pagination | [ ]    |
-| 3.2 | Add agent list filters                | [ ]    |
-| 4.1 | Display key metrics on AgentDetail    | [ ]    |
-| 4.2 | Add period selector to equity chart   | [ ]    |
-| 5.3 | Build TradeHistory component          | [ ]    |
-| 5.4 | Build PositionCard component          | [ ]    |
-| 4.3 | Show current positions                | [ ]    |
-| 4.4 | Implement trade history with filters  | [ ]    |
+| 3.1 | Create AgentList page with pagination | [x]    |
+| 3.2 | Add agent list filters                | [x]    |
+| 4.1 | Display key metrics on AgentDetail    | [x]    |
+| 4.2 | Add period selector to equity chart   | [x]    |
+| 5.3 | Build TradeHistory component          | [x]    |
+| 5.4 | Build PositionCard component          | [x]    |
+| 4.3 | Show current positions                | [x]    |
+| 4.4 | Implement trade history with filters  | [x]    |
 
-### Sprint 7.5 — Polish & UX (1 day)
+### Sprint 7.5 — Polish & UX (1 day) ✅ Complete
 
 | #   | Task                              | Status |
 | --- | --------------------------------- | ------ |
-| 6.3 | Add animations and transitions    | [ ]    |
-| 5.6 | Build LoadingSpinner component    | [ ]    |
-| 5.7 | Build ErrorMessage component      | [ ]    |
-| 5.8 | Build EmptyState component        | [ ]    |
-| 1.4 | Responsive design (mobile/tablet) | [ ]    |
+| 6.3 | Add animations and transitions    | [x]    |
+| 5.6 | Build LoadingSpinner component    | [x]    |
+| 5.7 | Build ErrorMessage component      | [x]    |
+| 5.8 | Build EmptyState component        | [x]    |
+| 1.4 | Responsive design (mobile/tablet) | [x]    |
 
 ---
 
@@ -190,14 +190,14 @@ ai-trading-race-web/
 
 | Criterion                                    | Validated |
 | -------------------------------------------- | --------- |
-| Dashboard displays agent leaderboard         | [ ]       |
-| Equity curves are overlaid on a single chart | [ ]       |
-| Clicking an agent navigates to detail page   | [ ]       |
-| Recent trades are visible with pagination    | [ ]       |
-| Application is responsive (mobile/desktop)   | [ ]       |
-| Loading/error states are handled properly    | [ ]       |
-| Production build passes (`npm run build`)    | [ ]       |
-| Application connects to .NET backend         | [ ]       |
+| Dashboard displays agent leaderboard         | [x]       |
+| Equity curves are overlaid on a single chart | [x]       |
+| Clicking an agent navigates to detail page   | [x]       |
+| Recent trades are visible with pagination    | [x]       |
+| Application is responsive (mobile/desktop)   | [x]       |
+| Loading/error states are handled properly    | [x]       |
+| Production build passes (`npm run build`)    | [x]       |
+| Application connects to .NET backend         | [x]       |
 
 ---
 
