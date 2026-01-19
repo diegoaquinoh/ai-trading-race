@@ -5,7 +5,6 @@
 **Tâches :**
 
 - Créer la solution `.NET` avec les projets suivants :
-
   - `AiTradingRace.Web` → ASP.NET Core Web API (backend uniquement).
   - `AiTradingRace.Domain` → entités métier (Agent, Trade, Portfolio…).
   - `AiTradingRace.Application` → services métier, interfaces (use cases).
@@ -14,11 +13,9 @@
   - `ai-trading-race-web/` → Frontend React (Vite + TypeScript, séparé du backend).
 
 - Configurer l’injection de dépendances (DI) :
-
   - Enregistrer les services de domaine / application dans `Web` et `Functions`.
 
 - Définir les interfaces principales dans `Application` :
-
   - `IMarketDataProvider`
   - `IPortfolioService`
   - `IAgentRunner`
@@ -54,20 +51,16 @@
 **Tâches :**
 
 - Dans `Application` :
-
   - Définir un service `IMarketDataProvider` (signature propre).
 
 - Dans `Infrastructure` :
-
   - Implémenter un `CoinGeckoMarketDataProvider` (ou Binance, peu importe).
   - Gérer :
-
     - Récupération des chandeliers (OHLC).
     - Mapping JSON → `MarketCandle`.
     - Persistance via `TradingDbContext`.
 
 - Exposer un service `MarketDataIngestionService` qui :
-
   - Récupère les derniers prix.
   - Évite les doublons de candles.
 
@@ -84,28 +77,22 @@
 **Tâches :**
 
 - Dans `Application` :
-
   - Créer `IPortfolioService` :
-
     - Créer un portfolio pour un agent.
     - Appliquer un trade (achat/vente).
     - Recalculer les positions.
     - Calculer la valeur du portefeuille à partir des derniers prix.
 
   - Créer `IEquityService` :
-
     - Générer un `EquitySnapshot` à partir du portefeuille + prix.
 
 - Dans `Infrastructure` :
-
   - Implémentations concrètes de ces services avec EF Core.
 
 - Ajouter quelques tests unitaires (même simples) :
-
   - Cas de base : achat, vente, PnL positif, PnL négatif.
 
 - Ajouter un endpoint API :
-
   - `GET /api/agents/{id}/equity` → renvoie la courbe d’equity (pour la future UI).
 
 **Critère de sortie :** en insérant quelques trades à la main, tu vois la valeur du portefeuille évoluer et des snapshots se créer.
@@ -119,32 +106,26 @@
 **Tâches :**
 
 - Dans `Application` :
-
   - Définir un `AgentContext` (historique de prix, positions, cash).
   - Définir un `AgentDecision` (liste d’ordres normalisés).
   - Créer `IAgentModelClient` (interface pour interroger un modèle).
 
 - Dans `Infrastructure` :
-
   - Implémenter `AzureOpenAiAgentModelClient` (ou autre provider que tu as).
   - Construire le prompt :
-
     - Règles (pas de levier, risque max, format JSON, etc.).
     - Contexte (quelques candles, positions, cash).
 
   - Parser la réponse en `AgentDecision` (JSON → C#).
 
 - Dans `Application` :
-
   - Créer un `AgentRunner` :
-
     - Charge le contexte.
     - Appelle `IAgentModelClient`.
     - Valide et applique les trades via `IPortfolioService`.
     - Crée un `EquitySnapshot`.
 
 - Ajouter un endpoint ou une commande interne :
-
   - Permet de lancer l’agent pour un cycle (ex. `RunAgentOnce(agentId)`).
 
 **Critère de sortie :** tu peux déclencher un “tour” pour un agent, tu vois des trades générés par l’IA et la courbe d’equity se mettre à jour.
@@ -169,7 +150,6 @@
 **Tâches :**
 
 - Projet Python `ai-trading-race-ml/` :
-
   - Initialiser un projet Python (venv, requirements.txt ou Poetry/PDM).
   - Dépendances : `fastapi`, `uvicorn`, `pandas`, `scikit-learn`, `torch`, `pydantic`.
   - Structure suggérée :
@@ -192,7 +172,6 @@
     ```
 
 - Endpoint FastAPI `/predict` :
-
   - Reçoit un `AgentContext` (JSON) : `candles[]`, `positions[]`, `cash`.
   - Retourne un `AgentDecision` (JSON) : `orders[]` avec `action`, `asset`, `quantity`.
   - Exemple de contrat :
@@ -211,7 +190,6 @@
     ```
 
 - Pipeline d'entraînement ML :
-
   - Charger les données historiques de `MarketCandle` (export depuis la BD ou via API).
   - Feature engineering : indicateurs techniques (RSI, SMA, MACD, etc.).
   - Entraînement avec scikit-learn (modèle baseline) puis migration vers PyTorch si besoin.
@@ -219,9 +197,7 @@
   - Script CLI ou notebook pour ré-entraînement.
 
 - Dans `AiTradingRace.Infrastructure` :
-
   - Implémenter `PyTorchAgentModelClient : IAgentModelClient` :
-
     - Appelle `POST http://<python-service>/predict`.
     - Mappe `AgentContext` → JSON request.
     - Parse la réponse JSON → `AgentDecision`.
@@ -235,17 +211,14 @@
     ```
 
 - Dans `AiTradingRace.Domain` :
-
   - Ajouter un champ `ModelType` (enum) sur l'entité `Agent` : `LLM`, `CustomML`.
   - L'`AgentRunner` sélectionne le bon `IAgentModelClient` selon le type.
 
 - Tests :
-
   - Test unitaire Python : endpoint `/predict` avec mock data.
   - Test d'intégration .NET : appeler le service Python local.
 
 - Docker (optionnel mais recommandé) :
-
   - Dockerfile pour le service FastAPI.
   - `docker-compose.yml` pour lancer SQL + Python + .NET ensemble.
 
@@ -260,20 +233,15 @@
 **Tâches :**
 
 - Projet `AiTradingRace.Functions` :
-
   - Function timer `MarketDataFunction` :
-
     - Appelle `MarketDataIngestionService`.
 
   - Function timer `RunAgentsFunction` :
-
     - Liste tous les agents actifs.
     - Appelle `AgentRunner` pour chacun.
 
 - (Optionnel plus avancé) :
-
   - Utiliser Azure Queue / Service Bus :
-
     - `RunAgentsFunction` envoie un message par agent.
     - Une Function queue-trigger traite chaque message (scalabilité).
 
@@ -284,35 +252,29 @@
 
 ---
 
-## Phase 7 – UI React : dashboard & détail agent
+## Phase 7 – UI React : dashboard & détail agent ✅ Terminée (19/01/2026)
 
 **Objectif :** afficher visuellement la “course” entre les IA.
 
 **Tâches :**
 
 - Projet React `ai-trading-race-web/` :
-
   - Layout (sidebar/topbar).
   - Pages :
-
     - `/` → dashboard global.
     - `/agents` → liste des agents.
     - `/agents/{id}` → détail d’un agent.
 
 - Dashboard global :
-
   - Appel à l’API pour récupérer :
-
     - La liste des agents.
     - La courbe d’equity de chaque agent (échantillonnée).
 
   - Intégration d’un composant de graphique (Recharts ou Chart.js).
   - Tableau leaderboard :
-
     - Nom agent, valeur actuelle, % de performance, drawdown éventuel.
 
 - Page détail agent :
-
   - Mini graphique d’equity.
   - Tableau des trades récents.
   - Informations (stratégie, provider LLM, paramètres).
@@ -330,28 +292,23 @@
 **Tâches :**
 
 - Créer les ressources Azure :
-
   - Azure SQL Database.
   - App Service pour `AiTradingRace.Web`.
   - Azure Functions (hébergement consumption).
   - Azure Key Vault (clés API LLM, chaînes de connexion).
 
 - Ajouter les connexions ET secrets :
-
   - Chaîne de connexion SQL dans App Service / Functions via Key Vault ou config.
   - Clés d’API LLM dans Key Vault.
 
 - Mettre en place le déploiement :
-
   - Build & publish depuis GitHub (GitHub Actions) vers :
-
     - App Service.
     - Functions.
 
 - Configurer les migrations de BD au démarrage (ou script SQL dédié).
 
 - **Idempotency pour le service ML (Phase 5b) :**
-
   - Déployer Azure Cache for Redis.
   - Implémenter `Idempotency-Key` header dans le service Python.
   - Cache `(key -> response)` avec TTL 1h.
@@ -370,31 +327,25 @@
 **Tâches :**
 
 - Activer Application Insights sur :
-
   - App Service.
   - Azure Functions.
 
 - Ajouter des logs côté code :
-
   - Exécution des agents (agent, temps de réponse, erreurs).
   - Appels aux APIs externes (succès / échecs).
 
 - **OpenTelemetry (distributed tracing) :**
-
   - Configurer OpenTelemetry dans .NET et Python.
   - Propager `traceparent` / `X-Request-Id` headers.
   - Exporter vers Azure Monitor / Application Insights.
   - Métriques : latence ML, taux d'erreur, distribution BUY/SELL/HOLD.
 
 - Gérer les erreurs UI :
-
   - Messages d’erreur clairs en cas de problème API.
   - Gestion des états “pas de data”.
 
 - Documentation :
-
   - Compléter le `README.md` :
-
     - Description du projet.
     - Architecture (schéma texte ou image).
     - Stack technique détaillée.
@@ -438,7 +389,6 @@
 **Tâches :**
 
 - Dans `Domain` :
-
   - Définir les entités du graphe de connaissances :
     - `RuleNode` : ID, nom, description, seuil, sévérité.
     - `RegimeNode` : ID, nom, conditions d'activation.
@@ -447,7 +397,6 @@
     - AgentId, Timestamp, Action, Asset, Rationale, CitedNodeIds[], SubgraphSnapshot.
 
 - Dans `Application` :
-
   - Créer `IKnowledgeGraphService` :
     - Charger le graphe de règles/régimes.
     - Extraire un sous-graphe pertinent selon le contexte courant.
@@ -458,7 +407,6 @@
     - Inclure le sous-graphe pertinent dans le contexte agent.
 
 - Dans `Infrastructure` :
-
   - Implémenter `InMemoryKnowledgeGraphService` (graphe léger, ~20-30 nœuds).
   - Implémenter `VolatilityBasedRegimeDetector`.
   - Modifier le prompt LLM pour :
@@ -467,17 +415,14 @@
   - Parser les citations de la réponse LLM et les stocker avec la décision.
 
 - Dans `Web` :
-
   - Endpoint `GET /api/agents/{id}/decisions` : historique des décisions avec citations.
   - Endpoint `GET /api/agents/{id}/decisions/{decisionId}` : détail avec sous-graphe visualisable.
 
 - Dans le Frontend React :
-
   - Visualisation du graphe de règles citées par décision.
   - Filtrage de l'historique par règle violée/respectée.
 
 - Tests :
-
   - Tests unitaires pour `KnowledgeGraphService` et `RegimeDetector`.
   - Tests d'intégration pour le flux complet (contexte → LLM → parsing citations → audit).
 

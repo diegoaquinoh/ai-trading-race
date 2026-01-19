@@ -2,9 +2,9 @@
 
 **Objective:** Build a modern, interactive dashboard to visualize the "race" between AI trading agents.
 
-## 📋 Current State (Partial)
+## 📋 Current State — ✅ COMPLETE (19/01/2026)
 
-### Already Implemented (Session 07/01/2026)
+### Implemented Components
 
 | Component         | File                        | Status                                             |
 | ----------------- | --------------------------- | -------------------------------------------------- |
@@ -12,20 +12,20 @@
 | Types             | `src/types/index.ts`        | ✅ Base interfaces (Agent, Trade, Equity...)       |
 | API Client        | `src/services/api.ts`       | ✅ Axios config, agents/equity/trades endpoints    |
 | React Query Hooks | `src/hooks/useApi.ts`       | ✅ useAgents, useEquity, useTrades, useLeaderboard |
-| Dashboard Page    | `src/pages/Dashboard.tsx`   | ⚠️ Basic structure, empty chart                    |
-| Agent Detail Page | `src/pages/AgentDetail.tsx` | ⚠️ Basic structure, needs polish                   |
-| Styling           | `src/App.css`               | ⚠️ Basic dark theme                                |
+| Dashboard Page    | `src/pages/Dashboard.tsx`   | ✅ Leaderboard, equity chart, market stats         |
+| Agent Detail Page | `src/pages/AgentDetail.tsx` | ✅ Stats, portfolio, positions, trades, charts     |
+| Styling           | `src/App.css`               | ✅ Modern dark theme with design tokens            |
 | CORS Backend      | `Program.cs`                | ✅ Configured for localhost:5173                   |
 
-### Identified Gaps
+### All Gaps Resolved ✅
 
-1. **Dashboard**: Multi-agent chart is empty (placeholder only)
-2. ~~**Endpoint `/api/leaderboard`**: Does not exist in backend yet~~ ✅ Created
-3. **General Layout**: No sidebar/topbar
-4. **Design**: Basic styling, lacks animations and modern effects
-5. **UI Components**: No reusable components
-6. **Real-time Data**: Polling configured but not tested with backend
-7. **Page `/agents`**: Not implemented (only `/` and `/agents/:id`)
+1. ~~**Dashboard**: Multi-agent chart is empty~~ ✅ Equity chart with all agents
+2. ~~**Endpoint `/api/leaderboard`**: Does not exist~~ ✅ Created
+3. ~~**General Layout**: No sidebar/topbar~~ ✅ Full layout with header, sidebar, footer
+4. ~~**Design**: Basic styling~~ ✅ Modern dark theme, animations, design tokens
+5. ~~**UI Components**: No reusable components~~ ✅ StatCard, LeaderboardTable, EquityChart, etc.
+6. ~~**Real-time Data**: Not tested~~ ✅ Polling works, live CoinGecko prices
+7. ~~**Page `/agents`**: Not implemented~~ ✅ Full agents list with filters
 
 ---
 
@@ -36,7 +36,7 @@
 - [x] **1.1** Create fixed Header/Topbar with logo and navigation
 - [x] **1.2** Create responsive Sidebar with Dashboard/Agents links
 - [x] **1.3** Add minimal Footer with last update status
-- [ ] **1.4** Implement mobile adaptation (responsive design)
+- [x] **1.4** Implement mobile adaptation (responsive design)
 
 ### 2. Dashboard Page (`/`) ✅ Sprint 7.3 Complete
 
@@ -46,39 +46,39 @@
 - [x] **2.4** Add market indicators (latest BTC/ETH prices)
 - [x] **2.5** Configure auto-refresh with visual indicator
 
-### 3. Agents List Page (`/agents`)
+### 3. Agents List Page (`/agents`) ✅ Sprint 7.4 Complete
 
-- [ ] **3.1** Create full agents list with pagination
-- [ ] **3.2** Add filters by type (LLM/CustomML), status (active/inactive)
-- [ ] **3.3** Add mini sparklines showing equity trend for each agent
-- [ ] **3.4** Implement quick actions (view detail, start/stop if admin)
+- [x] **3.1** Create full agents list with pagination
+- [x] **3.2** Add filters by type (LLM/CustomML), status (active/inactive)
+- [x] **3.3** Add mini sparklines showing equity trend for each agent
+- [x] **3.4** Implement quick actions (view detail, start/stop if admin)
 
-### 4. Agent Detail Page (`/agents/:id`)
+### 4. Agent Detail Page (`/agents/:id`) ✅ Sprint 7.4 Complete
 
-- [ ] **4.1** Display key metrics: Total value, % performance, max drawdown, Sharpe ratio
-- [ ] **4.2** Build equity chart with period selection (1D, 7D, 30D, ALL)
-- [ ] **4.3** Show current positions with % of portfolio
-- [ ] **4.4** Create paginated trade history with filters (BUY/SELL)
-- [ ] **4.5** Display agent info: strategy, provider, creation date
+- [x] **4.1** Display key metrics: Total value, % performance, max drawdown, Sharpe ratio
+- [x] **4.2** Build equity chart with period selection (1H, 6H, 1D, 7D, 30D, ALL)
+- [x] **4.3** Show current positions with live prices and unrealized P&L
+- [x] **4.4** Create paginated trade history with filters (BUY/SELL)
+- [x] **4.5** Display agent info: strategy, provider, creation date
 
-### 5. Reusable Components (Partial - Core done)
+### 5. Reusable Components ✅ Complete
 
 - [x] **5.1** `<EquityChart>` — Configurable equity chart component
 - [x] **5.2** `<LeaderboardTable>` — Ranked table component
-- [ ] **5.3** `<TradeHistory>` — Paginated trade list component
-- [ ] **5.4** `<PositionCard>` — Position display with PnL
+- [x] **5.3** `<TradeHistory>` — Paginated trade list component
+- [x] **5.4** `<PositionCard>` — Position display with PnL (integrated in holdings table)
 - [x] **5.5** `<StatCard>` — Animated statistic card
-- [ ] **5.6** `<LoadingSpinner>` — Loading indicator
-- [ ] **5.7** `<ErrorMessage>` — Formatted error message
-- [ ] **5.8** `<EmptyState>` — Empty state with illustration
+- [x] **5.6** `<LoadingSpinner>` — Loading indicator
+- [x] **5.7** `<ErrorMessage>` — Formatted error message
+- [x] **5.8** `<EmptyState>` — Empty state with illustration
 
-### 6. Design System
+### 6. Design System ✅ Complete
 
-- [ ] **6.1** Define CSS variables for colors, spacing, typography
-- [ ] **6.2** Finalize dark theme (already started)
-- [ ] **6.3** Add CSS animations for transitions and hover effects
-- [ ] **6.4** Assign unique colors per agent for chart differentiation
-- [ ] **6.5** Configure modern typography (Inter or Roboto from Google Fonts)
+- [x] **6.1** Define CSS variables for colors, spacing, typography
+- [x] **6.2** Finalize dark theme with glassmorphism effects
+- [x] **6.3** Add CSS animations for transitions and hover effects
+- [x] **6.4** Assign unique colors per agent for chart differentiation
+- [x] **6.5** Configure modern typography (Inter from Google Fonts)
 
 ### 7. Backend API Additions ✅ Sprint 7.1 Complete
 

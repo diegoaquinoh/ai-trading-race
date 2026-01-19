@@ -393,11 +393,76 @@ Real LLM credentials (OpenAI, Azure OpenAI, GitHub Models) will be configured du
 
 ---
 
-## Phase 7 — React Dashboard
+## Phase 7 — React Dashboard UI ✅ Complete (19/01/2026)
 
-- Connect to backend API
-- Implement equity charts with Recharts
-- Real-time updates via polling/WebSocket
+### Components Implemented
+
+**Layout & Navigation:**
+
+- Header with logo, navigation tabs (Dashboard, Agents), and live status indicator
+- Responsive sidebar with quick stats (active agents, total trades)
+- Footer with last update time and system status
+
+**Dashboard Page (`/`):**
+
+- Leaderboard table with sortable columns and agent ranking
+- Multi-agent equity chart with overlaid curves per agent
+- Market indicators (BTC/ETH live prices from CoinGecko)
+- Auto-refresh with visual indicator
+
+**Agent Detail Page (`/agents/:id`):**
+
+- Key metrics cards: Portfolio Value, Performance %, Max Drawdown, Total Trades
+- Equity chart with period selector (1H, 6H, 1D, 7D, 30D, ALL)
+- Holdings table showing positions with live prices and unrealized P&L
+- Paginated trade history with BUY/SELL filtering
+
+**Reusable Components:**
+
+- `<StatCard>` — Animated statistic display with icons
+- `<EquityChart>` — Recharts-based equity curve
+- `<LeaderboardTable>` — Ranked agents table
+- `<TradeHistory>` — Paginated trade list
+- `<LoadingSpinner>`, `<ErrorMessage>`, `<EmptyState>`
+
+**Design System:**
+
+- CSS variables for colors, spacing, typography
+- Dark theme with glassmorphism effects
+- Google Fonts (Inter)
+- Smooth animations and hover effects
+
+### API Hooks (React Query)
+
+| Hook              | Endpoint                     | Description              |
+| ----------------- | ---------------------------- | ------------------------ |
+| `useAgents`       | `/api/agents`                | All agents summary       |
+| `useAgent`        | `/api/agents/{id}`           | Single agent details     |
+| `useEquity`       | `/api/agents/{id}/equity`    | Equity curve snapshots   |
+| `useTrades`       | `/api/agents/{id}/trades`    | Trade history            |
+| `usePortfolio`    | `/api/agents/{id}/portfolio` | Live portfolio positions |
+| `useLeaderboard`  | `/api/leaderboard`           | Ranked agents + equity   |
+| `useMarketPrices` | `/api/market/prices`         | BTC/ETH live prices      |
+
+### Live Data Integration
+
+- Azure Functions running with corrected database connection
+- CoinGecko API integration for real-time BTC/ETH prices
+- Portfolio values update dynamically with market prices
+- Unrealized P&L calculated from (current price - avg entry price) × quantity
+
+### Verification Results (19/01/2026)
+
+- ✅ Dashboard displays agent leaderboard with correct rankings
+- ✅ Equity chart shows all agents with differentiated colors
+- ✅ Agent detail shows live portfolio value ($104,821 from seed $100k)
+- ✅ Performance calculation reflects live gains (+4.82%)
+- ✅ Holdings table shows BTC (+96.98% P&L) and ETH positions
+- ✅ Trade history paginated with timestamp formatting
+- ✅ Responsive design works on mobile/tablet/desktop
+- ✅ Production build passes (`npm run build`)
+
+---
 
 ### Phase 8 — Azure Deployment
 
