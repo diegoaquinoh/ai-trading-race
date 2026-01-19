@@ -1,11 +1,11 @@
 import { useState, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { useAgent, useEquity, useTrades } from '../hooks/useApi';
+import { useAgent, useEquity, useTrades, usePortfolio } from '../hooks/useApi';
 import { StatCard, EquityChart, TradeHistory } from '../components';
-import type { AgentDetail as AgentDetailType } from '../types';
+import type { AgentDetail as AgentDetailType, Portfolio } from '../types';
 import './AgentDetail.css';
 
-type PeriodFilter = '1D' | '7D' | '30D' | 'ALL';
+type PeriodFilter = '1H' | '6H' | '1D' | '7D' | '30D' | 'ALL';
 
 export function AgentDetail() {
     const { id } = useParams<{ id: string }>();
@@ -16,6 +16,7 @@ export function AgentDetail() {
     };
     const { data: equity, isLoading: equityLoading } = useEquity(id!);
     const { data: trades, isLoading: tradesLoading } = useTrades(id!);
+    const { data: portfolio } = usePortfolio(id!) as { data: Portfolio | undefined };
     
     const [period, setPeriod] = useState<PeriodFilter>('ALL');
 
@@ -27,6 +28,12 @@ export function AgentDetail() {
         let cutoffDate: Date;
         
         switch (period) {
+            case '1H':
+                cutoffDate = new Date(now.getTime() - 60 * 60 * 1000);
+                break;
+            case '6H':
+                cutoffDate = new Date(now.getTime() - 6 * 60 * 60 * 1000);
+                break;
             case '1D':
                 cutoffDate = new Date(now.getTime() - 24 * 60 * 60 * 1000);
                 break;
@@ -57,6 +64,7 @@ export function AgentDetail() {
             totalTrades: perf?.totalTrades ?? 0,
             winRate: perf?.winRate ?? 0,
             sharpeRatio: perf?.sharpeRatio ?? null,
+            initialValue: perf?.initialValue ?? 100000,
         };
     }, [agent]);
 
@@ -100,13 +108,19 @@ export function AgentDetail() {
                     <StatCard
                         icon="💰"
                         title="Portfolio Value"
-                        value={`$${metrics.currentValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+                        value={`$${(portfolio?.totalValue ?? metrics.currentValue).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
                     />
                     <StatCard
                         icon="📈"
                         title="Performance"
-                        value={`${metrics.performance >= 0 ? '+' : ''}${metrics.performance.toFixed(2)}%`}
-                        trend={metrics.performance >= 0 ? 'up' : 'down'}
+                        value={`${(() => {
+                            // Calculate live performance if portfolio data is available
+                            const val = portfolio?.totalValue ?? metrics.currentValue;
+                            const initial = metrics.initialValue || 100000;
+                            const perf = ((val - initial) / initial) * 100;
+                            return (perf >= 0 ? '+' : '') + perf.toFixed(2);
+                        })()}%`}
+                        trend={((portfolio?.totalValue ?? metrics.currentValue) >= metrics.initialValue) ? 'up' : 'down'}
                     />
                     <StatCard
                         icon="📉"
@@ -125,26 +139,63 @@ export function AgentDetail() {
             {/* Portfolio Breakdown */}
             <section className="portfolio-section">
                 <h2>💼 Portfolio Breakdown</h2>
-                <div className="portfolio-grid">
+                <div className="portfolio-summary">
                     <div className="portfolio-item">
                         <span className="label">Cash</span>
-                        <span className="value">${metrics.cashValue.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+                        <span className="value">${(portfolio?.cash ?? metrics.cashValue).toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
                     </div>
                     <div className="portfolio-item">
-                        <span className="label">Positions</span>
+                        <span className="label">Positions Value</span>
                         <span className="value">${metrics.positionsValue.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
                     </div>
                     <div className="portfolio-item">
-                        <span className="label">Win Rate</span>
-                        <span className="value">{(metrics.winRate * 100).toFixed(0)}%</span>
+                        <span className="label">Total Value</span>
+                        <span className="value">${(portfolio?.totalValue ?? metrics.currentValue).toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
                     </div>
-                    {metrics.sharpeRatio !== null && (
-                        <div className="portfolio-item">
-                            <span className="label">Sharpe Ratio</span>
-                            <span className="value">{metrics.sharpeRatio.toFixed(2)}</span>
-                        </div>
-                    )}
                 </div>
+                
+                {/* Positions Table */}
+                {portfolio?.positions && portfolio.positions.length > 0 && (
+                    <div className="positions-container">
+                        <h3>📊 Holdings</h3>
+                        <table className="positions-table">
+                            <thead>
+                                <tr>
+                                    <th>Asset</th>
+                                    <th>Quantity</th>
+                                    <th>Avg Price</th>
+                                    <th>Current Price</th>
+                                    <th>Value</th>
+                                    <th>Unrealized P&L</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {portfolio.positions.map((pos) => {
+                                    const value = pos.quantity * pos.currentPrice;
+                                    const cost = pos.quantity * pos.averagePrice;
+                                    const pnl = value - cost;
+                                    const pnlPercent = cost > 0 ? (pnl / cost) * 100 : 0;
+                                    return (
+                                        <tr key={pos.assetSymbol}>
+                                            <td className="asset-symbol">{pos.assetSymbol}</td>
+                                            <td>{pos.quantity.toFixed(6)}</td>
+                                            <td>${pos.averagePrice.toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>
+                                            <td>${pos.currentPrice.toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>
+                                            <td>${value.toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>
+                                            <td className={pnl >= 0 ? 'positive' : 'negative'}>
+                                                {pnl >= 0 ? '+' : ''}${pnl.toFixed(2)} ({pnlPercent.toFixed(2)}%)
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
+                
+                {(!portfolio?.positions || portfolio.positions.length === 0) && (
+                    <p className="no-positions">No open positions</p>
+                )}
             </section>
 
             {/* Equity Chart with Period Selector */}
@@ -152,7 +203,7 @@ export function AgentDetail() {
                 <div className="section-header">
                     <h2>📈 Equity Curve</h2>
                     <div className="period-selector">
-                        {(['1D', '7D', '30D', 'ALL'] as PeriodFilter[]).map(p => (
+                        {(['1H', '6H', '1D', '7D', '30D', 'ALL'] as PeriodFilter[]).map(p => (
                             <button
                                 key={p}
                                 className={`period-btn ${period === p ? 'active' : ''}`}

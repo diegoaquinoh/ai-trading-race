@@ -69,6 +69,22 @@ export interface MarketPrice {
   updatedAt: string;
 }
 
+export interface PortfolioPosition {
+  assetSymbol: string;
+  quantity: number;
+  averagePrice: number;
+  currentPrice: number;
+}
+
+export interface Portfolio {
+  portfolioId: string;
+  agentId: string;
+  cash: number;
+  positions: PortfolioPosition[];
+  asOf: string;
+  totalValue: number;
+}
+
 export interface Position {
   id: string;
   agentId: string;

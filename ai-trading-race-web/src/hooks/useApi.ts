@@ -1,5 +1,5 @@
 import { useQuery, useQueries } from '@tanstack/react-query';
-import { agentsApi, equityApi, tradesApi, marketApi } from '../services/api';
+import { agentsApi, equityApi, tradesApi, marketApi, portfolioApi } from '../services/api';
 import type { LeaderboardEntry } from '../types';
 
 // Fetch all agents (returns AgentSummary array)
@@ -42,6 +42,15 @@ export function useTrades(agentId: string) {
     return useQuery({
         queryKey: ['trades', agentId],
         queryFn: () => tradesApi.getByAgentId(agentId),
+        enabled: !!agentId,
+    });
+}
+
+// Fetch portfolio for an agent
+export function usePortfolio(agentId: string) {
+    return useQuery({
+        queryKey: ['portfolio', agentId],
+        queryFn: () => portfolioApi.getByAgentId(agentId),
         enabled: !!agentId,
     });
 }

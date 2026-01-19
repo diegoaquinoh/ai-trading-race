@@ -131,10 +131,11 @@
     margin-bottom: var(--space-4);
 }
 
-.portfolio-grid {
+.portfolio-summary {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: var(--space-4);
+    margin-bottom: var(--space-6);
 }
 
 .portfolio-item {
@@ -158,6 +159,65 @@
     font-weight: var(--font-bold);
     font-family: var(--font-mono);
     color: var(--primary);
+}
+
+/* Positions Table */
+.positions-container {
+    margin-top: var(--space-4);
+}
+
+.positions-container h3 {
+    margin-bottom: var(--space-3);
+    font-size: var(--text-lg);
+    color: var(--text-primary);
+}
+
+.positions-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--bg-dark);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.positions-table th,
+.positions-table td {
+    padding: var(--space-3) var(--space-4);
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+.positions-table th {
+    background: var(--bg-darker);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-weight: var(--font-semibold);
+}
+
+.positions-table td {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+}
+
+.positions-table .asset-symbol {
+    font-weight: var(--font-bold);
+    color: var(--primary);
+}
+
+.positions-table .positive {
+    color: var(--secondary);
+}
+
+.positions-table .negative {
+    color: var(--danger);
+}
+
+.no-positions {
+    color: var(--text-muted);
+    text-align: center;
+    padding: var(--space-8);
+    font-style: italic;
 }
 
 .info-label {
