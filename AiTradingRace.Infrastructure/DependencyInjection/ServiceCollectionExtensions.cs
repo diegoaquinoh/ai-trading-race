@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using AiTradingRace.Application.Agents;
 using AiTradingRace.Application.Equity;
 using AiTradingRace.Application.MarketData;
@@ -15,6 +16,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
+using Polly;
+using Polly.Extensions.Http;
 
 namespace AiTradingRace.Infrastructure.DependencyInjection;
 
@@ -49,10 +52,11 @@ public static class ServiceCollectionExtensions
         services.AddHttpClient<IExternalMarketDataClient, CoinGeckoMarketDataClient>();
         services.TryAddScoped<IMarketDataIngestionService, MarketDataIngestionService>();
 
-        // AI Agent Integration (Phase 5)
+        // AI Agent Integration (Phase 5 & 8)
         services.Configure<AzureOpenAiOptions>(configuration.GetSection(AzureOpenAiOptions.SectionName));
         services.Configure<CustomMlAgentOptions>(configuration.GetSection(CustomMlAgentOptions.SectionName));
         services.Configure<RiskValidatorOptions>(configuration.GetSection(RiskValidatorOptions.SectionName));
+        services.Configure<LlamaOptions>(configuration.GetSection(LlamaOptions.SectionName));
 
         // Azure OpenAI Client - create singleton from options (only if configured)
         services.AddSingleton<AzureOpenAIClient>(sp =>
@@ -83,6 +87,24 @@ public static class ServiceCollectionExtensions
             client.BaseAddress = new Uri(options.BaseUrl);
             client.Timeout = TimeSpan.FromSeconds(options.TimeoutSeconds);
         });
+
+        // Llama API client with rate limiting and resilience policies (Phase 8)
+        services.AddTransient<LlamaRateLimitingHandler>();
+        services.AddHttpClient<LlamaAgentModelClient>((sp, client) =>
+        {
+            var options = sp.GetRequiredService<IOptions<LlamaOptions>>().Value;
+            client.BaseAddress = new Uri(options.BaseUrl);
+            client.Timeout = TimeSpan.FromSeconds(options.TimeoutSeconds);
+            
+            if (!string.IsNullOrWhiteSpace(options.ApiKey))
+            {
+                client.DefaultRequestHeaders.Authorization = 
+                    new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", options.ApiKey);
+            }
+        })
+        .AddHttpMessageHandler<LlamaRateLimitingHandler>()
+        .AddPolicyHandler(GetLlamaRetryPolicy())
+        .AddPolicyHandler(GetLlamaCircuitBreakerPolicy());
 
         // Agent services
         services.TryAddScoped<IAgentContextBuilder, AgentContextBuilder>();
@@ -181,6 +203,36 @@ public static class ServiceCollectionExtensions
 
         return services;
     }
+
+    /// <summary>
+    /// Creates a retry policy for Llama API calls with exponential backoff.
+    /// Handles transient HTTP errors and rate limiting (429).
+    /// </summary>
+    private static IAsyncPolicy<HttpResponseMessage> GetLlamaRetryPolicy()
+    {
+        return HttpPolicyExtensions
+            .HandleTransientHttpError()
+            .OrResult(response => response.StatusCode == HttpStatusCode.TooManyRequests)
+            .WaitAndRetryAsync(
+                retryCount: 3,
+                sleepDurationProvider: attempt => TimeSpan.FromSeconds(Math.Pow(2, attempt)), // 2s, 4s, 8s
+                onRetry: (outcome, timespan, retryAttempt, context) =>
+                {
+                    // Logging handled by the client
+                });
+    }
+
+    /// <summary>
+    /// Creates a circuit breaker policy for Llama API calls.
+    /// Opens circuit after 5 consecutive failures, stays open for 30 seconds.
+    /// </summary>
+    private static IAsyncPolicy<HttpResponseMessage> GetLlamaCircuitBreakerPolicy()
+    {
+        return HttpPolicyExtensions
+            .HandleTransientHttpError()
+            .OrResult(response => response.StatusCode == HttpStatusCode.TooManyRequests)
+            .CircuitBreakerAsync(
+                handledEventsAllowedBeforeBreaking: 5,
+                durationOfBreak: TimeSpan.FromSeconds(30));
+    }
 }
-
-

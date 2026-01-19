@@ -11,6 +11,9 @@ public enum ModelProvider
     /// <summary>OpenAI API directly</summary>
     OpenAI,
     
+    /// <summary>Llama API via Groq, Together.ai, or compatible providers (free tier)</summary>
+    Llama,
+    
     /// <summary>Custom ML model via Python FastAPI (Phase 5b)</summary>
     CustomML,
     
