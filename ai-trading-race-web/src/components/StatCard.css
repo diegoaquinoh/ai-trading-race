@@ -1,0 +1,75 @@
+.stat-card {
+    background: var(--bg-card);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.stat-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.stat-card-icon {
+    font-size: 1.25rem;
+}
+
+.stat-card-title {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.stat-card-value {
+    font-size: 2rem;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stat-card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+}
+
+.stat-card-trend {
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+}
+
+.stat-card-trend.up {
+    color: var(--secondary);
+    background: rgba(16, 185, 129, 0.15);
+}
+
+.stat-card-trend.down {
+    color: var(--danger);
+    background: rgba(239, 68, 68, 0.15);
+}
+
+.stat-card-trend.neutral {
+    color: var(--text-secondary);
+    background: rgba(148, 163, 184, 0.15);
+}
+
+.stat-card-subtitle {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}

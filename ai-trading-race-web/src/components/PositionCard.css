@@ -1,0 +1,131 @@
+.position-card {
+    background: var(--bg-dark);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    transition: all var(--transition-base);
+}
+
+.position-card:hover {
+    border-color: var(--border-light);
+    box-shadow: var(--shadow-md);
+}
+
+.position-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--border);
+}
+
+.position-asset {
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    color: var(--text-primary);
+}
+
+.position-pnl {
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    font-family: var(--font-mono);
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-sm);
+}
+
+.position-pnl.positive {
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--secondary);
+}
+
+.position-pnl.negative {
+    background: rgba(239, 68, 68, 0.15);
+    color: var(--danger);
+}
+
+.position-body {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+}
+
+.position-stat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+.stat-label {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.stat-value {
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    font-family: var(--font-mono);
+    color: var(--text-primary);
+}
+
+.position-footer {
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--border);
+}
+
+.position-values {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--space-3);
+}
+
+.value-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+.value-label {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+}
+
+.value-amount {
+    font-size: var(--text-base);
+    font-weight: var(--font-semibold);
+    font-family: var(--font-mono);
+}
+
+.value-amount.market {
+    color: var(--primary);
+}
+
+.pnl-badge {
+    display: inline-block;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    font-weight: var(--font-bold);
+    font-family: var(--font-mono);
+    text-align: center;
+}
+
+.pnl-badge.positive {
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--secondary);
+}
+
+.pnl-badge.negative {
+    background: rgba(239, 68, 68, 0.15);
+    color: var(--danger);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .position-body {
+        grid-template-columns: 1fr 1fr;
+    }
+}

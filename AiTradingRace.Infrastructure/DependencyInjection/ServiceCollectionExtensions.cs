@@ -170,8 +170,12 @@ public static class ServiceCollectionExtensions
 
         // AI Agent Integration with Test client (generates aggressive orders)
         services.Configure<RiskValidatorOptions>(configuration.GetSection(RiskValidatorOptions.SectionName));
+        
+        // Register the test client and factory
+        services.TryAddScoped<TestAgentModelClient>();
+        services.TryAddScoped<IAgentModelClientFactory, AgentModelClientFactory>();
+        
         services.TryAddScoped<IAgentContextBuilder, AgentContextBuilder>();
-        services.TryAddScoped<IAgentModelClient, TestAgentModelClient>(); // Test client - generates orders
         services.TryAddScoped<IRiskValidator, RiskValidator>();
         services.TryAddScoped<IAgentRunner, AgentRunner>();
 

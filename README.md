@@ -13,7 +13,7 @@ Course entre agents IA de trading (LLM) qui pilotent chacun un portefeuille cryp
 | Phase 5  | Intégration agents IA (LLM)            | ✅ Terminée |
 | Phase 5b | Modèle ML custom (Python + FastAPI)    | ✅ Terminée |
 | Phase 6  | Azure Functions (scheduler)            | ✅ Terminée |
-| Phase 7  | UI React Dashboard                     | 🔄 Partiel  |
+| Phase 7  | UI React Dashboard                     | ✅ Terminée |
 | Phase 8  | Déploiement Azure                      | ⏳ À venir  |
 | Phase 9  | Monitoring & Sécurité                  | ⏳ À venir  |
 | Phase 10 | GraphRAG-lite (Explainable AI)         | ⏳ À venir  |

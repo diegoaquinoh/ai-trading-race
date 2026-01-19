@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { Agent, EquitySnapshot, Trade, LeaderboardEntry } from '../types';
+import type { AgentSummary, AgentDetail, EquitySnapshot, Trade, LeaderboardEntry, MarketPrice, Portfolio } from '../types';
 
 // Configure base URL for the .NET API
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
@@ -14,12 +14,12 @@ const apiClient = axios.create({
 
 // Agents API
 export const agentsApi = {
-    getAll: async (): Promise<Agent[]> => {
+    getAll: async (): Promise<AgentSummary[]> => {
         const response = await apiClient.get('/api/agents');
         return response.data;
     },
 
-    getById: async (id: string): Promise<Agent> => {
+    getById: async (id: string): Promise<AgentDetail> => {
         const response = await apiClient.get(`/api/agents/${id}`);
         return response.data;
     },
@@ -42,6 +42,28 @@ export const equityApi = {
 export const tradesApi = {
     getByAgentId: async (agentId: string): Promise<Trade[]> => {
         const response = await apiClient.get(`/api/agents/${agentId}/trades`);
+        // API returns { trades: [...], totalCount, limit, offset }
+        return response.data.trades || [];
+    },
+};
+
+// Market API
+export const marketApi = {
+    getAll: async (): Promise<MarketPrice[]> => {
+        const response = await apiClient.get('/api/market/prices');
+        return response.data;
+    },
+
+    getBySymbol: async (symbol: string): Promise<MarketPrice> => {
+        const response = await apiClient.get(`/api/market/prices/${symbol}`);
+        return response.data;
+    },
+};
+
+// Portfolio API
+export const portfolioApi = {
+    getByAgentId: async (agentId: string): Promise<Portfolio> => {
+        const response = await apiClient.get(`/api/agents/${agentId}/portfolio`);
         return response.data;
     },
 };

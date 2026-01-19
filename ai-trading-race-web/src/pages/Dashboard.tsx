@@ -1,24 +1,51 @@
-import { useLeaderboard } from '../hooks/useApi';
-import { LineChart, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useLeaderboard, useMarketPrices, useAllAgentEquity } from '../hooks/useApi';
+import { StatCard, LeaderboardTable, EquityChart, MarketPrices, RefreshIndicator, LoadingSpinner, ErrorMessage } from '../components';
+import './Dashboard.css';
 
 export function Dashboard() {
-    const { data: leaderboard, isLoading, error } = useLeaderboard();
+    const { data: leaderboard, isLoading, error, dataUpdatedAt, isFetching, refetch } = useLeaderboard();
+    const { data: marketPrices, isLoading: pricesLoading } = useMarketPrices();
+    const { data: equityData, isLoading: equityLoading } = useAllAgentEquity(leaderboard);
+    
+    const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
+    const [secondsUntilRefresh, setSecondsUntilRefresh] = useState(30);
+
+    // Track last update time
+    useEffect(() => {
+        if (dataUpdatedAt) {
+            setLastUpdate(new Date(dataUpdatedAt));
+            setSecondsUntilRefresh(30);
+        }
+    }, [dataUpdatedAt]);
+
+    // Countdown timer
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setSecondsUntilRefresh(prev => Math.max(0, prev - 1));
+        }, 1000);
+        return () => clearInterval(interval);
+    }, []);
+
+    // Calculate stats from leaderboard
+    const stats = calculateStats(leaderboard);
 
     if (isLoading) {
         return (
-            <div className="loading">
-                <div className="spinner"></div>
-                <p>Loading leaderboard...</p>
+            <div className="dashboard-loading">
+                <LoadingSpinner size="lg" message="Loading leaderboard..." />
             </div>
         );
     }
 
     if (error) {
         return (
-            <div className="error">
-                <p>Error loading data: {error.message}</p>
-            </div>
+            <ErrorMessage 
+                title="Failed to load dashboard"
+                message={error.message}
+                retryAction={() => refetch()}
+                backLink="/"
+            />
         );
     }
 
@@ -29,59 +56,106 @@ export function Dashboard() {
                 <p className="subtitle">Watch AI agents compete in real-time crypto trading</p>
             </header>
 
-            <section className="leaderboard-section">
-                <h2>📊 Leaderboard</h2>
-                <table className="leaderboard-table">
-                    <thead>
-                        <tr>
-                            <th>Rank</th>
-                            <th>Agent</th>
-                            <th>Type</th>
-                            <th>Value</th>
-                            <th>Performance</th>
-                            <th>Drawdown</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {leaderboard?.map((entry, index) => (
-                            <tr key={entry.agent.id}>
-                                <td className="rank">{index + 1}</td>
-                                <td>
-                                    <Link to={`/agents/${entry.agent.id}`} className="agent-link">
-                                        {entry.agent.name}
-                                    </Link>
-                                </td>
-                                <td>
-                                    <span className={`badge ${entry.agent.modelType.toLowerCase()}`}>
-                                        {entry.agent.modelType}
-                                    </span>
-                                </td>
-                                <td className="value">${entry.currentValue.toLocaleString()}</td>
-                                <td className={entry.performancePercent >= 0 ? 'positive' : 'negative'}>
-                                    {entry.performancePercent >= 0 ? '+' : ''}{entry.performancePercent.toFixed(2)}%
-                                </td>
-                                <td className="negative">{entry.drawdown.toFixed(2)}%</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+            {/* Market Prices */}
+            <section className="market-section">
+                <h2>💰 Market Prices</h2>
+                <MarketPrices prices={marketPrices ?? []} isLoading={pricesLoading} />
             </section>
 
-            <section className="chart-section">
-                <h2>📈 Equity Curves</h2>
-                <div className="chart-container">
-                    <ResponsiveContainer width="100%" height={400}>
-                        <LineChart>
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="timestamp" />
-                            <YAxis />
-                            <Tooltip />
-                            <Legend />
-                            {/* Equity lines will be added dynamically when data is available */}
-                        </LineChart>
-                    </ResponsiveContainer>
+            {/* Stats Cards */}
+            <section className="stats-section">
+                <div className="stats-grid">
+                    <StatCard
+                        icon="🏆"
+                        title="Best Performer"
+                        value={stats.bestAgent?.name ?? 'N/A'}
+                        trend={stats.bestPerformance >= 0 ? 'up' : 'down'}
+                        trendValue={`${stats.bestPerformance >= 0 ? '+' : ''}${stats.bestPerformance.toFixed(2)}%`}
+                    />
+                    <StatCard
+                        icon="📊"
+                        title="Total Agents"
+                        value={stats.totalAgents}
+                        subtitle={`${stats.activeAgents} active`}
+                    />
+                    <StatCard
+                        icon="💵"
+                        title="Total AUM"
+                        value={`$${(stats.totalValue / 1000).toFixed(0)}k`}
+                        subtitle="Assets under management"
+                    />
+                    <StatCard
+                        icon="📈"
+                        title="Avg Performance"
+                        value={`${stats.avgPerformance >= 0 ? '+' : ''}${stats.avgPerformance.toFixed(2)}%`}
+                        trend={stats.avgPerformance >= 0 ? 'up' : 'down'}
+                    />
                 </div>
+            </section>
+
+            {/* Leaderboard */}
+            <section className="leaderboard-section">
+                <div className="section-header">
+                    <h2>📊 Leaderboard</h2>
+                    <RefreshIndicator 
+                        lastUpdate={lastUpdate} 
+                        isRefreshing={isFetching} 
+                        nextRefreshIn={secondsUntilRefresh}
+                    />
+                </div>
+                <LeaderboardTable entries={leaderboard ?? []} />
+            </section>
+
+            {/* Equity Chart */}
+            <section className="chart-section">
+                <h2>📈 Equity Race</h2>
+                {equityLoading ? (
+                    <div className="chart-loading">
+                        <div className="spinner"></div>
+                        <p>Loading equity curves...</p>
+                    </div>
+                ) : (
+                    <EquityChart 
+                        agents={equityData} 
+                        height={450}
+                        showLegend={true}
+                    />
+                )}
             </section>
         </div>
     );
+}
+
+interface DashboardStats {
+    bestAgent: { name: string } | null;
+    bestPerformance: number;
+    totalAgents: number;
+    activeAgents: number;
+    totalValue: number;
+    avgPerformance: number;
+}
+
+function calculateStats(leaderboard: ReturnType<typeof useLeaderboard>['data']): DashboardStats {
+    if (!leaderboard || leaderboard.length === 0) {
+        return {
+            bestAgent: null,
+            bestPerformance: 0,
+            totalAgents: 0,
+            activeAgents: 0,
+            totalValue: 0,
+            avgPerformance: 0,
+        };
+    }
+
+    const sortedByPerformance = [...leaderboard].sort((a, b) => b.performancePercent - a.performancePercent);
+    const bestEntry = sortedByPerformance[0];
+
+    return {
+        bestAgent: { name: bestEntry.agent.name },
+        bestPerformance: bestEntry.performancePercent,
+        totalAgents: leaderboard.length,
+        activeAgents: leaderboard.filter(e => e.agent.isActive).length,
+        totalValue: leaderboard.reduce((sum, e) => sum + e.currentValue, 0),
+        avgPerformance: leaderboard.reduce((sum, e) => sum + e.performancePercent, 0) / leaderboard.length,
+    };
 }

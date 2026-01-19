@@ -1,0 +1,72 @@
+.error-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-12);
+    text-align: center;
+    animation: fadeInUp var(--transition-slow);
+}
+
+.error-icon {
+    font-size: 3rem;
+    margin-bottom: var(--space-4);
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.error-title {
+    font-size: var(--text-xl);
+    font-weight: var(--font-semibold);
+    color: var(--danger);
+    margin-bottom: var(--space-2);
+}
+
+.error-text {
+    color: var(--text-secondary);
+    font-size: var(--text-base);
+    margin-bottom: var(--space-6);
+    max-width: 400px;
+}
+
+.error-actions {
+    display: flex;
+    gap: var(--space-3);
+}
+
+.error-btn {
+    padding: var(--space-3) var(--space-6);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.error-btn.retry {
+    background: var(--primary);
+    color: white;
+    border: none;
+}
+
+.error-btn.retry:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+.error-btn.back {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+}
+
+.error-btn.back:hover {
+    color: var(--text-primary);
+    border-color: var(--text-secondary);
+}
