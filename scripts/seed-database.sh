@@ -23,13 +23,20 @@ echo -e "${BLUE}AI Trading Race - Database Seeding${NC}"
 echo -e "${BLUE}========================================${NC}"
 echo ""
 
-# Configuration
-DB_SERVER="localhost"
-DB_PORT="1433"
-DB_NAME="AiTradingRace"
-DB_USER="sa"
-DB_PASSWORD="YourStrong!Passw0rd"
-STARTING_BALANCE=100000.00
+# Configuration from environment variables with defaults
+DB_SERVER="${SQL_SERVER:-localhost}"
+DB_PORT="${SQL_PORT:-1433}"
+DB_NAME="${SQL_DATABASE_NAME:-AiTradingRace}"
+DB_USER="${SQL_USER:-sa}"
+DB_PASSWORD="${SA_PASSWORD:-YourStrong!Passw0rd}"
+STARTING_BALANCE="${STARTING_BALANCE:-100000.00}"
+
+# Validate required variables
+if [ -z "$DB_PASSWORD" ]; then
+    echo -e "${RED}❌ Error: SA_PASSWORD environment variable is required${NC}"
+    echo "   Set it with: export SA_PASSWORD='YourPassword'"
+    exit 1
+fi
 
 # Check if running inside Docker
 if [ -f /.dockerenv ]; then

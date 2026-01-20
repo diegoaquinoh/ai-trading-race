@@ -9,12 +9,13 @@ services:
       - "1433:1433"
     environment:
       - ACCEPT_EULA=Y
-      - MSSQL_SA_PASSWORD=YourStrong!Passw0rd
+      - MSSQL_SA_PASSWORD=${SA_PASSWORD:-YourStrong@Passw0rd123}
       - MSSQL_PID=Developer
     volumes:
       - sqlserver-data:/var/opt/mssql
     healthcheck:
-      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P YourStrong!Passw0rd -Q 'SELECT 1' || exit 1"]
+      # Note: Password is hardcoded here - must match SA_PASSWORD in .env
+      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 'YourStrong@Passw0rd123' -Q 'SELECT 1' || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -73,10 +74,27 @@ services:
     networks:
       - ai-trading-network
 
+  # Azurite (Azure Storage Emulator for Azure Functions)
+  azurite:
+    image: mcr.microsoft.com/azure-storage/azurite
+    container_name: ai-trading-azurite
+    ports:
+      - "10000:10000"  # Blob service
+      - "10001:10001"  # Queue service
+      - "10002:10002"  # Table service
+    command: azurite --blobHost 0.0.0.0 --queueHost 0.0.0.0 --tableHost 0.0.0.0
+    volumes:
+      - azurite-data:/data
+    restart: unless-stopped
+    networks:
+      - ai-trading-network
+
 volumes:
   sqlserver-data:
     driver: local
   redis-data:
+    driver: local
+  azurite-data:
     driver: local
 
 networks:

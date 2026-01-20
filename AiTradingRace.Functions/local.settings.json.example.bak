@@ -4,7 +4,7 @@
     "AzureWebJobsStorage": "none",
     "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
     
-    "ConnectionStrings__TradingDb": "Server=localhost,1433;Database=AiTradingRace;User Id=sa;Password=YourStrongPassw0rd123;TrustServerCertificate=True",
+    "ConnectionStrings__TradingDb": "Server=localhost,1433;Database=AiTradingRace;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True",
     
     "Llama__Provider": "Groq",
     "Llama__BaseUrl": "https://api.groq.com/openai/v1",
