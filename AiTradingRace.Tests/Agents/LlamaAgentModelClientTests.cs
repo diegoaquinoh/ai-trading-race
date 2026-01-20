@@ -301,6 +301,439 @@ public class LlamaAgentModelClientTests
         Assert.Empty(decision.Orders);
     }
 
+    [Fact]
+    public async Task GenerateDecisionAsync_MissingReasoningField_ReturnsHoldDecision()
+    {
+        // Arrange - Response without 'reasoning' field
+        var llamaResponse = new
+        {
+            id = "chatcmpl-validation-1",
+            choices = new[]
+            {
+                new
+                {
+                    index = 0,
+                    message = new
+                    {
+                        role = "assistant",
+                        content = JsonSerializer.Serialize(new
+                        {
+                            // Missing 'reasoning' field
+                            orders = new[]
+                            {
+                                new { asset = "BTC", side = "BUY", quantity = 0.1m }
+                            }
+                        })
+                    },
+                    finish_reason = "stop"
+                }
+            }
+        };
+
+        var handler = CreateMockHandler(HttpStatusCode.OK, llamaResponse);
+        var client = CreateClient(handler);
+        var context = CreateTestContext();
+
+        // Act
+        var decision = await client.GenerateDecisionAsync(context);
+
+        // Assert - Should default to HOLD
+        Assert.NotNull(decision);
+        Assert.Empty(decision.Orders);
+        _loggerMock.Verify(
+            x => x.Log(
+                LogLevel.Warning,
+                It.IsAny<EventId>(),
+                It.Is<It.IsAnyType>((v, t) => v.ToString()!.Contains("missing 'reasoning' field")),
+                It.IsAny<Exception>(),
+                It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
+            Times.Once);
+    }
+
+    [Fact]
+    public async Task GenerateDecisionAsync_MissingOrdersField_ReturnsHoldDecision()
+    {
+        // Arrange - Response without 'orders' field
+        var llamaResponse = new
+        {
+            id = "chatcmpl-validation-2",
+            choices = new[]
+            {
+                new
+                {
+                    index = 0,
+                    message = new
+                    {
+                        role = "assistant",
+                        content = JsonSerializer.Serialize(new
+                        {
+                            reasoning = "Market analysis complete"
+                            // Missing 'orders' field
+                        })
+                    },
+                    finish_reason = "stop"
+                }
+            }
+        };
+
+        var handler = CreateMockHandler(HttpStatusCode.OK, llamaResponse);
+        var client = CreateClient(handler);
+        var context = CreateTestContext();
+
+        // Act
+        var decision = await client.GenerateDecisionAsync(context);
+
+        // Assert - Should default to HOLD
+        Assert.NotNull(decision);
+        Assert.Empty(decision.Orders);
+        _loggerMock.Verify(
+            x => x.Log(
+                LogLevel.Warning,
+                It.IsAny<EventId>(),
+                It.Is<It.IsAnyType>((v, t) => v.ToString()!.Contains("missing 'orders' field")),
+                It.IsAny<Exception>(),
+                It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
+            Times.Once);
+    }
+
+    [Fact]
+    public async Task GenerateDecisionAsync_OrdersNotArray_ReturnsHoldDecision()
+    {
+        // Arrange - 'orders' is not an array
+        var llamaResponse = new
+        {
+            id = "chatcmpl-validation-3",
+            choices = new[]
+            {
+                new
+                {
+                    index = 0,
+                    message = new
+                    {
+                        role = "assistant",
+                        content = "{\"reasoning\": \"test\", \"orders\": \"not-an-array\"}"
+                    },
+                    finish_reason = "stop"
+                }
+            }
+        };
+
+        var handler = CreateMockHandler(HttpStatusCode.OK, llamaResponse);
+        var client = CreateClient(handler);
+        var context = CreateTestContext();
+
+        // Act
+        var decision = await client.GenerateDecisionAsync(context);
+
+        // Assert - Should default to HOLD
+        Assert.NotNull(decision);
+        Assert.Empty(decision.Orders);
+        _loggerMock.Verify(
+            x => x.Log(
+                LogLevel.Warning,
+                It.IsAny<EventId>(),
+                It.Is<It.IsAnyType>((v, t) => v.ToString()!.Contains("not an array")),
+                It.IsAny<Exception>(),
+                It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
+            Times.Once);
+    }
+
+    [Fact]
+    public async Task GenerateDecisionAsync_InvalidAsset_SkipsOrder()
+    {
+        // Arrange - Order with unknown asset
+        var llamaResponse = new
+        {
+            id = "chatcmpl-validation-4",
+            choices = new[]
+            {
+                new
+                {
+                    index = 0,
+                    message = new
+                    {
+                        role = "assistant",
+                        content = JsonSerializer.Serialize(new
+                        {
+                            reasoning = "Diversifying portfolio",
+                            orders = new[]
+                            {
+                                new { asset = "DOGE", side = "BUY", quantity = 100m },  // Invalid asset
+                                new { asset = "BTC", side = "BUY", quantity = 0.1m }   // Valid asset
+                            }
+                        })
+                    },
+                    finish_reason = "stop"
+                }
+            }
+        };
+
+        var handler = CreateMockHandler(HttpStatusCode.OK, llamaResponse);
+        var client = CreateClient(handler);
+        var context = CreateTestContext();
+
+        // Act
+        var decision = await client.GenerateDecisionAsync(context);
+
+        // Assert - Should skip DOGE order, keep BTC order
+        Assert.NotNull(decision);
+        Assert.Single(decision.Orders);
+        Assert.Equal("BTC", decision.Orders[0].AssetSymbol);
+        _loggerMock.Verify(
+            x => x.Log(
+                LogLevel.Warning,
+                It.IsAny<EventId>(),
+                It.Is<It.IsAnyType>((v, t) => v.ToString()!.Contains("Unknown asset 'DOGE'")),
+                It.IsAny<Exception>(),
+                It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
+            Times.AtLeastOnce);
+    }
+
+    [Fact]
+    public async Task GenerateDecisionAsync_NegativeQuantity_SkipsOrder()
+    {
+        // Arrange - Order with negative quantity
+        var llamaResponse = new
+        {
+            id = "chatcmpl-validation-5",
+            choices = new[]
+            {
+                new
+                {
+                    index = 0,
+                    message = new
+                    {
+                        role = "assistant",
+                        content = JsonSerializer.Serialize(new
+                        {
+                            reasoning = "Making trades",
+                            orders = new[]
+                            {
+                                new { asset = "BTC", side = "BUY", quantity = -0.5m }  // Invalid quantity
+                            }
+                        })
+                    },
+                    finish_reason = "stop"
+                }
+            }
+        };
+
+        var handler = CreateMockHandler(HttpStatusCode.OK, llamaResponse);
+        var client = CreateClient(handler);
+        var context = CreateTestContext();
+
+        // Act
+        var decision = await client.GenerateDecisionAsync(context);
+
+        // Assert - Should skip order with negative quantity
+        Assert.NotNull(decision);
+        Assert.Empty(decision.Orders);
+        _loggerMock.Verify(
+            x => x.Log(
+                LogLevel.Warning,
+                It.IsAny<EventId>(),
+                It.Is<It.IsAnyType>((v, t) => v.ToString()!.Contains("Quantity must be positive")),
+                It.IsAny<Exception>(),
+                It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
+            Times.AtLeastOnce);
+    }
+
+    [Fact]
+    public async Task GenerateDecisionAsync_ExcessiveQuantity_SkipsOrder()
+    {
+        // Arrange - Order with excessive quantity
+        var llamaResponse = new
+        {
+            id = "chatcmpl-validation-6",
+            choices = new[]
+            {
+                new
+                {
+                    index = 0,
+                    message = new
+                    {
+                        role = "assistant",
+                        content = JsonSerializer.Serialize(new
+                        {
+                            reasoning = "Going all in!",
+                            orders = new[]
+                            {
+                                new { asset = "BTC", side = "BUY", quantity = 10000m }  // Exceeds max 1000
+                            }
+                        })
+                    },
+                    finish_reason = "stop"
+                }
+            }
+        };
+
+        var handler = CreateMockHandler(HttpStatusCode.OK, llamaResponse);
+        var client = CreateClient(handler);
+        var context = CreateTestContext();
+
+        // Act
+        var decision = await client.GenerateDecisionAsync(context);
+
+        // Assert - Should skip order with excessive quantity
+        Assert.NotNull(decision);
+        Assert.Empty(decision.Orders);
+        _loggerMock.Verify(
+            x => x.Log(
+                LogLevel.Warning,
+                It.IsAny<EventId>(),
+                It.Is<It.IsAnyType>((v, t) => v.ToString()!.Contains("exceeds maximum allowed")),
+                It.IsAny<Exception>(),
+                It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
+            Times.AtLeastOnce);
+    }
+
+    [Fact]
+    public async Task GenerateDecisionAsync_MissingOrderFields_SkipsOrder()
+    {
+        // Arrange - Order missing required fields
+        var llamaResponse = new
+        {
+            id = "chatcmpl-validation-7",
+            choices = new[]
+            {
+                new
+                {
+                    index = 0,
+                    message = new
+                    {
+                        role = "assistant",
+                        content = JsonSerializer.Serialize(new
+                        {
+                            reasoning = "Testing validation",
+                            orders = new object[]
+                            {
+                                new { asset = "BTC", quantity = 0.1m },  // Missing 'side'
+                                new { side = "BUY", quantity = 0.2m }    // Missing 'asset'
+                            }
+                        })
+                    },
+                    finish_reason = "stop"
+                }
+            }
+        };
+
+        var handler = CreateMockHandler(HttpStatusCode.OK, llamaResponse);
+        var client = CreateClient(handler);
+        var context = CreateTestContext();
+
+        // Act
+        var decision = await client.GenerateDecisionAsync(context);
+
+        // Assert - Should skip both incomplete orders
+        Assert.NotNull(decision);
+        Assert.Empty(decision.Orders);
+        _loggerMock.Verify(
+            x => x.Log(
+                LogLevel.Warning,
+                It.IsAny<EventId>(),
+                It.Is<It.IsAnyType>((v, t) => v.ToString()!.Contains("Missing")),
+                It.IsAny<Exception>(),
+                It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
+            Times.AtLeastOnce);
+    }
+
+    [Fact]
+    public async Task GenerateDecisionAsync_WrongFieldTypes_SkipsOrder()
+    {
+        // Arrange - Order with wrong field types
+        var llamaResponse = new
+        {
+            id = "chatcmpl-validation-8",
+            choices = new[]
+            {
+                new
+                {
+                    index = 0,
+                    message = new
+                    {
+                        role = "assistant",
+                        content = "{\"reasoning\": \"test\", \"orders\": [{\"asset\": \"BTC\", \"side\": \"BUY\", \"quantity\": \"not-a-number\"}]}"
+                    },
+                    finish_reason = "stop"
+                }
+            }
+        };
+
+        var handler = CreateMockHandler(HttpStatusCode.OK, llamaResponse);
+        var client = CreateClient(handler);
+        var context = CreateTestContext();
+
+        // Act
+        var decision = await client.GenerateDecisionAsync(context);
+
+        // Assert - Should skip order with wrong types
+        Assert.NotNull(decision);
+        Assert.Empty(decision.Orders);
+        _loggerMock.Verify(
+            x => x.Log(
+                LogLevel.Warning,
+                It.IsAny<EventId>(),
+                It.Is<It.IsAnyType>((v, t) => v.ToString()!.Contains("must be a number")),
+                It.IsAny<Exception>(),
+                It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
+            Times.AtLeastOnce);
+    }
+
+    [Fact]
+    public async Task GenerateDecisionAsync_MultipleInvalidOrders_LogsSummary()
+    {
+        // Arrange - Multiple invalid orders
+        var llamaResponse = new
+        {
+            id = "chatcmpl-validation-9",
+            choices = new[]
+            {
+                new
+                {
+                    index = 0,
+                    message = new
+                    {
+                        role = "assistant",
+                        content = JsonSerializer.Serialize(new
+                        {
+                            reasoning = "Multiple trades",
+                            orders = new[]
+                            {
+                                new { asset = "DOGE", side = "BUY", quantity = 100m },   // Invalid asset
+                                new { asset = "BTC", side = "BUY", quantity = -1m },     // Negative quantity
+                                new { asset = "ETH", side = "INVALID", quantity = 0.5m }, // Invalid side
+                                new { asset = "BTC", side = "BUY", quantity = 0.1m }     // Valid order
+                            }
+                        })
+                    },
+                    finish_reason = "stop"
+                }
+            }
+        };
+
+        var handler = CreateMockHandler(HttpStatusCode.OK, llamaResponse);
+        var client = CreateClient(handler);
+        var context = CreateTestContext();
+
+        // Act
+        var decision = await client.GenerateDecisionAsync(context);
+
+        // Assert - Should only keep the valid order
+        Assert.NotNull(decision);
+        Assert.Single(decision.Orders);
+        Assert.Equal("BTC", decision.Orders[0].AssetSymbol);
+        
+        // Verify summary log
+        _loggerMock.Verify(
+            x => x.Log(
+                LogLevel.Warning,
+                It.IsAny<EventId>(),
+                It.Is<It.IsAnyType>((v, t) => v.ToString()!.Contains("Rejected 3 invalid orders")),
+                It.IsAny<Exception>(),
+                It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
+            Times.Once);
+    }
+
     #region Helper Methods
 
     private LlamaAgentModelClient CreateClient(HttpMessageHandler handler)

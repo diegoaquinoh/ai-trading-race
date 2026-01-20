@@ -162,45 +162,131 @@ public sealed class AzureOpenAiAgentModelClient : IAgentModelClient
         using var doc = JsonDocument.Parse(jsonContent);
         var root = doc.RootElement;
 
-        if (root.TryGetProperty("reasoning", out var reasoningElement))
+        // Validate required fields exist
+        if (!root.TryGetProperty("reasoning", out var reasoningElement))
         {
-            _logger.LogInformation("Agent {AgentId} reasoning: {Reasoning}",
-                agentId, reasoningElement.GetString());
+            _logger.LogWarning("LLM response missing 'reasoning' field for agent {AgentId}", agentId);
+            return CreateHoldDecision(agentId, "Invalid response: missing reasoning field");
         }
 
-        var orders = new List<TradeOrder>();
-
-        if (root.TryGetProperty("orders", out var ordersElement) &&
-            ordersElement.ValueKind == JsonValueKind.Array)
+        if (!root.TryGetProperty("orders", out var ordersElement))
         {
-            foreach (var orderElement in ordersElement.EnumerateArray())
+            _logger.LogWarning("LLM response missing 'orders' field for agent {AgentId}", agentId);
+            return CreateHoldDecision(agentId, "Invalid response: missing orders field");
+        }
+
+        // Validate field types
+        if (ordersElement.ValueKind != JsonValueKind.Array)
+        {
+            _logger.LogWarning(
+                "LLM response 'orders' is not an array (got {Type}) for agent {AgentId}",
+                ordersElement.ValueKind, agentId);
+            return CreateHoldDecision(agentId, "Invalid response: orders must be an array");
+        }
+
+        var reasoning = reasoningElement.GetString();
+        if (string.IsNullOrWhiteSpace(reasoning))
+        {
+            _logger.LogWarning("LLM response has empty reasoning for agent {AgentId}", agentId);
+            return CreateHoldDecision(agentId, "Invalid response: empty reasoning");
+        }
+
+        _logger.LogInformation("Agent {AgentId} reasoning: {Reasoning}", agentId, reasoning);
+
+        var orders = new List<TradeOrder>();
+        var validationErrors = new List<string>();
+
+        foreach (var orderElement in ordersElement.EnumerateArray())
+        {
+            // Validate individual order
+            var validationResult = ValidateOrder(orderElement);
+            if (!validationResult.IsValid)
             {
-                var asset = orderElement.GetProperty("asset").GetString()?.ToUpperInvariant() ?? "BTC";
-                var sideStr = orderElement.GetProperty("side").GetString()?.ToUpperInvariant() ?? "HOLD";
-                var quantity = orderElement.GetProperty("quantity").GetDecimal();
+                validationErrors.Add(validationResult.Error!);
+                _logger.LogWarning(
+                    "Agent {AgentId}: Skipping invalid order - {Error}",
+                    agentId, validationResult.Error);
+                continue;  // Skip this order but process others
+            }
 
-                if (quantity <= 0 || sideStr == "HOLD")
-                {
-                    continue;
-                }
+            var asset = orderElement.GetProperty("asset").GetString()!.ToUpperInvariant();
+            var sideStr = orderElement.GetProperty("side").GetString()!.ToUpperInvariant();
+            var quantity = orderElement.GetProperty("quantity").GetDecimal();
 
-                var side = sideStr switch
-                {
-                    "BUY" => TradeSide.Buy,
-                    "SELL" => TradeSide.Sell,
-                    _ => TradeSide.Hold
-                };
+            var side = sideStr switch
+            {
+                "BUY" => TradeSide.Buy,
+                "SELL" => TradeSide.Sell,
+                _ => TradeSide.Hold
+            };
 
-                if (side != TradeSide.Hold)
-                {
-                    orders.Add(new TradeOrder(asset, side, quantity));
-                }
+            if (side != TradeSide.Hold)
+            {
+                orders.Add(new TradeOrder(asset, side, quantity));
             }
         }
 
-        _logger.LogInformation("Agent {AgentId} generated {OrderCount} orders", agentId, orders.Count);
+        // Log validation summary
+        if (validationErrors.Count > 0)
+        {
+            _logger.LogWarning(
+                "Agent {AgentId}: Rejected {Count} invalid orders. Errors: {Errors}",
+                agentId, validationErrors.Count, string.Join("; ", validationErrors));
+        }
+
+        _logger.LogInformation("Agent {AgentId} generated {OrderCount} valid orders", agentId, orders.Count);
 
         return new AgentDecision(agentId, DateTimeOffset.UtcNow, orders);
+    }
+
+    /// <summary>
+    /// Validates an individual order element from the LLM response.
+    /// </summary>
+    private OrderValidationResult ValidateOrder(JsonElement orderElement)
+    {
+        // Check required fields exist
+        if (!orderElement.TryGetProperty("asset", out var assetElement))
+            return OrderValidationResult.Fail("Missing 'asset' field");
+
+        if (!orderElement.TryGetProperty("side", out var sideElement))
+            return OrderValidationResult.Fail("Missing 'side' field");
+
+        if (!orderElement.TryGetProperty("quantity", out var quantityElement))
+            return OrderValidationResult.Fail("Missing 'quantity' field");
+
+        // Validate field types
+        if (assetElement.ValueKind != JsonValueKind.String)
+            return OrderValidationResult.Fail($"'asset' must be a string, got {assetElement.ValueKind}");
+
+        if (sideElement.ValueKind != JsonValueKind.String)
+            return OrderValidationResult.Fail($"'side' must be a string, got {sideElement.ValueKind}");
+
+        if (quantityElement.ValueKind != JsonValueKind.Number)
+            return OrderValidationResult.Fail($"'quantity' must be a number, got {quantityElement.ValueKind}");
+
+        // Validate values
+        var asset = assetElement.GetString();
+        if (string.IsNullOrWhiteSpace(asset))
+            return OrderValidationResult.Fail("'asset' cannot be empty");
+
+        var allowedAssets = new[] { "BTC", "ETH" };
+        if (!allowedAssets.Contains(asset.ToUpperInvariant()))
+            return OrderValidationResult.Fail($"Unknown asset '{asset}'. Allowed: BTC, ETH");
+
+        var side = sideElement.GetString()?.ToUpperInvariant();
+        var allowedSides = new[] { "BUY", "SELL", "HOLD" };
+        if (string.IsNullOrWhiteSpace(side) || !allowedSides.Contains(side))
+            return OrderValidationResult.Fail($"Invalid side '{side}'. Allowed: BUY, SELL, HOLD");
+
+        var quantity = quantityElement.GetDecimal();
+        if (quantity <= 0)
+            return OrderValidationResult.Fail($"Quantity must be positive, got {quantity}");
+
+        // Sanity check: no single order > 1000 units
+        if (quantity > 1000)
+            return OrderValidationResult.Fail($"Quantity {quantity} exceeds maximum allowed (1000)");
+
+        return OrderValidationResult.Success();
     }
 
     private AgentDecision CreateHoldDecision(Guid agentId, string reason)
