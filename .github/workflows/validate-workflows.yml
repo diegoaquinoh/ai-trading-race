@@ -1,0 +1,57 @@
+name: Validate Workflows
+
+on:
+  push:
+    paths:
+      - '.github/workflows/**'
+  pull_request:
+    paths:
+      - '.github/workflows/**'
+
+jobs:
+  validate:
+    name: Validate Workflow YAML
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Install yq
+        run: |
+          sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+          sudo chmod +x /usr/local/bin/yq
+      
+      - name: Validate YAML syntax
+        run: |
+          for file in .github/workflows/*.yml; do
+            echo "Validating $file..."
+            yq eval '.' "$file" > /dev/null
+            if [ $? -eq 0 ]; then
+              echo "✅ $file is valid"
+            else
+              echo "❌ $file has syntax errors"
+              exit 1
+            fi
+          done
+      
+      - name: Check for required fields
+        run: |
+          echo "Checking workflow files for required fields..."
+          for file in .github/workflows/*.yml; do
+            if ! grep -q "^name:" "$file"; then
+              echo "❌ $file missing 'name' field"
+              exit 1
+            fi
+            if ! grep -q "^on:" "$file" && ! grep -q "^'on':" "$file"; then
+              echo "❌ $file missing 'on' field"
+              exit 1
+            fi
+            echo "✅ $file has required fields"
+          done
+      
+      - name: Summary
+        run: |
+          WORKFLOW_COUNT=$(ls -1 .github/workflows/*.yml 2>/dev/null | wc -l)
+          echo "📊 Found $WORKFLOW_COUNT workflow files"
+          echo "✅ All workflows validated successfully"

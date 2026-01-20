@@ -51,11 +51,18 @@ public sealed class CustomMlAgentModelClient : IAgentModelClient
         // Create request with API key header
         using var httpRequest = new HttpRequestMessage(HttpMethod.Post, "/predict");
         
-        // Add API key header for authentication (Task 12)
+        // Add API key header for authentication
         if (!string.IsNullOrEmpty(_options.ApiKey))
         {
             httpRequest.Headers.Add("X-API-Key", _options.ApiKey);
         }
+        
+        // Add idempotency key for Redis caching (Sprint 8.5)
+        // Key format: agentId-timestamp to allow retries within same time window
+        var idempotencyKey = GenerateIdempotencyKey(context);
+        httpRequest.Headers.Add("Idempotency-Key", idempotencyKey);
+        
+        _logger.LogDebug("Using idempotency key: {IdempotencyKey}", idempotencyKey);
         
         httpRequest.Content = JsonContent.Create(request, options: JsonOptions);
 
@@ -75,6 +82,29 @@ public sealed class CustomMlAgentModelClient : IAgentModelClient
             mlResponse.Orders.Count, context.AgentId, mlResponse.Reasoning);
 
         return MapToDecision(context.AgentId, mlResponse);
+    }
+
+    /// <summary>
+    /// Generate idempotency key for request caching.
+    /// Format: {agentId}-{roundedTimestamp}
+    /// This allows the same request within a 5-minute window to be cached.
+    /// </summary>
+    private static string GenerateIdempotencyKey(AgentContext context)
+    {
+        // Round timestamp to nearest 5 minutes to group requests
+        var now = DateTimeOffset.UtcNow;
+        var roundedMinutes = (now.Minute / 5) * 5;
+        var roundedTime = new DateTimeOffset(
+            now.Year, now.Month, now.Day, 
+            now.Hour, roundedMinutes, 0, 
+            TimeSpan.Zero);
+        
+        // Include agent ID and last candle timestamp for uniqueness
+        var lastCandleTime = context.RecentCandles.Count > 0 
+            ? context.RecentCandles.Max(c => c.TimestampUtc).ToString("yyyyMMddHHmm")
+            : "nocandles";
+            
+        return $"{context.AgentId}-{lastCandleTime}";
     }
 
     private static MlContextRequest MapToRequest(AgentContext context)

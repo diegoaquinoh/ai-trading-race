@@ -1,4 +1,4 @@
-# Python ML Service - Multi-stage Dockerfile
+# Python ML Service - Production Multi-stage Dockerfile
 # Stage 1: Builder - install dependencies
 # Stage 2: Runtime - minimal production image
 
@@ -9,6 +9,7 @@ WORKDIR /app
 # Install build dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
+    g++ \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements first for better layer caching
@@ -24,6 +25,11 @@ FROM python:3.11-slim as runtime
 
 WORKDIR /app
 
+# Install runtime dependencies (curl for healthcheck)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
 # Copy installed packages from builder
 COPY --from=builder /root/.local /root/.local
 
@@ -35,15 +41,21 @@ COPY app/ ./app/
 COPY models/ ./models/
 
 # Create non-root user for security
-RUN useradd --create-home appuser
+RUN useradd --create-home --shell /bin/bash appuser && \
+    chown -R appuser:appuser /app
 USER appuser
 
 # Environment variables (can be overridden at runtime)
-ENV ML_SERVICE_MODEL_PATH=models/trading_model.pkl
-ENV ML_SERVICE_MODEL_VERSION=1.0.0
-ENV ML_SERVICE_LOG_LEVEL=INFO
-ENV ML_SERVICE_API_KEY=""
-ENV ML_SERVICE_ALLOWED_ORIGIN="*"
+ENV ML_SERVICE_MODEL_PATH=models/trading_model.pkl \
+    ML_SERVICE_MODEL_VERSION=1.0.0 \
+    ML_SERVICE_LOG_LEVEL=INFO \
+    ML_SERVICE_API_KEY="" \
+    ML_SERVICE_ALLOWED_ORIGIN="*" \
+    ML_SERVICE_REDIS_ENABLED=false \
+    ML_SERVICE_REDIS_HOST=redis \
+    ML_SERVICE_REDIS_PORT=6379 \
+    ML_SERVICE_REDIS_DB=0 \
+    ML_SERVICE_REDIS_TTL_SECONDS=3600
 
 # Expose port
 EXPOSE 8000
@@ -53,4 +65,4 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:8000/health || exit 1
 
 # Run with uvicorn
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]

@@ -2,6 +2,13 @@
 
 Course entre agents IA de trading (LLM) qui pilotent chacun un portefeuille crypto simulé. Les prix de marché sont ingérés depuis CoinGecko, les agents décident (buy/sell/hold), et le dashboard React affiche l'equity et le classement.
 
+## 🔄 CI/CD Status
+
+![Backend CI](https://github.com/diegoaquinoh/ai-trading-race/workflows/Backend%20CI%2FCD/badge.svg?branch=main)
+![Functions CI](https://github.com/diegoaquinoh/ai-trading-race/workflows/Azure%20Functions%20CI%2FCD/badge.svg?branch=main)
+![Frontend CI](https://github.com/diegoaquinoh/ai-trading-race/workflows/Frontend%20CI%2FCD/badge.svg?branch=main)
+![ML Service CI](https://github.com/diegoaquinoh/ai-trading-race/workflows/ML%20Service%20CI%2FCD/badge.svg?branch=main)
+
 ## 📊 Statut du Projet
 
 | Phase    | Description                            | Status      |
@@ -14,7 +21,7 @@ Course entre agents IA de trading (LLM) qui pilotent chacun un portefeuille cryp
 | Phase 5b | Modèle ML custom (Python + FastAPI)    | ✅ Terminée |
 | Phase 6  | Azure Functions (scheduler)            | ✅ Terminée |
 | Phase 7  | UI React Dashboard                     | ✅ Terminée |
-| Phase 8  | Déploiement Azure                      | ⏳ À venir  |
+| Phase 8  | CI/CD Pipeline & Déploiement           | 🚧 En cours (CI/CD ✅, Azure ⏸️) |
 | Phase 9  | Monitoring & Sécurité                  | ⏳ À venir  |
 | Phase 10 | GraphRAG-lite (Explainable AI)         | ⏳ À venir  |
 

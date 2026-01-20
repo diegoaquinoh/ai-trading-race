@@ -10,6 +10,8 @@
 
 > **Date:** 19/01/2026
 
+> ⚠️ **IMPORTANT NOTE**: Azure deployment (Sprints 8.2, 8.3, 8.5, 8.6) is **temporarily skipped** due to cost constraints. We've completed Sprint 8.1 (Llama Integration) and Sprint 8.4 (GitHub Actions CI/CD). Azure provisioning and deployment will be addressed in a future phase when budget allows.
+
 ---
 
 ## Architecture Overview
@@ -452,26 +454,38 @@ public class RateLimitingHandler : DelegatingHandler
 | 4.3 | Apply migrations to Azure SQL | [ ]    |
 | 4.4 | Seed initial data             | [ ]    |
 
-### Sprint 8.4 — GitHub Actions CI/CD (1 day)
+### Sprint 8.4 — GitHub Actions CI/CD (1 day) ✅ COMPLETE
 
-| #   | Task                      | Status |
-| --- | ------------------------- | ------ |
-| 6.1 | Create backend workflow   | [ ]    |
-| 6.2 | Create functions workflow | [ ]    |
-| 6.3 | Create frontend workflow  | [ ]    |
-| 6.5 | Configure GitHub secrets  | [ ]    |
-| 6.6 | Add branch protection     | [ ]    |
+| #   | Task                             | Status |
+| --- | -------------------------------- | ------ |
+| 6.1 | Create backend workflow          | [x]    |
+| 6.2 | Create functions workflow        | [x]    |
+| 6.3 | Create frontend workflow         | [x]    |
+| 6.4 | Create ml-service workflow       | [x]    |
+| 6.5 | Create pr-checks workflow        | [x]    |
+| 6.6 | Create ci.yml (full pipeline)    | [x]    |
+| 6.7 | Create CODEOWNERS file           | [x]    |
+| 6.8 | Create PR template               | [x]    |
+| 6.9 | Create issue templates           | [x]    |
+| 6.10| Document CI/CD setup             | [x]    |
 
-### Sprint 8.5 — ML Service & Redis (1 day)
+### Sprint 8.5 — ML Service & Redis (1 day) ✅ COMPLETE (Local/Docker)
 
-| #   | Task                              | Status |
-| --- | --------------------------------- | ------ |
-| 2.8 | Create Container Apps environment | [ ]    |
-| 2.9 | Create Redis Cache                | [ ]    |
-| 7.1 | Create production Dockerfile      | [ ]    |
-| 7.4 | Deploy to Container Apps          | [ ]    |
-| 8.1 | Add Redis to Python service       | [ ]    |
-| 8.2 | Implement idempotency             | [ ]    |
+| #   | Task                                          | Status |
+| --- | --------------------------------------------- | ------ |
+| 7.1 | Create production Dockerfile (multi-stage)    | [x]    |
+| 7.2 | Create docker-compose.yml with Redis         | [x]    |
+| 7.3 | Configure ML service environment variables    | [x]    |
+| 7.4 | Create .env.example template                  | [x]    |
+| 8.1 | Add redis dependency to requirements.txt      | [x]    |
+| 8.2 | Create CacheService for Redis integration     | [x]    |
+| 8.3 | Implement IdempotencyMiddleware               | [x]    |
+| 8.4 | Update main.py to use idempotency middleware  | [x]    |
+| 8.5 | Update .NET client to send Idempotency-Key    | [x]    |
+| 8.6 | Write cache service tests                     | [x]    |
+| 8.7 | Create comprehensive deployment documentation | [x]    |
+
+> **Note**: Azure Container Apps and Azure Cache for Redis deployment deferred until Azure budget available. Local Docker Compose deployment fully functional.
 
 ### Sprint 8.6 — Frontend & Validation (0.5 day)
 

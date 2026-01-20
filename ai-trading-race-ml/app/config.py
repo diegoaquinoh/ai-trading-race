@@ -1,5 +1,6 @@
 """Application configuration using pydantic-settings."""
 
+from typing import Optional
 from pydantic_settings import BaseSettings
 
 
@@ -18,6 +19,14 @@ class Settings(BaseSettings):
 
     # CORS
     allowed_origin: str = "*"  # Restrict in production
+
+    # Redis settings for idempotency
+    redis_host: str = "localhost"
+    redis_port: int = 6379
+    redis_db: int = 0
+    redis_password: Optional[str] = None
+    redis_enabled: bool = False  # Enable when Redis is available
+    redis_ttl_seconds: int = 3600  # 1 hour cache
 
     class Config:
         env_file = ".env"
