@@ -1,0 +1,115 @@
+name: Backend CI/CD
+
+on:
+  push:
+    branches: [ main, develop, 'phase-*' ]
+    paths:
+      - 'AiTradingRace.Application/**'
+      - 'AiTradingRace.Domain/**'
+      - 'AiTradingRace.Infrastructure/**'
+      - 'AiTradingRace.Web/**'
+      - 'AiTradingRace.Tests/**'
+      - 'AiTradingRace.sln'
+      - '.github/workflows/backend.yml'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'AiTradingRace.Application/**'
+      - 'AiTradingRace.Domain/**'
+      - 'AiTradingRace.Infrastructure/**'
+      - 'AiTradingRace.Web/**'
+      - 'AiTradingRace.Tests/**'
+      - 'AiTradingRace.sln'
+      - '.github/workflows/backend.yml'
+
+env:
+  DOTNET_VERSION: '8.0.x'
+  CONFIGURATION: Release
+
+jobs:
+  build-and-test:
+    name: Build and Test .NET Backend
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      
+      - name: Restore dependencies
+        run: dotnet restore AiTradingRace.sln
+      
+      - name: Build solution
+        run: dotnet build AiTradingRace.sln --configuration ${{ env.CONFIGURATION }} --no-restore
+      
+      - name: Run unit tests
+        run: dotnet test AiTradingRace.Tests/AiTradingRace.Tests.csproj --configuration ${{ env.CONFIGURATION }} --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx"
+      
+      - name: Publish test results
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: .NET Test Results
+          path: '**/test-results.trx'
+          reporter: dotnet-trx
+          fail-on-error: true
+      
+      - name: Publish Web API
+        run: dotnet publish AiTradingRace.Web/AiTradingRace.Web.csproj --configuration ${{ env.CONFIGURATION }} --no-build --output ./publish/web
+      
+      - name: Upload Web API artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-api
+          path: ./publish/web
+          retention-days: 30
+  
+  code-quality:
+    name: Code Quality Checks
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for better analysis
+      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      
+      - name: Restore dependencies
+        run: dotnet restore AiTradingRace.sln
+      
+      - name: Check code format
+        run: dotnet format AiTradingRace.sln --verify-no-changes --verbosity diagnostic
+        continue-on-error: true
+      
+      - name: Run security analysis
+        run: dotnet list AiTradingRace.sln package --vulnerable --include-transitive
+        continue-on-error: true
+
+  # Placeholder for future Azure deployment
+  # deploy:
+  #   name: Deploy to Azure App Service
+  #   runs-on: ubuntu-latest
+  #   needs: [build-and-test, code-quality]
+  #   if: github.ref == 'refs/heads/main'
+  #   
+  #   steps:
+  #     - name: Download artifact
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         name: web-api
+  #     
+  #     - name: Deploy to Azure Web App
+  #       uses: azure/webapps-deploy@v2
+  #       with:
+  #         app-name: 'app-ai-trading-race'
+  #         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+  #         package: .

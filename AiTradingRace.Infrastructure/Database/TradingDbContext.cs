@@ -44,7 +44,7 @@ public sealed class TradingDbContext : DbContext
             builder.Property(x => x.ModelProvider)
                 .HasConversion<string>()
                 .HasMaxLength(32)
-                .HasDefaultValue(ModelProvider.AzureOpenAI);
+                .HasDefaultValue(ModelProvider.Llama);
             builder.Property(x => x.CreatedAt).HasDefaultValueSql("SYSUTCDATETIME()");
             builder.Property(x => x.IsActive).HasDefaultValue(true);
 
@@ -238,10 +238,10 @@ public sealed class TradingDbContext : DbContext
                 new Agent
                 {
                     Id = AgentGptId,
-                    Name = "GPT-4o",
+                    Name = "Llama-70B",
                     Strategy = "Momentum-based trading with risk management",
                     Instructions = "You are a conservative trader. Focus on momentum signals and always maintain diversification.",
-                    ModelProvider = ModelProvider.AzureOpenAI,
+                    ModelProvider = ModelProvider.Llama,
                     IsActive = true
                 },
                 new Agent

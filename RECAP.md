@@ -464,9 +464,140 @@ Real LLM credentials (OpenAI, Azure OpenAI, GitHub Models) will be configured du
 
 ---
 
-### Phase 8 — Azure Deployment
+## Phase 8 Progress — CI/CD & Local Deployment — Completed 20/01/2026 ✅
 
-- Deploy to Azure App Service
-- Configure Azure Key Vault for secrets
-- **Configure LLM API keys** (OpenAI, Azure OpenAI, or GitHub Models)
-- Set up CI/CD pipeline
+### Sprint 8.1: Llama API Integration ✅
+
+**Components Implemented:**
+- **`LlamaAgentModelClient`** — Groq API client (OpenAI-compatible)
+  - HTTP client with retry policy (3 attempts, exponential backoff)
+  - Structured prompt engineering with system + user messages
+  - JSON response parsing with decision extraction
+  - Rate limit handling (429) and error logging
+- **`LlamaApiSettings`** configuration with provider/model/key
+- **Tests:** 13 unit tests validating client behavior, error handling, prompts
+- **Integration:** Registered in DI with `IAgentModelClientFactory`
+
+**Configuration:**
+```json
+{
+  "Llama": {
+    "Provider": "Groq",
+    "BaseUrl": "https://api.groq.com/openai/v1",
+    "Model": "llama-3.3-70b-versatile",
+    "ApiKey": "your-groq-api-key-here"
+  }
+}
+```
+
+### Sprint 8.3: Security & Local Database Setup ✅
+
+**Infrastructure:**
+- **Docker Compose** orchestration with:
+  - SQL Server 2022 (persistent volume, health checks)
+  - Redis 7 (persistent cache)
+  - ML Service FastAPI (port 8000)
+- **Environment Templates:**
+  - `AiTradingRace.Web/.env.example` (DB, Llama, CoinGecko, CustomML, CORS)
+  - `AiTradingRace.Functions/.env.example` (CRON schedules, API keys)
+  - `ai-trading-race-web/.env.example` (API URL, feature flags)
+- **Database Scripts:**
+  - `scripts/setup-database.sh` — Automated DB creation + migrations
+  - `scripts/seed-database.sh` — Test data (BTC, ETH, 5 agents @ $100K)
+  - `scripts/generate-migration-script.sh` — SQL script generator
+
+**Test Agents Seeded:**
+1. Llama Momentum Trader (follows trends)
+2. Llama Value Investor (long-term holder)
+3. CustomML Technical Analyst (ML predictions)
+4. Llama Contrarian Trader (goes against crowd)
+5. Llama Balanced Trader (risk-managed)
+
+**Documentation:**
+- [DATABASE.md](./DATABASE.md) — Connection strings, migrations, troubleshooting (574 lines)
+- [DEPLOYMENT_LOCAL.md](./DEPLOYMENT_LOCAL.md) — Complete setup guide (926 lines)
+
+### Sprint 8.4: GitHub Actions CI/CD ✅
+
+**Workflows Implemented (7):**
+1. **backend.yml** — .NET build/test/publish
+2. **frontend.yml** — React build/test/Lighthouse
+3. **functions.yml** — Azure Functions build/test
+4. **ml-service.yml** — Python lint/test/Docker build
+5. **pr-checks.yml** — PR validation (linting, tests, coverage)
+6. **validate-workflows.yml** — YAML syntax validation
+7. **ci.yml** — Full pipeline orchestration
+
+**Additional Files:**
+- PR template (`.github/pull_request_template.md`)
+- Issue templates (bug report, feature request)
+- CODEOWNERS file
+- Comprehensive CI/CD documentation
+
+### Sprint 8.5: ML Service & Redis ✅
+
+**ML Service Enhancements:**
+- **Idempotency Middleware** — Redis-based request deduplication
+  - 1-hour TTL on predictions
+  - 20-50x performance improvement (300ms → 5-10ms cached)
+  - `Idempotency-Key` header support
+- **Cache Service** — Redis integration with graceful degradation
+- **Docker Optimization:**
+  - Multi-stage Dockerfile (builder + runtime)
+  - Non-root user (`appuser`) for security
+  - Health checks and proper signal handling
+- **.NET Client Update:**
+  - `CustomMlAgentModelClient` generates idempotency keys
+  - Format: `{agentId}-{lastCandleTimestamp}`
+  - Automatic cache utilization
+
+**Configuration:**
+```yaml
+# docker-compose.yml
+redis:
+  image: redis:7-alpine
+  environment:
+    - ML_SERVICE_REDIS_ENABLED=true
+    - ML_SERVICE_REDIS_URL=redis://redis:6379
+```
+
+### Integration Testing Results ✅
+
+**Infrastructure (3/3):**
+- ✅ SQL Server 2022 — Running, healthy, queries working
+- ✅ Redis 7 — PING/PONG verified
+- ✅ ML Service — Health endpoint + API key auth working
+
+**Database (4/4):**
+- ✅ Created `AiTradingRace` database
+- ✅ Applied schema (8 tables)
+- ✅ Seeded 3 assets, 5 agents, 5 portfolios
+- ✅ Verified data with SELECT queries
+
+**Issues Fixed:**
+1. ML Service permissions — Fixed Dockerfile user ownership
+2. sqlcmd path — Updated to `/opt/mssql-tools18/bin/sqlcmd`
+3. Certificate trust — Added `-C` flag to all sqlcmd commands
+4. Database name mismatch — Corrected seed script
+
+**Total Tests:** 23 static + 10 integration = 33/33 PASSED ✅
+
+### Deferred (Cost Constraints):
+
+- ⏸️ Sprint 8.2: Azure resource provisioning
+- ⏸️ Sprint 8.6: Azure Static Web Apps deployment
+
+### Phase 8 Deliverables:
+
+- ✅ Llama API integration (free tier via Groq)
+- ✅ Complete local deployment infrastructure
+- ✅ GitHub Actions CI/CD pipelines
+- ✅ Redis caching for ML predictions
+- ✅ Automated database setup scripts
+- ✅ Comprehensive documentation (1,500+ lines)
+- ✅ Integration testing suite
+- ✅ Security best practices (.env protection, non-root containers)
+
+---
+
+### Phase 9 — Monitoring & Sécurité (À venir)

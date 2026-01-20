@@ -283,45 +283,109 @@
 
 **Critère de sortie :** en ouvrant l’app, tu vois la course sous forme de graph, tu peux cliquer sur un agent pour voir son historique.
 
+- Ajout de composants de chargement / erreurs (UX propre).
+
+**Critère de sortie :** en ouvrant l'app, tu vois la course sous forme de graph, tu peux cliquer sur un agent pour voir son historique.
+
 ---
 
-## Phase 8 – Déploiement Azure & configuration prod
+## Phase 8 – Infrastructure locale & CI/CD ✅ Terminée (20/01/2026)
 
-**Objectif :** rendre le projet accessible en ligne et proprement configuré.
+**Objectif :** mettre en place l'infrastructure de développement local avec Docker et les pipelines d'intégration continue.
 
-**Tâches :**
+**État :** Phase complète avec Docker Compose, scripts d'automatisation, CI/CD GitHub Actions, et service ML avec idempotency.
+
+**Sprints complétés :**
+
+- **Sprint 8.1 – Llama API Integration ✅**
+  - Intégration Groq (llama-3.3-70b-versatile).
+  - `LlamaAgentModelClient` avec prompts structurés.
+  - Configuration flexible (provider, model, temperature).
+  - 13 tests d'intégration.
+
+- **Sprint 8.3 – Security & Local Database Setup ✅**
+  - Templates `.env.example` (Web, Functions, Frontend).
+  - SQL Server 2022 dans `docker-compose.yml`.
+  - Scripts d'automatisation :
+    - `setup-database.sh` : création + migration.
+    - `seed-database.sh` : 5 agents, 3 assets, 5 portfolios.
+    - `generate-migration-script.sh` : export SQL.
+  - Documentation complète (DATABASE.md 574 lignes, DEPLOYMENT_LOCAL.md 926 lignes).
+
+- **Sprint 8.4 – GitHub Actions CI/CD ✅**
+  - 7 workflows : backend, frontend, functions, ml-service, pr-checks, validate, ci orchestration.
+  - Templates PR et issues.
+  - Tests automatisés sur chaque push/PR.
+
+- **Sprint 8.5 – ML Service & Redis ✅**
+  - Docker Compose : SQL Server, Redis, ML Service.
+  - Idempotency middleware avec Redis (20-50x amélioration).
+  - Multi-stage Dockerfile optimisé (appuser non-root).
+  - Health checks pour tous les services.
+
+**Sprints différés (coûts Azure) :**
+
+- **Sprint 8.2 – Azure Provisioning ⏸️**
+  - Azure SQL Database, App Service, Functions, Key Vault.
+  - Reporté pour éviter les frais mensuels en phase de développement.
+
+- **Sprint 8.6 – Azure Deployment ⏸️**
+  - Déploiement Static Web Apps, Container Apps.
+  - Sera réalisé lors de la mise en production finale.
+
+**Tests d'intégration (20/01/2026) :**
+
+- 33/33 tests passés (23 statiques + 10 intégration).
+- Infrastructure : Docker Compose, services, health checks.
+- Database : création, schéma, seed data.
+- Services : ML API, Redis cache, SQL Server.
+
+**Issues résolues :**
+
+1. Permissions Dockerfile (uvicorn binary non-exécutable).
+2. Chemin sqlcmd (mssql-tools → mssql-tools18).
+3. Certificat SQL Server (ajout flag -C).
+4. Nom base de données (AiTradingRaceDb → AiTradingRace).
+
+**Critère de sortie :** Infrastructure locale opérationnelle avec Docker Compose, base de données initialisée, données de test, CI/CD fonctionnel, documentation complète.
+
+---
+
+## Phase 8 (Azure) – Déploiement cloud ⏸️ Différé
+
+**Objectif :** rendre le projet accessible en ligne et proprement configuré (reporté pour optimisation des coûts).
+
+**Tâches (à réaliser lors de la mise en production) :**
 
 - Créer les ressources Azure :
   - Azure SQL Database.
-  - App Service pour `AiTradingRace.Web`.
+  - Azure Container Apps (ML Service).
+  - Azure Static Web Apps (Frontend React).
   - Azure Functions (hébergement consumption).
+  - Azure Cache for Redis.
   - Azure Key Vault (clés API LLM, chaînes de connexion).
 
 - Ajouter les connexions ET secrets :
   - Chaîne de connexion SQL dans App Service / Functions via Key Vault ou config.
-  - Clés d’API LLM dans Key Vault.
+  - Clés d'API LLM dans Key Vault.
 
 - Mettre en place le déploiement :
   - Build & publish depuis GitHub (GitHub Actions) vers :
-    - App Service.
+    - Container Apps (ML Service).
+    - Static Web Apps (Frontend).
     - Functions.
 
 - Configurer les migrations de BD au démarrage (ou script SQL dédié).
 
-- **Idempotency pour le service ML (Phase 5b) :**
-  - Déployer Azure Cache for Redis.
-  - Implémenter `Idempotency-Key` header dans le service Python.
-  - Cache `(key -> response)` avec TTL 1h.
-  - Évite les décisions dupliquées lors des retries .NET.
+**Critère de sortie :** l'application est accessible via une URL Azure, les Functions tournent, les données sont stockées dans Azure SQL, et le service ML gère l'idempotency avec Azure Cache for Redis.
 
-**Critère de sortie :** l’application est accessible via une URL Azure, les Functions tournent, les données sont stockées dans Azure SQL, et le service ML gère l'idempotency.
-
-> **Note Phase 5 :** Les clés API LLM (GitHub Models, OpenAI, Azure OpenAI) seront configurées ici. Modifier `Program.cs` pour utiliser `AddInfrastructureServices()` au lieu de `AddInfrastructureServicesWithTestAI()`.
+> **Note :** Les workflows GitHub Actions pour Azure deployment sont déjà configurés dans `.github/workflows/`. L'activation nécessitera uniquement la configuration des secrets GitHub et la création des ressources Azure.
 
 ---
 
 ## Phase 9 – Monitoring, sécurité minimale & polish CV
 
+**Objectif :** rendre le projet "propre" aux yeux d'un recruteur.
 **Objectif :** rendre le projet “propre” aux yeux d’un recruteur.
 
 **Tâches :**

@@ -2,6 +2,13 @@
 
 Course entre agents IA de trading (LLM) qui pilotent chacun un portefeuille crypto simulé. Les prix de marché sont ingérés depuis CoinGecko, les agents décident (buy/sell/hold), et le dashboard React affiche l'equity et le classement.
 
+## 🔄 CI/CD Status
+
+![Backend CI](https://github.com/diegoaquinoh/ai-trading-race/workflows/Backend%20CI%2FCD/badge.svg?branch=main)
+![Functions CI](https://github.com/diegoaquinoh/ai-trading-race/workflows/Azure%20Functions%20CI%2FCD/badge.svg?branch=main)
+![Frontend CI](https://github.com/diegoaquinoh/ai-trading-race/workflows/Frontend%20CI%2FCD/badge.svg?branch=main)
+![ML Service CI](https://github.com/diegoaquinoh/ai-trading-race/workflows/ML%20Service%20CI%2FCD/badge.svg?branch=main)
+
 ## 📊 Statut du Projet
 
 | Phase    | Description                            | Status      |
@@ -14,9 +21,17 @@ Course entre agents IA de trading (LLM) qui pilotent chacun un portefeuille cryp
 | Phase 5b | Modèle ML custom (Python + FastAPI)    | ✅ Terminée |
 | Phase 6  | Azure Functions (scheduler)            | ✅ Terminée |
 | Phase 7  | UI React Dashboard                     | ✅ Terminée |
-| Phase 8  | Déploiement Azure                      | ⏳ À venir  |
+| Phase 8  | CI/CD & Local Deployment               | ✅ Terminée (Sprint 8.3, 8.4, 8.5) |
 | Phase 9  | Monitoring & Sécurité                  | ⏳ À venir  |
 | Phase 10 | GraphRAG-lite (Explainable AI)         | ⏳ À venir  |
+
+**Phase 8 Details:**
+- ✅ Sprint 8.1: Llama API Integration (Groq)
+- ⏸️ Sprint 8.2: Azure Provisioning (deferred - costs)
+- ✅ Sprint 8.3: Security & Local Database Setup
+- ✅ Sprint 8.4: GitHub Actions CI/CD (7 workflows)
+- ✅ Sprint 8.5: ML Service & Redis (Docker Compose)
+- ⏸️ Sprint 8.6: Azure Deployment (deferred - costs)
 
 ## Architecture
 
@@ -34,12 +49,222 @@ ai-trading-race/
 
 ## Prérequis
 
-- .NET 8 SDK
-- Docker (pour SQL Server local)
-- Node.js 18+ (pour le frontend React)
-- Azure Functions Core Tools (optionnel)
+- **Docker Desktop** (pour SQL Server, Redis, ML Service)
+- **.NET 8 SDK** (pour backend API)
+- **Node.js 20+** (pour frontend React)
+- **Python 3.11+** (pour ML service - optionnel si Docker)
+- **Azure Functions Core Tools v4** (pour scheduler - optionnel)
 
-## Démarrage rapide
+### Installation sur macOS (Apple Silicon)
+
+```bash
+# Installer .NET 8 SDK via Homebrew
+brew install dotnet@8
+brew link dotnet@8 --force
+
+# Ajouter au PATH (ajouter à ~/.zshrc pour rendre permanent)
+export PATH="/opt/homebrew/opt/dotnet@8/bin:$PATH"
+
+# Installer les outils EF Core
+dotnet tool install --global dotnet-ef
+export PATH="$HOME/.dotnet/tools:$PATH"
+
+# Vérifier l'installation
+dotnet --version  # Devrait afficher 8.x.x
+```
+
+### Installation sur Windows/Linux
+
+```bash
+# Télécharger .NET 8 SDK depuis https://dotnet.microsoft.com/download
+# Ou via package manager (apt, winget, etc.)
+dotnet tool install --global dotnet-ef
+```
+
+## 🚀 Démarrage Rapide (Local)
+
+> **Note:** Voir [DEPLOYMENT_LOCAL.md](./DEPLOYMENT_LOCAL.md) pour le guide complet
+
+### 1. Configurer les variables d'environnement
+
+```bash
+# Copier le fichier d'exemple (single source of truth)
+cp .env.example .env
+
+# Éditer .env avec vos valeurs
+# Minimum requis: SA_PASSWORD, Llama__ApiKey
+nano .env
+```
+
+> **⚠️ IMPORTANT - Mot de passe SQL Server:**  
+> Le mot de passe `SA_PASSWORD` doit respecter la politique de complexité Azure SQL:
+> - Minimum 8 caractères
+> - Au moins 1 majuscule, 1 minuscule, 1 chiffre
+> - **Au moins 1 caractère spécial** (`@`, `#`, `$`, etc.)
+> - **Évitez `!`** sur macOS/zsh (conflit avec l'expansion d'historique)
+> - Exemple valide: `YourStrong@Passw0rd123`
+
+> **📝 Note:** Le projet utilise UN SEUL fichier `.env` à la racine pour toute la configuration.  
+> Ce fichier est lu par Docker Compose, les scripts, et peut être sourcé pour les applications.
+
+### 2. Démarrer l'infrastructure (Docker Compose)
+
+```bash
+# Docker Compose lit automatiquement le fichier .env
+docker compose up -d
+```
+
+Cela démarre:
+- SQL Server 2022 (port 1433)
+- Redis 7 (port 6379)
+- ML Service FastAPI (port 8000)
+
+### 3. Initialiser la base de données
+
+```bash
+# Charger les variables d'environnement
+source .env
+
+# Créer le schéma (détecte automatiquement si déjà existant)
+./scripts/setup-database.sh
+
+# Insérer les données de test (BTC, ETH, 5 agents)
+./scripts/seed-database.sh
+```
+
+### 4. Configurer les Azure Functions
+
+```bash
+# Les Functions utilisent local.settings.json (format spécifique Azure)
+cp AiTradingRace.Functions/local.settings.json.example \
+   AiTradingRace.Functions/local.settings.json
+
+# Copier les valeurs depuis .env (notamment Llama__ApiKey)
+nano AiTradingRace.Functions/local.settings.json
+```
+
+### 5. Démarrer les services
+
+> **⚠️ IMPORTANT:** Vous devez exécuter `source .env` dans **CHAQUE terminal** avant de démarrer un service!
+
+```bash
+# Terminal 1: Azure Functions (collecte de données + agents)
+source .env  # ← OBLIGATOIRE dans ce terminal
+cd AiTradingRace.Functions
+func start
+
+# Terminal 2: Backend API
+source .env  # ← OBLIGATOIRE dans ce terminal
+cd AiTradingRace.Web
+dotnet run
+
+# Terminal 3: Frontend Dashboard
+cd ai-trading-race-web
+npm install
+npm run dev
+```
+
+**Pourquoi `source .env` est nécessaire:**
+- Le backend (.NET) a besoin de `ConnectionStrings__TradingDb` pour se connecter à SQL Server
+- Les Azure Functions ont besoin des mêmes variables pour l'ingestion des données
+- Sans cela, vous obtiendrez des erreurs **"Login failed for user 'sa'"**
+
+### 6. Accéder à l'application
+
+- **Dashboard:** http://localhost:5173
+- **API:** http://localhost:5001/swagger
+- **ML Service:** http://localhost:8000/docs
+- **Functions:** http://localhost:7071
+
+## 🛠 Scripts Utiles
+
+```bash
+# Voir les logs des services Docker
+docker compose logs -f sqlserver
+docker compose logs -f redis
+docker compose logs -f ml-service
+
+# Vérifier l'état des conteneurs
+docker compose ps
+
+# Redémarrer un service
+docker compose restart sqlserver
+
+# Arrêter tous les services
+docker compose down
+
+# Reset complet de la base de données
+source .env
+docker exec ai-trading-sqlserver /opt/mssql-tools18/bin/sqlcmd \
+  -S localhost -U sa -P "$SA_PASSWORD" -C \
+  -Q "DROP DATABASE AiTradingRace;"
+./scripts/setup-database.sh
+./scripts/seed-database.sh
+```
+
+## � Troubleshooting
+
+### "Login failed for user 'sa'"
+1. **Vérifiez le mot de passe** - Doit contenir un caractère spécial (`@`, pas `!`)
+2. **Volume Docker persistant** - Si vous changez le mot de passe, supprimez le volume:
+   ```bash
+   docker compose down -v  # Supprime les volumes
+   docker compose up -d    # Recrée avec le nouveau mot de passe
+   ```
+3. **Variable d'environnement** - Le backend doit avoir `ConnectionStrings__TradingDb` défini
+
+### "Could not find dotnet" (macOS)
+```bash
+# Ajouter au PATH (ou dans ~/.zshrc)
+export PATH="/opt/homebrew/opt/dotnet@8/bin:$PATH"
+export PATH="$HOME/.dotnet/tools:$PATH"
+```
+
+### SQL Server container "unhealthy"
+```bash
+# Vérifier les logs
+docker logs ai-trading-sqlserver --tail 50
+
+# Si erreur de mot de passe, reset complet:
+docker compose down -v && docker compose up -d
+```
+
+### Appliquer les migrations EF Core manuellement
+```bash
+export ConnectionStrings__TradingDb='Server=localhost,1433;Database=AiTradingRace;User Id=sa;Password=YourStrong@Passw0rd123;TrustServerCertificate=True'
+dotnet ef database update --project AiTradingRace.Infrastructure --startup-project AiTradingRace.Web
+```
+
+## �📚 Documentation
+
+- [DATABASE.md](./DATABASE.md) - Guide base de données (connexions, migrations, troubleshooting)
+- [scripts/README.md](./scripts/README.md) - Guide des scripts de base de données
+- [DEPLOYMENT_LOCAL.md](./DEPLOYMENT_LOCAL.md) - Guide déploiement local complet
+- [TEST_RESULTS.md](./TEST_RESULTS.md) - Résultats des tests (23 static + 10 integration)
+- [PLANNING_PHASE8.md](./PLANNING_PHASE8.md) - Détails Phase 8 (CI/CD)
+
+## 🔒 Sécurité
+
+- **Mots de passe:** Configurés via variables d'environnement (`.env`)
+- **Secrets:** Fichier `.env` exclu de Git (`.gitignore`)
+- **API Keys:** Stockées dans `local.settings.json` (non versionné)
+- **Production:** Utiliser Azure Key Vault ou secrets managés
+
+## ⚙️ Variables d'Environnement
+
+| Variable | Défaut | Description |
+|----------|--------|-------------|
+| `SA_PASSWORD` | `YourStrong@Passw0rd123` | Mot de passe SQL Server (⚠️ doit contenir `@` ou `#`, pas `!`) |
+| `SQL_CONTAINER_NAME` | `ai-trading-sqlserver` | Nom du conteneur |
+| `SQL_DATABASE_NAME` | `AiTradingRace` | Nom de la base |
+| `STARTING_BALANCE` | `100000.00` | Capital initial des portfolios |
+| `ML_SERVICE_API_KEY` | `test-api-key-12345` | Clé API du service ML |
+
+Voir [`.env.example`](./.env.example) pour la liste complète.
+
+---
+
+## Démarrage rapide (Legacy - sans Docker Compose)
 
 ### 1. Base de données (Docker SQL Server)
 

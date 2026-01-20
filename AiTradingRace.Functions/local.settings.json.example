@@ -1,11 +1,25 @@
 {
   "IsEncrypted": false,
   "Values": {
-    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
-    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated"
-  },
-  "ConnectionStrings": {
-    "TradingDb": "Server=(localdb)\\MSSQLLocalDB;Database=AiTradingRace;Trusted_Connection=True;MultipleActiveResultSets=true;Encrypt=False"
+    "AzureWebJobsStorage": "none",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
+    
+    "ConnectionStrings__TradingDb": "Server=localhost,1433;Database=AiTradingRace;User Id=sa;Password=YourStrongPassw0rd123;TrustServerCertificate=True",
+    
+    "Llama__Provider": "Groq",
+    "Llama__BaseUrl": "https://api.groq.com/openai/v1",
+    "Llama__Model": "llama-3.3-70b-versatile",
+    "Llama__ApiKey": "your-groq-api-key-here",
+    "Llama__TimeoutSeconds": "60",
+    "Llama__MaxRetries": "3",
+    
+    "CustomMlAgent__BaseUrl": "http://localhost:8000",
+    "CustomMlAgent__ApiKey": "test-api-key-12345",
+    "CustomMlAgent__TimeoutSeconds": "60",
+    
+    "CoinGecko__BaseUrl": "https://api.coingecko.com/api/v3/",
+    "CoinGecko__TimeoutSeconds": "30",
+    "CoinGecko__DefaultDays": "1"
   }
 }
 

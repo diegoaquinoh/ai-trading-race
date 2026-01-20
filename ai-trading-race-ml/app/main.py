@@ -9,6 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
 from app.middleware.auth import verify_api_key
+from app.middleware.idempotency import IdempotencyMiddleware
 from app.ml.predictor import TradingPredictor
 from app.models.schemas import (
     AgentContextRequest,
@@ -17,6 +18,7 @@ from app.models.schemas import (
     SCHEMA_VERSION,
 )
 from app.services.decision_service import DecisionService
+from app.services.cache_service import cache_service
 
 # Global instances (initialized in lifespan)
 predictor: Optional[TradingPredictor] = None
@@ -36,6 +38,7 @@ async def lifespan(app: FastAPI):
     yield
 
     # Cleanup
+    cache_service.close()
     predictor = None
     decision_service = None
 
@@ -47,6 +50,9 @@ app = FastAPI(
     version="1.0.0",
     lifespan=lifespan,
 )
+
+# Add idempotency middleware (must be before auth)
+app.add_middleware(IdempotencyMiddleware)
 
 # Add API key authentication middleware
 app.middleware("http")(verify_api_key)

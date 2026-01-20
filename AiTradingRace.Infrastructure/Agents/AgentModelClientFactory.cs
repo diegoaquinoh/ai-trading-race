@@ -28,6 +28,7 @@ public sealed class AgentModelClientFactory : IAgentModelClientFactory
 
         IAgentModelClient client = provider switch
         {
+            ModelProvider.Llama => _serviceProvider.GetRequiredService<LlamaAgentModelClient>(),
             ModelProvider.AzureOpenAI => _serviceProvider.GetRequiredService<AzureOpenAiAgentModelClient>(),
             ModelProvider.OpenAI => _serviceProvider.GetRequiredService<AzureOpenAiAgentModelClient>(), // Reuse for now
             ModelProvider.CustomML => _serviceProvider.GetRequiredService<CustomMlAgentModelClient>(),

@@ -1,0 +1,36 @@
+# This file defines code ownership for automatic PR review requests
+# Learn more: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owners for everything in the repo
+* @diegoaquinoh
+
+# .NET Backend (Application, Domain, Infrastructure, Web)
+*.cs @diegoaquinoh
+*.csproj @diegoaquinoh
+AiTradingRace.Application/ @diegoaquinoh
+AiTradingRace.Domain/ @diegoaquinoh
+AiTradingRace.Infrastructure/ @diegoaquinoh
+AiTradingRace.Web/ @diegoaquinoh
+AiTradingRace.Tests/ @diegoaquinoh
+
+# Azure Functions
+AiTradingRace.Functions/ @diegoaquinoh
+
+# Frontend (React + TypeScript)
+ai-trading-race-web/ @diegoaquinoh
+*.tsx @diegoaquinoh
+*.ts @diegoaquinoh
+
+# ML Service (Python)
+ai-trading-race-ml/ @diegoaquinoh
+*.py @diegoaquinoh
+requirements.txt @diegoaquinoh
+
+# Infrastructure and CI/CD
+.github/ @diegoaquinoh
+Dockerfile @diegoaquinoh
+docker-compose.yml @diegoaquinoh
+
+# Documentation
+*.md @diegoaquinoh
+PLANNING_*.md @diegoaquinoh

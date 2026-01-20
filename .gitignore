@@ -25,4 +25,10 @@ AiTradingRace.Functions/local.settings.json
 # OS files
 .DS_Store
 
-
+# Environment variables
+.env
+*.env
+!*.env.example
+# Environment variables
+.env
+*.env
