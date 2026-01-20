@@ -443,16 +443,19 @@ public class RateLimitingHandler : DelegatingHandler
 | 2.7  | Create Key Vault             | [ ]    |
 | 2.10 | Create Application Insights  | [ ]    |
 
-### Sprint 8.3 — Security & Database (0.5 day)
+### Sprint 8.3 — Security & Database (0.5 day) ✅ COMPLETE (Adapted for Local)
 
-| #   | Task                          | Status |
-| --- | ----------------------------- | ------ |
-| 3.1 | Store connection string in KV | [ ]    |
-| 3.2 | Store Llama API key in KV     | [ ]    |
-| 3.5 | Configure Managed Identities  | [ ]    |
-| 4.1 | Generate SQL migration script | [ ]    |
-| 4.3 | Apply migrations to Azure SQL | [ ]    |
-| 4.4 | Seed initial data             | [ ]    |
+| #   | Task                                    | Status |
+| --- | --------------------------------------- | ------ |
+| 3.1 | Create .env.example templates           | [x]    |
+| 3.2 | Add SQL Server to docker-compose.yml    | [x]    |
+| 3.3 | Externalize environment configuration   | [x]    |
+| 4.1 | Generate SQL migration script           | [x]    |
+| 4.2 | Create setup-database.sh                | [x]    |
+| 4.3 | Create seed-database.sh                 | [x]    |
+| 4.4 | Document connection strings (DATABASE.md)| [x]    |
+
+> **Note**: Azure Key Vault and Managed Identity deferred (Azure costs). Using .env files for local development with proper .gitignore protection.
 
 ### Sprint 8.4 — GitHub Actions CI/CD (1 day) ✅ COMPLETE
 
