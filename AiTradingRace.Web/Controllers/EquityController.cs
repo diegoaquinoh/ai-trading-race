@@ -1,5 +1,6 @@
 using AiTradingRace.Application.Common.Models;
 using AiTradingRace.Application.Equity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AiTradingRace.Web.Controllers;
@@ -69,6 +70,7 @@ public class EquityController : ControllerBase
     /// <param name="agentId">The agent's unique identifier.</param>
     /// <param name="ct">Cancellation token.</param>
     /// <returns>The newly created equity snapshot.</returns>
+    [Authorize(Policy = "RequireOperator")]
     [HttpPost("snapshot")]
     [ProducesResponseType(typeof(EquitySnapshotDto), StatusCodes.Status201Created)]
     public async Task<ActionResult<EquitySnapshotDto>> CaptureSnapshot(

@@ -29,6 +29,11 @@ AiTradingRace.Functions/local.settings.json
 .env
 *.env
 !*.env.example
-# Environment variables
-.env
-*.env
+
+# Backup files (prevent accidental secret commits)
+*.bak
+*.backup
+*.old
+*~
+*.env.bak
+*.env.backup

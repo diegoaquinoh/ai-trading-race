@@ -11,6 +11,7 @@ namespace AiTradingRace.Web.Controllers;
 [Route("api/agents/{agentId}/decisions")]
 public class DecisionLogsController : ControllerBase
 {
+    private const int MaxDateRangeDays = 90;
     private readonly IDecisionLogService _decisionLogService;
     private readonly ILogger<DecisionLogsController> _logger;
 
@@ -92,12 +93,29 @@ public class DecisionLogsController : ControllerBase
     /// <param name="toDate">End date for analytics (optional, defaults to now)</param>
     [HttpGet("analytics")]
     [ProducesResponseType(typeof(DecisionAnalytics), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<DecisionAnalytics>> GetAnalytics(
         Guid agentId,
         [FromQuery] DateTime fromDate,
         [FromQuery] DateTime? toDate = null)
     {
         var endDate = toDate ?? DateTime.UtcNow;
+
+        // Validate date range
+        if (fromDate > endDate)
+        {
+            return BadRequest(new { error = "fromDate cannot be after toDate" });
+        }
+
+        if (fromDate > DateTime.UtcNow)
+        {
+            return BadRequest(new { error = "fromDate cannot be in the future" });
+        }
+
+        if ((endDate - fromDate).TotalDays > MaxDateRangeDays)
+        {
+            return BadRequest(new { error = $"Date range cannot exceed {MaxDateRangeDays} days" });
+        }
 
         _logger.LogInformation(
             "Fetching analytics for agent {AgentId} from {FromDate} to {ToDate}",

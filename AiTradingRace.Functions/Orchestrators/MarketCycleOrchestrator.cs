@@ -167,7 +167,7 @@ public sealed class MarketCycleOrchestrator
     /// </summary>
     [Function("TriggerMarketCycle")]
     public async Task<string> TriggerMarketCycle(
-        [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "market-cycle/trigger")] 
+        [HttpTrigger(AuthorizationLevel.Function, "post", Route = "market-cycle/trigger")]
         Microsoft.Azure.Functions.Worker.Http.HttpRequestData req,
         [DurableClient] DurableTaskClient client,
         CancellationToken ct)

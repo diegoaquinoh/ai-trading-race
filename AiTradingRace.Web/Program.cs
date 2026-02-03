@@ -17,9 +17,9 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("ReactDevServer", policy =>
     {
-        policy.WithOrigins("http://localhost:5173")
-              .AllowAnyHeader()
-              .AllowAnyMethod()
+        policy.WithOrigins("http://localhost:5173", "http://localhost:3000")
+              .WithHeaders("Authorization", "Content-Type", "X-API-Key", "X-Request-ID")
+              .WithMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
               .AllowCredentials();
     });
 });
@@ -107,13 +107,25 @@ if (!string.IsNullOrWhiteSpace(jwtSecretKey) && jwtSecretKey.Length >= 32)
 }
 else
 {
-    // Development mode without authentication - just add empty auth
+    // SECURITY: Fail closed in non-development environments
+    if (!builder.Environment.IsDevelopment())
+    {
+        throw new InvalidOperationException(
+            "JWT SecretKey must be configured in non-development environments. " +
+            "Set 'Authentication:Jwt:SecretKey' environment variable.");
+    }
+
+    // Development only: bypass auth with warning
     builder.Services.AddAuthentication();
-    builder.Services.AddAuthorization();
-    
+    builder.Services.AddAuthorization(options =>
+    {
+        options.AddPolicy("RequireAdmin", policy => policy.RequireAssertion(_ => true));
+        options.AddPolicy("RequireOperator", policy => policy.RequireAssertion(_ => true));
+        options.AddPolicy("RequireUser", policy => policy.RequireAssertion(_ => true));
+    });
+
     builder.Logging.AddConsole();
-    Console.WriteLine("⚠️  WARNING: JWT SecretKey not configured. Authentication is disabled.");
-    Console.WriteLine("   Set 'Authentication:Jwt:SecretKey' via user-secrets for local dev.");
+    Console.WriteLine("⚠️  DEV MODE: Authentication bypassed. Will fail in production.");
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -160,6 +172,16 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Error");
     app.UseHsts();
     app.UseHttpsRedirection();
+
+    // Security headers
+    app.Use(async (context, next) =>
+    {
+        context.Response.Headers["X-Content-Type-Options"] = "nosniff";
+        context.Response.Headers["X-Frame-Options"] = "DENY";
+        context.Response.Headers["X-XSS-Protection"] = "1; mode=block";
+        context.Response.Headers["Referrer-Policy"] = "strict-origin-when-cross-origin";
+        await next();
+    });
 }
 
 app.UseStaticFiles();

@@ -1,6 +1,7 @@
 using AiTradingRace.Application.MarketData;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace AiTradingRace.Web.Controllers;
 
@@ -9,7 +10,8 @@ namespace AiTradingRace.Web.Controllers;
 /// </summary>
 [ApiController]
 [Route("api/[controller]")]
-[Authorize(Policy = "RequireAdmin")]  // ← Sprint 9.3: Protect admin endpoints
+[Authorize(Policy = "RequireAdmin")]
+[EnableRateLimiting("per-user")]
 public class AdminController : ControllerBase
 {
     private readonly IMarketDataIngestionService _ingestionService;
@@ -49,8 +51,8 @@ public class AdminController : ControllerBase
             return StatusCode(500, new
             {
                 success = false,
-                error = "Failed to ingest market data",
-                message = ex.Message
+                error = "Failed to ingest market data. Check logs for details.",
+                traceId = HttpContext.TraceIdentifier
             });
         }
     }
@@ -90,8 +92,8 @@ public class AdminController : ControllerBase
             {
                 success = false,
                 symbol = symbol.ToUpperInvariant(),
-                error = "Failed to ingest market data",
-                message = ex.Message
+                error = "Failed to ingest market data. Check logs for details.",
+                traceId = HttpContext.TraceIdentifier
             });
         }
     }

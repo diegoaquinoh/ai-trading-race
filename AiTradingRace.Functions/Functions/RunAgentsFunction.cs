@@ -37,7 +37,7 @@ public sealed class RunAgentsFunction
     /// </summary>
     [Function("RunAgentsManual")]
     public async Task<HttpResponseData> RunAgentsManual(
-        [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "agents/run")] HttpRequestData req,
+        [HttpTrigger(AuthorizationLevel.Function, "post", Route = "agents/run")] HttpRequestData req,
         CancellationToken cancellationToken)
     {
         _logger.LogInformation("Manual agent execution triggered via HTTP");
