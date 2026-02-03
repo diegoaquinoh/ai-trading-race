@@ -1,4 +1,5 @@
 using AiTradingRace.Application.MarketData;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AiTradingRace.Web.Controllers;
@@ -8,6 +9,7 @@ namespace AiTradingRace.Web.Controllers;
 /// </summary>
 [ApiController]
 [Route("api/[controller]")]
+[Authorize(Policy = "RequireAdmin")]  // ← Sprint 9.3: Protect admin endpoints
 public class AdminController : ControllerBase
 {
     private readonly IMarketDataIngestionService _ingestionService;

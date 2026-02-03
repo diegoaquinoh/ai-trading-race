@@ -1,5 +1,6 @@
 using AiTradingRace.Application.Agents;
 using AiTradingRace.Application.Common.Models;
+using AiTradingRace.Application.Knowledge;
 using AiTradingRace.Application.MarketData;
 using AiTradingRace.Application.Portfolios;
 using AiTradingRace.Infrastructure.Database;
@@ -10,24 +11,30 @@ namespace AiTradingRace.Infrastructure.Agents;
 
 /// <summary>
 /// Builds the context needed for an AI agent to make trading decisions.
-/// Gathers portfolio state, recent market data, and agent instructions.
+/// Gathers portfolio state, recent market data, agent instructions, and optionally knowledge graph.
 /// </summary>
 public sealed class AgentContextBuilder : IAgentContextBuilder
 {
     private readonly TradingDbContext _dbContext;
     private readonly IPortfolioService _portfolioService;
     private readonly IMarketDataProvider _marketDataProvider;
+    private readonly IKnowledgeGraphService _knowledgeGraphService;
+    private readonly IRegimeDetector _regimeDetector;
     private readonly ILogger<AgentContextBuilder> _logger;
 
     public AgentContextBuilder(
         TradingDbContext dbContext,
         IPortfolioService portfolioService,
         IMarketDataProvider marketDataProvider,
+        IKnowledgeGraphService knowledgeGraphService,
+        IRegimeDetector regimeDetector,
         ILogger<AgentContextBuilder> logger)
     {
         _dbContext = dbContext;
         _portfolioService = portfolioService;
         _marketDataProvider = marketDataProvider;
+        _knowledgeGraphService = knowledgeGraphService;
+        _regimeDetector = regimeDetector;
         _logger = logger;
     }
 
@@ -35,9 +42,14 @@ public sealed class AgentContextBuilder : IAgentContextBuilder
     public async Task<AgentContext> BuildContextAsync(
         Guid agentId,
         int candleCount = 24,
+        bool includeKnowledgeGraph = false,
         CancellationToken cancellationToken = default)
     {
-        _logger.LogDebug("Building context for agent {AgentId} with {CandleCount} candles", agentId, candleCount);
+        _logger.LogDebug(
+            "Building context for agent {AgentId} with {CandleCount} candles (KG: {IncludeKG})",
+            agentId,
+            candleCount,
+            includeKnowledgeGraph);
 
         // 1. Load and validate agent
         var agent = await _dbContext.Agents
@@ -60,18 +72,84 @@ public sealed class AgentContextBuilder : IAgentContextBuilder
         // 3. Get recent market candles for all enabled assets
         var candles = await GetRecentCandlesAsync(candleCount, cancellationToken);
 
+        // 4. Optionally detect regime and fetch knowledge graph
+        KnowledgeSubgraph? knowledgeGraph = null;
+        MarketRegime? detectedRegime = null;
+
+        if (includeKnowledgeGraph)
+        {
+            try
+            {
+                // Detect current market regime for primary asset (BTC or first available)
+                var primaryCandle = candles.FirstOrDefault(c => c.AssetSymbol == "BTC")
+                                   ?? candles.FirstOrDefault();
+
+                if (primaryCandle != null)
+                {
+                    var primaryAsset = primaryCandle.AssetSymbol;
+                    var toDate = DateTime.UtcNow;
+                    var fromDate = toDate.AddDays(-30); // Look back 30 days for regime detection
+
+                    _logger.LogDebug("Detecting regime for primary asset: {Asset}", primaryAsset);
+                    
+                    var regime = await _regimeDetector.DetectRegimeAsync(
+                        primaryAsset,
+                        fromDate,
+                        toDate);
+
+                    detectedRegime = regime;
+
+                    _logger.LogInformation(
+                        "Detected regime for {Asset}: {RegimeId} (Volatility: {Volatility})",
+                        primaryAsset,
+                        regime.RegimeId,
+                        regime.Volatility);
+
+                    // Fetch relevant knowledge subgraph for the detected regime
+                    // Get unique asset symbols from candles
+                    var assetSymbols = candles.Select(c => c.AssetSymbol).Distinct().ToList();
+                    
+                    var subgraph = await _knowledgeGraphService.GetRelevantSubgraphAsync(
+                        regime.RegimeId,
+                        assetSymbols);
+
+                    knowledgeGraph = subgraph;
+
+                    _logger.LogDebug(
+                        "Fetched knowledge subgraph: {RuleCount} rules for regime {Regime}",
+                        subgraph.ApplicableRules.Count,
+                        regime.RegimeId);
+                }
+                else
+                {
+                    _logger.LogWarning("No market candles available for regime detection");
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(
+                    ex,
+                    "Failed to build knowledge graph context for agent {AgentId}. Continuing without KG.",
+                    agentId);
+                // Continue without knowledge graph - graceful degradation
+            }
+        }
+
         _logger.LogDebug(
-            "Built context: Portfolio ${TotalValue:N2}, {PositionCount} positions, {CandleCount} candles",
+            "Built context: Portfolio ${TotalValue:N2}, {PositionCount} positions, {CandleCount} candles, KG: {HasKG}",
             portfolio.TotalValue,
             portfolio.Positions.Count,
-            candles.Count);
+            candles.Count,
+            knowledgeGraph != null);
 
         return new AgentContext(
             agentId,
             agent.ModelProvider,
             portfolio,
             candles,
-            agent.Instructions);
+            agent.Instructions,
+            knowledgeGraph,
+            detectedRegime);
     }
 
     private async Task<IReadOnlyList<MarketCandleDto>> GetRecentCandlesAsync(

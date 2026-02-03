@@ -9,14 +9,15 @@
 **AI Trading Race** is a sophisticated multi-agent AI trading competition platform that simulates cryptocurrency trading using different AI strategies. The system combines LLM-based agents (GPT-4) with custom machine learning models (RandomForest) to execute automated trading decisions in a controlled simulation environment.
 
 ### Key Metrics
-- **Technology Stack**: .NET 8, React 18, Python 3.11, FastAPI, Docker Compose
-- **Architecture**: Clean/Hexagonal Architecture with DDD principles
-- **Infrastructure**: SQL Server 2022, Redis 7, Docker Compose orchestration
+- **Technology Stack**: .NET 8, React 18, Python 3.11, FastAPI, Docker Compose, RabbitMQ 3.12
+- **Architecture**: Clean/Hexagonal Architecture with DDD principles + Distributed Message Queue
+- **Infrastructure**: SQL Server 2022, Redis 7, RabbitMQ 3.12, Docker Compose orchestration
 - **Test Coverage**: 33/33 tests passed (23 static + 10 integration)
 - **Supported Assets**: BTC, ETH (expandable)
 - **AI Providers**: Groq (Llama 3.3 70B), Azure OpenAI, Custom ML (RandomForest)
-- **Current Status**: Phase 8 complete - Local development infrastructure ready
+- **Current Status**: Phase 8 complete - Phase 9 (RabbitMQ) planned
 - **Deployment**: Azure deployment deferred (cost optimization)
+- **Scalability**: Sequential (Phase 8) → Parallel with RabbitMQ (Phase 9)
 
 ---
 
@@ -75,13 +76,310 @@
 │  Docker Compose Services    │    Python ML Service (Port 8000)          │
 │  • SQL Server 2022          │    • FastAPI Framework                    │
 │  • Redis 7 (Cache)          │    • Feature Engineering                  │
-│  • ML Service Container     │    • RandomForest Predictor               │
-│                             │    • API Key Authentication               │
-│  Azure Functions (Future)   │    • Idempotency Middleware               │
-│  • Timer Triggers           │    • Health Checks                        │
-│  • Market Data Ingestion    │                                           │
-│  • Agent Scheduler          │                                           │
+│  • RabbitMQ 3.12 (Phase 9+) │    • RandomForest Predictor               │
+│  • ML Service Container     │    • API Key Authentication               │
+│                             │    • Idempotency Middleware               │
+│  Azure Functions            │    • Health Checks                        │
+│  • Timer Triggers           │                                           │
+│  • Message Consumers (P9+)  │    RabbitMQ (Phase 9+)                    │
+│  • Market Data Ingestion    │    • Message Queue (AMQP)                 │
+│  • Agent Scheduler          │    • Worker orchestration                 │
+│                             │    • Dead Letter Queue                    │
 └─────────────────────────────┴───────────────────────────────────────────┘
+```
+
+---
+
+## 🚀 Phase 9: Distributed Architecture Transformation (Planned)
+
+### Evolution: Sequential → Parallel Processing
+
+**Phase 9 Goal**: Transform the sequential agent execution model into a distributed, horizontally scalable system using RabbitMQ message queues and Redis-based idempotency.
+
+### Current Architecture (Phase 8) - Sequential Bottleneck
+
+```
+Timer Trigger (Every 30 min)
+       │
+       ▼
+┌─────────────────────────────────────────────────────────────────────┐
+│ RunAgentsFunction                                                   │
+│ ├─ Query active agents from database                                │
+│ └─ foreach agent in activeAgents (SEQUENTIAL):                      │
+│      ├─ Agent 1: Build context → AI decision → Execute (10s)        │
+│      ├─ Agent 2: Build context → AI decision → Execute (10s)        │
+│      ├─ Agent 3: Build context → AI decision → Execute (10s)        │
+│      ├─ Agent 4: Build context → AI decision → Execute (10s)        │
+│      └─ Agent 5: Build context → AI decision → Execute (10s)        │
+│                                                                     │
+│ Total Time: 50+ seconds for 5 agents                                │
+│                                                                     │
+│ Limitations:                                                        │
+│   ❌ Sequential bottleneck (agents wait for each other)             │
+│   ❌ Single point of failure (one crash stops all)                  │
+│   ❌ Cannot scale horizontally (fixed to 1 instance)                │
+│   ❌ One slow agent blocks others (Groq timeout = all wait)         │
+│   ❌ Scales linearly: 100 agents = 1000+ seconds (16+ minutes)      │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+### Future Architecture (Phase 9) - Parallel with RabbitMQ
+
+```
+Timer Trigger (Every 30 min)
+       │
+       ▼
+┌─────────────────────────────────────────────────────────────────────┐
+│ PublishAgentsFunction [Singleton]                                   │
+│ ├─ Query active agents from database                                │
+│ ├─ Generate execution cycle ID: "20260122-1430"                     │
+│ └─ Publish one message per agent (< 1 second total)                 │
+│      Message: {                                                     │
+│        agentId: "guid",                                             │
+│        executionCycleId: "20260122-1430",                           │
+│        timestamp: "2026-01-22T14:30:00Z",                           │
+│        idempotencyKey: "agent-run:guid:20260122-1430"               │
+│      }                                                              │
+└─────────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────────┐
+│                    RabbitMQ Message Queue                            │
+│                    (agent-execution queue)                           │
+│                                                                     │
+│  Messages: [Agent1] [Agent2] [Agent3] [Agent4] [Agent5]             │
+│                                                                     │
+│  Features:                                                          │
+│  • Durable: Messages survive broker restart                         │
+│  • Priority support: Aggressive traders first (optional)            │
+│  • Dead Letter Exchange: Failed messages → agent-execution-dlq      │
+│  • TTL: Message expires after 1 hour (prevent stale execution)      │
+│                                                                     │
+│  Management UI: http://localhost:15672 (guest/guest)                │
+└─────────────────────────────────────────────────────────────────────┘
+                              │
+          ┌───────────────────┼───────────────────┬─────────────────┐
+          │                   │                   │                 │
+          ▼                   ▼                   ▼                 ▼
+┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐  ┌────┐
+│ Worker 1         │  │ Worker 2         │  │ Worker 3         │  │ ...│
+│ (AgentWorker     │  │ (AgentWorker     │  │ (AgentWorker     │  │    │
+│  Service)        │  │  Service)        │  │  Service)        │  │    │
+├──────────────────┤  ├──────────────────┤  ├──────────────────┤  └────┘
+│ Flow:            │  │ Flow:            │  │ Flow:            │
+│ 1. Consume msg   │  │ 1. Consume msg   │  │ 1. Consume msg   │
+│ 2. Check Redis   │  │ 2. Check Redis   │  │ 2. Check Redis   │
+│    idempotency   │  │    idempotency   │  │    idempotency   │
+│ 3. Acquire lock  │  │ 3. Acquire lock  │  │ 3. Acquire lock  │
+│    (atomic)      │  │    (atomic)      │  │    (atomic)      │
+│ 4. Run agent:    │  │ 4. Run agent:    │  │ 4. Run agent:    │
+│    • Context     │  │    • Context     │  │    • Context     │
+│    • AI decision │  │    • AI decision │  │    • AI decision │
+│    • Validate    │  │    • Validate    │  │    • Validate    │
+│    • Execute     │  │    • Execute     │  │    • Execute     │
+│    • Snapshot    │  │    • Snapshot    │  │    • Snapshot    │
+│ 5. Mark complete │  │ 5. Mark complete │  │ 5. Mark complete │
+│    in Redis      │  │    in Redis      │  │    in Redis      │
+│ 6. ACK message   │  │ 6. ACK message   │  │ 6. ACK message   │
+│    to RabbitMQ   │  │    to RabbitMQ   │  │    to RabbitMQ   │
+│                  │  │                  │  │                  │
+│ If error:        │  │ If error:        │  │ If error:        │
+│ • Log details    │  │ • Log details    │  │ • Log details    │
+│ • NACK message   │  │ • NACK message   │  │ • NACK message   │
+│ • Requeue (3x)   │  │ • Requeue (3x)   │  │ • Requeue (3x)   │
+│ • → DLQ if fail  │  │ • → DLQ if fail  │  │ • → DLQ if fail  │
+│                  │  │                  │  │                  │
+│ Processing:      │  │ Processing:      │  │ Processing:      │
+│ Agent 1 (10s)    │  │ Agent 2 (10s)    │  │ Agent 3 (10s)    │
+└──────────────────┘  └──────────────────┘  └──────────────────┘
+
+Total Time: ~10-15 seconds (3-5x faster!)
+Scalability: Add more workers → process more agents concurrently
+
+Benefits:
+✅ 3-5x performance improvement (parallel execution)
+✅ Horizontal scalability (scale workers independently)
+✅ Fault tolerance (isolated failures, auto-retry)
+✅ Idempotency (no duplicate executions via Redis locks)
+✅ Dead Letter Queue (persistent failure handling)
+✅ Observable (RabbitMQ Management UI with real-time metrics)
+✅ Cost: $0/month (open source)
+```
+
+### Phase 9 Architecture Components
+
+```
+┌──────────────────────────────────────────────────────────────────────┐
+│                   PHASE 9 NEW COMPONENTS                             │
+└──────────────────────────────────────────────────────────────────────┘
+
+1. RabbitMQ Infrastructure (Docker Compose)
+   ├─ Image: rabbitmq:3.12-management
+   ├─ Port 5672: AMQP protocol
+   ├─ Port 15672: Management UI (guest/guest)
+   ├─ Queues:
+   │   ├─ agent-execution (main queue)
+   │   └─ agent-execution-dlq (dead letter queue)
+   ├─ Features:
+   │   ├─ Durable queues (survive restart)
+   │   ├─ Message persistence
+   │   ├─ Automatic retry with exponential backoff
+   │   └─ Dead letter exchange for failed messages
+   └─ Health check: rabbitmq-diagnostics ping
+
+2. Redis Idempotency Service (Extended)
+   ├─ Interface: IIdempotencyService (Application layer)
+   ├─ Implementation: RedisIdempotencyService (Infrastructure layer)
+   ├─ Methods:
+   │   ├─ TryAcquireLockAsync(key, workerId, ttl)
+   │   │   └─ Atomic SETNX with expiry (prevents race conditions)
+   │   ├─ IsAlreadyProcessedAsync(key)
+   │   │   └─ Check if agent already executed in this cycle
+   │   ├─ MarkAsCompletedAsync(key, result)
+   │   │   └─ Store execution result for audit/debugging
+   │   └─ GetCachedResultAsync<T>(key)
+   │       └─ Retrieve cached execution result
+   ├─ Key Structure:
+   │   ├─ Lock: "agent-lock:{agentId}:{cycleId}"
+   │   └─ Result: "agent-result:{agentId}:{cycleId}"
+   └─ TTL: 1 hour (prevents stale locks, allows retry in next cycle)
+
+3. Message Publisher (Azure Function)
+   ├─ Function: PublishAgentsFunction
+   ├─ Trigger: Timer (0 */30 * * * *) with [Singleton] attribute
+   ├─ Responsibilities:
+   │   ├─ Query active agents from database
+   │   ├─ Generate execution cycle ID (timestamp-based)
+   │   ├─ Create message per agent with idempotency key
+   │   └─ Publish to RabbitMQ agent-execution queue
+   ├─ Message Format:
+   │   {
+   │     "agentId": "guid",
+   │     "executionCycleId": "20260122-1430",
+   │     "timestamp": "2026-01-22T14:30:00Z",
+   │     "idempotencyKey": "agent-run:guid:20260122-1430"
+   │   }
+   └─ Execution Time: < 1 second (publish only, no execution)
+
+4. Worker Service (Background Service)
+   ├─ Service: AgentWorkerService
+   ├─ Type: IHostedService (long-running background service)
+   ├─ Consumes from: agent-execution queue
+   ├─ Concurrency: Configurable via appsettings (default: 3 workers)
+   ├─ Processing Logic:
+   │   ├─ Receive message from RabbitMQ
+   │   ├─ Extract idempotency key
+   │   ├─ Check Redis: Already processed?
+   │   ├─ Acquire Redis lock (atomic SETNX)
+   │   ├─ Execute agent via IAgentRunner
+   │   ├─ Store result in Redis
+   │   ├─ Acknowledge message to RabbitMQ
+   │   └─ Release lock (implicit via TTL)
+   ├─ Error Handling:
+   │   ├─ Transient errors: NACK message → requeue
+   │   ├─ Retry policy: 3 attempts with exponential backoff
+   │   ├─ Permanent errors: Route to DLQ after max retries
+   │   └─ Structured logging with correlation IDs
+   └─ Deployment:
+       ├─ Local: func start (AiTradingRace.Functions)
+       ├─ Docker: Separate worker containers (scalable)
+       └─ Azure: Azure Container Instances or App Service
+
+5. Observability & Monitoring
+   ├─ RabbitMQ Management UI
+   │   ├─ URL: http://localhost:15672
+   │   ├─ Credentials: guest/guest
+   │   ├─ Metrics:
+   │   │   ├─ Queue depth (messages waiting)
+   │   │   ├─ Message publish/consume rate
+   │   │   ├─ Consumer count (active workers)
+   │   │   ├─ Unacknowledged messages
+   │   │   └─ DLQ message count
+   │   └─ Features:
+   │       ├─ Real-time queue visualization
+   │       ├─ Manual message inspection
+   │       └─ Queue purging (for testing)
+   ├─ Structured Logging
+   │   ├─ Correlation IDs: Track request across publisher/worker
+   │   ├─ Log enrichment: workerId, agentId, executionCycleId
+   │   ├─ Timestamps: High-precision for latency tracking
+   │   └─ Log levels: DEBUG (detailed), INFO (execution flow), ERROR (failures)
+   ├─ Custom Metrics (Future)
+   │   ├─ Agent execution time (P50, P95, P99)
+   │   ├─ Messages published/consumed per minute
+   │   ├─ Failed agent count per cycle
+   │   ├─ Redis lock acquisition time
+   │   └─ Queue backlog size
+   └─ Health Checks
+       ├─ RabbitMQ connection health
+       ├─ Redis connection health
+       ├─ Worker liveness (heartbeat)
+       └─ Database connection health
+```
+
+### Performance Comparison
+
+| Metric | Phase 8 (Sequential) | Phase 9 (RabbitMQ) | Improvement |
+|--------|---------------------|-------------------|-------------|
+| **5 agents** | 50s | 10-15s | **3-5x faster** |
+| **20 agents** | 200s (3.3 min) | 40-60s (1 min) | **3-4x faster** |
+| **100 agents** | 1000s (16.7 min) | 100-150s (2.5 min) | **6-10x faster** |
+| **Scalability** | 1 instance (fixed) | N workers (elastic) | **Horizontal** |
+| **Fault tolerance** | All fail if one fails | Isolated failures | **Resilient** |
+| **Cost** | $0/month | $0/month | **No change** |
+
+### Migration Strategy (Phase 9 Execution Plan)
+
+```
+Sprint 9.1 (1 day) - Infrastructure Setup
+├─ Add RabbitMQ to docker-compose.yml
+├─ Add RabbitMQ.Client NuGet package
+├─ Configure RabbitMQ connection in appsettings.json
+├─ Verify RabbitMQ Management UI access
+└─ Create health check endpoints
+
+Sprint 9.2 (1 day) - Message Publishing
+├─ Create PublishAgentsFunction (replace RunAgentsFunction)
+├─ Add [Singleton] attribute (prevent duplicate publishes)
+├─ Implement IRabbitMqPublisher interface
+├─ Add retry policy with Polly
+└─ Test: Publish messages appear in RabbitMQ UI
+
+Sprint 9.3 (1 day) - Idempotency Layer
+├─ Create IIdempotencyService interface
+├─ Implement RedisIdempotencyService
+├─ Test lock acquisition (simulate concurrent workers)
+├─ Test idempotency (same key → no duplicate execution)
+└─ Verify TTL expiration (old locks auto-release)
+
+Sprint 9.4 (2 days) - Worker Service
+├─ Create AgentWorkerService (IHostedService)
+├─ Implement message consumption logic
+├─ Integrate with IAgentRunner (reuse existing code)
+├─ Add error handling and retry logic
+├─ Test: Workers consume and process agents
+└─ Test: Failed agents route to DLQ after 3 retries
+
+Sprint 9.5 (1 day) - Testing & Validation
+├─ Unit tests: IdempotencyService, RabbitMqPublisher
+├─ Integration tests: End-to-end message flow
+├─ Load tests: 5 workers × 20 agents
+├─ Failure tests: Worker crash → message requeue
+└─ DLQ test: Persistent failure → routed correctly
+
+Sprint 9.6 (0.5 day) - Documentation
+├─ Update DEPLOYMENT_LOCAL.md with RabbitMQ setup
+├─ Create ARCHITECTURE_DISTRIBUTED.md
+├─ Update PROJECT_ARCHITECTURE_REPORT.md
+└─ Add troubleshooting guide
+
+Sprint 9.7 (0.5 day) - Migration & Rollback
+├─ Rename RunAgentsFunction → RunAgentsFunction.OLD
+├─ Add feature flag: UseMessageQueue (default: true)
+├─ Test rollback: Switch to sequential mode
+└─ Deploy to production (when ready)
+
+Total Effort: 7 days (1 week sprint)
 ```
 
 ---
@@ -1888,6 +2186,7 @@ dotnet test && cd ai-trading-race-ml && pytest
 8. **Cost Optimization**: Local development with Docker, Azure deployment deferred until production
 9. **Comprehensive Testing**: 33/33 integration tests validate complete pipeline
 10. **Documentation Excellence**: 574-line database guide, 926-line deployment guide, architecture report
+11. **Horizontal Scalability (Phase 9)**: RabbitMQ message queue enables 3-5x performance improvement and unlimited agent scaling
 
 ### Phase 8 Achievements
 
@@ -1920,11 +2219,34 @@ dotnet test && cd ai-trading-race-ml && pytest
    • Production deployment deferred to final phase
 ```
 
+### Phase 9 Roadmap (Planned)
+
+```
+📋 Distributed Architecture with RabbitMQ
+   • Transform sequential → parallel agent execution
+   • 3-5x performance improvement (50s → 10-15s for 5 agents)
+   • Horizontal scalability (add workers to scale)
+   • Fault tolerance (isolated failures, auto-retry)
+   • Idempotency with Redis (no duplicate executions)
+   • Dead Letter Queue (capture persistent failures)
+   • RabbitMQ Management UI (real-time observability)
+   
+🎯 Benefits:
+   ✅ Cost: $0/month (RabbitMQ is open source)
+   ✅ Resume value: Industry-standard message queue technology
+   ✅ Engineering maturity: Right tool for the job (task distribution)
+   ✅ Interview talking point: Distributed systems knowledge
+   
+⏱️ Timeline: 1 week sprint (7 days)
+   • Sprint 9.1-9.7 (see detailed plan above)
+   • Low risk: Feature flag allows rollback to sequential mode
+```
+
 ---
 
-**Document Version**: 2.0  
-**Last Updated**: January 20, 2026  
-**Status**: Phase 8 Complete - Local Infrastructure Operational  
+**Document Version**: 2.1  
+**Last Updated**: January 22, 2026  
+**Status**: Phase 8 Complete - Phase 9 Planned (RabbitMQ Distributed Architecture)  
 **Author**: AI Trading Race Team  
 **License**: MIT
 

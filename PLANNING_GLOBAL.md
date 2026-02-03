@@ -383,7 +383,230 @@
 
 ---
 
-## Phase 9 – Monitoring, sécurité minimale & polish CV
+## Phase 9 – RabbitMQ Message Queue & Horizontal Scalability
+
+**Objectif :** transformer l'architecture séquentielle en système distribué avec traitement parallèle des agents via RabbitMQ et idempotency keys.
+
+**Motivations :**
+
+- **Performance** : passer de l'exécution séquentielle (5 agents × 10s = 50s) à l'exécution parallèle (5 agents en ~10-15s).
+- **Scalabilité** : permettre le déploiement de multiples workers pour traiter 100+ agents simultanément.
+- **Résilience** : isoler les échecs d'agents individuels sans bloquer le traitement des autres.
+- **Foundation** : poser les bases pour un système horizontalement scalable.
+
+**Architecture actuelle (problèmes) :**
+
+```
+[Timer Function: RunAgentsFunction]
+    ↓ foreach agent (sequential)
+    ├─ Agent 1 (10s) → LLM call → DB transaction
+    ├─ Agent 2 (10s) → LLM call → DB transaction
+    ├─ Agent 3 (10s) → LLM call → DB transaction
+    └─ Agent 4 (10s) → LLM call → DB transaction
+    
+Total: 40+ seconds
+Problem: Sequential, single point of failure, no scalability
+```
+
+**Architecture cible (avec RabbitMQ) :**
+
+```
+[Timer Function: PublishAgentsFunction] (< 1s)
+    ↓ Publish messages to queue
+[RabbitMQ Queue: agent-execution]
+    ↓ Multiple consumers in parallel
+    ├─ [Worker 1] → Agent 1 (10s)
+    ├─ [Worker 2] → Agent 2 (10s)
+    ├─ [Worker 3] → Agent 3 (10s)
+    └─ [Worker N] → Agent N (10s)
+    
+Total: ~10-15 seconds
+Benefits: Parallel, fault-tolerant, horizontally scalable
+```
+
+**Tâches :**
+
+### **Sprint 9.1 – RabbitMQ Infrastructure Setup**
+
+- **Docker Compose :**
+  - Ajouter service RabbitMQ (image `rabbitmq:3.12-management`).
+  - Exposer ports : 5672 (AMQP), 15672 (Management UI).
+  - Configuration : utilisateur/mot de passe, vhosts.
+  - Health check : `rabbitmq-diagnostics ping`.
+
+- **NuGet Packages :**
+  - Ajouter `RabbitMQ.Client` à `AiTradingRace.Infrastructure`.
+  - Ajouter `Microsoft.Extensions.Hosting` pour background services.
+
+- **Configuration :**
+  - `appsettings.json` : section RabbitMQ (host, port, user, password, queues).
+  - Environment variables pour secrets.
+
+### **Sprint 9.2 – Message Publishing (Timer Function)**
+
+- **Nouvelle Function : `PublishAgentsFunction` :**
+  - Timer trigger : `0 */30 * * * *` (every 30 minutes).
+  - Attribut `[Singleton]` pour éviter les exécutions multiples.
+  - Logique :
+    1. Query active agents from database.
+    2. Generate execution cycle ID (timestamp-based).
+    3. Publish one message per agent to RabbitMQ queue.
+    4. Each message contains: AgentId, ExecutionCycleId, Timestamp.
+
+- **Message Format :**
+  ```json
+  {
+    "agentId": "guid",
+    "executionCycleId": "20260122-1430",
+    "timestamp": "2026-01-22T14:30:00Z",
+    "idempotencyKey": "agent-run:guid:20260122-1430"
+  }
+  ```
+
+- **Infrastructure Service : `IRabbitMqPublisher` :**
+  - Interface pour abstraire la publication de messages.
+  - Implémentation avec retry policy (Polly).
+  - Logging structuré (correlation IDs).
+
+### **Sprint 9.3 – Idempotency Layer with Redis**
+
+- **Extension Redis Usage :**
+  - Réutiliser le service Redis existant (déjà dans docker-compose).
+  - Créer `IIdempotencyService` dans Application layer.
+  - Implémentation `RedisIdempotencyService` dans Infrastructure.
+
+- **Idempotency Logic :**
+  ```csharp
+  public interface IIdempotencyService
+  {
+      Task<bool> TryAcquireLockAsync(string idempotencyKey, string workerId, TimeSpan expiry);
+      Task<bool> IsAlreadyProcessedAsync(string idempotencyKey);
+      Task MarkAsCompletedAsync(string idempotencyKey, object result);
+      Task<T?> GetCachedResultAsync<T>(string idempotencyKey);
+  }
+  ```
+
+- **Key Structure :**
+  - Lock key: `agent-lock:{agentId}:{executionCycleId}`
+  - Result key: `agent-result:{agentId}:{executionCycleId}`
+  - TTL: 1 hour (prevents stale locks).
+
+### **Sprint 9.4 – Worker Service (Message Consumer)**
+
+- **Background Service : `AgentWorkerService` :**
+  - Hosted service qui consomme les messages de la queue RabbitMQ.
+  - Configuration : nombre de workers concurrents (default: 3).
+  - Implémentation dans `AiTradingRace.Functions` ou nouveau projet `AiTradingRace.Workers`.
+
+- **Message Processing Flow :**
+  1. Receive message from queue.
+  2. Extract idempotency key.
+  3. Check Redis: `IsAlreadyProcessedAsync(key)`.
+     - If true → Acknowledge message, skip processing.
+  4. Attempt lock: `TryAcquireLockAsync(key, workerId)`.
+     - If false → Another worker processing, acknowledge and skip.
+  5. Execute agent: `await _agentRunner.RunAgentOnceAsync(agentId)`.
+  6. On success:
+     - Store result in Redis: `MarkAsCompletedAsync(key, result)`.
+     - Acknowledge message to RabbitMQ.
+  7. On failure:
+     - Log error.
+     - Nack message with requeue (max 3 retries).
+     - After max retries → send to Dead Letter Queue.
+
+- **Dead Letter Queue (DLQ) :**
+  - Queue : `agent-execution-dlq`.
+  - Stores failed messages for manual inspection.
+  - Monitoring endpoint: `GET /api/admin/failed-agents`.
+
+### **Sprint 9.5 – Observability & Monitoring**
+
+- **RabbitMQ Management UI :**
+  - Accessible à `http://localhost:15672`.
+  - Monitoring : queue depth, message rate, consumers.
+
+- **Structured Logging :**
+  - Correlation IDs propagated across publishers/workers.
+  - Log enrichment : workerId, agentId, executionCycleId.
+
+- **Metrics :**
+  - Messages published/consumed per minute.
+  - Worker processing time (P50, P95, P99).
+  - Failed agents count.
+  - Queue backlog size.
+
+- **Health Checks :**
+  - RabbitMQ connection health.
+  - Redis connection health.
+  - Worker liveness check.
+
+### **Sprint 9.6 – Testing & Validation**
+
+- **Unit Tests :**
+  - `IdempotencyService` : lock acquisition, duplicate detection.
+  - `RabbitMqPublisher` : message serialization, retry logic.
+
+- **Integration Tests :**
+  - End-to-end flow : publish → consume → process → acknowledge.
+  - Idempotency : same message processed twice → only one execution.
+  - Failure scenarios : worker crash → message requeued → successful retry.
+  - DLQ : message fails 3 times → routed to DLQ.
+
+- **Load Tests :**
+  - Scenario 1 : 5 workers, 20 agents → verify parallel processing.
+  - Scenario 2 : 10 workers, 100 agents → measure throughput.
+  - Scenario 3 : 1 worker fails mid-processing → verify recovery.
+
+- **Manual Testing :**
+  - RabbitMQ UI : visualize message flow.
+  - Redis : inspect idempotency keys.
+  - Logs : trace agent execution across publisher/worker.
+
+### **Sprint 9.7 – Migration & Deprecation**
+
+- **Deprecate `RunAgentsFunction` :**
+  - Rename to `RunAgentsFunction.OLD.cs`.
+  - Add deprecation warning in logs.
+  - Keep for rollback safety during migration.
+
+- **Configuration Toggle :**
+  - Feature flag : `UseMessageQueue` (default: true).
+  - If false → fallback to old sequential function.
+
+- **Documentation :**
+  - Update `DEPLOYMENT_LOCAL.md` : RabbitMQ setup instructions.
+  - Create `ARCHITECTURE_DISTRIBUTED.md` : explain message flow.
+  - Update `SERVICES_SCHEMA.md` : add RabbitMQ components.
+
+**Bénéfices attendus :**
+
+| Métrique | Avant | Après | Amélioration |
+|----------|-------|-------|--------------|
+| **Temps d'exécution** (5 agents) | 50s | 10-15s | 3-5x plus rapide |
+| **Throughput** (agents/heure) | ~360 | ~1800+ | 5x+ |
+| **Résilience** | Échec bloque tout | Échecs isolés | Fault-tolerant |
+| **Scalabilité** | 1 instance fixe | N workers | Horizontale |
+| **Coût** | $0 | $0 | Aucun (open source) |
+
+**Limitations connues (à adresser plus tard) :**
+
+- ⚠️ **Database bottleneck** : à 100+ agents, SQL Server devient le goulot. Solution : read replicas, connection pooling tuning.
+- ⚠️ **Timer function duplication** : si Azure Functions scale-out activé. Solution : déjà géré par `[Singleton]` attribute.
+- ⚠️ **External API rate limits** : Groq/CoinGecko. Solution : déjà géré par circuit breakers et rate limiting handlers.
+
+**Critère de sortie :** 
+- RabbitMQ opérationnel dans Docker Compose avec Management UI.
+- PublishAgentsFunction publie des messages avec idempotency keys.
+- AgentWorkerService consomme et traite les agents en parallèle.
+- Idempotency garantit qu'aucun agent n'est exécuté deux fois dans le même cycle.
+- Dead Letter Queue capture les échecs persistants.
+- Tests d'intégration validés (100% success rate).
+- Documentation mise à jour avec architecture distribuée.
+- Performance mesurée : 3-5x amélioration sur 5 agents.
+
+---
+
+## Phase 10 – Monitoring, sécurité minimale & polish CV
 
 **Objectif :** rendre le projet "propre" aux yeux d'un recruteur.
 **Objectif :** rendre le projet “propre” aux yeux d’un recruteur.

@@ -36,7 +36,7 @@ public sealed class AzureOpenAiAgentModelClient : IAgentModelClient
     {
         _logger.LogDebug("Generating decision for agent {AgentId}", context.AgentId);
 
-        var systemPrompt = BuildSystemPrompt(context.Instructions);
+        var systemPrompt = BuildSystemPrompt(context.Instructions, context);
         var userPrompt = BuildUserPrompt(context);
 
         var chatMessages = new List<ChatMessage>
@@ -76,40 +76,88 @@ public sealed class AzureOpenAiAgentModelClient : IAgentModelClient
         }
     }
 
-    private static string BuildSystemPrompt(string instructions)
+    private static string BuildSystemPrompt(string instructions, AgentContext context)
     {
-        return $$"""
-            You are an AI trading agent managing a cryptocurrency portfolio.
+        var sb = new System.Text.StringBuilder();
+        
+        sb.AppendLine("You are an AI trading agent managing a cryptocurrency portfolio.");
+        sb.AppendLine();
+        sb.AppendLine("## Your Instructions");
+        sb.AppendLine(instructions);
+        sb.AppendLine();
+        sb.AppendLine("## Trading Rules");
+        sb.AppendLine("1. You can only trade BTC and ETH");
+        sb.AppendLine("2. Always respond with valid JSON");
+        sb.AppendLine("3. Use \"BUY\", \"SELL\", or \"HOLD\" for side");
+        sb.AppendLine("4. Quantity must be positive");
+        sb.AppendLine("5. Be conservative - don't trade if uncertain");
+
+        // Phase 10: Add knowledge graph rules if available
+        if (context.KnowledgeGraph != null && context.DetectedRegime != null)
+        {
+            sb.AppendLine();
+            sb.AppendLine("## ACTIVE TRADING CONSTRAINTS");
+            sb.AppendLine($"Current Market Regime: {context.DetectedRegime.Name} (Volatility: {context.DetectedRegime.Volatility:P2})");
+            sb.AppendLine();
             
-            ## Your Instructions
-            {{instructions}}
-            
-            ## Trading Rules
-            1. You can only trade BTC and ETH
-            2. Always respond with valid JSON
-            3. Use "BUY", "SELL", or "HOLD" for side
-            4. Quantity must be positive
-            5. Be conservative - don't trade if uncertain
-            
-            ## Response Format
-            You MUST respond with a JSON object in this exact format:
+            foreach (var rule in context.KnowledgeGraph.ApplicableRules.OrderByDescending(r => r.Severity))
             {
-              "reasoning": "Brief explanation of your decision",
-              "orders": [
+                sb.AppendLine($"[{rule.Id}] {rule.Name} - {rule.Severity}");
+                sb.AppendLine($"    {rule.Description}");
+                if (rule.Threshold.HasValue)
                 {
-                  "asset": "BTC",
-                  "side": "BUY",
-                  "quantity": 0.1
+                    sb.AppendLine($"    Threshold: {rule.Threshold.Value} {rule.Unit}");
                 }
-              ]
+                sb.AppendLine();
             }
             
-            If you decide to hold (no trades), return:
-            {
-              "reasoning": "Explanation",
-              "orders": []
-            }
-            """;
+            sb.AppendLine("⚠️ IMPORTANT: You MUST cite which rule IDs influenced your decision in the 'cited_rules' field.");
+        }
+
+        sb.AppendLine();
+        sb.AppendLine("## Response Format");
+        sb.AppendLine("You MUST respond with a JSON object in this exact format:");
+        sb.AppendLine("{");
+        sb.AppendLine("  \"reasoning\": \"Brief explanation of your decision\",");
+        sb.AppendLine("  \"orders\": [");
+        sb.AppendLine("    {");
+        sb.AppendLine("      \"asset\": \"BTC\",");
+        sb.AppendLine("      \"side\": \"BUY\",");
+        sb.AppendLine("      \"quantity\": 0.1");
+        sb.AppendLine("    }");
+        sb.Append("  ]");
+        
+        // Add cited_rules field if knowledge graph is enabled
+        if (context.KnowledgeGraph != null)
+        {
+            sb.AppendLine(",");
+            sb.AppendLine("  \"cited_rules\": [\"R001\", \"R003\"]");
+        }
+        else
+        {
+            sb.AppendLine();
+        }
+        
+        sb.AppendLine("}");
+        sb.AppendLine();
+        sb.AppendLine("If you decide to hold (no trades), return:");
+        sb.AppendLine("{");
+        sb.AppendLine("  \"reasoning\": \"Explanation\",");
+        sb.Append("  \"orders\": []");
+        
+        if (context.KnowledgeGraph != null)
+        {
+            sb.AppendLine(",");
+            sb.AppendLine("  \"cited_rules\": []");
+        }
+        else
+        {
+            sb.AppendLine();
+        }
+        
+        sb.AppendLine("}");
+
+        return sb.ToString();
     }
 
     private static string BuildUserPrompt(AgentContext context)
@@ -193,6 +241,34 @@ public sealed class AzureOpenAiAgentModelClient : IAgentModelClient
 
         _logger.LogInformation("Agent {AgentId} reasoning: {Reasoning}", agentId, reasoning);
 
+        // Phase 10: Extract cited rules if present
+        List<string>? citedRuleIds = null;
+        if (root.TryGetProperty("cited_rules", out var citedRulesElement))
+        {
+            if (citedRulesElement.ValueKind == JsonValueKind.Array)
+            {
+                citedRuleIds = new List<string>();
+                foreach (var ruleElement in citedRulesElement.EnumerateArray())
+                {
+                    if (ruleElement.ValueKind == JsonValueKind.String)
+                    {
+                        var ruleId = ruleElement.GetString();
+                        if (!string.IsNullOrWhiteSpace(ruleId))
+                        {
+                            citedRuleIds.Add(ruleId);
+                        }
+                    }
+                }
+                
+                if (citedRuleIds.Count > 0)
+                {
+                    _logger.LogInformation(
+                        "Agent {AgentId} cited rules: {Rules}",
+                        agentId, string.Join(", ", citedRuleIds));
+                }
+            }
+        }
+
         var orders = new List<TradeOrder>();
         var validationErrors = new List<string>();
 
@@ -236,7 +312,12 @@ public sealed class AzureOpenAiAgentModelClient : IAgentModelClient
 
         _logger.LogInformation("Agent {AgentId} generated {OrderCount} valid orders", agentId, orders.Count);
 
-        return new AgentDecision(agentId, DateTimeOffset.UtcNow, orders);
+        return new AgentDecision(
+            agentId, 
+            DateTimeOffset.UtcNow, 
+            orders,
+            CitedRuleIds: citedRuleIds,
+            Rationale: reasoning);
     }
 
     /// <summary>
@@ -292,6 +373,11 @@ public sealed class AzureOpenAiAgentModelClient : IAgentModelClient
     private AgentDecision CreateHoldDecision(Guid agentId, string reason)
     {
         _logger.LogWarning("Agent {AgentId}: {Reason}", agentId, reason);
-        return new AgentDecision(agentId, DateTimeOffset.UtcNow, Array.Empty<TradeOrder>());
+        return new AgentDecision(
+            agentId, 
+            DateTimeOffset.UtcNow, 
+            Array.Empty<TradeOrder>(),
+            CitedRuleIds: null,
+            Rationale: reason);
     }
 }

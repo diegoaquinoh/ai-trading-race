@@ -1,12 +1,16 @@
 using System;
 using System.Net;
 using AiTradingRace.Application.Agents;
+using AiTradingRace.Application.Decisions;
 using AiTradingRace.Application.Equity;
+using AiTradingRace.Application.Knowledge;
 using AiTradingRace.Application.MarketData;
 using AiTradingRace.Application.Portfolios;
 using AiTradingRace.Infrastructure.Agents;
 using AiTradingRace.Infrastructure.Database;
+using AiTradingRace.Infrastructure.Decisions;
 using AiTradingRace.Infrastructure.Equity;
+using AiTradingRace.Infrastructure.Knowledge;
 using AiTradingRace.Infrastructure.MarketData;
 using AiTradingRace.Infrastructure.Portfolios;
 using Azure;
@@ -111,6 +115,11 @@ public static class ServiceCollectionExtensions
         services.TryAddScoped<IAgentModelClientFactory, AgentModelClientFactory>();
         services.TryAddScoped<IRiskValidator, RiskValidator>();
         services.TryAddScoped<IAgentRunner, AgentRunner>();
+        
+        // Phase 10: Knowledge Graph & Decision Logs
+        services.TryAddScoped<IKnowledgeGraphService, InMemoryKnowledgeGraphService>();
+        services.TryAddScoped<IRegimeDetector, VolatilityBasedRegimeDetector>();
+        services.TryAddScoped<IDecisionLogService, DecisionLogService>();
 
         return services;
     }

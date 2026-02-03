@@ -11,19 +11,20 @@ Course entre agents IA de trading (LLM) qui pilotent chacun un portefeuille cryp
 
 ## 📊 Statut du Projet
 
-| Phase    | Description                            | Status      |
-| -------- | -------------------------------------- | ----------- |
-| Phase 1  | Architecture & Solution .NET           | ✅ Terminée |
-| Phase 2  | Modèle de données & Base SQL           | ✅ Terminée |
-| Phase 3  | Ingestion des données de marché        | ✅ Terminée |
-| Phase 4  | Moteur de simulation (Portfolio & PnL) | ✅ Terminée |
-| Phase 5  | Intégration agents IA (LLM)            | ✅ Terminée |
-| Phase 5b | Modèle ML custom (Python + FastAPI)    | ✅ Terminée |
-| Phase 6  | Azure Functions (scheduler)            | ✅ Terminée |
-| Phase 7  | UI React Dashboard                     | ✅ Terminée |
-| Phase 8  | CI/CD & Local Deployment               | ✅ Terminée (Sprint 8.3, 8.4, 8.5) |
-| Phase 9  | Monitoring & Sécurité                  | ⏳ À venir  |
-| Phase 10 | GraphRAG-lite (Explainable AI)         | ⏳ À venir  |
+| Phase    | Description                                  | Status      |
+| -------- | -------------------------------------------- | ----------- |
+| Phase 1  | Architecture & Solution .NET                 | ✅ Terminée |
+| Phase 2  | Modèle de données & Base SQL                 | ✅ Terminée |
+| Phase 3  | Ingestion des données de marché              | ✅ Terminée |
+| Phase 4  | Moteur de simulation (Portfolio & PnL)       | ✅ Terminée |
+| Phase 5  | Intégration agents IA (LLM)                  | ✅ Terminée |
+| Phase 5b | Modèle ML custom (Python + FastAPI)          | ✅ Terminée |
+| Phase 6  | Azure Functions (scheduler)                  | ✅ Terminée |
+| Phase 7  | UI React Dashboard                           | ✅ Terminée |
+| Phase 8  | CI/CD & Local Deployment                     | ✅ Terminée (Sprint 8.3, 8.4, 8.5) |
+| Phase 9  | RabbitMQ Message Queue & Horizontal Scaling  | ⏳ Planifié  |
+| Phase 10 | Monitoring & Sécurité                        | ⏳ À venir  |
+| Phase 11 | GraphRAG-lite (Explainable AI)               | ⏳ À venir  |
 
 **Phase 8 Details:**
 - ✅ Sprint 8.1: Llama API Integration (Groq)
@@ -34,6 +35,54 @@ Course entre agents IA de trading (LLM) qui pilotent chacun un portefeuille cryp
 - ⏸️ Sprint 8.6: Azure Deployment (deferred - costs)
 
 ## Architecture
+
+### Current Architecture (Phase 8)
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                     Docker Compose Services                     │
+├─────────────────────────────────────────────────────────────────┤
+│  • SQL Server 2022 (port 1433)                                  │
+│  • Redis 7 (port 6379) - ML idempotency cache                   │
+│  • ML Service FastAPI (port 8000)                               │
+└─────────────────────────────────────────────────────────────────┘
+                              ▲
+                              │
+┌─────────────────────────────┼─────────────────────────────────┐
+│                             │                                 │
+│  Timer (30 min) → RunAgentsFunction (sequential)              │
+│                     └─► Agent 1 (10s)                         │
+│                     └─► Agent 2 (10s)                         │
+│                     └─► Agent 3 (10s)                         │
+│                     Total: 30+ seconds                        │
+└───────────────────────────────────────────────────────────────┘
+```
+
+### Future Architecture (Phase 9 - RabbitMQ)
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                     Docker Compose Services                     │
+├─────────────────────────────────────────────────────────────────┤
+│  • SQL Server 2022 (port 1433)                                  │
+│  • Redis 7 (port 6379) - Idempotency + distributed locks       │
+│  • RabbitMQ 3.12 (port 5672, UI: 15672) - Message queue        │
+│  • ML Service FastAPI (port 8000)                               │
+└─────────────────────────────────────────────────────────────────┘
+                              ▲
+                              │
+┌─────────────────────────────┼─────────────────────────────────┐
+│  Timer (30 min) → PublishAgentsFunction (< 1s)                 │
+│                     └─► [RabbitMQ Queue]                       │
+│                            ├─► Worker 1 → Agent 1 (10s)        │
+│                            ├─► Worker 2 → Agent 2 (10s)        │
+│                            └─► Worker N → Agent N (10s)        │
+│                     Total: ~10 seconds (parallel!)             │
+│                     Benefits: 3-5x faster, fault-tolerant      │
+└───────────────────────────────────────────────────────────────┘
+```
+
+### Project Structure
 
 ```
 ai-trading-race/
@@ -54,6 +103,7 @@ ai-trading-race/
 - **Node.js 20+** (pour frontend React)
 - **Python 3.11+** (pour ML service - optionnel si Docker)
 - **Azure Functions Core Tools v4** (pour scheduler - optionnel)
+- **overmind** (optionnel, pour démarrage en une commande: `brew install overmind`)
 
 ### Installation sur macOS (Apple Silicon)
 
@@ -118,6 +168,7 @@ Cela démarre:
 - SQL Server 2022 (port 1433)
 - Redis 7 (port 6379)
 - ML Service FastAPI (port 8000)
+- (Phase 9+) RabbitMQ 3.12 (port 5672, Management UI: 15672)
 
 ### 3. Initialiser la base de données
 
@@ -145,6 +196,28 @@ nano AiTradingRace.Functions/local.settings.json
 
 ### 5. Démarrer les services
 
+#### Option A: Une seule commande avec overmind (Recommandé)
+
+```bash
+# Installer overmind (une seule fois)
+brew install overmind
+
+# Démarrer tous les services
+overmind start -f Procfile.dev
+```
+
+**Commandes overmind utiles:**
+
+| Commande | Description |
+|----------|-------------|
+| `overmind start -f Procfile.dev` | Démarrer tous les services |
+| `overmind stop` | Arrêter tous les services |
+| `overmind restart backend` | Redémarrer uniquement le backend |
+| `overmind connect backend` | Se connecter au terminal du backend (Ctrl+B puis D pour détacher) |
+| `Ctrl+C` | Arrêter tout |
+
+#### Option B: Démarrage manuel (plusieurs terminaux)
+
 > **⚠️ IMPORTANT:** Vous devez exécuter `source .env` dans **CHAQUE terminal** avant de démarrer un service!
 
 ```bash
@@ -164,7 +237,7 @@ npm install
 npm run dev
 ```
 
-**Pourquoi `source .env` est nécessaire:**
+**Pourquoi `source .env` est nécessaire (Option B):**
 - Le backend (.NET) a besoin de `ConnectionStrings__TradingDb` pour se connecter à SQL Server
 - Les Azure Functions ont besoin des mêmes variables pour l'ingestion des données
 - Sans cela, vous obtiendrez des erreurs **"Login failed for user 'sa'"**
@@ -175,6 +248,7 @@ npm run dev
 - **API:** http://localhost:5001/swagger
 - **ML Service:** http://localhost:8000/docs
 - **Functions:** http://localhost:7071
+- **(Phase 9+) RabbitMQ Management UI:** http://localhost:15672 (default: guest/guest)
 
 ## 🛠 Scripts Utiles
 
@@ -235,13 +309,16 @@ export ConnectionStrings__TradingDb='Server=localhost,1433;Database=AiTradingRac
 dotnet ef database update --project AiTradingRace.Infrastructure --startup-project AiTradingRace.Web
 ```
 
-## �📚 Documentation
+## 📚 Documentation
 
 - [DATABASE.md](./DATABASE.md) - Guide base de données (connexions, migrations, troubleshooting)
 - [scripts/README.md](./scripts/README.md) - Guide des scripts de base de données
 - [DEPLOYMENT_LOCAL.md](./DEPLOYMENT_LOCAL.md) - Guide déploiement local complet
 - [TEST_RESULTS.md](./TEST_RESULTS.md) - Résultats des tests (23 static + 10 integration)
-- [PLANNING_PHASE8.md](./PLANNING_PHASE8.md) - Détails Phase 8 (CI/CD)
+- [PLANNING_GLOBAL.md](./PLANNING_GLOBAL.md) - Planification complète du projet (Phases 1-11)
+- [PLANNING_PHASE8.md](./PLANNING_PHASE8.md) - Détails Phase 8 (CI/CD & Local Infrastructure)
+- [PLANNING_PHASE9_AUTH.md](./PLANNING_PHASE9_AUTH.md) - Authentication & Authorization
+- [PROJECT_ARCHITECTURE_REPORT.md](./PROJECT_ARCHITECTURE_REPORT.md) - Architecture complète et rapport technique
 
 ## 🔒 Sécurité
 
@@ -497,6 +574,12 @@ Set via environment variables (`ML_SERVICE_` prefix):
 ## Commandes utiles
 
 ```bash
+# Démarrer tout avec overmind (recommandé)
+overmind start -f Procfile.dev
+overmind stop
+overmind restart backend  # redémarrer un service
+overmind connect backend  # attacher au terminal d'un service
+
 # Build & Test
 dotnet restore && dotnet build
 dotnet test AiTradingRace.Tests

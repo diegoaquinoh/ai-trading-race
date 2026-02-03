@@ -1,0 +1,7 @@
+# Procfile.dev - Run all services with: overmind start -f Procfile.dev
+# Install overmind: brew install overmind
+
+infra: docker compose up
+functions: cd AiTradingRace.Functions && func start
+backend: cd AiTradingRace.Web && dotnet watch run
+frontend: cd ai-trading-race-web && npm run dev

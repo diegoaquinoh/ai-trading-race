@@ -28,6 +28,7 @@
     <ProjectReference Include="..\AiTradingRace.Application\AiTradingRace.Application.csproj" />
     <ProjectReference Include="..\AiTradingRace.Domain\AiTradingRace.Domain.csproj" />
     <ProjectReference Include="..\AiTradingRace.Functions\AiTradingRace.Functions.csproj" />
+    <ProjectReference Include="..\AiTradingRace.Web\AiTradingRace.Web.csproj" />
   </ItemGroup>
 
 </Project>
