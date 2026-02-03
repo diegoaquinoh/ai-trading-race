@@ -17,7 +17,7 @@ NC='\033[0m' # No Color
 
 # Configuration from environment variables with defaults
 CONTAINER_NAME="${SQL_CONTAINER_NAME:-ai-trading-sqlserver}"
-SA_PASSWORD="${SA_PASSWORD:-YourStrong!Passw0rd}"
+SA_PASSWORD="${SA_PASSWORD:-YourStrong@Passw0rd123}"
 DB_NAME="${SQL_DATABASE_NAME:-AiTradingRace}"
 
 # Validate required variables

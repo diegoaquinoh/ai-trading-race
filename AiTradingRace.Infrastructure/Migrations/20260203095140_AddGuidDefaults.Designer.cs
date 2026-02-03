@@ -4,6 +4,7 @@ using AiTradingRace.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AiTradingRace.Infrastructure.Migrations
 {
     [DbContext(typeof(TradingDbContext))]
-    partial class TradingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260203095140_AddGuidDefaults")]
+    partial class AddGuidDefaults
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,7 +72,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         new
                         {
                             Id = new Guid("11111111-1111-1111-1111-111111111111"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 2, 3, 11, 32, 26, 563, DateTimeKind.Unspecified).AddTicks(7950), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 2, 3, 9, 51, 40, 644, DateTimeKind.Unspecified).AddTicks(7820), new TimeSpan(0, 0, 0, 0, 0)),
                             Instructions = "You are a conservative trader. Focus on momentum signals and always maintain diversification.",
                             IsActive = true,
                             ModelProvider = "Llama",
@@ -79,7 +82,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         new
                         {
                             Id = new Guid("22222222-2222-2222-2222-222222222222"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 2, 3, 11, 32, 26, 563, DateTimeKind.Unspecified).AddTicks(7950), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 2, 3, 9, 51, 40, 644, DateTimeKind.Unspecified).AddTicks(7820), new TimeSpan(0, 0, 0, 0, 0)),
                             Instructions = "You are a value investor. Look for undervalued opportunities and use technical indicators for timing.",
                             IsActive = true,
                             ModelProvider = "Mock",
@@ -89,7 +92,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         new
                         {
                             Id = new Guid("33333333-3333-3333-3333-333333333333"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 2, 3, 11, 32, 26, 563, DateTimeKind.Unspecified).AddTicks(7950), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 2, 3, 9, 51, 40, 644, DateTimeKind.Unspecified).AddTicks(7820), new TimeSpan(0, 0, 0, 0, 0)),
                             Instructions = "You are an aggressive trader. Follow trends and capitalize on momentum, but respect position limits.",
                             IsActive = true,
                             ModelProvider = "Mock",
@@ -280,9 +283,6 @@ namespace AiTradingRace.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("BatchId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTimeOffset>("CapturedAt")
                         .HasColumnType("datetimeoffset");
 
@@ -346,7 +346,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         {
                             Id = "VOLATILE",
                             Condition = "volatility_7d > 0.05",
-                            CreatedAt = new DateTime(2026, 2, 3, 11, 32, 26, 563, DateTimeKind.Utc).AddTicks(7990),
+                            CreatedAt = new DateTime(2026, 2, 3, 9, 51, 40, 644, DateTimeKind.Utc).AddTicks(7870),
                             Description = "Daily volatility > 5%",
                             LookbackDays = 7,
                             Name = "Volatile Market"
@@ -355,7 +355,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         {
                             Id = "BULLISH",
                             Condition = "ma_7d > ma_30d",
-                            CreatedAt = new DateTime(2026, 2, 3, 11, 32, 26, 563, DateTimeKind.Utc).AddTicks(7990),
+                            CreatedAt = new DateTime(2026, 2, 3, 9, 51, 40, 644, DateTimeKind.Utc).AddTicks(7870),
                             Description = "7-day MA > 30-day MA",
                             LookbackDays = 30,
                             Name = "Bullish Trend"
@@ -364,7 +364,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         {
                             Id = "BEARISH",
                             Condition = "ma_7d < ma_30d",
-                            CreatedAt = new DateTime(2026, 2, 3, 11, 32, 26, 563, DateTimeKind.Utc).AddTicks(7990),
+                            CreatedAt = new DateTime(2026, 2, 3, 9, 51, 40, 644, DateTimeKind.Utc).AddTicks(7870),
                             Description = "7-day MA < 30-day MA",
                             LookbackDays = 30,
                             Name = "Bearish Trend"
@@ -373,7 +373,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         {
                             Id = "STABLE",
                             Condition = "volatility_7d < 0.02",
-                            CreatedAt = new DateTime(2026, 2, 3, 11, 32, 26, 563, DateTimeKind.Utc).AddTicks(7990),
+                            CreatedAt = new DateTime(2026, 2, 3, 9, 51, 40, 644, DateTimeKind.Utc).AddTicks(7870),
                             Description = "Daily volatility < 2%",
                             LookbackDays = 7,
                             Name = "Stable Market"
@@ -422,7 +422,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2026, 2, 3, 11, 32, 26, 563, DateTimeKind.Utc).AddTicks(7990),
+                            CreatedAt = new DateTime(2026, 2, 3, 9, 51, 40, 644, DateTimeKind.Utc).AddTicks(7870),
                             SourceNodeId = "VOLATILE",
                             TargetNodeId = "R003",
                             Type = 0
@@ -430,7 +430,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2026, 2, 3, 11, 32, 26, 563, DateTimeKind.Utc).AddTicks(7990),
+                            CreatedAt = new DateTime(2026, 2, 3, 9, 51, 40, 644, DateTimeKind.Utc).AddTicks(7870),
                             Parameters = "{\"threshold\": 200.0}",
                             SourceNodeId = "VOLATILE",
                             TargetNodeId = "R002",
@@ -439,7 +439,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2026, 2, 3, 11, 32, 26, 563, DateTimeKind.Utc).AddTicks(7990),
+                            CreatedAt = new DateTime(2026, 2, 3, 9, 51, 40, 644, DateTimeKind.Utc).AddTicks(7870),
                             Parameters = "{\"threshold\": 0.6}",
                             SourceNodeId = "BULLISH",
                             TargetNodeId = "R001",
@@ -448,7 +448,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2026, 2, 3, 11, 32, 26, 563, DateTimeKind.Utc).AddTicks(7990),
+                            CreatedAt = new DateTime(2026, 2, 3, 9, 51, 40, 644, DateTimeKind.Utc).AddTicks(7870),
                             Parameters = "{\"threshold\": 0.3}",
                             SourceNodeId = "BEARISH",
                             TargetNodeId = "R001",
@@ -457,7 +457,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2026, 2, 3, 11, 32, 26, 563, DateTimeKind.Utc).AddTicks(7990),
+                            CreatedAt = new DateTime(2026, 2, 3, 9, 51, 40, 644, DateTimeKind.Utc).AddTicks(7870),
                             SourceNodeId = "Asset:BTC",
                             TargetNodeId = "R001",
                             Type = 4
@@ -465,7 +465,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2026, 2, 3, 11, 32, 26, 563, DateTimeKind.Utc).AddTicks(7990),
+                            CreatedAt = new DateTime(2026, 2, 3, 9, 51, 40, 644, DateTimeKind.Utc).AddTicks(7870),
                             SourceNodeId = "Asset:ETH",
                             TargetNodeId = "R001",
                             Type = 4
@@ -523,7 +523,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         {
                             Id = "R001",
                             Category = 0,
-                            CreatedAt = new DateTime(2026, 2, 3, 11, 32, 26, 563, DateTimeKind.Utc).AddTicks(7990),
+                            CreatedAt = new DateTime(2026, 2, 3, 9, 51, 40, 644, DateTimeKind.Utc).AddTicks(7870),
                             Description = "No single position should exceed 50% of total portfolio value",
                             IsActive = true,
                             Name = "MaxPositionSize",
@@ -535,7 +535,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         {
                             Id = "R002",
                             Category = 1,
-                            CreatedAt = new DateTime(2026, 2, 3, 11, 32, 26, 563, DateTimeKind.Utc).AddTicks(7990),
+                            CreatedAt = new DateTime(2026, 2, 3, 9, 51, 40, 644, DateTimeKind.Utc).AddTicks(7870),
                             Description = "Maintain minimum $100 cash buffer for trading costs",
                             IsActive = true,
                             Name = "MinCashReserve",
@@ -547,7 +547,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         {
                             Id = "R003",
                             Category = 0,
-                            CreatedAt = new DateTime(2026, 2, 3, 11, 32, 26, 563, DateTimeKind.Utc).AddTicks(7990),
+                            CreatedAt = new DateTime(2026, 2, 3, 9, 51, 40, 644, DateTimeKind.Utc).AddTicks(7870),
                             Description = "Reduce exposure when daily volatility exceeds 5%",
                             IsActive = true,
                             Name = "VolatilityStop",
@@ -559,7 +559,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         {
                             Id = "R004",
                             Category = 4,
-                            CreatedAt = new DateTime(2026, 2, 3, 11, 32, 26, 563, DateTimeKind.Utc).AddTicks(7990),
+                            CreatedAt = new DateTime(2026, 2, 3, 9, 51, 40, 644, DateTimeKind.Utc).AddTicks(7870),
                             Description = "Exit all positions if portfolio drops 20% from peak",
                             IsActive = true,
                             Name = "MaxDrawdown",
@@ -571,7 +571,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         {
                             Id = "R005",
                             Category = 2,
-                            CreatedAt = new DateTime(2026, 2, 3, 11, 32, 26, 563, DateTimeKind.Utc).AddTicks(7990),
+                            CreatedAt = new DateTime(2026, 2, 3, 9, 51, 40, 644, DateTimeKind.Utc).AddTicks(7870),
                             Description = "Hold at least 2 different assets when invested",
                             IsActive = true,
                             Name = "DiversificationRule",

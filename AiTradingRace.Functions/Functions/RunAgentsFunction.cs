@@ -1,6 +1,8 @@
+using System.Net;
 using AiTradingRace.Application.Agents;
 using AiTradingRace.Infrastructure.Database;
 using Microsoft.Azure.Functions.Worker;
+using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -25,19 +27,20 @@ public sealed class RunAgentsFunction
         _logger = logger;
     }
 
+    // NOTE: The timer-triggered agent execution has been removed.
+    // Agent decisions are now handled by the MarketCycleOrchestrator (Durable Functions)
+    // which runs every 15 minutes as part of the synchronized market cycle.
+
     /// <summary>
-    /// Run all active agents every 30 minutes.
-    /// CRON: 0 */30 * * * * (at minute 0 and 30 of every hour)
+    /// HTTP endpoint to manually trigger agent execution.
+    /// POST /api/agents/run
     /// </summary>
-    [Function(nameof(RunAllAgents))]
-    public async Task RunAllAgents(
-        [TimerTrigger("0 */30 * * * *")] TimerInfo timer,
+    [Function("RunAgentsManual")]
+    public async Task<HttpResponseData> RunAgentsManual(
+        [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "agents/run")] HttpRequestData req,
         CancellationToken cancellationToken)
     {
-        _logger.LogInformation(
-            "Agent execution cycle started at {Time}. Next run at {NextRun}",
-            DateTime.UtcNow,
-            timer.ScheduleStatus?.Next);
+        _logger.LogInformation("Manual agent execution triggered via HTTP");
 
         var activeAgents = await _dbContext.Agents
             .Where(a => a.IsActive)
@@ -46,6 +49,7 @@ public sealed class RunAgentsFunction
 
         _logger.LogInformation("Found {Count} active agents to run", activeAgents.Count);
 
+        var results = new List<object>();
         var successCount = 0;
         var failureCount = 0;
 
@@ -53,30 +57,49 @@ public sealed class RunAgentsFunction
         {
             try
             {
-                _logger.LogInformation(
-                    "Running agent {AgentName} ({AgentId})",
-                    agent.Name, agent.Id);
+                _logger.LogInformation("Running agent {AgentName} ({AgentId})", agent.Name, agent.Id);
 
                 var result = await _agentRunner.RunAgentOnceAsync(agent.Id, cancellationToken);
 
                 successCount++;
+                results.Add(new
+                {
+                    agentId = agent.Id,
+                    agentName = agent.Name,
+                    status = "success",
+                    ordersExecuted = result.Decision.Orders.Count,
+                    equity = result.Portfolio.TotalValue
+                });
+
                 _logger.LogInformation(
                     "Agent {AgentName} completed. Executed {OrderCount} orders. Equity: {Equity:C}",
-                    agent.Name,
-                    result.Decision.Orders.Count,
-                    result.Portfolio.TotalValue);
+                    agent.Name, result.Decision.Orders.Count, result.Portfolio.TotalValue);
             }
             catch (Exception ex)
             {
                 failureCount++;
+                results.Add(new
+                {
+                    agentId = agent.Id,
+                    agentName = agent.Name,
+                    status = "failed",
+                    error = ex.Message
+                });
+
                 _logger.LogError(ex, "Agent {AgentName} ({AgentId}) failed", agent.Name, agent.Id);
-                // Continue with next agent, don't fail entire batch
             }
         }
 
-        _logger.LogInformation(
-            "Agent execution cycle completed. Success: {Success}, Failures: {Failures}",
-            successCount, failureCount);
+        var response = req.CreateResponse(HttpStatusCode.OK);
+        await response.WriteAsJsonAsync(new
+        {
+            message = "Agent execution completed",
+            successCount,
+            failureCount,
+            results
+        }, cancellationToken);
+
+        return response;
     }
 }
 

@@ -106,10 +106,14 @@ export interface Trade {
 
 export interface EquitySnapshot {
   id: string;
+  portfolioId: string;
   agentId: string;
+  capturedAt: string;  // Backend uses 'capturedAt' not 'timestamp'
   totalValue: number;
-  cash: number;
-  timestamp: string;
+  cashValue: number;   // Backend uses 'cashValue' not 'cash'
+  positionsValue: number;
+  unrealizedPnL: number;
+  percentChange: number | null;
 }
 
 export interface MarketCandle {

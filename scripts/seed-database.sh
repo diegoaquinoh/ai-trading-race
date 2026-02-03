@@ -28,7 +28,7 @@ DB_SERVER="${SQL_SERVER:-localhost}"
 DB_PORT="${SQL_PORT:-1433}"
 DB_NAME="${SQL_DATABASE_NAME:-AiTradingRace}"
 DB_USER="${SQL_USER:-sa}"
-DB_PASSWORD="${SA_PASSWORD:-YourStrong!Passw0rd}"
+DB_PASSWORD="${SA_PASSWORD:-YourStrong@Passw0rd123}"
 STARTING_BALANCE="${STARTING_BALANCE:-100000.00}"
 
 # Validate required variables
@@ -111,42 +111,32 @@ execute_sql() {
 }
 
 # Step 1: Seed Assets
-echo -e "${YELLOW}Step 1: Seeding Assets...${NC}"
+echo -e "${YELLOW}Step 1: Seeding MarketAssets...${NC}"
 
 ASSET_SQL="
 SET NOCOUNT ON;
 
 -- Insert Bitcoin (BTC)
-IF NOT EXISTS (SELECT 1 FROM Assets WHERE Symbol = 'BTC')
+IF NOT EXISTS (SELECT 1 FROM MarketAssets WHERE Symbol = 'BTC')
 BEGIN
-    INSERT INTO Assets (Symbol, Name, AssetType, IsActive, CreatedAt, UpdatedAt)
-    VALUES ('BTC', 'Bitcoin', 0, 1, GETUTCDATE(), GETUTCDATE());
+    INSERT INTO MarketAssets (Symbol, Name, QuoteCurrency, ExternalId, IsEnabled)
+    VALUES ('BTC', 'Bitcoin', 'USD', 'bitcoin', 1);
     PRINT 'Inserted BTC';
 END
 ELSE
     PRINT 'BTC already exists';
 
 -- Insert Ethereum (ETH)
-IF NOT EXISTS (SELECT 1 FROM Assets WHERE Symbol = 'ETH')
+IF NOT EXISTS (SELECT 1 FROM MarketAssets WHERE Symbol = 'ETH')
 BEGIN
-    INSERT INTO Assets (Symbol, Name, AssetType, IsActive, CreatedAt, UpdatedAt)
-    VALUES ('ETH', 'Ethereum', 0, 1, GETUTCDATE(), GETUTCDATE());
+    INSERT INTO MarketAssets (Symbol, Name, QuoteCurrency, ExternalId, IsEnabled)
+    VALUES ('ETH', 'Ethereum', 'USD', 'ethereum', 1);
     PRINT 'Inserted ETH';
 END
 ELSE
     PRINT 'ETH already exists';
 
--- Insert USD (for portfolio cash balance)
-IF NOT EXISTS (SELECT 1 FROM Assets WHERE Symbol = 'USD')
-BEGIN
-    INSERT INTO Assets (Symbol, Name, AssetType, IsActive, CreatedAt, UpdatedAt)
-    VALUES ('USD', 'US Dollar', 1, 1, GETUTCDATE(), GETUTCDATE());
-    PRINT 'Inserted USD';
-END
-ELSE
-    PRINT 'USD already exists';
-
-SELECT Id, Symbol, Name, AssetType, IsActive FROM Assets;
+SELECT Id, Symbol, Name, QuoteCurrency, ExternalId, IsEnabled FROM MarketAssets;
 "
 
 execute_sql "$ASSET_SQL" || {
@@ -166,15 +156,13 @@ SET NOCOUNT ON;
 -- Agent 1: Llama Momentum Trader
 IF NOT EXISTS (SELECT 1 FROM Agents WHERE Name = 'Llama Momentum Trader')
 BEGIN
-    INSERT INTO Agents (Name, ModelProvider, ModelConfiguration, SystemPrompt, IsActive, CreatedAt, UpdatedAt)
+    INSERT INTO Agents (Name, ModelProvider, Strategy, Instructions, IsActive)
     VALUES (
         'Llama Momentum Trader',
         'Llama',
-        '{\"Model\":\"llama-3.3-70b-versatile\",\"Temperature\":0.7,\"MaxTokens\":500}',
+        'Momentum',
         'You are a momentum trading AI. Analyze price trends and volume to identify strong upward or downward momentum. Buy assets showing strong upward momentum and sell when momentum weakens. Focus on short to medium-term trends.',
-        1,
-        GETUTCDATE(),
-        GETUTCDATE()
+        1
     );
     PRINT 'Inserted Llama Momentum Trader';
 END
@@ -184,15 +172,13 @@ ELSE
 -- Agent 2: Llama Value Investor
 IF NOT EXISTS (SELECT 1 FROM Agents WHERE Name = 'Llama Value Investor')
 BEGIN
-    INSERT INTO Agents (Name, ModelProvider, ModelConfiguration, SystemPrompt, IsActive, CreatedAt, UpdatedAt)
+    INSERT INTO Agents (Name, ModelProvider, Strategy, Instructions, IsActive)
     VALUES (
         'Llama Value Investor',
         'Llama',
-        '{\"Model\":\"llama-3.3-70b-versatile\",\"Temperature\":0.5,\"MaxTokens\":500}',
+        'Value',
         'You are a value investing AI. Look for undervalued assets by analyzing long-term trends, support/resistance levels, and market cycles. Buy when prices are below historical averages and hold for long-term gains. Be patient and disciplined.',
-        1,
-        GETUTCDATE(),
-        GETUTCDATE()
+        1
     );
     PRINT 'Inserted Llama Value Investor';
 END
@@ -202,15 +188,13 @@ ELSE
 -- Agent 3: CustomML Technical Analyst
 IF NOT EXISTS (SELECT 1 FROM Agents WHERE Name = 'CustomML Technical Analyst')
 BEGIN
-    INSERT INTO Agents (Name, ModelProvider, ModelConfiguration, SystemPrompt, IsActive, CreatedAt, UpdatedAt)
+    INSERT INTO Agents (Name, ModelProvider, Strategy, Instructions, IsActive)
     VALUES (
         'CustomML Technical Analyst',
         'CustomMl',
-        '{\"ApiUrl\":\"http://ml-service:8000\"}',
+        'Technical',
         'You are a technical analysis AI using machine learning models. Analyze candlestick patterns, technical indicators, and historical data to predict future price movements. Make data-driven decisions based on statistical patterns.',
-        1,
-        GETUTCDATE(),
-        GETUTCDATE()
+        1
     );
     PRINT 'Inserted CustomML Technical Analyst';
 END
@@ -220,15 +204,13 @@ ELSE
 -- Agent 4: Llama Contrarian Trader
 IF NOT EXISTS (SELECT 1 FROM Agents WHERE Name = 'Llama Contrarian Trader')
 BEGIN
-    INSERT INTO Agents (Name, ModelProvider, ModelConfiguration, SystemPrompt, IsActive, CreatedAt, UpdatedAt)
+    INSERT INTO Agents (Name, ModelProvider, Strategy, Instructions, IsActive)
     VALUES (
         'Llama Contrarian Trader',
         'Llama',
-        '{\"Model\":\"llama-3.3-70b-versatile\",\"Temperature\":0.8,\"MaxTokens\":500}',
+        'Contrarian',
         'You are a contrarian trading AI. Go against the crowd - buy when others are selling (fear) and sell when others are buying (greed). Look for overreactions and market extremes. Be bold but calculated in your trades.',
-        1,
-        GETUTCDATE(),
-        GETUTCDATE()
+        1
     );
     PRINT 'Inserted Llama Contrarian Trader';
 END
@@ -238,22 +220,20 @@ ELSE
 -- Agent 5: Llama Balanced Trader
 IF NOT EXISTS (SELECT 1 FROM Agents WHERE Name = 'Llama Balanced Trader')
 BEGIN
-    INSERT INTO Agents (Name, ModelProvider, ModelConfiguration, SystemPrompt, IsActive, CreatedAt, UpdatedAt)
+    INSERT INTO Agents (Name, ModelProvider, Strategy, Instructions, IsActive)
     VALUES (
         'Llama Balanced Trader',
         'Llama',
-        '{\"Model\":\"llama-3.3-70b-versatile\",\"Temperature\":0.6,\"MaxTokens\":500}',
+        'Balanced',
         'You are a balanced trading AI. Combine fundamental and technical analysis for well-rounded decisions. Manage risk carefully with diversification and position sizing. Aim for steady, consistent returns rather than high-risk plays.',
-        1,
-        GETUTCDATE(),
-        GETUTCDATE()
+        1
     );
     PRINT 'Inserted Llama Balanced Trader';
 END
 ELSE
     PRINT 'Llama Balanced Trader already exists';
 
-SELECT Id, Name, ModelProvider, IsActive FROM Agents;
+SELECT Id, Name, ModelProvider, Strategy, IsActive FROM Agents;
 "
 
 execute_sql "$AGENT_SQL" || {
@@ -270,18 +250,12 @@ echo -e "${YELLOW}Step 3: Creating Portfolios for Agents...${NC}"
 PORTFOLIO_SQL="
 SET NOCOUNT ON;
 
-DECLARE @UsdAssetId INT;
-SELECT @UsdAssetId = Id FROM Assets WHERE Symbol = 'USD';
-
 -- Create portfolios for all agents that don't have one
-INSERT INTO Portfolios (AgentId, Name, CashBalance, TotalValue, CreatedAt, UpdatedAt)
-SELECT 
+INSERT INTO Portfolios (AgentId, Cash, BaseCurrency)
+SELECT
     a.Id,
-    a.Name + ' Portfolio',
     $STARTING_BALANCE,
-    $STARTING_BALANCE,
-    GETUTCDATE(),
-    GETUTCDATE()
+    'USD'
 FROM Agents a
 WHERE NOT EXISTS (
     SELECT 1 FROM Portfolios p WHERE p.AgentId = a.Id
@@ -290,12 +264,11 @@ WHERE NOT EXISTS (
 PRINT 'Created ' + CAST(@@ROWCOUNT AS VARCHAR) + ' new portfolio(s)';
 
 -- Show all portfolios
-SELECT 
+SELECT
     p.Id as PortfolioId,
     a.Name as AgentName,
-    p.Name as PortfolioName,
-    p.CashBalance,
-    p.TotalValue
+    p.Cash,
+    p.BaseCurrency
 FROM Portfolios p
 JOIN Agents a ON p.AgentId = a.Id;
 "
@@ -314,9 +287,9 @@ echo -e "${GREEN}Database Seeding Complete!${NC}"
 echo -e "${GREEN}========================================${NC}"
 echo ""
 echo -e "${BLUE}Summary:${NC}"
-echo "  ✓ Assets: BTC, ETH, USD"
+echo "  ✓ MarketAssets: BTC, ETH"
 echo "  ✓ Agents: 5 test agents with different strategies"
-echo "  ✓ Portfolios: Initial balance of \$$STARTING_BALANCE per agent"
+echo "  ✓ Portfolios: Initial cash of \$$STARTING_BALANCE per agent"
 echo ""
 echo -e "${YELLOW}Next Steps:${NC}"
 echo "  1. Start the Functions to collect market data: cd AiTradingRace.Functions && func start"

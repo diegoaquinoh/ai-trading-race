@@ -60,6 +60,7 @@ public sealed class TradingDbContext : DbContext
         {
             builder.ToTable("Agents");
             builder.HasKey(x => x.Id);
+            builder.Property(x => x.Id).HasDefaultValueSql("NEWID()");
             builder.Property(x => x.Name).IsRequired().HasMaxLength(128);
             builder.Property(x => x.Strategy).HasMaxLength(512);
             builder.Property(x => x.Instructions).HasMaxLength(4000);
@@ -124,6 +125,7 @@ public sealed class TradingDbContext : DbContext
         {
             builder.ToTable("Portfolios");
             builder.HasKey(x => x.Id);
+            builder.Property(x => x.Id).HasDefaultValueSql("NEWID()");
 
             builder.Property(x => x.Cash).HasColumnType("decimal(18,8)").HasDefaultValue(0m);
             builder.Property(x => x.BaseCurrency).IsRequired().HasMaxLength(16).HasDefaultValue("USD");
