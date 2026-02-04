@@ -28,7 +28,7 @@ DB_SERVER="${SQL_SERVER:-localhost}"
 DB_PORT="${SQL_PORT:-1433}"
 DB_NAME="${SQL_DATABASE_NAME:-AiTradingRace}"
 DB_USER="${SQL_USER:-sa}"
-DB_PASSWORD="${SA_PASSWORD:-YourStrong@Passw0rd123}"
+DB_PASSWORD="${SA_PASSWORD}"
 STARTING_BALANCE="${STARTING_BALANCE:-100000.00}"
 
 # Validate required variables

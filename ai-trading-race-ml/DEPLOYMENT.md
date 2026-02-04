@@ -120,14 +120,14 @@ curl http://localhost:8000/health
 ```bash
 # First request (cache miss - will process)
 curl -X POST http://localhost:8000/predict \
-  -H "X-API-Key: test-api-key-12345" \
+  -H "X-API-Key: $ML_SERVICE_API_KEY" \
   -H "Idempotency-Key: test-request-001" \
   -H "Content-Type: application/json" \
   -d @test_request.json
 
 # Second request with same key (cache hit - instant response)
 curl -X POST http://localhost:8000/predict \
-  -H "X-API-Key: test-api-key-12345" \
+  -H "X-API-Key: $ML_SERVICE_API_KEY" \
   -H "Idempotency-Key: test-request-001" \
   -H "Content-Type: application/json" \
   -d @test_request.json
@@ -140,7 +140,7 @@ curl -X POST http://localhost:8000/predict \
 ```bash
 # Different idempotency key = new request
 curl -X POST http://localhost:8000/predict \
-  -H "X-API-Key: test-api-key-12345" \
+  -H "X-API-Key: $ML_SERVICE_API_KEY" \
   -H "Idempotency-Key: test-request-002" \
   -H "Content-Type: application/json" \
   -d @test_request.json
@@ -153,7 +153,7 @@ curl -X POST http://localhost:8000/predict \
 ```bash
 # Request without idempotency key - always processes
 curl -X POST http://localhost:8000/predict \
-  -H "X-API-Key: test-api-key-12345" \
+  -H "X-API-Key: $ML_SERVICE_API_KEY" \
   -H "Content-Type: application/json" \
   -d @test_request.json
 
@@ -247,7 +247,7 @@ Update `appsettings.json`:
 {
   "CustomMlAgent": {
     "BaseUrl": "http://localhost:8000",
-    "ApiKey": "test-api-key-12345",
+    "ApiKey": "$ML_SERVICE_API_KEY",
     "TimeoutSeconds": 60
   }
 }

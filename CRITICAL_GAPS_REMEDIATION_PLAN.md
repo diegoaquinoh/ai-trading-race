@@ -623,7 +623,7 @@ services:
       - "1433:1433"
     environment:
       - ACCEPT_EULA=Y
-      - MSSQL_SA_PASSWORD=${SA_PASSWORD:-YourStrong@Passw0rd123}
+      - MSSQL_SA_PASSWORD=${SA_PASSWORD:-$SA_PASSWORD}
       - MSSQL_PID=Developer
       - MSSQL_AGENT_ENABLED=true  # Enable SQL Agent for scheduled jobs
     volumes:
@@ -655,7 +655,7 @@ set -euo pipefail
 # Configuration
 CONTAINER_NAME="${CONTAINER_NAME:-ai-trading-sqlserver}"
 DB_NAME="${DB_NAME:-AiTradingRace}"
-SA_PASSWORD="${SA_PASSWORD:-YourStrong@Passw0rd123}"
+SA_PASSWORD="${SA_PASSWORD:-$SA_PASSWORD}"
 BACKUP_DIR="/var/opt/mssql/backup"
 LOCAL_BACKUP_DIR="${LOCAL_BACKUP_DIR:-./backups}"
 RETENTION_DAYS="${RETENTION_DAYS:-7}"
@@ -826,7 +826,7 @@ set -euo pipefail
 # Configuration
 CONTAINER_NAME="${CONTAINER_NAME:-ai-trading-sqlserver}"
 DB_NAME="${DB_NAME:-AiTradingRace}"
-SA_PASSWORD="${SA_PASSWORD:-YourStrong@Passw0rd123}"
+SA_PASSWORD="${SA_PASSWORD:-$SA_PASSWORD}"
 BACKUP_DIR="/var/opt/mssql/backup"
 LOCAL_BACKUP_DIR="${LOCAL_BACKUP_DIR:-./backups}"
 

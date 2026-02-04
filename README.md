@@ -152,7 +152,7 @@ nano .env
 > - Au moins 1 majuscule, 1 minuscule, 1 chiffre
 > - **Au moins 1 caractère spécial** (`@`, `#`, `$`, etc.)
 > - **Évitez `!`** sur macOS/zsh (conflit avec l'expansion d'historique)
-> - Exemple valide: `YourStrong@Passw0rd123`
+> - Exemple valide: `$SA_PASSWORD`
 
 > **📝 Note:** Le projet utilise UN SEUL fichier `.env` à la racine pour toute la configuration.  
 > Ce fichier est lu par Docker Compose, les scripts, et peut être sourcé pour les applications.
@@ -305,7 +305,7 @@ docker compose down -v && docker compose up -d
 
 ### Appliquer les migrations EF Core manuellement
 ```bash
-export ConnectionStrings__TradingDb='Server=localhost,1433;Database=AiTradingRace;User Id=sa;Password=YourStrong@Passw0rd123;TrustServerCertificate=True'
+export ConnectionStrings__TradingDb='Server=localhost,1433;Database=AiTradingRace;User Id=sa;Password=$SA_PASSWORD;TrustServerCertificate=True'
 dotnet ef database update --project AiTradingRace.Infrastructure --startup-project AiTradingRace.Web
 ```
 
@@ -331,11 +331,11 @@ dotnet ef database update --project AiTradingRace.Infrastructure --startup-proje
 
 | Variable | Défaut | Description |
 |----------|--------|-------------|
-| `SA_PASSWORD` | `YourStrong@Passw0rd123` | Mot de passe SQL Server (⚠️ doit contenir `@` ou `#`, pas `!`) |
+| `SA_PASSWORD` | `$SA_PASSWORD` | Mot de passe SQL Server (⚠️ doit contenir `@` ou `#`, pas `!`) |
 | `SQL_CONTAINER_NAME` | `ai-trading-sqlserver` | Nom du conteneur |
 | `SQL_DATABASE_NAME` | `AiTradingRace` | Nom de la base |
 | `STARTING_BALANCE` | `100000.00` | Capital initial des portfolios |
-| `ML_SERVICE_API_KEY` | `test-api-key-12345` | Clé API du service ML |
+| `ML_SERVICE_API_KEY` | `$ML_SERVICE_API_KEY` | Clé API du service ML |
 
 Voir [`.env.example`](./.env.example) pour la liste complète.
 

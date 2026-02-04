@@ -41,7 +41,7 @@ All scripts and Docker Compose now use environment variables for configuration. 
 | `SQL_PORT` | `1433` | SQL Server port |
 | `SQL_USER` | `sa` | SQL Server username |
 | `STARTING_BALANCE` | `100000.00` | Initial portfolio balance |
-| `ML_SERVICE_API_KEY` | `test-api-key-12345` | ML service API key |
+| `ML_SERVICE_API_KEY` | `$ML_SERVICE_API_KEY` | ML service API key |
 
 > **Note:** Docker Compose automatically reads the `.env` file in the project root. You don't need to source it for Docker commands.
 
