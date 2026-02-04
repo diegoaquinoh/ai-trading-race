@@ -92,6 +92,7 @@ export function EquityChart({ agents, height = 400, showLegend = true, title }: 
                                 strokeWidth={2}
                                 dot={false}
                                 activeDot={{ r: 5, strokeWidth: 2 }}
+                                connectNulls
                             />
                         ))}
                     </LineChart>
@@ -102,28 +103,55 @@ export function EquityChart({ agents, height = 400, showLegend = true, title }: 
 }
 
 function buildChartData(agents: AgentEquityData[]): ChartDataPoint[] {
-    // Collect all unique timestamps
-    const timestampSet = new Set<string>();
+    // Collect all unique timestamps and sort them
+    const allTimestamps = new Map<number, string>(); // ms -> original string
     agents.forEach(agent => {
         agent.data.forEach(snapshot => {
-            timestampSet.add(snapshot.timestamp);
+            const ms = new Date(snapshot.capturedAt).getTime();
+            if (!isNaN(ms)) {
+                allTimestamps.set(ms, snapshot.capturedAt);
+            }
         });
     });
 
-    // Sort timestamps
-    const sortedTimestamps = Array.from(timestampSet).sort();
+    // Sort by timestamp
+    const sortedMs = Array.from(allTimestamps.keys()).sort((a, b) => a - b);
+    
+    if (sortedMs.length === 0) {
+        return [];
+    }
 
-    // Build data points
-    const dataPoints: ChartDataPoint[] = sortedTimestamps.map(timestamp => {
+    // For each agent, create a lookup by timestamp and also track last known value
+    const agentDataLookup = new Map<string, Map<number, number>>();
+    agents.forEach(agent => {
+        const lookup = new Map<number, number>();
+        agent.data.forEach(snapshot => {
+            const ms = new Date(snapshot.capturedAt).getTime();
+            if (!isNaN(ms)) {
+                lookup.set(ms, snapshot.totalValue);
+            }
+        });
+        agentDataLookup.set(agent.agentId, lookup);
+    });
+
+    // Build data points with forward-filling (carry last known value forward)
+    const lastValues = new Map<string, number>();
+    const dataPoints: ChartDataPoint[] = sortedMs.map(ms => {
+        const timestamp = allTimestamps.get(ms)!;
         const point: ChartDataPoint = {
             timestamp,
-            formattedTime: formatTimestamp(timestamp),
+            formattedTime: formatTimestamp(timestamp, sortedMs),
         };
 
         agents.forEach(agent => {
-            const snapshot = agent.data.find(s => s.timestamp === timestamp);
-            if (snapshot) {
-                point[agent.agentId] = snapshot.totalValue;
+            const lookup = agentDataLookup.get(agent.agentId);
+            if (lookup?.has(ms)) {
+                const value = lookup.get(ms)!;
+                point[agent.agentId] = value;
+                lastValues.set(agent.agentId, value);
+            } else if (lastValues.has(agent.agentId)) {
+                // Forward-fill with last known value
+                point[agent.agentId] = lastValues.get(agent.agentId)!;
             }
         });
 
@@ -133,14 +161,26 @@ function buildChartData(agents: AgentEquityData[]): ChartDataPoint[] {
     return dataPoints;
 }
 
-function formatTimestamp(timestamp: string): string {
+function formatTimestamp(timestamp: string, allTimestamps?: number[]): string {
     if (!timestamp) return '';
     
     const date = new Date(timestamp);
     
     // Check if date is valid
     if (isNaN(date.getTime())) {
-        return timestamp.slice(0, 10); // Return raw date portion if parsing fails
+        return timestamp.slice(0, 10);
+    }
+    
+    // Determine if we need to show seconds based on time span
+    const showSeconds = allTimestamps && allTimestamps.length > 1 && 
+        (allTimestamps[allTimestamps.length - 1] - allTimestamps[0]) < 60 * 60 * 1000; // Less than 1 hour span
+    
+    if (showSeconds) {
+        return date.toLocaleTimeString('en-US', { 
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
     }
     
     return date.toLocaleDateString('en-US', { 
@@ -150,3 +190,4 @@ function formatTimestamp(timestamp: string): string {
         minute: '2-digit'
     });
 }
+

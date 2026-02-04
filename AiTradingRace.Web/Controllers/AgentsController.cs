@@ -2,6 +2,7 @@ using AiTradingRace.Application.Agents;
 using AiTradingRace.Application.Common.Models;
 using AiTradingRace.Application.Equity;
 using AiTradingRace.Infrastructure.Database;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -97,11 +98,13 @@ public class AgentsController : ControllerBase
     /// <summary>
     /// Execute a single trading cycle for an agent.
     /// Builds context, generates AI decision, validates against risk constraints, and executes trades.
+    /// Requires Operator or Admin role.
     /// </summary>
     /// <param name="id">The agent's unique identifier.</param>
     /// <param name="ct">Cancellation token.</param>
     /// <returns>The result of the agent run including portfolio state and executed orders.</returns>
     [HttpPost("{id:guid}/run")]
+    [Authorize(Policy = "RequireOperator")]  // ← Sprint 9.3: Only Operator/Admin can run agents
     [ProducesResponseType(typeof(AgentRunResultDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

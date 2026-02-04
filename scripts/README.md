@@ -1,6 +1,6 @@
-# Database Scripts
+# Scripts
 
-This directory contains scripts for managing the AI Trading Race database.
+This directory contains scripts for managing the AI Trading Race platform.
 
 ## Environment Variables
 
@@ -16,7 +16,7 @@ All scripts and Docker Compose now use environment variables for configuration. 
 2. **Edit the `.env` file with your values:**
    ```bash
    # At minimum, set a strong SA password
-   SA_PASSWORD=YourSecurePassword123!
+   SA_PASSWORD=YourSecurePassword123@
    ```
 
 3. **Docker Compose automatically reads `.env`** - no need to source it manually for Docker
@@ -34,14 +34,14 @@ All scripts and Docker Compose now use environment variables for configuration. 
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `SA_PASSWORD` | `YourStrong!Passw0rd` | SQL Server SA password (⚠️ **REQUIRED**) |
+| `SA_PASSWORD` | `YourSecurePassword123@` | SQL Server SA password (⚠️ **REQUIRED**) |
 | `SQL_CONTAINER_NAME` | `ai-trading-sqlserver` | Docker container name |
 | `SQL_DATABASE_NAME` | `AiTradingRace` | Database name |
 | `SQL_SERVER` | `localhost` | SQL Server host |
 | `SQL_PORT` | `1433` | SQL Server port |
 | `SQL_USER` | `sa` | SQL Server username |
 | `STARTING_BALANCE` | `100000.00` | Initial portfolio balance |
-| `ML_SERVICE_API_KEY` | `test-api-key-12345` | ML service API key |
+| `ML_SERVICE_API_KEY` | `$ML_SERVICE_API_KEY` | ML service API key |
 
 > **Note:** Docker Compose automatically reads the `.env` file in the project root. You don't need to source it for Docker commands.
 
@@ -57,7 +57,7 @@ source .env
 ./scripts/setup-database.sh
 
 # Or inline
-SA_PASSWORD='MyPassword123!' ./scripts/setup-database.sh
+SA_PASSWORD='MyPassword123@' ./scripts/setup-database.sh
 ```
 
 **What it does:**
@@ -96,6 +96,67 @@ Generates a SQL script from EF Core migrations for manual review/application.
 - Generates an idempotent SQL script
 - Outputs to `database-scripts/migrations.sql`
 - Useful for production deployments or manual review
+
+### 4. `secure-azure-infra.sh`
+
+Applies Phase 4 security hardening to Azure infrastructure (see `SECURITY_IMPLEMENTATION.md`).
+
+```bash
+# With default resource names
+./scripts/secure-azure-infra.sh
+
+# With custom resource names
+AZURE_RESOURCE_GROUP=my-rg AZURE_FUNC_APP_NAME=my-func ./scripts/secure-azure-infra.sh
+```
+
+**What it does:**
+- Configures Function App IP restrictions (allow Azure services + Web API, deny all else)
+- Configures SQL Server firewall (allow Azure services, remove permissive rules)
+- Sets ML Container App to internal-only ingress
+- Retrieves and displays Function keys for secure storage
+
+**Environment variables:**
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `AZURE_RESOURCE_GROUP` | `ai-trading-rg` | Azure resource group |
+| `AZURE_FUNC_APP_NAME` | `ai-trading-race-func` | Function App name |
+| `AZURE_SQL_SERVER_NAME` | `ai-trading-sql` | SQL Server name |
+| `AZURE_ML_APP_NAME` | `ai-trading-ml` | ML Container App name |
+| `AZURE_WEB_APP_NAME` | `ai-trading-race-web` | Web API App Service name |
+
+**Prerequisites:** Azure CLI installed and logged in (`az login`).
+
+### 5. `rotate-credentials.sh`
+
+Generates and deploys new credentials across all environments (see `SECURITY_IMPLEMENTATION.md` Phase 5).
+
+```bash
+# Generate and display secrets (no deployment)
+./scripts/rotate-credentials.sh --generate-only
+
+# Deploy to Azure resources
+./scripts/rotate-credentials.sh --azure
+
+# Update local development (dotnet user-secrets + .env)
+./scripts/rotate-credentials.sh --local
+
+# Verify services after rotation
+./scripts/rotate-credentials.sh --verify
+```
+
+**What it does:**
+- Generates cryptographically secure JWT secret (48 bytes), ML API key (32 bytes), and DB password
+- `--azure`: Updates SQL Server password, App Service settings, Function App settings, Container App secrets
+- `--local`: Updates dotnet user-secrets, `.env` file, Functions `local.settings.json`
+- `--verify`: Checks health endpoints, auth enforcement, ingress type, and SQL Server state
+
+**Environment variables:** Same as `secure-azure-infra.sh`, plus:
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `AZURE_SQL_DB_NAME` | `AiTradingRace` | SQL database name |
+| `PRODUCTION_DOMAIN` | `https://ai-trading-race.com` | Production CORS origin |
 
 ## Complete Workflow
 

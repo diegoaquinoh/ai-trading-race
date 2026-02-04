@@ -1,6 +1,7 @@
 using AiTradingRace.Application.Common.Models;
 using AiTradingRace.Application.Portfolios;
 using AiTradingRace.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AiTradingRace.Web.Controllers;
@@ -45,6 +46,7 @@ public class PortfolioController : ControllerBase
     /// <param name="request">Trade orders to execute.</param>
     /// <param name="ct">Cancellation token.</param>
     /// <returns>Updated portfolio state after trades.</returns>
+    [Authorize(Policy = "RequireOperator")]
     [HttpPost("portfolio/trades")]
     [ProducesResponseType(typeof(PortfolioState), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

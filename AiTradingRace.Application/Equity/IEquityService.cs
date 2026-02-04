@@ -57,4 +57,17 @@ public interface IEquityService
     /// <param name="ct">Cancellation token.</param>
     /// <returns>The number of snapshots captured.</returns>
     Task<int> CaptureAllSnapshotsAsync(CancellationToken ct = default);
+
+    /// <summary>
+    /// Captures equity snapshots for all active agents with a shared batch and timestamp.
+    /// This ensures all agents are valued at the same market prices at the same point in time.
+    /// </summary>
+    /// <param name="batchId">Unique identifier correlating this snapshot to a market data batch.</param>
+    /// <param name="timestamp">The exact timestamp to use for all snapshots.</param>
+    /// <param name="ct">Cancellation token.</param>
+    /// <returns>The number of snapshots captured.</returns>
+    Task<int> CaptureAllSnapshotsAsync(
+        Guid batchId,
+        DateTimeOffset timestamp,
+        CancellationToken ct = default);
 }

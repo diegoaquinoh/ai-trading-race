@@ -44,7 +44,7 @@ Complete guide to running the AI Trading Race application locally without Azure.
 
 ```bash
 # Clone repository
-cd /Users/diegoaquino/Projets/ai-trading-race
+cd .
 
 # Start infrastructure (SQL Server, Redis, ML Service)
 docker-compose up -d
@@ -191,7 +191,7 @@ nano AiTradingRace.Web/.env
 
 ```bash
 # Database (use localhost for local dev)
-ConnectionStrings__DefaultConnection="Server=localhost,1433;Database=AiTradingRaceDb;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;"
+ConnectionStrings__DefaultConnection="Server=localhost,1433;Database=AiTradingRaceDb;User Id=sa;Password=$SA_PASSWORD;TrustServerCertificate=True;"
 
 # Llama API (get free key from Groq)
 LlamaApiSettings__Provider="Groq"
@@ -234,7 +234,7 @@ nano AiTradingRace.Functions/local.settings.json
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
     "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
     
-    "SqlConnectionString": "Server=localhost,1433;Database=AiTradingRaceDb;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;",
+    "SqlConnectionString": "Server=localhost,1433;Database=AiTradingRaceDb;User Id=sa;Password=$SA_PASSWORD;TrustServerCertificate=True;",
     
     "CoinGeckoApiSettings__ApiKey": "YOUR_COINGECKO_KEY",
     
@@ -533,7 +533,7 @@ docker logs ai-trading-sqlserver | grep "ready for client connections"
 
 # Test connection
 docker exec -it ai-trading-sqlserver /opt/mssql-tools/bin/sqlcmd \
-  -S localhost -U sa -P 'YourStrong!Passw0rd' -Q "SELECT @@VERSION"
+  -S localhost -U sa -P '$SA_PASSWORD' -Q "SELECT @@VERSION"
 
 # If still failing, check connection string in .env files
 ```
@@ -772,7 +772,7 @@ cat database-scripts/migrations.sql
 
 # SQL shell
 docker exec -it ai-trading-sqlserver /opt/mssql-tools/bin/sqlcmd \
-  -S localhost -U sa -P 'YourStrong!Passw0rd' -d AiTradingRaceDb
+  -S localhost -U sa -P '$SA_PASSWORD' -d AiTradingRaceDb
 ```
 
 ### Cleaning Up
@@ -842,7 +842,7 @@ VITE_POLLING_INTERVAL=60000
 
 - ✅ `.env` and `local.settings.json` in `.gitignore`
 - ✅ `.env.example` templates committed (no secrets)
-- ✅ Strong SQL Server password (`YourStrong!Passw0rd`)
+- ✅ Strong SQL Server password (`$SA_PASSWORD`)
 - ✅ CORS restricted to `localhost:5173`
 - ✅ API keys stored in environment variables
 
@@ -900,7 +900,7 @@ When deploying to production:
 | **Database** |
 | Initialize | `./scripts/setup-database.sh` |
 | Seed data | `./scripts/seed-database.sh` |
-| SQL shell | `docker exec -it ai-trading-sqlserver /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 'YourStrong!Passw0rd' -d AiTradingRaceDb` |
+| SQL shell | `docker exec -it ai-trading-sqlserver /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P '$SA_PASSWORD' -d AiTradingRaceDb` |
 | **Application** |
 | Run Functions | `cd AiTradingRace.Functions && func start` |
 | Run Web API | `cd AiTradingRace.Web && dotnet run` |
@@ -913,7 +913,7 @@ When deploying to production:
 | Web API | `curl http://localhost:5172/api/health` |
 | Functions | `curl http://localhost:7071/api/health` |
 | ML Service | `curl http://localhost:8000/health` |
-| SQL Server | `docker exec ai-trading-sqlserver /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 'YourStrong!Passw0rd' -Q "SELECT @@VERSION"` |
+| SQL Server | `docker exec ai-trading-sqlserver /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P '$SA_PASSWORD' -Q "SELECT @@VERSION"` |
 
 ---
 

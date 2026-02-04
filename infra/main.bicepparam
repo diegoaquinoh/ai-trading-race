@@ -1,0 +1,12 @@
+using 'main.bicep'
+
+param location = 'westeurope'
+param sqlAdminPassword = ''
+param jwtSecretKey = ''
+param mlApiKey = ''
+param ghcrUsername = ''
+param ghcrPassword = ''
+param mlImageTag = 'latest'
+param githubRepoUrl = ''
+param githubToken = ''
+param productionDomain = ''

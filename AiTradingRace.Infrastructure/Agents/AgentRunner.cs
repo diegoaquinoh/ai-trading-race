@@ -1,5 +1,6 @@
 using AiTradingRace.Application.Agents;
 using AiTradingRace.Application.Common.Models;
+using AiTradingRace.Application.Decisions;
 using AiTradingRace.Application.Equity;
 using AiTradingRace.Application.Portfolios;
 using Microsoft.Extensions.Logging;
@@ -21,6 +22,7 @@ public sealed class AgentRunner : IAgentRunner
     private readonly IRiskValidator _riskValidator;
     private readonly IPortfolioService _portfolioService;
     private readonly IEquityService _equityService;
+    private readonly IDecisionLogService _decisionLogService;
     private readonly ILogger<AgentRunner> _logger;
 
     public AgentRunner(
@@ -29,6 +31,7 @@ public sealed class AgentRunner : IAgentRunner
         IRiskValidator riskValidator,
         IPortfolioService portfolioService,
         IEquityService equityService,
+        IDecisionLogService decisionLogService,
         ILogger<AgentRunner> logger)
     {
         _contextBuilder = contextBuilder;
@@ -36,6 +39,7 @@ public sealed class AgentRunner : IAgentRunner
         _riskValidator = riskValidator;
         _portfolioService = portfolioService;
         _equityService = equityService;
+        _decisionLogService = decisionLogService;
         _logger = logger;
     }
 
@@ -52,7 +56,11 @@ public sealed class AgentRunner : IAgentRunner
         {
             // Step 1: Build context
             _logger.LogDebug("Step 1: Building context for agent {AgentId}", agentId);
-            var context = await _contextBuilder.BuildContextAsync(agentId, candleCount: 24, cancellationToken);
+            var context = await _contextBuilder.BuildContextAsync(
+                agentId, 
+                candleCount: 24, 
+                includeKnowledgeGraph: true, // Phase 10.4: Enable knowledge graph for explainability
+                cancellationToken);
 
             // Step 2: Generate decision from AI model (using provider-specific client)
             _logger.LogDebug("Step 2: Generating decision from {Provider} model for agent {AgentId}",
@@ -87,6 +95,8 @@ public sealed class AgentRunner : IAgentRunner
 
             // Step 4: Apply validated decision to portfolio
             PortfolioState portfolio;
+            decimal portfolioValueBefore = context.Portfolio.TotalValue;
+            
             if (validation.ValidatedDecision.Orders.Count > 0)
             {
                 _logger.LogDebug("Step 4: Applying {OrderCount} validated orders for agent {AgentId}",
@@ -104,6 +114,50 @@ public sealed class AgentRunner : IAgentRunner
             {
                 _logger.LogInformation("Agent {AgentId}: No valid orders to execute (HOLD)", agentId);
                 portfolio = context.Portfolio;
+            }
+
+            // Phase 10.4: Log decision with citations and knowledge graph context
+            if (context.KnowledgeGraph != null && context.DetectedRegime != null)
+            {
+                try
+                {
+                    var action = validation.ValidatedDecision.Orders.Count == 0 
+                        ? "HOLD" 
+                        : validation.ValidatedDecision.Orders[0].Side.ToString().ToUpperInvariant();
+                    
+                    var marketConditions = new Dictionary<string, decimal>();
+                    foreach (var candle in context.RecentCandles.GroupBy(c => c.AssetSymbol))
+                    {
+                        var latest = candle.OrderByDescending(c => c.TimestampUtc).First();
+                        marketConditions[candle.Key] = latest.Close;
+                    }
+
+                    await _decisionLogService.LogDecisionAsync(new CreateDecisionLogDto
+                    {
+                        AgentId = agentId,
+                        Action = action,
+                        Asset = validation.ValidatedDecision.Orders.FirstOrDefault()?.AssetSymbol,
+                        Quantity = validation.ValidatedDecision.Orders.FirstOrDefault()?.Quantity,
+                        Rationale = rawDecision.Rationale ?? "No rationale provided",
+                        CitedRuleIds = rawDecision.CitedRuleIds ?? new List<string>(),
+                        DetectedRegime = context.DetectedRegime.RegimeId,
+                        Subgraph = context.KnowledgeGraph,
+                        PortfolioValueBefore = portfolioValueBefore,
+                        PortfolioValueAfter = portfolio.TotalValue,
+                        MarketConditions = marketConditions
+                    });
+
+                    _logger.LogInformation(
+                        "Agent {AgentId}: Decision logged with {RuleCount} cited rules in {Regime} regime",
+                        agentId, 
+                        rawDecision.CitedRuleIds?.Count ?? 0,
+                        context.DetectedRegime.Name);
+                }
+                catch (Exception ex)
+                {
+                    // Don't fail the agent run if decision logging fails
+                    _logger.LogError(ex, "Failed to log decision for agent {AgentId}", agentId);
+                }
             }
 
             // Step 5: Capture equity snapshot

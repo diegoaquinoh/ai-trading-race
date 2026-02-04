@@ -1,5 +1,6 @@
 """FastAPI application for the ML trading service."""
 
+import os
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Optional
@@ -43,12 +44,18 @@ async def lifespan(app: FastAPI):
     decision_service = None
 
 
+# Disable docs in production
+is_dev = os.getenv("ENVIRONMENT", "development") == "development"
+
 # Create FastAPI app
 app = FastAPI(
     title="AI Trading Race - ML Service",
     description="Custom ML model for trading decisions with explainability",
     version="1.0.0",
     lifespan=lifespan,
+    docs_url="/docs" if is_dev else None,
+    redoc_url="/redoc" if is_dev else None,
+    openapi_url="/openapi.json" if is_dev else None,
 )
 
 # Add idempotency middleware (must be before auth)
@@ -57,13 +64,23 @@ app.add_middleware(IdempotencyMiddleware)
 # Add API key authentication middleware
 app.middleware("http")(verify_api_key)
 
-# Add CORS middleware
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[settings.allowed_origin],
-    allow_methods=["POST", "GET"],
-    allow_headers=["*"],
-)
+# Configure CORS based on environment
+if settings.allowed_origin:
+    origins = [settings.allowed_origin]
+else:
+    # Development fallback
+    if os.getenv("ENVIRONMENT", "development") == "development":
+        origins = ["http://localhost:5173", "http://localhost:3000"]
+    else:
+        origins = []  # No CORS in production without explicit config
+
+if origins:
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=origins,
+        allow_methods=["POST", "GET"],
+        allow_headers=["X-API-Key", "Content-Type"],
+    )
 
 
 @app.get("/health", response_model=HealthResponse)

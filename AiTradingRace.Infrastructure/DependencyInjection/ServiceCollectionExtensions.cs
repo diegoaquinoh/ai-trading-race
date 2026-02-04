@@ -1,12 +1,16 @@
 using System;
 using System.Net;
 using AiTradingRace.Application.Agents;
+using AiTradingRace.Application.Decisions;
 using AiTradingRace.Application.Equity;
+using AiTradingRace.Application.Knowledge;
 using AiTradingRace.Application.MarketData;
 using AiTradingRace.Application.Portfolios;
 using AiTradingRace.Infrastructure.Agents;
 using AiTradingRace.Infrastructure.Database;
+using AiTradingRace.Infrastructure.Decisions;
 using AiTradingRace.Infrastructure.Equity;
+using AiTradingRace.Infrastructure.Knowledge;
 using AiTradingRace.Infrastructure.MarketData;
 using AiTradingRace.Infrastructure.Portfolios;
 using Azure;
@@ -23,39 +27,19 @@ namespace AiTradingRace.Infrastructure.DependencyInjection;
 
 public static class ServiceCollectionExtensions
 {
+    /// <summary>
+    /// Adds all infrastructure services with full AI model client support.
+    /// </summary>
     public static IServiceCollection AddInfrastructureServices(
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        // Database
-        services.AddDbContext<TradingDbContext>(options =>
-        {
-            var connectionString = configuration.GetConnectionString("TradingDb");
-
-            if (string.IsNullOrWhiteSpace(connectionString))
-            {
-                options.UseInMemoryDatabase("AiTradingRace");
-            }
-            else
-            {
-                options.UseSqlServer(connectionString);
-            }
-        });
-
-        // Core services
-        services.TryAddScoped<IMarketDataProvider, EfMarketDataProvider>();
-        services.TryAddScoped<IPortfolioService, EfPortfolioService>();
-        services.TryAddScoped<IEquityService, EquityService>();
-
-        // Market data ingestion
-        services.Configure<CoinGeckoOptions>(configuration.GetSection(CoinGeckoOptions.SectionName));
-        services.AddHttpClient<IExternalMarketDataClient, CoinGeckoMarketDataClient>();
-        services.TryAddScoped<IMarketDataIngestionService, MarketDataIngestionService>();
+        // Add common services
+        services.AddCoreInfrastructureServices(configuration);
 
         // AI Agent Integration (Phase 5 & 8)
         services.Configure<AzureOpenAiOptions>(configuration.GetSection(AzureOpenAiOptions.SectionName));
         services.Configure<CustomMlAgentOptions>(configuration.GetSection(CustomMlAgentOptions.SectionName));
-        services.Configure<RiskValidatorOptions>(configuration.GetSection(RiskValidatorOptions.SectionName));
         services.Configure<LlamaOptions>(configuration.GetSection(LlamaOptions.SectionName));
 
         // Azure OpenAI Client - create singleton from options (only if configured)
@@ -65,7 +49,6 @@ public static class ServiceCollectionExtensions
 
             if (string.IsNullOrWhiteSpace(options.Endpoint) || string.IsNullOrWhiteSpace(options.ApiKey))
             {
-                // Return null - will throw when actually used
                 throw new InvalidOperationException(
                     "Azure OpenAI not configured. Set AzureOpenAI:Endpoint and AzureOpenAI:ApiKey in appsettings or user-secrets.");
             }
@@ -95,10 +78,10 @@ public static class ServiceCollectionExtensions
             var options = sp.GetRequiredService<IOptions<LlamaOptions>>().Value;
             client.BaseAddress = new Uri(options.BaseUrl);
             client.Timeout = TimeSpan.FromSeconds(options.TimeoutSeconds);
-            
+
             if (!string.IsNullOrWhiteSpace(options.ApiKey))
             {
-                client.DefaultRequestHeaders.Authorization = 
+                client.DefaultRequestHeaders.Authorization =
                     new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", options.ApiKey);
             }
         })
@@ -107,52 +90,24 @@ public static class ServiceCollectionExtensions
         .AddPolicyHandler(GetLlamaCircuitBreakerPolicy());
 
         // Agent services
-        services.TryAddScoped<IAgentContextBuilder, AgentContextBuilder>();
         services.TryAddScoped<IAgentModelClientFactory, AgentModelClientFactory>();
-        services.TryAddScoped<IRiskValidator, RiskValidator>();
-        services.TryAddScoped<IAgentRunner, AgentRunner>();
 
         return services;
     }
 
     /// <summary>
     /// Adds infrastructure services with a mock AI model client (for testing/development).
+    /// Uses EchoAgentModelClient which always returns HOLD.
     /// </summary>
     public static IServiceCollection AddInfrastructureServicesWithMockAI(
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        // Database
-        services.AddDbContext<TradingDbContext>(options =>
-        {
-            var connectionString = configuration.GetConnectionString("TradingDb");
+        // Add common services
+        services.AddCoreInfrastructureServices(configuration);
 
-            if (string.IsNullOrWhiteSpace(connectionString))
-            {
-                options.UseInMemoryDatabase("AiTradingRace");
-            }
-            else
-            {
-                options.UseSqlServer(connectionString);
-            }
-        });
-
-        // Core services
-        services.TryAddScoped<IMarketDataProvider, EfMarketDataProvider>();
-        services.TryAddScoped<IPortfolioService, EfPortfolioService>();
-        services.TryAddScoped<IEquityService, EquityService>();
-
-        // Market data ingestion
-        services.Configure<CoinGeckoOptions>(configuration.GetSection(CoinGeckoOptions.SectionName));
-        services.AddHttpClient<IExternalMarketDataClient, CoinGeckoMarketDataClient>();
-        services.TryAddScoped<IMarketDataIngestionService, MarketDataIngestionService>();
-
-        // AI Agent Integration with Mock client
-        services.Configure<RiskValidatorOptions>(configuration.GetSection(RiskValidatorOptions.SectionName));
-        services.TryAddScoped<IAgentContextBuilder, AgentContextBuilder>();
-        services.TryAddScoped<IAgentModelClient, EchoAgentModelClient>(); // Mock client - always HOLD
-        services.TryAddScoped<IRiskValidator, RiskValidator>();
-        services.TryAddScoped<IAgentRunner, AgentRunner>();
+        // Mock client - always returns HOLD
+        services.TryAddScoped<IAgentModelClient, EchoAgentModelClient>();
 
         return services;
     }
@@ -160,8 +115,29 @@ public static class ServiceCollectionExtensions
     /// <summary>
     /// Adds infrastructure services with TestAgentModelClient that generates aggressive orders.
     /// Use this for E2E testing of risk validation.
+    /// All model providers are redirected to TestAgentModelClient (no API keys needed).
     /// </summary>
     public static IServiceCollection AddInfrastructureServicesWithTestAI(
+        this IServiceCollection services,
+        IConfiguration configuration)
+    {
+        // Add common services
+        services.AddCoreInfrastructureServices(configuration);
+
+        // Test client for aggressive order generation
+        services.TryAddScoped<TestAgentModelClient>();
+
+        // Use TestAgentModelClientFactory which ignores the agent's ModelProvider
+        // and always returns TestAgentModelClient (no API keys required)
+        services.TryAddScoped<IAgentModelClientFactory, TestAgentModelClientFactory>();
+
+        return services;
+    }
+
+    /// <summary>
+    /// Adds core infrastructure services shared by all configurations.
+    /// </summary>
+    private static IServiceCollection AddCoreInfrastructureServices(
         this IServiceCollection services,
         IConfiguration configuration)
     {
@@ -190,16 +166,18 @@ public static class ServiceCollectionExtensions
         services.AddHttpClient<IExternalMarketDataClient, CoinGeckoMarketDataClient>();
         services.TryAddScoped<IMarketDataIngestionService, MarketDataIngestionService>();
 
-        // AI Agent Integration with Test client (generates aggressive orders)
+        // Risk validation
         services.Configure<RiskValidatorOptions>(configuration.GetSection(RiskValidatorOptions.SectionName));
-        
-        // Register the test client and factory
-        services.TryAddScoped<TestAgentModelClient>();
-        services.TryAddScoped<IAgentModelClientFactory, AgentModelClientFactory>();
-        
-        services.TryAddScoped<IAgentContextBuilder, AgentContextBuilder>();
         services.TryAddScoped<IRiskValidator, RiskValidator>();
+
+        // Agent services
+        services.TryAddScoped<IAgentContextBuilder, AgentContextBuilder>();
         services.TryAddScoped<IAgentRunner, AgentRunner>();
+
+        // Phase 10: Knowledge Graph & Decision Logs
+        services.TryAddScoped<IKnowledgeGraphService, InMemoryKnowledgeGraphService>();
+        services.TryAddScoped<IRegimeDetector, VolatilityBasedRegimeDetector>();
+        services.TryAddScoped<IDecisionLogService, DecisionLogService>();
 
         return services;
     }

@@ -65,8 +65,8 @@ if [ $? -eq 0 ]; then
     echo "Next steps:"
     echo "1. Review the generated SQL script"
     echo "2. Apply to database:"
-    echo "   - Docker: docker exec -i ai-trading-sqlserver /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 'YourStrong!Passw0rd' -d AiTradingRace < $OUTPUT_FILE"
-    echo "   - Local: sqlcmd -S localhost -U sa -P 'YourStrong!Passw0rd' -d AiTradingRace -i $OUTPUT_FILE"
+    echo "   - Docker: docker exec -i ai-trading-sqlserver /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P '\$SA_PASSWORD' -d AiTradingRace < $OUTPUT_FILE"
+    echo "   - Local: sqlcmd -S localhost -U sa -P '\$SA_PASSWORD' -d AiTradingRace -i $OUTPUT_FILE"
     echo "   - Or use dotnet ef database update"
 else
     echo ""

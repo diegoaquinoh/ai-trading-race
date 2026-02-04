@@ -1,4 +1,5 @@
 using AiTradingRace.Application.Common.Models;
+using AiTradingRace.Application.Knowledge;
 using AiTradingRace.Application.MarketData;
 using AiTradingRace.Application.Portfolios;
 using AiTradingRace.Domain.Entities;
@@ -18,6 +19,8 @@ public class AgentContextBuilderTests : IDisposable
     private readonly TradingDbContext _dbContext;
     private readonly Mock<IPortfolioService> _portfolioServiceMock;
     private readonly Mock<IMarketDataProvider> _marketDataProviderMock;
+    private readonly Mock<IKnowledgeGraphService> _knowledgeGraphServiceMock;
+    private readonly Mock<IRegimeDetector> _regimeDetectorMock;
     private readonly Mock<ILogger<AgentContextBuilder>> _loggerMock;
     private readonly Guid _activeAgentId = Guid.Parse("11111111-1111-1111-1111-111111111111");
     private readonly Guid _inactiveAgentId = Guid.Parse("22222222-2222-2222-2222-222222222222");
@@ -30,6 +33,8 @@ public class AgentContextBuilderTests : IDisposable
         _dbContext = new TradingDbContext(options);
         _portfolioServiceMock = new Mock<IPortfolioService>();
         _marketDataProviderMock = new Mock<IMarketDataProvider>();
+        _knowledgeGraphServiceMock = new Mock<IKnowledgeGraphService>();
+        _regimeDetectorMock = new Mock<IRegimeDetector>();
         _loggerMock = new Mock<ILogger<AgentContextBuilder>>();
 
         SeedData();
@@ -103,6 +108,8 @@ public class AgentContextBuilderTests : IDisposable
             _dbContext,
             _portfolioServiceMock.Object,
             _marketDataProviderMock.Object,
+            _knowledgeGraphServiceMock.Object,
+            _regimeDetectorMock.Object,
             _loggerMock.Object);
     }
 

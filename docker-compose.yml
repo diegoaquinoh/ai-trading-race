@@ -9,13 +9,12 @@ services:
       - "1433:1433"
     environment:
       - ACCEPT_EULA=Y
-      - MSSQL_SA_PASSWORD=${SA_PASSWORD:-YourStrong@Passw0rd123}
+      - MSSQL_SA_PASSWORD=${SA_PASSWORD:?SA_PASSWORD environment variable is required}
       - MSSQL_PID=Developer
     volumes:
       - sqlserver-data:/var/opt/mssql
     healthcheck:
-      # Note: Password is hardcoded here - must match SA_PASSWORD in .env
-      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 'YourStrong@Passw0rd123' -Q 'SELECT 1' || exit 1"]
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P \"$$MSSQL_SA_PASSWORD\" -C -Q 'SELECT 1' || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -54,8 +53,8 @@ services:
       - ML_SERVICE_MODEL_PATH=models/trading_model.pkl
       - ML_SERVICE_MODEL_VERSION=1.0.0
       - ML_SERVICE_LOG_LEVEL=INFO
-      - ML_SERVICE_API_KEY=${ML_SERVICE_API_KEY:-test-api-key-12345}
-      - ML_SERVICE_ALLOWED_ORIGIN=*
+      - ML_SERVICE_API_KEY=${ML_SERVICE_API_KEY:?ML_SERVICE_API_KEY environment variable is required}
+      - ML_SERVICE_ALLOWED_ORIGIN=${ML_SERVICE_ALLOWED_ORIGIN:-http://localhost:5173}
       - ML_SERVICE_REDIS_ENABLED=true
       - ML_SERVICE_REDIS_HOST=redis
       - ML_SERVICE_REDIS_PORT=6379

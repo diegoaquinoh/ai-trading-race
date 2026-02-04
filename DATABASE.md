@@ -9,7 +9,7 @@ The AI Trading Race uses SQL Server for data persistence. This guide covers loca
 ### 1. Start SQL Server (Docker)
 
 ```bash
-cd /Users/diegoaquino/Projets/ai-trading-race
+cd .
 docker-compose up -d sqlserver
 ```
 
@@ -40,7 +40,7 @@ That's it! Your database is ready with:
 Use when running applications **outside Docker** but SQL Server **in Docker**:
 
 ```
-Server=localhost,1433;Database=AiTradingRaceDb;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
+Server=localhost,1433;Database=AiTradingRaceDb;User Id=sa;Password=$SA_PASSWORD;TrustServerCertificate=True;
 ```
 
 **When to use:**
@@ -53,7 +53,7 @@ Server=localhost,1433;Database=AiTradingRaceDb;User Id=sa;Password=YourStrong!Pa
 Use when running applications **inside Docker containers**:
 
 ```
-Server=sqlserver,1433;Database=AiTradingRaceDb;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
+Server=sqlserver,1433;Database=AiTradingRaceDb;User Id=sa;Password=$SA_PASSWORD;TrustServerCertificate=True;
 ```
 
 **When to use:**
@@ -85,7 +85,7 @@ Server=your-server.database.windows.net,1433;Database=AiTradingRaceDb;User Id=yo
 ```json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Server=localhost,1433;Database=AiTradingRaceDb;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;"
+    "DefaultConnection": "Server=localhost,1433;Database=AiTradingRaceDb;User Id=sa;Password=$SA_PASSWORD;TrustServerCertificate=True;"
   }
 }
 ```
@@ -102,7 +102,7 @@ export ConnectionStrings__DefaultConnection="Server=localhost,1433;..."
 ```json
 {
   "Values": {
-    "SqlConnectionString": "Server=localhost,1433;Database=AiTradingRaceDb;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;"
+    "SqlConnectionString": "Server=localhost,1433;Database=AiTradingRaceDb;User Id=sa;Password=$SA_PASSWORD;TrustServerCertificate=True;"
   }
 }
 ```
@@ -121,7 +121,7 @@ services:
   sqlserver:
     environment:
       - ACCEPT_EULA=Y
-      - SA_PASSWORD=YourStrong!Passw0rd
+      - SA_PASSWORD=$SA_PASSWORD
       - MSSQL_PID=Express
 ```
 
@@ -255,7 +255,7 @@ dotnet ef database update --project ../AiTradingRace.Infrastructure
 cat database-scripts/migrations.sql
 
 # Apply manually or via deployment pipeline
-sqlcmd -S localhost,1433 -U sa -P YourStrong!Passw0rd -i database-scripts/migrations.sql
+sqlcmd -S localhost,1433 -U sa -P $SA_PASSWORD -i database-scripts/migrations.sql
 ```
 
 ### Rolling Back Migrations
@@ -350,10 +350,10 @@ A network-related or instance-specific error occurred while establishing a conne
    ```bash
    # Via Docker
    docker exec -it ai-trading-sqlserver /opt/mssql-tools/bin/sqlcmd \
-     -S localhost -U sa -P 'YourStrong!Passw0rd' -Q "SELECT @@VERSION"
+     -S localhost -U sa -P '$SA_PASSWORD' -Q "SELECT @@VERSION"
    
    # Via host (if sqlcmd installed)
-   sqlcmd -S localhost,1433 -U sa -P 'YourStrong!Passw0rd' -Q "SELECT @@VERSION"
+   sqlcmd -S localhost,1433 -U sa -P '$SA_PASSWORD' -Q "SELECT @@VERSION"
    ```
 
 ### Database Does Not Exist
@@ -377,7 +377,7 @@ Login failed for user 'sa'. Reason: Password did not match that for the login pr
 
 **Solution:**
 1. Check password in connection string matches SQL Server password
-2. Default password: `YourStrong!Passw0rd`
+2. Default password: `$SA_PASSWORD`
 3. Password set in `docker-compose.yml` under `sqlserver.environment.SA_PASSWORD`
 
 ### Migrations Not Applied
@@ -437,7 +437,7 @@ A connection was successfully established with the server, but then an error occ
 **Solution:**
 Add `TrustServerCertificate=True` to connection string:
 ```
-Server=localhost,1433;Database=AiTradingRaceDb;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
+Server=localhost,1433;Database=AiTradingRaceDb;User Id=sa;Password=$SA_PASSWORD;TrustServerCertificate=True;
 ```
 
 ### Performance Issues
@@ -483,7 +483,7 @@ Server=localhost,1433;Database=AiTradingRaceDb;User Id=sa;Password=YourStrong!Pa
 ```bash
 # Create backup
 docker exec ai-trading-sqlserver /opt/mssql-tools/bin/sqlcmd \
-  -S localhost -U sa -P 'YourStrong!Passw0rd' \
+  -S localhost -U sa -P '$SA_PASSWORD' \
   -Q "BACKUP DATABASE AiTradingRaceDb TO DISK='/var/opt/mssql/data/AiTradingRaceDb.bak'"
 
 # Copy backup to host
@@ -498,7 +498,7 @@ docker cp ./backups/AiTradingRaceDb.bak ai-trading-sqlserver:/var/opt/mssql/data
 
 # Restore backup
 docker exec ai-trading-sqlserver /opt/mssql-tools/bin/sqlcmd \
-  -S localhost -U sa -P 'YourStrong!Passw0rd' \
+  -S localhost -U sa -P '$SA_PASSWORD' \
   -Q "RESTORE DATABASE AiTradingRaceDb FROM DISK='/var/opt/mssql/data/AiTradingRaceDb.bak' WITH REPLACE"
 ```
 
@@ -559,7 +559,7 @@ docker exec ai-trading-sqlserver /opt/mssql-tools/bin/sqlcmd \
 | Apply Migrations | `dotnet ef database update --project ../AiTradingRace.Infrastructure` |
 | Generate SQL Script | `./scripts/generate-migration-script.sh` |
 | View Logs | `docker logs ai-trading-sqlserver` |
-| SQL Shell | `docker exec -it ai-trading-sqlserver /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 'YourStrong!Passw0rd'` |
+| SQL Shell | `docker exec -it ai-trading-sqlserver /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P '$SA_PASSWORD'` |
 | Backup Database | See [Backup and Restore](#backup-and-restore) section |
 
 ---

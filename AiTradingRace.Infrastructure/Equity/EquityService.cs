@@ -257,18 +257,34 @@ public sealed class EquityService : IEquityService
     /// <inheritdoc />
     public async Task<int> CaptureAllSnapshotsAsync(CancellationToken ct = default)
     {
+        // Delegate to the batch version with generated values
+        return await CaptureAllSnapshotsAsync(
+            Guid.NewGuid(),
+            DateTimeOffset.UtcNow,
+            ct);
+    }
+
+    /// <inheritdoc />
+    public async Task<int> CaptureAllSnapshotsAsync(
+        Guid batchId,
+        DateTimeOffset timestamp,
+        CancellationToken ct = default)
+    {
         var agents = await _dbContext.Agents
             .AsNoTracking()
             .Where(a => a.IsActive)
             .Select(a => a.Id)
             .ToListAsync(ct);
 
+        // Get latest prices once for all agents
+        var latestPrices = await GetLatestPricesAsync(ct);
+
         var count = 0;
         foreach (var agentId in agents)
         {
             try
             {
-                await CaptureSnapshotAsync(agentId, ct);
+                await CaptureSnapshotInternalAsync(agentId, batchId, timestamp, latestPrices, ct);
                 count++;
             }
             catch (Exception ex)
@@ -277,8 +293,70 @@ public sealed class EquityService : IEquityService
             }
         }
 
-        _logger.LogInformation("Captured {Count} equity snapshots for {Total} active agents", count, agents.Count);
+        _logger.LogInformation(
+            "Captured {Count} equity snapshots for {Total} active agents. BatchId: {BatchId}, Timestamp: {Timestamp}",
+            count, agents.Count, batchId, timestamp);
         return count;
+    }
+
+    /// <summary>
+    /// Internal method to capture a snapshot with explicit batch and timestamp.
+    /// </summary>
+    private async Task CaptureSnapshotInternalAsync(
+        Guid agentId,
+        Guid batchId,
+        DateTimeOffset timestamp,
+        Dictionary<Guid, decimal> latestPrices,
+        CancellationToken ct)
+    {
+        var portfolio = await _dbContext.Portfolios
+            .Include(p => p.Positions)
+            .FirstOrDefaultAsync(p => p.AgentId == agentId, ct);
+
+        if (portfolio is null)
+        {
+            _logger.LogWarning("No portfolio found for agent {AgentId}, creating one with default cash", agentId);
+            portfolio = await CreatePortfolioAsync(agentId, ct);
+        }
+
+        decimal positionsValue = 0m;
+        decimal unrealizedPnL = 0m;
+
+        foreach (var position in portfolio.Positions)
+        {
+            if (latestPrices.TryGetValue(position.MarketAssetId, out var price))
+            {
+                var posValue = position.Quantity * price;
+                positionsValue += posValue;
+                unrealizedPnL += (price - position.AverageEntryPrice) * position.Quantity;
+            }
+            else
+            {
+                // Use average entry price if no market data available
+                positionsValue += position.Quantity * position.AverageEntryPrice;
+            }
+        }
+
+        var totalValue = portfolio.Cash + positionsValue;
+
+        var snapshot = new EquitySnapshot
+        {
+            Id = Guid.NewGuid(),
+            PortfolioId = portfolio.Id,
+            CapturedAt = timestamp,  // Use provided timestamp, not DateTimeOffset.UtcNow
+            TotalValue = totalValue,
+            CashValue = portfolio.Cash,
+            PositionsValue = positionsValue,
+            UnrealizedPnL = unrealizedPnL,
+            BatchId = batchId  // Correlate with market data batch
+        };
+
+        _dbContext.EquitySnapshots.Add(snapshot);
+        await _dbContext.SaveChangesAsync(ct);
+
+        _logger.LogDebug(
+            "Captured equity snapshot for agent {AgentId}: Total={TotalValue}, Cash={Cash}, Positions={Positions}, BatchId={BatchId}",
+            agentId, totalValue, portfolio.Cash, positionsValue, batchId);
     }
 
     private async Task<Portfolio> CreatePortfolioAsync(Guid agentId, CancellationToken ct)

@@ -47,7 +47,7 @@ export function AgentDetail() {
                 return equity;
         }
         
-        return equity.filter(e => new Date(e.timestamp) >= cutoffDate);
+        return equity.filter(e => new Date(e.capturedAt) >= cutoffDate);
     }, [equity, period]);
 
     // Extract performance metrics from agent data

@@ -18,7 +18,7 @@ class Settings(BaseSettings):
     api_key: str = ""  # Required: set via ML_SERVICE_API_KEY
 
     # CORS
-    allowed_origin: str = "*"  # Restrict in production
+    allowed_origin: str = ""  # Must be set explicitly via ML_SERVICE_ALLOWED_ORIGIN
 
     # Redis settings for idempotency
     redis_host: str = "localhost"

@@ -11,6 +11,13 @@
   "extensions": {
     "timers": {
       "useMonitor": false
+    },
+    "durableTask": {
+      "storageProvider": {
+        "type": "AzureStorage"
+      },
+      "maxConcurrentActivityFunctions": 10,
+      "maxConcurrentOrchestratorFunctions": 5
     }
   }
 }

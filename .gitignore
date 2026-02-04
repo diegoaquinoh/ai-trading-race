@@ -24,11 +24,35 @@ AiTradingRace.Functions/local.settings.json
 
 # OS files
 .DS_Store
+Thumbs.db
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# IDE
+.idea/
+.vscode/
+
+# Build output
+dist/
+
+# Node
+node_modules/
 
 # Environment variables
 .env
 *.env
 !*.env.example
-# Environment variables
-.env
-*.env
+
+# Backup files (prevent accidental secret commits)
+*.bak
+*.backup
+*.old
+*~
+*.env.bak
+*.env.backup
