@@ -1,7 +1,10 @@
 param location string
 param sqlServerFqdn string
 param sqlDatabaseName string
+
+@secure()
 param sqlAdminPassword string
+
 param webAppOutboundIps string
 
 var storageName = 'aitradingracefunc'
@@ -9,6 +12,13 @@ var planName = 'ai-trading-race-func-plan'
 var appName = 'ai-trading-race-func'
 
 var outboundIps = split(webAppOutboundIps, ',')
+
+var webAppIpRules = [for (ip, i) in outboundIps: {
+  name: 'AllowWebApp${i}'
+  priority: 110 + i
+  action: 'Allow'
+  ipAddress: '${trim(ip)}/32'
+}]
 
 resource storageAccount 'Microsoft.Storage/storageAccounts@2023-05-01' = {
   name: storageName
@@ -67,12 +77,7 @@ resource functionApp 'Microsoft.Web/sites@2023-12-01' = {
             ipAddress: 'AzureCloud'
           }
         ],
-        [for (ip, i) in outboundIps: {
-          name: 'AllowWebApp${i}'
-          priority: 110 + i
-          action: 'Allow'
-          ipAddress: '${trim(ip)}/32'
-        }],
+        webAppIpRules,
         [
           {
             name: 'DenyAll'

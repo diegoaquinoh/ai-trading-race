@@ -1,9 +1,17 @@
 param location string
+
+@secure()
 param jwtSecretKey string
+
+@secure()
 param mlApiKey string
+
 param sqlServerFqdn string
 param sqlDatabaseName string
+
+@secure()
 param sqlAdminPassword string
+
 param mlAppFqdn string
 param productionDomain string
 

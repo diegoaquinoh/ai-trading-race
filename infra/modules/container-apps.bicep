@@ -1,7 +1,13 @@
 param location string
+
+@secure()
 param mlApiKey string
+
 param ghcrUsername string
+
+@secure()
 param ghcrPassword string
+
 param mlImageTag string
 param productionDomain string
 

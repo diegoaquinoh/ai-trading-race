@@ -1,4 +1,6 @@
 param location string
+
+@secure()
 param sqlAdminPassword string
 
 var serverName = 'ai-trading-sql'
