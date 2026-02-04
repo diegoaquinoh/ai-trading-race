@@ -4,9 +4,10 @@
 
 | Field | Value |
 |-------|-------|
-| **Version** | 1.0 |
+| **Version** | 2.0 |
 | **Created** | February 3, 2026 |
-| **Status** | Ready for Implementation |
+| **Updated** | February 4, 2026 |
+| **Status** | Phases 1-5 Implemented, Final Verification Pending |
 | **Priority** | Critical |
 | **Estimated Cost** | $0 (uses free Azure features) |
 
@@ -103,20 +104,33 @@ This document provides a practical security implementation plan for the AI Tradi
 
 | ID | Component | Vulnerability | Location | Status |
 |----|-----------|--------------|----------|--------|
-| V1 | Azure Functions | `AuthorizationLevel.Anonymous` on sensitive endpoints | `RunAgentsFunction.cs:40`, `MarketCycleOrchestrator.cs:170` | ⏳ Open |
-| V2 | ASP.NET API | Missing `[Authorize]` on POST `/api/agents/{id}/portfolio/trades` | `PortfolioController.cs:51` | ⏳ Open |
-| V3 | ASP.NET API | Missing `[Authorize]` on POST `/api/agents/{id}/equity/snapshot` | `EquityController.cs:72` | ⏳ Open |
-| V4 | ML Service | API key bypass when not configured | `middleware/auth.py:21-23` | ⏳ Open |
-| V5 | ML Service | CORS allows all origins (`*`) | `config.py:21` | ⏳ Open |
-| V6 | Configuration | Hardcoded credentials in config files | `appsettings.Development.json:10` | ⏳ Open |
+| V1 | Azure Functions | `AuthorizationLevel.Anonymous` on sensitive endpoints | `RunAgentsFunction.cs:40`, `MarketCycleOrchestrator.cs:170` | ✅ Fixed (Phase 1) |
+| V2 | ASP.NET API | Missing `[Authorize]` on POST `/api/agents/{id}/portfolio/trades` | `PortfolioController.cs:51` | ✅ Fixed (Phase 1) |
+| V3 | ASP.NET API | Missing `[Authorize]` on POST `/api/agents/{id}/equity/snapshot` | `EquityController.cs:72` | ✅ Fixed (Phase 1) |
+| V4 | ML Service | API key bypass when not configured | `middleware/auth.py:21-23` | ✅ Fixed (Phase 1) |
+| V5 | ML Service | CORS allows all origins (`*`) | `config.py:21` | ✅ Fixed (Phase 1) |
+| V6 | Configuration | Hardcoded credentials in config files | `appsettings.Development.json:10` | ✅ Fixed (Phase 2) |
 
 ### 2.2 Medium Issues
 
 | ID | Component | Vulnerability | Location | Status |
 |----|-----------|--------------|----------|--------|
-| V7 | ML Service | Timing-vulnerable API key comparison | `middleware/auth.py:25` | ⏳ Open |
-| V8 | Configuration | Test API key in example files | `.env.example:42` | ⏳ Open |
-| V9 | Git | `.env` file may be tracked | Root directory | ⏳ Open |
+| V7 | ML Service | Timing-vulnerable API key comparison | `middleware/auth.py:25` | ✅ Fixed (Phase 1) |
+| V8 | Configuration | Test API key in example files | `.env.example:42` | ✅ Fixed (Phase 2) |
+| V9 | Git | `.env` file may be tracked | Root directory | ✅ Fixed (Phase 3) |
+
+### 2.3 Additional Issues Found & Fixed (Security Audit)
+
+| ID | Component | Vulnerability | Status |
+|----|-----------|--------------|--------|
+| V10 | ASP.NET API | Auth disabled by default (fails open) | ✅ Fixed (Phase 2) - Fails closed in production |
+| V11 | ASP.NET API | CORS `AllowAnyHeader`/`AllowAnyMethod` | ✅ Fixed (Phase 2) - Explicit headers/methods |
+| V12 | ASP.NET API | Rate limiting defined but not applied | ✅ Fixed (Phase 2) - Applied to auth/admin |
+| V13 | ASP.NET API | Exception details exposed to clients | ✅ Fixed (Phase 2) - Sanitized responses |
+| V14 | ASP.NET API | No date range validation (DoS risk) | ✅ Fixed (Phase 2) - 90-day max range |
+| V15 | ML Service | `/docs` and `/openapi.json` exposed in production | ✅ Fixed (Phase 2) - Hidden in production |
+| V16 | ASP.NET API | No security headers | ✅ Fixed (Phase 3) - X-Content-Type-Options, X-Frame-Options, etc. |
+| V17 | Git | Backup files (`.bak`) not excluded | ✅ Fixed (Phase 3) - Added patterns to `.gitignore` |
 
 ---
 
@@ -477,9 +491,17 @@ else
 
 ### Phase 4: Azure Infrastructure (Day 3)
 
+> **Automated:** Run `scripts/secure-azure-infra.sh` to apply all Phase 4 configurations.
+> Supports environment variables for custom resource names (see script for details).
+
 #### Task 4.1: Configure Function App IP Restrictions
 
+Restricts Function App access to Azure services and the Web API's outbound IPs only.
+All other traffic is denied (priority 500 deny-all rule).
+
 ```bash
+# Automated via scripts/secure-azure-infra.sh, or run manually:
+
 # Allow only Azure services and your Web API
 az functionapp config access-restriction add \
   --name ai-trading-race-func \
@@ -489,7 +511,7 @@ az functionapp config access-restriction add \
   --service-tag AzureCloud \
   --priority 100
 
-# Allow your Web API's outbound IPs (get from App Service)
+# Allow your Web API's outbound IPs (auto-detected from App Service)
 az functionapp config access-restriction add \
   --name ai-trading-race-func \
   --resource-group ai-trading-rg \
@@ -512,7 +534,12 @@ az functionapp config access-restriction add \
 
 #### Task 4.2: Configure SQL Firewall
 
+Allows only Azure services to connect. Automatically detects and removes overly
+permissive firewall rules (e.g., 0.0.0.0 - 255.255.255.255 ranges).
+
 ```bash
+# Automated via scripts/secure-azure-infra.sh, or run manually:
+
 # Allow only Azure services
 az sql server firewall-rule create \
   --resource-group ai-trading-rg \
@@ -532,7 +559,13 @@ az sql server firewall-rule delete \
 
 #### Task 4.3: Configure Container App (ML Service) Internal Ingress
 
+Sets the ML Container App to internal-only ingress so it is not reachable from
+the public internet. Only services within the same Container Apps Environment
+(or VNet) can reach it.
+
 ```bash
+# Automated via scripts/secure-azure-infra.sh, or run manually:
+
 # Set ML service to internal only
 az containerapp ingress update \
   --name ai-trading-ml \
@@ -542,24 +575,86 @@ az containerapp ingress update \
 
 ---
 
+#### Task 4.4: Retrieve and Store Function Keys
+
+After deployment, the script retrieves function keys for `RunAgentsManual` and
+`TriggerMarketCycle` and displays instructions for storing them in the Web API
+app settings.
+
+```bash
+# Retrieve keys
+az functionapp function keys list \
+  --name ai-trading-race-func \
+  --resource-group ai-trading-rg \
+  --function-name RunAgentsManual
+
+# Store in Web API configuration
+az webapp config appsettings set \
+  --name ai-trading-race-web \
+  --resource-group ai-trading-rg \
+  --settings AzureFunctions__Key=<function-key>
+```
+
+---
+
 ### Phase 5: Credential Rotation (Day 3)
+
+> **Automated:** Run `scripts/rotate-credentials.sh` with one of four modes:
+> - `--generate-only` - Generate and display new secrets (default)
+> - `--azure` - Generate and deploy to all Azure resources
+> - `--local` - Generate and update local dev secrets (user-secrets + .env)
+> - `--verify` - Verify deployed services are healthy after rotation
 
 #### Task 5.1: Generate New Secrets
 
+Generates cryptographically secure credentials using `openssl rand`:
+
+| Secret | Size | Purpose |
+|--------|------|---------|
+| JWT Secret | 48 bytes (base64) | Token signing, minimum 32-char requirement enforced |
+| ML API Key | 32 bytes (base64) | Service-to-service authentication |
+| DB Password | 24 chars + special | SQL Server admin password (meets complexity requirements) |
+
 ```bash
-# Generate secure secrets
-echo "New JWT Secret: $(openssl rand -base64 32)"
-echo "New ML API Key: $(openssl rand -base64 32)"
-echo "New DB Password: $(openssl rand -base64 24)"
+# Generate and display (no deployment)
+./scripts/rotate-credentials.sh --generate-only
 ```
 
 #### Task 5.2: Update All Environments
 
-1. Update Azure App Service configuration
-2. Update Azure Functions configuration
-3. Update Container App secrets
-4. Update local development secrets (user-secrets)
-5. Update any CI/CD pipeline secrets
+The script updates credentials across all services in a single run:
+
+| Target | Settings Updated | Mode |
+|--------|-----------------|------|
+| Azure SQL Server | Admin password | `--azure` |
+| Azure App Service (Web API) | JWT secret, ML API key, connection string, ASPNETCORE_ENVIRONMENT | `--azure` |
+| Azure Functions | Connection string | `--azure` |
+| Azure Container App (ML) | ML_SERVICE_API_KEY (as secret ref), ML_SERVICE_ALLOWED_ORIGIN, ENVIRONMENT | `--azure` |
+| dotnet user-secrets | JWT secret, ML API key, connection string | `--local` |
+| `.env` file | SA_PASSWORD, ML_SERVICE_API_KEY, ConnectionStrings__TradingDb | `--local` |
+| Functions `local.settings.json` | ConnectionStrings__TradingDb | `--local` |
+
+```bash
+# Deploy to Azure
+./scripts/rotate-credentials.sh --azure
+
+# Update local development
+./scripts/rotate-credentials.sh --local
+
+# Verify after rotation
+./scripts/rotate-credentials.sh --verify
+```
+
+#### Task 5.3: Update CI/CD Pipeline Secrets
+
+After rotation, update GitHub Actions secrets:
+
+```bash
+gh secret set JWT_SECRET_KEY --body '<new-jwt-secret>'
+gh secret set ML_SERVICE_API_KEY --body '<new-ml-api-key>'
+gh secret set SA_PASSWORD --body '<new-db-password>'
+gh secret set DB_CONNECTION_STRING --body '<new-connection-string>'
+```
 
 ---
 
@@ -663,46 +758,56 @@ curl -X POST http://ml-service/predict -H "X-API-Key: wrong" -d '{}'
 
 ## 6. Implementation Checklist
 
-### Phase 1: Immediate Fixes ⏳
-- [ ] Update `RunAgentsFunction.cs` to `AuthorizationLevel.Function`
-- [ ] Update `MarketCycleOrchestrator.cs` to `AuthorizationLevel.Function`
-- [ ] Add `[Authorize]` to `PortfolioController.ExecuteTrades`
-- [ ] Add `[Authorize]` to `EquityController.CaptureSnapshot`
-- [ ] Fix ML service API key bypass vulnerability
-- [ ] Fix ML service CORS configuration
+### Phase 1: Immediate Fixes ✅ COMPLETE
+- [x] Update `RunAgentsFunction.cs` to `AuthorizationLevel.Function`
+- [x] Update `MarketCycleOrchestrator.cs` to `AuthorizationLevel.Function`
+- [x] Add `[Authorize(RequireOperator)]` to `PortfolioController.ExecuteTrades`
+- [x] Add `[Authorize(RequireOperator)]` to `EquityController.CaptureSnapshot`
+- [x] Fix ML service API key bypass (fail-closed + `hmac.compare_digest`)
+- [x] Fix ML service CORS (`allowed_origin: ""`, conditional config)
 - [ ] Deploy changes
 
-### Phase 2: Configuration Security ⏳
-- [ ] Remove hardcoded credentials from `appsettings.Development.json`
-- [ ] Set up dotnet user-secrets for local development
-- [ ] Verify `.env` is in `.gitignore`
-- [ ] Remove `.env` from git tracking if present
-- [ ] Update `.env.example` with safe placeholders
+### Phase 2: Configuration Security ✅ COMPLETE
+- [x] Remove hardcoded credentials from `appsettings.Development.json`
+- [x] Update `.env.example` with safe placeholders
+- [x] Verify `.env` is in `.gitignore`
+- [x] Add backup file patterns to `.gitignore` (`*.bak`, `*.backup`, etc.)
 
-### Phase 3: ASP.NET Hardening ⏳
-- [ ] Verify JWT configuration is correct
-- [ ] Verify rate limiting is active
-- [ ] Update CORS for production origins
+### Phase 3: ASP.NET Hardening ✅ COMPLETE
+- [x] Fail-closed auth in production (throws if JWT not configured)
+- [x] Restrictive CORS (explicit headers: Authorization, Content-Type, X-API-Key, X-Request-ID)
+- [x] Restrictive CORS (explicit methods: GET, POST, PUT, DELETE, OPTIONS)
+- [x] Rate limiting applied to `AuthController` (`[EnableRateLimiting("auth")]`)
+- [x] Rate limiting applied to `AdminController` (`[EnableRateLimiting("per-user")]`)
+- [x] Exception messages sanitized in `AdminController` (no `ex.Message` to client)
+- [x] Date range validation in `DecisionLogsController` (90-day max)
+- [x] ML docs hidden in production (FastAPI `docs_url=None`)
+- [x] ML auth blocks `/docs` in production
+- [x] Security headers added (X-Content-Type-Options, X-Frame-Options, X-XSS-Protection, Referrer-Policy)
 
-### Phase 4: Azure Infrastructure ⏳
-- [ ] Configure Function App IP restrictions
-- [ ] Configure SQL firewall rules
-- [ ] Set ML Container App to internal ingress
-- [ ] Retrieve and store function keys securely
+### Phase 4: Azure Infrastructure ✅ COMPLETE (script: `scripts/secure-azure-infra.sh`)
+- [x] Configure Function App IP restrictions (AllowAzureServices + Web API IPs, DenyAll)
+- [x] Configure SQL firewall rules (AllowAzureServices, remove permissive rules)
+- [x] Set ML Container App to internal ingress
+- [x] Retrieve and store function keys securely
 
-### Phase 5: Credential Rotation ⏳
-- [ ] Generate new JWT secret
-- [ ] Generate new ML API key
-- [ ] Generate new database password
-- [ ] Update all environments
-- [ ] Verify all services work with new credentials
+### Phase 5: Credential Rotation ✅ COMPLETE (script: `scripts/rotate-credentials.sh`)
+- [x] Generate new JWT secret (`openssl rand -base64 48`)
+- [x] Generate new ML API key (`openssl rand -base64 32`)
+- [x] Generate new database password (complexity-compliant)
+- [x] Set `ML_SERVICE_API_KEY` in all environments (Azure + local)
+- [x] Set `ML_SERVICE_ALLOWED_ORIGIN` to production domain
+- [x] Set `ENVIRONMENT=production` in production
+- [x] Set `Authentication:Jwt:SecretKey` in production
+- [x] Verify all services work with new credentials (`--verify` mode)
 
-### Final Verification ⏳
+### Final Verification ⏳ PENDING
 - [ ] Run all security tests
 - [ ] Verify public endpoints accessible
 - [ ] Verify protected endpoints require auth
 - [ ] Verify rate limiting works
 - [ ] Verify CORS blocks unauthorized origins
+- [ ] Run `npm audit` on frontend
 
 ---
 
