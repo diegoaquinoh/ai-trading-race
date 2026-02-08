@@ -31,11 +31,13 @@ public sealed class IngestMarketDataActivity
         [ActivityTrigger] IngestMarketDataRequest request,
         CancellationToken ct)
     {
-        var batchId = Guid.NewGuid();
+        // Generate deterministic BatchId from orchestrator instance ID
+        // This ensures different orchestrator instances (manual vs scheduled) get different BatchIds
+        var batchId = GenerateDeterministicBatchId(request.OrchestratorInstanceId);
         
         _logger.LogInformation(
-            "Ingesting market data for batch {BatchId} at {Timestamp}",
-            batchId, request.Timestamp);
+            "Ingesting market data for batch {BatchId} at {Timestamp} (Orchestrator: {InstanceId})",
+            batchId, request.Timestamp, request.OrchestratorInstanceId);
 
         // Ingest latest candles from CoinGecko
         var insertedCount = await _ingestionService.IngestAllAssetsAsync(ct);
@@ -80,5 +82,36 @@ public sealed class IngestMarketDataActivity
             .ToDictionary(
                 c => assetIdToSymbol[c.AssetId],
                 c => c.Price);
+    }
+
+    /// <summary>
+    /// Generates a deterministic BatchId from an orchestrator instance ID.
+    /// Same instance ID always produces the same GUID for idempotency.
+    /// 
+    /// BENEFITS:
+    /// - Different orchestrator instances get different BatchIds (manual vs scheduled)
+    /// - Orchestrator replays produce same BatchId (deterministic)
+    /// - No collision between concurrent operations
+    /// - Allows historical reprocessing with unique instance IDs
+    /// 
+    /// EXAMPLE:
+    /// - "market-cycle-20260205-1430"        → BatchId: abc123...
+    /// - "market-cycle-manual-20260205-1430" → BatchId: def456... (different!)
+    /// </summary>
+    private static Guid GenerateDeterministicBatchId(string orchestratorInstanceId)
+    {
+        // Use SHA256 hash of instance ID to create deterministic GUID
+        using var sha256 = System.Security.Cryptography.SHA256.Create();
+        var hashBytes = sha256.ComputeHash(System.Text.Encoding.UTF8.GetBytes(orchestratorInstanceId));
+        
+        // Take first 16 bytes of hash to create GUID
+        var guidBytes = new byte[16];
+        Array.Copy(hashBytes, guidBytes, 16);
+        
+        // Ensure it's a valid RFC 4122 GUID (version 5, variant 2)
+        guidBytes[6] = (byte)((guidBytes[6] & 0x0F) | 0x50); // Version 5
+        guidBytes[8] = (byte)((guidBytes[8] & 0x3F) | 0x80); // Variant 2
+        
+        return new Guid(guidBytes);
     }
 }
