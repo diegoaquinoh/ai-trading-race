@@ -5,7 +5,9 @@ namespace AiTradingRace.Functions.Models;
 /// <summary>
 /// Request to ingest market data.
 /// </summary>
-public record IngestMarketDataRequest(DateTimeOffset Timestamp);
+public record IngestMarketDataRequest(
+    DateTimeOffset Timestamp,
+    string OrchestratorInstanceId);
 
 /// <summary>
 /// Result of market data ingestion.

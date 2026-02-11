@@ -33,18 +33,19 @@ public sealed class MarketCycleOrchestrator
         var logger = context.CreateReplaySafeLogger<MarketCycleOrchestrator>();
         var startTime = context.CurrentUtcDateTime;
         var timestamp = new DateTimeOffset(startTime, TimeSpan.Zero);
+        var instanceId = context.InstanceId;
         
         // Decision cycle runs at :00, :15, :30, :45
         var isDecisionMinute = timestamp.Minute % 15 == 0;
         
         logger.LogInformation(
-            "Market cycle started at {Timestamp}. Decision cycle: {IsDecision}",
-            timestamp, isDecisionMinute);
+            "Market cycle started at {Timestamp}. Instance: {InstanceId}. Decision cycle: {IsDecision}",
+            timestamp, instanceId, isDecisionMinute);
 
         // Step 1: Ingest market data
         var marketResult = await context.CallActivityAsync<MarketDataResult>(
             nameof(IngestMarketDataActivity),
-            new IngestMarketDataRequest(timestamp));
+            new IngestMarketDataRequest(timestamp, instanceId));
 
         logger.LogInformation(
             "Market data ingested. BatchId: {BatchId}, Prices: {PriceCount}",
