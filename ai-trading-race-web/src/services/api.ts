@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { AgentSummary, AgentDetail, EquitySnapshot, Trade, LeaderboardEntry, MarketPrice, Portfolio } from '../types';
+import type { AgentSummary, AgentDetail, EquitySnapshot, Trade, LeaderboardEntry, MarketPrice, Portfolio, DecisionLog } from '../types';
 
 // Configure base URL for the .NET API
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
@@ -64,6 +64,16 @@ export const marketApi = {
 export const portfolioApi = {
     getByAgentId: async (agentId: string): Promise<Portfolio> => {
         const response = await apiClient.get(`/api/agents/${agentId}/portfolio`);
+        return response.data;
+    },
+};
+
+// Decisions API
+export const decisionsApi = {
+    getByAgentId: async (agentId: string, limit: number = 50): Promise<DecisionLog[]> => {
+        const response = await apiClient.get(`/api/agents/${agentId}/decisions`, {
+            params: { limit },
+        });
         return response.data;
     },
 };

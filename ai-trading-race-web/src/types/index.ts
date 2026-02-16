@@ -132,3 +132,20 @@ export interface LeaderboardEntry {
   performancePercent: number;
   drawdown: number;
 }
+
+export interface DecisionLog {
+  id: number;
+  agentId: string;
+  timestamp: string;
+  action: string;
+  asset: string | null;
+  quantity: number | null;
+  rationale: string;
+  citedRuleIds: string;
+  detectedRegime: string;
+  portfolioValueBefore: number;
+  portfolioValueAfter: number;
+  wasValidated: boolean;
+  validationErrors: string | null;
+  createdAt: string;
+}

@@ -12,12 +12,17 @@ using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// CORS for React dev server
+// CORS
+var allowedOrigins = new List<string> { "http://localhost:5173", "http://localhost:3000" };
+var configuredOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
+if (configuredOrigins is { Length: > 0 })
+    allowedOrigins.AddRange(configuredOrigins);
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("ReactDevServer", policy =>
     {
-        policy.WithOrigins("http://localhost:5173", "http://localhost:3000")
+        policy.WithOrigins(allowedOrigins.ToArray())
               .WithHeaders("Authorization", "Content-Type", "X-API-Key", "X-Request-ID")
               .WithMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
               .AllowCredentials();
@@ -33,9 +38,9 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddApplicationServices();
 
-// Use Test AI client for E2E testing of risk validation
-// Generates aggressive orders that will be adjusted by RiskValidator
-builder.Services.AddInfrastructureServicesWithTestAI(builder.Configuration);
+// Register infrastructure services with real AI model routing
+// Each agent's ModelProvider determines which client is used
+builder.Services.AddInfrastructureServices(builder.Configuration);
 
 builder.Services.AddSingleton<WeatherForecastService>();
 
