@@ -7,6 +7,19 @@ param sqlAdminPassword string
 
 param webAppOutboundIps string
 
+// AI & external service configuration
+@secure()
+param azureOpenAiApiKey string = ''
+param azureOpenAiEndpoint string = ''
+param azureOpenAiDeploymentName string = 'gpt-4o'
+
+param coinGeckoBaseUrl string = 'https://api.coingecko.com/api/v3/'
+param coinGeckoApiKey string = ''
+
+@secure()
+param mlApiKey string = ''
+param mlAppFqdn string = ''
+
 var storageName = 'aitradingracefunc'
 var planName = 'ai-trading-race-func-plan'
 var appName = 'ai-trading-race-func'
@@ -58,6 +71,7 @@ resource functionApp 'Microsoft.Web/sites@2023-12-01' = {
       ftpsState: 'Disabled'
       minTlsVersion: '1.2'
       appSettings: [
+        // Azure Functions runtime
         {
           name: 'AzureWebJobsStorage'
           value: 'DefaultEndpointsProtocol=https;AccountName=${storageAccount.name};AccountKey=${storageAccount.listKeys().keys[0].value};EndpointSuffix=core.windows.net'
@@ -68,6 +82,19 @@ resource functionApp 'Microsoft.Web/sites@2023-12-01' = {
           name: 'ConnectionStrings__TradingDb'
           value: 'Server=tcp:${sqlServerFqdn},1433;Initial Catalog=${sqlDatabaseName};Persist Security Info=False;User ID=sqladmin;Password=${sqlAdminPassword};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
         }
+        // CoinGecko - market data ingestion
+        { name: 'CoinGecko__BaseUrl', value: coinGeckoBaseUrl }
+        { name: 'CoinGecko__TimeoutSeconds', value: '30' }
+        { name: 'CoinGecko__DefaultDays', value: '1' }
+        { name: 'CoinGecko__ApiKey', value: coinGeckoApiKey }
+        // Azure OpenAI - agent decisions
+        { name: 'AzureOpenAI__Endpoint', value: azureOpenAiEndpoint }
+        { name: 'AzureOpenAI__ApiKey', value: azureOpenAiApiKey }
+        { name: 'AzureOpenAI__DeploymentName', value: azureOpenAiDeploymentName }
+        // Custom ML Agent
+        { name: 'CustomMlAgent__BaseUrl', value: mlAppFqdn != '' ? 'https://${mlAppFqdn}' : '' }
+        { name: 'CustomMlAgent__ApiKey', value: mlApiKey }
+        { name: 'CustomMlAgent__TimeoutSeconds', value: '60' }
       ]
       ipSecurityRestrictions: concat(
         [

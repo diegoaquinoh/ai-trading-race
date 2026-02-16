@@ -19,6 +19,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Polly;
 using Polly.Extensions.Http;
@@ -42,20 +43,27 @@ public static class ServiceCollectionExtensions
         services.Configure<CustomMlAgentOptions>(configuration.GetSection(CustomMlAgentOptions.SectionName));
         services.Configure<LlamaOptions>(configuration.GetSection(LlamaOptions.SectionName));
 
-        // Azure OpenAI Client - create singleton from options (only if configured)
-        services.AddSingleton<AzureOpenAIClient>(sp =>
+        // Azure OpenAI Client - create singleton from options (lazy: only fails when resolved)
+        services.AddSingleton(sp =>
         {
             var options = sp.GetRequiredService<IOptions<AzureOpenAiOptions>>().Value;
 
             if (string.IsNullOrWhiteSpace(options.Endpoint) || string.IsNullOrWhiteSpace(options.ApiKey))
             {
-                throw new InvalidOperationException(
-                    "Azure OpenAI not configured. Set AzureOpenAI:Endpoint and AzureOpenAI:ApiKey in appsettings or user-secrets.");
+                var logger = sp.GetRequiredService<ILoggerFactory>().CreateLogger("AzureOpenAI");
+                logger.LogWarning(
+                    "Azure OpenAI not configured. Set AzureOpenAI:Endpoint and AzureOpenAI:ApiKey. " +
+                    "AI agent decisions requiring Azure OpenAI will fail.");
+                // Return a Lazy that throws only when Value is accessed
+                return new Lazy<AzureOpenAIClient>(() =>
+                    throw new InvalidOperationException(
+                        "Azure OpenAI not configured. Set AzureOpenAI:Endpoint and AzureOpenAI:ApiKey."));
             }
 
-            return new AzureOpenAIClient(
+            var client = new AzureOpenAIClient(
                 new Uri(options.Endpoint),
                 new AzureKeyCredential(options.ApiKey));
+            return new Lazy<AzureOpenAIClient>(() => client);
         });
 
         // Register all AI model clients as concrete types for factory resolution
