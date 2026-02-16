@@ -10,10 +10,10 @@ A competitive simulation where AI trading agents (LLMs) race against each other,
 
 ## 🌐 Live Demo
 
-| Service   | URL                                                                                              |
-| --------- | ------------------------------------------------------------------------------------------------ |
-| Frontend  | https://gentle-water-079ee5803.1.azurestaticapps.net                                            |
-| API       | https://ai-trading-race-api.azurewebsites.net/api/auth/health                                   |
+| Service  | URL                                                           |
+| -------- | ------------------------------------------------------------- |
+| Frontend | https://gentle-water-079ee5803.1.azurestaticapps.net          |
+| API      | https://ai-trading-race-api.azurewebsites.net/api/auth/health |
 
 ## ✨ Features
 
@@ -28,17 +28,17 @@ A competitive simulation where AI trading agents (LLMs) race against each other,
 
 ## 📊 Project Status
 
-| Phase     | Description                                                   | Status         |
-| --------- | ------------------------------------------------------------- | -------------- |
-| Phase 1-4 | Core architecture, data model, market data, simulation engine | ✅ Complete    |
-| Phase 5   | AI agents integration (OpenAI, Anthropic, Groq, Llama)        | ✅ Complete    |
-| Phase 5b  | Custom ML model (Python + FastAPI)                            | ✅ Complete    |
-| Phase 6-7 | Durable Functions orchestrator & React dashboard              | ✅ Complete    |
-| Phase 8   | CI/CD & local deployment (Docker Compose)                     | ✅ Complete    |
-| Phase 9   | Cloud deployment (Azure)                                      | ✅ Complete    |
-| Phase 10  | Knowledge graph (GraphRAG-lite)                               | ✅ Complete    |
-| Phase 10b | LangChain + Neo4j refactor                                    | 🔜 Planned     |
-| Phase 11  | Monitoring & observability                                    | 🔜 Planned     |
+| Phase     | Description                                                   | Status      |
+| --------- | ------------------------------------------------------------- | ----------- |
+| Phase 1-4 | Core architecture, data model, market data, simulation engine | ✅ Complete |
+| Phase 5   | AI agents integration (OpenAI, Anthropic, Groq, Llama)        | ✅ Complete |
+| Phase 5b  | Custom ML model (Python + FastAPI)                            | ✅ Complete |
+| Phase 6-7 | Durable Functions orchestrator & React dashboard              | ✅ Complete |
+| Phase 8   | CI/CD & local deployment (Docker Compose)                     | ✅ Complete |
+| Phase 9   | Cloud deployment (Azure)                                      | ✅ Complete |
+| Phase 10  | Knowledge graph (GraphRAG-lite)                               | ✅ Complete |
+| Phase 10b | LangChain + Neo4j refactor                                    | 🔜 Planned  |
+| Phase 11  | Monitoring & observability                                    | 🔜 Planned  |
 
 ## 🏗️ Architecture
 
@@ -136,16 +136,16 @@ ai-trading-race/
 
 ## 🛠️ Tech Stack
 
-| Layer              | Technologies                                            |
-| ------------------ | ------------------------------------------------------- |
-| **Backend**        | .NET 8, ASP.NET Core, Entity Framework Core             |
-| **Orchestration**  | Azure Functions v4 (isolated worker), Durable Functions |
-| **Database**       | SQL Server 2022, Redis 7                                |
-| **ML Service**     | Python 3.11, FastAPI, scikit-learn                      |
-| **Frontend**       | React 18, TypeScript, Vite, TailwindCSS                 |
-| **Infrastructure** | Docker Compose (local), Azure Bicep (cloud)             |
+| Layer              | Technologies                                                            |
+| ------------------ | ----------------------------------------------------------------------- |
+| **Backend**        | .NET 8, ASP.NET Core, Entity Framework Core                             |
+| **Orchestration**  | Azure Functions v4 (isolated worker), Durable Functions                 |
+| **Database**       | SQL Server 2022, Redis 7                                                |
+| **ML Service**     | Python 3.11, FastAPI, scikit-learn                                      |
+| **Frontend**       | React 18, TypeScript, Vite, TailwindCSS                                 |
+| **Infrastructure** | Docker Compose (local), Azure Bicep (cloud)                             |
 | **Cloud**          | Azure App Service, Functions, Container Apps, Static Web App, Azure SQL |
-| **CI/CD**          | GitHub Actions (7 workflows)                            |
+| **CI/CD**          | GitHub Actions (7 workflows)                                            |
 
 ## 📋 Prerequisites
 
@@ -277,16 +277,64 @@ source .env
 
 ### CI/CD (GitHub Actions)
 
-On every push to `main`, the following workflows run automatically:
+On every push to `main`, the `deploy.yml` workflow runs automatically. Some deploy steps use publish profiles (automated), others require `AZURE_CREDENTIALS` service principal which isn't available when Entra ID is org-controlled (manual).
 
-| Workflow | What it deploys |
-| -------- | --------------- |
-| `backend.yml` | ASP.NET Core API → App Service |
-| `functions.yml` | Azure Functions → Function App |
-| `ml-service.yml` | Python ML image → Container App via GHCR |
-| `frontend.yml` (SWA) | React app → Azure Static Web App |
+**Automated deploys (on push to `main`):**
 
-Required GitHub secrets: `AZURE_WEBAPP_PUBLISH_PROFILE`, `AZURE_FUNCTIONAPP_PUBLISH_PROFILE`, `AZURE_STATIC_WEB_APPS_API_TOKEN_GENTLE_WATER_079EE5803`, `AZURE_CREDENTIALS`, `GHCR_TOKEN`.
+| Workflow Job       | Target         | Secret                              |
+| ------------------ | -------------- | ----------------------------------- |
+| `deploy-api`       | App Service    | `AZURE_WEBAPP_PUBLISH_PROFILE`      |
+| `deploy-functions` | Function App   | `AZURE_FUNCTIONAPP_PUBLISH_PROFILE` |
+| `deploy-frontend`  | Static Web App | `AZURE_STATIC_WEB_APPS_API_TOKEN`   |
+
+**Manual operations (require `az login`):**
+
+| Task               | Command                                                         |
+| ------------------ | --------------------------------------------------------------- |
+| DB Migration       | `./scripts/migrate-azure-db.sh`                                 |
+| ML Service Deploy  | `./scripts/deploy-app.sh` (or see below)                        |
+| Post-deploy checks | `curl https://ai-trading-race-api.azurewebsites.net/api/health` |
+
+<details>
+<summary><b>Manual ML Service Deploy</b></summary>
+
+```bash
+# Build and push Docker image
+docker build -t ghcr.io/diegoaquinoh/ai-trading-race-ml:latest ./ai-trading-race-ml
+docker push ghcr.io/diegoaquinoh/ai-trading-race-ml:latest
+
+# Update Container App
+az containerapp update \
+  --name ai-trading-ml \
+  --resource-group ai-trading-rg \
+  --image ghcr.io/diegoaquinoh/ai-trading-race-ml:latest
+```
+
+</details>
+
+<details>
+<summary><b>Manual DB Migration</b></summary>
+
+```bash
+# Option A: Use the existing script
+./scripts/migrate-azure-db.sh
+
+# Option B: Direct EF Core update (requires connection string)
+dotnet ef database update \
+  --project AiTradingRace.Infrastructure \
+  --startup-project AiTradingRace.Web
+```
+
+</details>
+
+#### Required GitHub Secrets
+
+| Secret                              | How to get it                                                      |
+| ----------------------------------- | ------------------------------------------------------------------ |
+| `AZURE_WEBAPP_PUBLISH_PROFILE`      | Azure Portal → App Service → Download publish profile              |
+| `AZURE_FUNCTIONAPP_PUBLISH_PROFILE` | Azure Portal → Function App → Download publish profile             |
+| `AZURE_STATIC_WEB_APPS_API_TOKEN`   | Auto-created when SWA linked to GitHub                             |
+| `GHCR_TOKEN`                        | GitHub → Settings → Developer settings → PAT with `write:packages` |
 
 ### Required tools
 

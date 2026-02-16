@@ -21,6 +21,7 @@ on:
       - "AiTradingRace.Tests/**"
       - "AiTradingRace.sln"
       - ".github/workflows/backend.yml"
+  workflow_call:
 
 env:
   DOTNET_VERSION: "8.0.x"
