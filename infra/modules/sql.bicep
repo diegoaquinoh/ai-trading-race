@@ -25,7 +25,7 @@ resource sqlDatabase 'Microsoft.Sql/servers/databases@2023-08-01-preview' = {
     name: 'Free'
   }
   properties: {
-    maxSizeBytes: 34359738368 // 32 GB
+    maxSizeBytes: 33554432 // 32 MB - Free tier limit
   }
 }
 

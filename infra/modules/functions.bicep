@@ -41,7 +41,9 @@ resource functionPlan 'Microsoft.Web/serverfarms@2023-12-01' = {
     name: 'Y1'
     tier: 'Dynamic'
   }
-  properties: {}
+  properties: {
+    reserved: true // Required for Linux
+  }
 }
 
 resource functionApp 'Microsoft.Web/sites@2023-12-01' = {

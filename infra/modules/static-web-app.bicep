@@ -1,4 +1,4 @@
-param location string
+param location string = 'westeurope' // Static Web Apps only available in limited regions
 param githubRepoUrl string
 param githubToken string
 

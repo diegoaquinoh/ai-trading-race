@@ -1,6 +1,6 @@
 using 'main.bicep'
 
-param location = 'westeurope'
+param location = 'francecentral'
 param sqlAdminPassword = ''
 param jwtSecretKey = ''
 param mlApiKey = ''
