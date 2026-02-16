@@ -329,12 +329,11 @@ dotnet ef database update \
 
 #### Required GitHub Secrets
 
-| Secret                              | How to get it                                                      |
-| ----------------------------------- | ------------------------------------------------------------------ |
-| `AZURE_WEBAPP_PUBLISH_PROFILE`      | Azure Portal → App Service → Download publish profile              |
-| `AZURE_FUNCTIONAPP_PUBLISH_PROFILE` | Azure Portal → Function App → Download publish profile             |
-| `AZURE_STATIC_WEB_APPS_API_TOKEN`   | Auto-created when SWA linked to GitHub                             |
-| `GHCR_TOKEN`                        | GitHub → Settings → Developer settings → PAT with `write:packages` |
+| Secret                              | How to get it                                          |
+| ----------------------------------- | ------------------------------------------------------ |
+| `AZURE_WEBAPP_PUBLISH_PROFILE`      | Azure Portal → App Service → Download publish profile  |
+| `AZURE_FUNCTIONAPP_PUBLISH_PROFILE` | Azure Portal → Function App → Download publish profile |
+| `AZURE_STATIC_WEB_APPS_API_TOKEN`   | Auto-created when SWA linked to GitHub                 |
 
 ### Required tools
 
