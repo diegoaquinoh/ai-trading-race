@@ -15,19 +15,22 @@ namespace AiTradingRace.Infrastructure.Agents;
 /// </summary>
 public sealed class AzureOpenAiAgentModelClient : IAgentModelClient
 {
-    private readonly ChatClient _chatClient;
+    private readonly Lazy<AzureOpenAIClient> _openAIClient;
     private readonly AzureOpenAiOptions _options;
     private readonly ILogger<AzureOpenAiAgentModelClient> _logger;
+    private ChatClient? _chatClient;
 
     public AzureOpenAiAgentModelClient(
-        AzureOpenAIClient openAIClient,
+        Lazy<AzureOpenAIClient> openAIClient,
         IOptions<AzureOpenAiOptions> options,
         ILogger<AzureOpenAiAgentModelClient> logger)
     {
+        _openAIClient = openAIClient;
         _options = options.Value;
         _logger = logger;
-        _chatClient = openAIClient.GetChatClient(_options.DeploymentName);
     }
+
+    private ChatClient ChatClient => _chatClient ??= _openAIClient.Value.GetChatClient(_options.DeploymentName);
 
     /// <inheritdoc />
     public async Task<AgentDecision> GenerateDecisionAsync(
@@ -54,7 +57,7 @@ public sealed class AzureOpenAiAgentModelClient : IAgentModelClient
 
         try
         {
-            var response = await _chatClient.CompleteChatAsync(
+            var response = await ChatClient.CompleteChatAsync(
                 chatMessages,
                 chatOptions,
                 cancellationToken);

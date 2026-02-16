@@ -12,6 +12,10 @@ param jwtSecretKey string
 @secure()
 param mlApiKey string
 
+@secure()
+param azureOpenAiApiKey string = ''
+param azureOpenAiEndpoint string = ''
+
 param ghcrUsername string
 
 @secure()
@@ -75,7 +79,7 @@ module appService 'modules/app-service.bicep' = {
   }
 }
 
-// 5. Functions (depends on sql + app-service)
+// 5. Functions (depends on sql + app-service + container-apps)
 module functions 'modules/functions.bicep' = {
   name: 'functions'
   params: {
@@ -84,6 +88,10 @@ module functions 'modules/functions.bicep' = {
     sqlDatabaseName: sql.outputs.databaseName
     sqlAdminPassword: sqlAdminPassword
     webAppOutboundIps: appService.outputs.outboundIpAddresses
+    azureOpenAiApiKey: azureOpenAiApiKey
+    azureOpenAiEndpoint: azureOpenAiEndpoint
+    mlApiKey: mlApiKey
+    mlAppFqdn: containerApps.outputs.mlAppFqdn
   }
 }
 
