@@ -41,7 +41,7 @@ module sql 'modules/sql.bicep' = {
 module staticWebApp 'modules/static-web-app.bicep' = {
   name: 'staticWebApp'
   params: {
-    location: location
+    location: 'westeurope' // Static Web Apps only available in limited regions
     githubRepoUrl: githubRepoUrl
     githubToken: githubToken
   }
@@ -79,7 +79,7 @@ module appService 'modules/app-service.bicep' = {
 module functions 'modules/functions.bicep' = {
   name: 'functions'
   params: {
-    location: location
+    location: 'westeurope' // francecentral doesn't support Linux consumption plans
     sqlServerFqdn: sql.outputs.serverFqdn
     sqlDatabaseName: sql.outputs.databaseName
     sqlAdminPassword: sqlAdminPassword

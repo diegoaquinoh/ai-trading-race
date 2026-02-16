@@ -91,28 +91,34 @@ jobs:
           du -sh dist/
           find dist -name "*.js" -exec du -h {} \; | sort -rh | head -10
 
-  # Placeholder for future deployment
-  # deploy:
-  #   name: Deploy to Azure Static Web Apps
-  #   runs-on: ubuntu-latest
-  #   needs: [build-and-test, bundle-analysis]
-  #   if: github.ref == 'refs/heads/main'
-  #   
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v4
-  #     
-  #     - name: Download artifact
-  #       uses: actions/download-artifact@v4
-  #       with:
-  #         name: frontend-build
-  #         path: ./dist
-  #     
-  #     - name: Deploy to Azure Static Web Apps
-  #       uses: Azure/static-web-apps-deploy@v1
-  #       with:
-  #         azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_TOKEN }}
-  #         repo_token: ${{ secrets.GITHUB_TOKEN }}
-  #         action: "upload"
-  #         app_location: "/"
-  #         output_location: "dist"
+  deploy:
+    name: Deploy to Azure Static Web Apps
+    runs-on: ubuntu-latest
+    needs: [build-and-test, bundle-analysis]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: ai-trading-race-web/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: ./ai-trading-race-web
+
+      - name: Deploy to Azure Static Web Apps
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: "upload"
+          app_location: "ai-trading-race-web"
+          output_location: "dist"
+        env:
+          VITE_API_URL: https://ai-trading-race-api.azurewebsites.net

@@ -1,0 +1,257 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  RESOURCE_GROUP: ai-trading-rg
+  DOTNET_VERSION: '8.0.x'
+  NODE_VERSION: '20.x'
+  PYTHON_VERSION: '3.11'
+  DOCKER_IMAGE_NAME: ai-trading-race-ml
+
+jobs:
+  # ── CI gate ────────────────────────────────────────────────────────────────
+  ci:
+    name: CI
+    uses: ./.github/workflows/ci.yml
+
+  # ── Deploy ML service (no dependencies beyond CI) ─────────────────────────
+  deploy-ml:
+    name: Deploy ML Service
+    runs-on: ubuntu-latest
+    needs: ci
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: ./ai-trading-race-ml
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/${{ env.DOCKER_IMAGE_NAME }}:latest
+            ghcr.io/${{ github.repository_owner }}/${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Update Container App
+        run: |
+          az containerapp update \
+            --name ai-trading-ml \
+            --resource-group ${{ env.RESOURCE_GROUP }} \
+            --image ghcr.io/${{ github.repository_owner }}/${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }}
+
+  # ── Database migration (no dependencies beyond CI) ────────────────────────
+  deploy-db:
+    name: Migrate Database
+    runs-on: ubuntu-latest
+    needs: ci
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Install EF Core tools
+        run: dotnet tool install --global dotnet-ef
+
+      - name: Generate idempotent migration script
+        run: |
+          dotnet ef migrations script \
+            --project AiTradingRace.Infrastructure/AiTradingRace.Infrastructure.csproj \
+            --startup-project AiTradingRace.Web/AiTradingRace.Web.csproj \
+            --context TradingDbContext \
+            --idempotent \
+            --output /tmp/migrate.sql
+
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Get SQL Server FQDN
+        id: sql
+        run: |
+          FQDN=$(az sql server show \
+            --name ai-trading-sql \
+            --resource-group ${{ env.RESOURCE_GROUP }} \
+            --query fullyQualifiedDomainName \
+            --output tsv)
+          echo "fqdn=$FQDN" >> "$GITHUB_OUTPUT"
+
+      - name: Open temporary firewall rule
+        run: |
+          MY_IP=$(curl -s https://api.ipify.org)
+          az sql server firewall-rule create \
+            --resource-group ${{ env.RESOURCE_GROUP }} \
+            --server ai-trading-sql \
+            --name "gh-actions-${{ github.run_id }}" \
+            --start-ip-address "$MY_IP" \
+            --end-ip-address "$MY_IP" \
+            --output none
+
+      - name: Install sqlcmd
+        run: |
+          curl https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/trusted.gpg.d/microsoft.asc
+          sudo add-apt-repository "$(wget -qO- https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/prod.list)"
+          sudo apt-get update
+          sudo apt-get install -y sqlcmd
+
+      - name: Apply migration
+        run: |
+          sqlcmd \
+            -S ${{ steps.sql.outputs.fqdn }} \
+            -U sqladmin \
+            -P "${{ secrets.SQL_ADMIN_PASSWORD }}" \
+            -d AiTradingRace \
+            -i /tmp/migrate.sql \
+            -C
+
+      - name: Remove temporary firewall rule
+        if: always()
+        run: |
+          az sql server firewall-rule delete \
+            --resource-group ${{ env.RESOURCE_GROUP }} \
+            --server ai-trading-sql \
+            --name "gh-actions-${{ github.run_id }}" \
+            --yes \
+            --output none 2>/dev/null || true
+
+  # ── Deploy Web API (depends on DB + ML) ───────────────────────────────────
+  deploy-api:
+    name: Deploy Web API
+    runs-on: ubuntu-latest
+    needs: [ci, deploy-db, deploy-ml]
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: web-api
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: 'ai-trading-race-api'
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: .
+
+  # ── Deploy Functions (depends on DB) ──────────────────────────────────────
+  deploy-functions:
+    name: Deploy Azure Functions
+    runs-on: ubuntu-latest
+    needs: [ci, deploy-db]
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: azure-functions
+
+      - name: Deploy to Azure Functions
+        uses: Azure/functions-action@v1
+        with:
+          app-name: 'ai-trading-race-func'
+          package: .
+          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
+
+  # ── Deploy Frontend (no dependencies beyond CI) ──────────────────────────
+  deploy-frontend:
+    name: Deploy Frontend
+    runs-on: ubuntu-latest
+    needs: ci
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: ai-trading-race-web/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: ./ai-trading-race-web
+
+      - name: Deploy to Azure Static Web Apps
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: "upload"
+          app_location: "ai-trading-race-web"
+          output_location: "dist"
+        env:
+          VITE_API_URL: https://ai-trading-race-api.azurewebsites.net
+
+  # ── Post-deploy: wire up Function keys + smoke tests ──────────────────────
+  post-deploy:
+    name: Post-Deploy Verification
+    runs-on: ubuntu-latest
+    needs: [deploy-api, deploy-functions, deploy-ml, deploy-frontend]
+
+    steps:
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Inject Function key into Web API
+        run: |
+          FUNC_KEY=$(az functionapp keys list \
+            --name ai-trading-race-func \
+            --resource-group ${{ env.RESOURCE_GROUP }} \
+            --query "functionKeys.default" \
+            --output tsv 2>/dev/null || true)
+
+          if [ -n "$FUNC_KEY" ]; then
+            az webapp config appsettings set \
+              --name ai-trading-race-api \
+              --resource-group ${{ env.RESOURCE_GROUP }} \
+              --settings "Functions__ApiKey=$FUNC_KEY" \
+              --output none
+            echo "Function key injected into Web API"
+          else
+            echo "::warning::Could not retrieve Function key"
+          fi
+
+      - name: Smoke tests
+        run: |
+          echo "Testing API health..."
+          API_STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://ai-trading-race-api.azurewebsites.net/api/health || true)
+          echo "API: $API_STATUS"
+
+          echo "Testing Functions health..."
+          FUNC_STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://ai-trading-race-func.azurewebsites.net/api/health || true)
+          echo "Functions: $FUNC_STATUS"
+
+          if [ "$API_STATUS" != "200" ] || [ "$FUNC_STATUS" != "200" ]; then
+            echo "::warning::Some health checks did not return 200"
+          fi
