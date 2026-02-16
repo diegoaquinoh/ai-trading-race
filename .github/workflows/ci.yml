@@ -12,18 +12,22 @@ jobs:
   backend:
     name: Backend CI
     uses: ./.github/workflows/backend.yml
+    secrets: inherit
 
   functions:
     name: Functions CI
     uses: ./.github/workflows/functions.yml
+    secrets: inherit
 
   frontend:
     name: Frontend CI
     uses: ./.github/workflows/frontend.yml
+    secrets: inherit
 
   ml-service:
     name: ML Service CI
     uses: ./.github/workflows/ml-service.yml
+    secrets: inherit
 
   integration-readiness:
     name: Integration Readiness Check
@@ -47,5 +51,4 @@ jobs:
           echo "  AZURE_WEBAPP_PUBLISH_PROFILE      - az webapp deployment list-publishing-profiles"
           echo "  AZURE_FUNCTIONAPP_PUBLISH_PROFILE  - az functionapp deployment list-publishing-profiles"
           echo "  AZURE_STATIC_WEB_APPS_API_TOKEN   - az staticwebapp secrets list"
-          echo "  GHCR_TOKEN                        - GitHub PAT with write:packages"
           echo "  SQL_ADMIN_PASSWORD                - Azure SQL admin password"

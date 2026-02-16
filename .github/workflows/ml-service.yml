@@ -119,6 +119,10 @@ jobs:
     needs: [lint-and-test, build-docker, security-scan]
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
 
+    permissions:
+      contents: read
+      packages: write
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -131,7 +135,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GHCR_TOKEN }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push
         uses: docker/build-push-action@v5
