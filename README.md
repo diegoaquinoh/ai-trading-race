@@ -8,6 +8,13 @@ A competitive simulation where AI trading agents (LLMs) race against each other,
 [![ML Service CI](https://github.com/diegoaquinoh/ai-trading-race/workflows/ML%20Service%20CI%2FCD/badge.svg?branch=main)](https://github.com/diegoaquinoh/ai-trading-race/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+## 🌐 Live Demo
+
+| Service   | URL                                                                                              |
+| --------- | ------------------------------------------------------------------------------------------------ |
+| Frontend  | https://gentle-water-079ee5803.1.azurestaticapps.net                                            |
+| API       | https://ai-trading-race-api.azurewebsites.net/api/auth/health                                   |
+
 ## ✨ Features
 
 - **Multi-agent competition** — Multiple AI agents (GPT, Claude, Llama, custom ML) competing simultaneously
@@ -28,7 +35,7 @@ A competitive simulation where AI trading agents (LLMs) race against each other,
 | Phase 5b  | Custom ML model (Python + FastAPI)                            | ✅ Complete    |
 | Phase 6-7 | Durable Functions orchestrator & React dashboard              | ✅ Complete    |
 | Phase 8   | CI/CD & local deployment (Docker Compose)                     | ✅ Complete    |
-| Phase 9   | Cloud deployment (Azure)                                      | 🔜 In progress |
+| Phase 9   | Cloud deployment (Azure)                                      | ✅ Complete    |
 | Phase 10  | Knowledge graph (GraphRAG-lite)                               | ✅ Complete    |
 | Phase 10b | LangChain + Neo4j refactor                                    | 🔜 Planned     |
 | Phase 11  | Monitoring & observability                                    | 🔜 Planned     |
@@ -70,7 +77,7 @@ The system uses an **Azure Durable Functions orchestrator** (`MarketCycleOrchest
                Market data ingestion runs every 5 minutes
 ```
 
-### Services
+### Local Services (Docker Compose)
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -87,6 +94,23 @@ The system uses an **Azure Durable Functions orchestrator** (`MarketCycleOrchest
 │  Azure Functions + Durable Orchestrator (port 7071)           │
 │  React Dashboard (port 5173)                                  │
 └───────────────────────────────────────────────────────────────┘
+```
+
+### Cloud Services (Azure)
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    Azure (francecentral)                        │
+├─────────────────────────────────────────────────────────────────┤
+│  App Service (F1)      — ASP.NET Core API                       │
+│  Azure SQL (Free tier) — Database                               │
+│  Container App         — Python ML service (ghcr.io image)      │
+├─────────────────────────────────────────────────────────────────┤
+│                    Azure (westeurope)                           │
+├─────────────────────────────────────────────────────────────────┤
+│  Functions (Consumption) — Durable orchestrator                 │
+│  Static Web App (Free)   — React frontend                       │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
 ### Project Structure
@@ -119,7 +143,8 @@ ai-trading-race/
 | **Database**       | SQL Server 2022, Redis 7                                |
 | **ML Service**     | Python 3.11, FastAPI, scikit-learn                      |
 | **Frontend**       | React 18, TypeScript, Vite, TailwindCSS                 |
-| **Infrastructure** | Docker Compose, Azurite, Azure Bicep                    |
+| **Infrastructure** | Docker Compose (local), Azure Bicep (cloud)             |
+| **Cloud**          | Azure App Service, Functions, Container Apps, Static Web App, Azure SQL |
 | **CI/CD**          | GitHub Actions (7 workflows)                            |
 
 ## 📋 Prerequisites
@@ -227,6 +252,48 @@ dotnet test --verbosity normal
 ```
 
 **Test coverage:** 166 tests covering market data ingestion, portfolio operations, equity calculations, risk validation, agent decisions, and Azure Functions orchestration.
+
+## ☁️ Cloud Deployment (Azure)
+
+### First-time setup
+
+```bash
+# 1. Copy and fill in all values (API keys, passwords, domain)
+cp .env.example .env
+
+# 2. Log in to Azure
+az login
+
+# 3. Provision all Azure resources (Bicep IaC)
+source .env
+./scripts/deploy-infra.sh
+
+# 4. Deploy all application code
+./scripts/deploy-app.sh
+```
+
+`deploy-infra.sh` creates: resource group, App Service, Azure SQL, Azure Functions, Container App, Static Web App.
+`deploy-app.sh` builds & pushes the ML Docker image, runs DB migrations, deploys the API + Functions + Container App, and injects Function keys.
+
+### CI/CD (GitHub Actions)
+
+On every push to `main`, the following workflows run automatically:
+
+| Workflow | What it deploys |
+| -------- | --------------- |
+| `backend.yml` | ASP.NET Core API → App Service |
+| `functions.yml` | Azure Functions → Function App |
+| `ml-service.yml` | Python ML image → Container App via GHCR |
+| `frontend.yml` (SWA) | React app → Azure Static Web App |
+
+Required GitHub secrets: `AZURE_WEBAPP_PUBLISH_PROFILE`, `AZURE_FUNCTIONAPP_PUBLISH_PROFILE`, `AZURE_STATIC_WEB_APPS_API_TOKEN_GENTLE_WATER_079EE5803`, `AZURE_CREDENTIALS`, `GHCR_TOKEN`.
+
+### Required tools
+
+```bash
+brew install azure-cli jq sqlcmd
+dotnet tool install --global dotnet-ef
+```
 
 ## 📚 Documentation
 

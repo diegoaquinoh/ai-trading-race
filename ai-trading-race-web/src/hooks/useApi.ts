@@ -1,5 +1,5 @@
 import { useQuery, useQueries } from '@tanstack/react-query';
-import { agentsApi, equityApi, tradesApi, marketApi, portfolioApi } from '../services/api';
+import { agentsApi, equityApi, tradesApi, marketApi, portfolioApi, decisionsApi } from '../services/api';
 import type { LeaderboardEntry } from '../types';
 
 // Fetch all agents (returns AgentSummary array)
@@ -61,6 +61,15 @@ export function useMarketPrices() {
         queryKey: ['marketPrices'],
         queryFn: marketApi.getAll,
         refetchInterval: 60000, // Refresh every 60 seconds
+    });
+}
+
+// Fetch decision logs for an agent
+export function useDecisions(agentId: string) {
+    return useQuery({
+        queryKey: ['decisions', agentId],
+        queryFn: () => decisionsApi.getByAgentId(agentId),
+        enabled: !!agentId,
     });
 }
 

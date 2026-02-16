@@ -177,7 +177,16 @@ public sealed class CustomMlAgentModelClient : IAgentModelClient
 
         _logger.LogInformation("Agent {AgentId} generated {OrderCount} valid ML orders", agentId, orders.Count);
 
-        return new AgentDecision(agentId, DateTimeOffset.UtcNow, orders);
+        return new AgentDecision(
+            agentId,
+            DateTimeOffset.UtcNow,
+            orders,
+            CitedRuleIds: response.Signals
+                .Where(s => s.Fired)
+                .Select(s => s.Rule)
+                .Distinct()
+                .ToList(),
+            Rationale: response.Reasoning);
     }
 
     /// <summary>

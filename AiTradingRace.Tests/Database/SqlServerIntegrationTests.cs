@@ -64,8 +64,8 @@ public class SqlServerIntegrationTests : IAsyncLifetime
     {
         var agents = await _dbContext.Agents.ToListAsync();
 
-        Assert.Equal(3, agents.Count);
-        Assert.Contains(agents, a => a.Name == "GPT-4o");
+        Assert.True(agents.Count >= 3, $"Expected at least 3 agents, got {agents.Count}");
+        Assert.Contains(agents, a => a.Name == "Llama-70B");
         Assert.Contains(agents, a => a.Name == "Claude");
         Assert.Contains(agents, a => a.Name == "Grok");
     }

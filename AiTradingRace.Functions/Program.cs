@@ -19,9 +19,9 @@ var host = new HostBuilder()
         // Register application layer services
         services.AddApplicationServices();
 
-        // Register infrastructure services with TestAI for development
-        // Switch to AddInfrastructureServices() for production with real LLM
-        services.AddInfrastructureServicesWithTestAI(configuration);
+        // Register infrastructure services with real AI model routing
+        // Each agent's ModelProvider determines which client is used
+        services.AddInfrastructureServices(configuration);
 
         // Configure logging
         services.AddLogging(builder =>

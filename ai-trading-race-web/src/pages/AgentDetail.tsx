@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { useAgent, useEquity, useTrades, usePortfolio } from '../hooks/useApi';
-import { StatCard, EquityChart, TradeHistory } from '../components';
+import { useAgent, useEquity, useTrades, usePortfolio, useDecisions } from '../hooks/useApi';
+import { StatCard, EquityChart, TradeHistory, DecisionHistory } from '../components';
 import type { AgentDetail as AgentDetailType, Portfolio } from '../types';
 import './AgentDetail.css';
 
@@ -17,7 +17,8 @@ export function AgentDetail() {
     const { data: equity, isLoading: equityLoading } = useEquity(id!);
     const { data: trades, isLoading: tradesLoading } = useTrades(id!);
     const { data: portfolio } = usePortfolio(id!) as { data: Portfolio | undefined };
-    
+    const { data: decisions, isLoading: decisionsLoading } = useDecisions(id!);
+
     const [period, setPeriod] = useState<PeriodFilter>('ALL');
 
     // Filter equity data by period
@@ -235,6 +236,19 @@ export function AgentDetail() {
                     </div>
                 ) : (
                     <TradeHistory trades={trades ?? []} pageSize={10} />
+                )}
+            </section>
+
+            {/* ML Decision Logs */}
+            <section className="decisions-section">
+                <h2>ML Decision Logs</h2>
+                {decisionsLoading ? (
+                    <div className="loading-inline">
+                        <div className="spinner"></div>
+                        <p>Loading decision logs...</p>
+                    </div>
+                ) : (
+                    <DecisionHistory decisions={decisions ?? []} pageSize={10} />
                 )}
             </section>
 
