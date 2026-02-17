@@ -57,8 +57,8 @@ public sealed class AgentRunner : IAgentRunner
             // Step 1: Build context
             _logger.LogDebug("Step 1: Building context for agent {AgentId}", agentId);
             var context = await _contextBuilder.BuildContextAsync(
-                agentId, 
-                candleCount: 24, 
+                agentId,
+                candleCount: 50, // ML model needs ≥35 per asset for technical indicators (SMA-21, MACD-26, etc.)
                 includeKnowledgeGraph: true, // Phase 10.4: Enable knowledge graph for explainability
                 cancellationToken);
 
