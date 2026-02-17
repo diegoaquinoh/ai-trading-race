@@ -29,7 +29,7 @@ resource mlApp 'Microsoft.App/containerApps@2024-03-01' = {
     managedEnvironmentId: containerAppEnv.id
     configuration: {
       ingress: {
-        external: false
+        external: true
         targetPort: 8000
         transport: 'http'
       }
