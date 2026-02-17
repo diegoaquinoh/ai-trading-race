@@ -5,8 +5,12 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Optional
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+from slowapi import Limiter
+from slowapi.errors import RateLimitExceeded
+from slowapi.util import get_remote_address
 
 from app.config import settings
 from app.middleware.auth import verify_api_key
@@ -44,6 +48,9 @@ async def lifespan(app: FastAPI):
     decision_service = None
 
 
+# Rate limiter (per IP, 5 requests/minute on /predict)
+limiter = Limiter(key_func=get_remote_address)
+
 # Disable docs in production
 is_dev = os.getenv("ENVIRONMENT", "development") == "development"
 
@@ -57,6 +64,18 @@ app = FastAPI(
     redoc_url="/redoc" if is_dev else None,
     openapi_url="/openapi.json" if is_dev else None,
 )
+
+# Rate limit state and 429 handler
+app.state.limiter = limiter
+
+
+@app.exception_handler(RateLimitExceeded)
+async def rate_limit_handler(request: Request, exc: RateLimitExceeded):
+    return JSONResponse(
+        status_code=429,
+        content={"detail": f"Rate limit exceeded: {exc.detail}"},
+    )
+
 
 # Add idempotency middleware (must be before auth)
 app.add_middleware(IdempotencyMiddleware)
@@ -100,7 +119,8 @@ async def health_check():
 
 
 @app.post("/predict", response_model=AgentDecisionResponse)
-async def predict(context: AgentContextRequest):
+@limiter.limit("5/minute")
+async def predict(request: Request, context: AgentContextRequest):
     """
     Generate a trading decision for an agent.
 
