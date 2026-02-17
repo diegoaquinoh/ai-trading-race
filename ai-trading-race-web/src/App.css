@@ -119,16 +119,25 @@ section h2 {
   text-transform: uppercase;
 }
 
-.badge.llm,
+.badge.gpt-4o,
 .badge.azureopenai {
   background: rgba(99, 102, 241, 0.2);
   color: var(--primary);
 }
 
-.badge.customml,
-.badge.mock {
+.badge.llama {
+  background: rgba(245, 158, 11, 0.2);
+  color: #f59e0b;
+}
+
+.badge.customml {
   background: rgba(16, 185, 129, 0.2);
   color: var(--secondary);
+}
+
+.badge.mock {
+  background: rgba(107, 114, 128, 0.2);
+  color: #9ca3af;
 }
 
 /* Status indicators */
