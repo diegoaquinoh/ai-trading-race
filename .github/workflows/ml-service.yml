@@ -71,6 +71,7 @@ jobs:
           context: ./ai-trading-race-ml
           file: ./ai-trading-race-ml/Dockerfile
           push: false
+          load: true
           tags: ${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
