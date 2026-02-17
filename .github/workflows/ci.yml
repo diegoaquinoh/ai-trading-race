@@ -1,11 +1,11 @@
-name: CI - Full Pipeline
+name: CI
 
 on:
   push:
     branches: [main, develop]
   pull_request:
     branches: [main, develop]
-  workflow_dispatch: # Allow manual trigger
+  workflow_dispatch:
   workflow_call:
 
 jobs:
@@ -39,16 +39,12 @@ jobs:
         run: |
           echo "All CI checks passed!"
           echo ""
-          echo "Backend build successful"
-          echo "Functions build successful"
-          echo "Frontend build successful"
-          echo "ML Service build successful"
+          echo "Backend build: OK"
+          echo "Functions build: OK"
+          echo "Frontend build: OK"
+          echo "ML Service: OK"
           echo ""
-          echo "Deployment: pushes to main trigger .github/workflows/deploy.yml"
-          echo ""
-          echo "Required GitHub Secrets:"
-          echo "  AZURE_CREDENTIALS                - Service principal JSON (az ad sp create-for-rbac)"
-          echo "  AZURE_WEBAPP_PUBLISH_PROFILE      - az webapp deployment list-publishing-profiles"
-          echo "  AZURE_FUNCTIONAPP_PUBLISH_PROFILE  - az functionapp deployment list-publishing-profiles"
-          echo "  AZURE_STATIC_WEB_APPS_API_TOKEN   - az staticwebapp secrets list"
-          echo "  SQL_ADMIN_PASSWORD                - Azure SQL admin password"
+          echo "Required GitHub Secrets for deployment:"
+          echo "  AZURE_WEBAPP_PUBLISH_PROFILE          - az webapp deployment list-publishing-profiles"
+          echo "  AZURE_FUNCTIONAPP_PUBLISH_PROFILE      - az functionapp deployment list-publishing-profiles"
+          echo "  AZURE_STATIC_WEB_APPS_API_TOKEN_GENTLE_WATER_079EE5803 - Azure SWA token"
