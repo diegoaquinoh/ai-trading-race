@@ -26,8 +26,9 @@ public sealed class CoinGeckoMarketDataClient : IExternalMarketDataClient
         _options = options.Value;
         _logger = logger;
 
-        // Configure HttpClient base address
-        _httpClient.BaseAddress = new Uri(_options.BaseUrl);
+        // Configure HttpClient base address (must end with / for correct relative URI resolution)
+        var baseUrl = _options.BaseUrl.TrimEnd('/') + "/";
+        _httpClient.BaseAddress = new Uri(baseUrl);
         _httpClient.Timeout = TimeSpan.FromSeconds(_options.TimeoutSeconds);
 
         // Add User-Agent header (required by CoinGecko to avoid 403)
