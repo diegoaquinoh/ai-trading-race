@@ -42,9 +42,19 @@ public sealed class IngestMarketDataActivity
         // Ingest latest candles from CoinGecko
         var insertedCount = await _ingestionService.IngestAllAssetsAsync(ct);
         
-        _logger.LogInformation(
-            "Ingested {Count} candles for batch {BatchId}",
-            insertedCount, batchId);
+        if (insertedCount == 0)
+        {
+            _logger.LogWarning(
+                "No new candles ingested for batch {BatchId}. Market data may be stale. " +
+                "Check CoinGecko API key configuration and API status.",
+                batchId);
+        }
+        else
+        {
+            _logger.LogInformation(
+                "Ingested {Count} candles for batch {BatchId}",
+                insertedCount, batchId);
+        }
 
         // Get latest prices from the database
         var prices = await GetLatestPricesAsync(ct);

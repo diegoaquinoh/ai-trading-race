@@ -33,10 +33,16 @@ public sealed class CoinGeckoMarketDataClient : IExternalMarketDataClient
         // Add User-Agent header (required by CoinGecko to avoid 403)
         _httpClient.DefaultRequestHeaders.Add("User-Agent", "AiTradingRace/1.0 (https://github.com/ai-trading-race)");
         
-        // Add API key header if configured (for CoinGecko Pro)
+        // Add API key header if configured
         if (!string.IsNullOrWhiteSpace(_options.ApiKey))
         {
             _httpClient.DefaultRequestHeaders.Add("x-cg-demo-api-key", _options.ApiKey);
+        }
+        else
+        {
+            _logger.LogCritical(
+                "CoinGecko API key is not configured. Market data ingestion will fail. " +
+                "Get a free Demo API key at https://www.coingecko.com/en/api/pricing and set CoinGecko__ApiKey.");
         }
     }
 

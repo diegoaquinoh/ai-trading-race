@@ -102,7 +102,7 @@ jobs:
       - name: Smoke test - API health
         run: |
           for i in 1 2 3; do
-            HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 15 https://ai-trading-race-api.azurewebsites.net/api/health)
+            HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 15 https://ai-trading-race-api.azurewebsites.net/api/auth/health)
             echo "Attempt $i: API returned HTTP $HTTP_CODE"
             if [ "$HTTP_CODE" = "200" ]; then
               echo "API health check passed"
