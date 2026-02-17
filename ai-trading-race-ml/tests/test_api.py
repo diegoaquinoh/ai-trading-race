@@ -1,12 +1,18 @@
 """Tests for FastAPI endpoints."""
 
+import os
 from datetime import datetime, timezone, timedelta
 from decimal import Decimal
 
 import pytest
 from fastapi.testclient import TestClient
 
+# Set test API key before importing app (settings reads env at import time)
+os.environ.setdefault("ML_SERVICE_API_KEY", "test-secret-key")
+
 from app.main import app
+
+TEST_API_KEY = os.environ["ML_SERVICE_API_KEY"]
 
 
 @pytest.fixture
@@ -78,7 +84,7 @@ class TestPredictEndpoint:
     def test_predict_returns_decision(self, client):
         """Test predict endpoint returns a decision."""
         context = self.get_valid_context()
-        response = client.post("/predict", json=context)
+        response = client.post("/predict", json=context, headers={"X-API-Key": TEST_API_KEY})
         
         assert response.status_code == 200
         data = response.json()
@@ -91,7 +97,7 @@ class TestPredictEndpoint:
     def test_predict_includes_schema_version(self, client):
         """Test response includes schema version."""
         context = self.get_valid_context()
-        response = client.post("/predict", json=context)
+        response = client.post("/predict", json=context, headers={"X-API-Key": TEST_API_KEY})
         data = response.json()
         
         assert "schemaVersion" in data
@@ -100,7 +106,7 @@ class TestPredictEndpoint:
 
     def test_predict_invalid_request(self, client):
         """Test predict with invalid request returns 422."""
-        response = client.post("/predict", json={"invalid": "data"})
+        response = client.post("/predict", json={"invalid": "data"}, headers={"X-API-Key": TEST_API_KEY})
         
         assert response.status_code == 422
 
@@ -115,8 +121,8 @@ class TestPredictEndpoint:
             },
             "candles": [],  # Empty candles
         }
-        response = client.post("/predict", json=context)
-        
+        response = client.post("/predict", json=context, headers={"X-API-Key": TEST_API_KEY})
+
         assert response.status_code == 200
         data = response.json()
         assert data["orders"] == []  # No trades with no data
