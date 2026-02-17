@@ -31,13 +31,23 @@ jobs:
         run: dotnet test AiTradingRace.Tests/AiTradingRace.Tests.csproj --filter "FullyQualifiedName~Functions" --configuration ${{ env.CONFIGURATION }} --verbosity normal
 
       - name: Publish Functions
-        run: dotnet publish AiTradingRace.Functions/AiTradingRace.Functions.csproj --configuration ${{ env.CONFIGURATION }} --no-build --output ./publish/functions
+        run: dotnet publish AiTradingRace.Functions/AiTradingRace.Functions.csproj --configuration ${{ env.CONFIGURATION }} --output ./publish/functions
+
+      - name: Verify publish output
+        run: |
+          echo "=== Checking .azurefunctions folder ==="
+          ls ./publish/functions/.azurefunctions/ | head -5
+          echo "=== Checking functions.metadata ==="
+          python3 -c "import json; d=json.load(open('./publish/functions/functions.metadata')); print(f'{len(d)} functions found in metadata')"
+
+      - name: Create deployment package
+        run: cd ./publish/functions && zip -r ../../func-deploy.zip .
 
       - name: Upload Functions artifact
         uses: actions/upload-artifact@v4
         with:
           name: azure-functions
-          path: ./publish/functions
+          path: func-deploy.zip
           retention-days: 30
 
   validate-config:
