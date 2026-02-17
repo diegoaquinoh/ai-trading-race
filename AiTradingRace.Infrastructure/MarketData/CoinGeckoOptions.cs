@@ -13,7 +13,7 @@ public sealed class CoinGeckoOptions
     /// <summary>
     /// Base URL for CoinGecko API. Default: https://api.coingecko.com/api/v3
     /// </summary>
-    public string BaseUrl { get; set; } = "https://api.coingecko.com/api/v3";
+    public string BaseUrl { get; set; } = "https://api.coingecko.com/api/v3/";
 
     /// <summary>
     /// API key for CoinGecko. Required even for the free Demo plan.
