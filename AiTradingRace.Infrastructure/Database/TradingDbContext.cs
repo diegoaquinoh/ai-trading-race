@@ -67,7 +67,7 @@ public sealed class TradingDbContext : DbContext
             builder.Property(x => x.ModelProvider)
                 .HasConversion<string>()
                 .HasMaxLength(32)
-                .HasDefaultValue(ModelProvider.Llama);
+                .IsRequired();
             builder.Property(x => x.CreatedAt).HasDefaultValueSql("SYSUTCDATETIME()");
             builder.Property(x => x.IsActive).HasDefaultValue(true);
 
@@ -297,6 +297,7 @@ public sealed class TradingDbContext : DbContext
         private static readonly Guid AgentClaudeId = Guid.Parse("22222222-2222-2222-2222-222222222222");
         private static readonly Guid AgentGrokId = Guid.Parse("33333333-3333-3333-3333-333333333333");
         private static readonly Guid AgentCustomMlId = Guid.Parse("44444444-0000-4444-0000-444444444444");
+        private static readonly Guid AgentGpt4oId = Guid.Parse("55555555-0000-5555-0000-555555555555");
 
         private static readonly Guid CandleBtcSeedId = Guid.Parse("44444444-4444-4444-4444-444444444444");
         private static readonly Guid CandleEthSeedId = Guid.Parse("55555555-5555-5555-5555-555555555555");
@@ -358,6 +359,15 @@ public sealed class TradingDbContext : DbContext
                     Strategy = "Technical indicator-driven ML model with RSI, MACD, and Bollinger signals",
                     Instructions = "ML model using technical indicators for trading decisions with explainability signals.",
                     ModelProvider = ModelProvider.CustomML,
+                    IsActive = true
+                },
+                new Agent
+                {
+                    Id = AgentGpt4oId,
+                    Name = "GPT-4o",
+                    Strategy = "Multi-factor analysis with sentiment and on-chain data",
+                    Instructions = "You are a balanced trader. Combine fundamental analysis, market sentiment, and technical indicators to make well-rounded trading decisions.",
+                    ModelProvider = ModelProvider.AzureOpenAI,
                     IsActive = true
                 });
 
