@@ -17,6 +17,7 @@
     "CustomMlAgent__ApiKey": "<YOUR_ML_API_KEY>",
     "CustomMlAgent__TimeoutSeconds": "60",
     
+    "CoinGecko__ApiKey": "your-coingecko-demo-api-key",
     "CoinGecko__BaseUrl": "https://api.coingecko.com/api/v3/",
     "CoinGecko__TimeoutSeconds": "30",
     "CoinGecko__DefaultDays": "1"

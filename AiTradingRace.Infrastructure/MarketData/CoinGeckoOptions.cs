@@ -16,7 +16,8 @@ public sealed class CoinGeckoOptions
     public string BaseUrl { get; set; } = "https://api.coingecko.com/api/v3";
 
     /// <summary>
-    /// Optional API key for CoinGecko Pro (not required for free tier).
+    /// API key for CoinGecko. Required even for the free Demo plan.
+    /// Get one at https://www.coingecko.com/en/api/pricing
     /// </summary>
     public string? ApiKey { get; set; }
 
