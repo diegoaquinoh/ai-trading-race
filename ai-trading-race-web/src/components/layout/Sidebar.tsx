@@ -53,7 +53,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
 
                 <div className="sidebar-footer">
                     <div className="sidebar-version">
-                        <span>v2.0.1</span>
+                        <span>v2.0.2</span>
                         <span className="version-env">Development</span>
                     </div>
                 </div>
