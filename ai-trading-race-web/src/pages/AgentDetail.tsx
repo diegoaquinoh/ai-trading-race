@@ -16,7 +16,7 @@ export function AgentDetail() {
         refetch: () => void,
         isFetching: boolean,
     };
-    const { data: equity, isLoading: equityLoading } = useEquity(id!);
+    const { data: equity } = useEquity(id!);
     const { data: trades, isLoading: tradesLoading } = useTrades(id!);
     const { data: portfolio } = usePortfolio(id!) as { data: Portfolio | undefined };
     const { data: decisions, isLoading: decisionsLoading } = useDecisions(id!);
