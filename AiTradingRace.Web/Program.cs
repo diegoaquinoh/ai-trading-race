@@ -24,8 +24,7 @@ builder.Services.AddCors(options =>
     {
         policy.WithOrigins(allowedOrigins.ToArray())
               .WithHeaders("Authorization", "Content-Type", "X-API-Key", "X-Request-ID")
-              .WithMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-              .AllowCredentials();
+              .WithMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
     });
 });
 

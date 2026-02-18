@@ -26,7 +26,7 @@ export function Header({ onToggleSidebar, sidebarOpen }: HeaderProps) {
                     </button>
                 )}
                 <Link to="/" className="header-logo">
-                    <span className="logo-icon">🏁</span>
+                    <span className="logo-icon"><i className="fas fa-flag-checkered"></i></span>
                     <span className="logo-text">AI Trading Race</span>
                 </Link>
             </div>

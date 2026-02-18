@@ -1,21 +1,31 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useAgents } from '../hooks/useApi';
-import { LoadingSpinner, ErrorMessage } from '../components';
+import { LoadingSpinner, ConnectionBanner } from '../components';
+import type { AgentSummary } from '../types';
 import './AgentList.css';
+
+const FALLBACK_AGENTS: AgentSummary[] = [
+    { id: 'ph-1', name: 'Agent Alpha', strategy: 'Momentum Strategy', isActive: true, totalValue: 100000, percentChange: 0, lastUpdated: new Date().toISOString() },
+    { id: 'ph-2', name: 'Agent Beta', strategy: 'Mean Reversion', isActive: true, totalValue: 100000, percentChange: 0, lastUpdated: new Date().toISOString() },
+    { id: 'ph-3', name: 'Agent Gamma', strategy: 'ML Ensemble', isActive: false, totalValue: 100000, percentChange: 0, lastUpdated: new Date().toISOString() },
+];
 
 type StatusFilter = 'all' | 'active' | 'inactive';
 
 export function AgentList() {
-    const { data: agents, isLoading, error, refetch } = useAgents();
+    const { data: agents, isLoading, error, refetch, isFetching } = useAgents();
     const [statusFilter, setStatusFilter] = useState<StatusFilter>('all');
     const [searchQuery, setSearchQuery] = useState('');
 
+    // Use fallback data when the query has errored
+    const displayAgents = agents ?? (error ? FALLBACK_AGENTS : []);
+
     // Filter agents based on status and search
     const filteredAgents = useMemo(() => {
-        if (!agents) return [];
+        if (!displayAgents.length) return [];
 
-        return agents.filter(agent => {
+        return displayAgents.filter(agent => {
             // Status filter
             if (statusFilter === 'active' && !agent.isActive) return false;
             if (statusFilter === 'inactive' && agent.isActive) return false;
@@ -27,9 +37,9 @@ export function AgentList() {
 
             return true;
         });
-    }, [agents, statusFilter, searchQuery]);
+    }, [displayAgents, statusFilter, searchQuery]);
 
-    if (isLoading) {
+    if (isLoading && !agents) {
         return (
             <div className="agent-list-loading">
                 <LoadingSpinner size="lg" message="Loading agents..." />
@@ -37,23 +47,19 @@ export function AgentList() {
         );
     }
 
-    if (error) {
-        return (
-            <ErrorMessage
-                title="Failed to load agents"
-                message={error.message}
-                retryAction={() => refetch()}
-                backLink="/"
-            />
-        );
-    }
-
     return (
         <div className="agent-list-page">
             <header className="page-header">
-                <h1>🤖 AI Agents</h1>
+                <h1><i className="fas fa-robot"></i> AI Agents</h1>
                 <p className="page-subtitle">Manage and monitor your trading agents</p>
             </header>
+
+            {/* Connection Banner */}
+            <ConnectionBanner 
+                error={error} 
+                onRetry={() => refetch()} 
+                isRetrying={isFetching} 
+            />
 
             {/* Filters */}
             <section className="filters-section">
@@ -83,7 +89,7 @@ export function AgentList() {
                 </div>
 
                 <div className="filter-summary">
-                    Showing {filteredAgents.length} of {agents?.length ?? 0} agents
+                    Showing {filteredAgents.length} of {displayAgents.length} agents
                 </div>
             </section>
 
@@ -120,7 +126,7 @@ export function AgentList() {
                                 <span className="last-updated">
                                     Updated {new Date(agent.lastUpdated).toLocaleString()}
                                 </span>
-                                <span className="view-link">View Details →</span>
+                                <span className="view-link">View Details <i className="fas fa-arrow-right"></i></span>
                             </div>
                         </Link>
                     ))}

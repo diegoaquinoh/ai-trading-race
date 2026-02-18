@@ -6,14 +6,14 @@ interface StatCardProps {
     subtitle?: string;
     trend?: 'up' | 'down' | 'neutral';
     trendValue?: string;
-    icon?: string;
+    iconClass?: string;
 }
 
-export function StatCard({ title, value, subtitle, trend, trendValue, icon }: StatCardProps) {
+export function StatCard({ title, value, subtitle, trend, trendValue, iconClass }: StatCardProps) {
     return (
         <div className="stat-card">
             <div className="stat-card-header">
-                {icon && <span className="stat-card-icon">{icon}</span>}
+                {iconClass && <span className="stat-card-icon"><i className={iconClass}></i></span>}
                 <span className="stat-card-title">{title}</span>
             </div>
             <div className="stat-card-value">{value}</div>
@@ -21,7 +21,7 @@ export function StatCard({ title, value, subtitle, trend, trendValue, icon }: St
                 <div className="stat-card-footer">
                     {trend && trendValue && (
                         <span className={`stat-card-trend ${trend}`}>
-                            {trend === 'up' ? '↑' : trend === 'down' ? '↓' : '•'} {trendValue}
+                            <i className={`fas ${trend === 'up' ? 'fa-arrow-up' : trend === 'down' ? 'fa-arrow-down' : 'fa-minus'}`}></i> {trendValue}
                         </span>
                     )}
                     {subtitle && <span className="stat-card-subtitle">{subtitle}</span>}

@@ -1,43 +1,46 @@
 .equity-chart-container {
-    background: var(--bg-dark);
-    border-radius: 0.75rem;
-    padding: 1.5rem;
+  background: var(--bg-darker);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
 }
 
 .equity-chart-title {
-    margin-bottom: 1rem;
-    font-size: 1.125rem;
-    font-weight: 600;
+  margin-bottom: var(--space-4);
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  color: var(--text-secondary);
 }
 
 .equity-chart-wrapper {
-    min-height: 300px;
+  min-height: 300px;
 }
 
 .equity-chart-empty {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 300px;
-    color: var(--text-secondary);
-    font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  color: var(--text-muted);
+  font-size: var(--text-sm);
 }
 
-/* Custom tooltip styles */
 .recharts-tooltip-wrapper {
-    z-index: 100;
+  z-index: 100;
 }
 
-/* Legend styling */
 .recharts-legend-wrapper {
-    padding-top: 1rem !important;
+  padding-top: var(--space-4) !important;
 }
 
 .recharts-legend-item {
-    margin-right: 1rem !important;
+  margin-right: var(--space-4) !important;
 }
 
 .recharts-legend-item-text {
-    color: var(--text-primary) !important;
-    font-size: 0.875rem;
+  color: var(--text-secondary) !important;
+  font-size: var(--text-xs);
+}
+
+.recharts-cartesian-grid line {
+  stroke: var(--border) !important;
 }

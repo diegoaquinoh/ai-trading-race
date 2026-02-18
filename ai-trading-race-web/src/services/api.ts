@@ -2,14 +2,19 @@ import axios from 'axios';
 import type { AgentSummary, AgentDetail, EquitySnapshot, Trade, LeaderboardEntry, MarketPrice, Portfolio, DecisionLog } from '../types';
 
 // Configure base URL for the .NET API
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+// In production, VITE_API_URL must be set; in dev, fall back to localhost
+const API_BASE_URL = import.meta.env.VITE_API_URL
+    || (import.meta.env.DEV ? 'http://localhost:5001' : undefined);
+
+if (!API_BASE_URL) {
+    throw new Error('VITE_API_URL environment variable must be set for production builds');
+}
 
 const apiClient = axios.create({
     baseURL: API_BASE_URL,
     headers: {
         'Content-Type': 'application/json',
     },
-    withCredentials: true,
 });
 
 // Agents API

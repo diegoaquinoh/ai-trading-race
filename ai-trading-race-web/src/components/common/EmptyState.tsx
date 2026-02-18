@@ -11,14 +11,14 @@ interface EmptyStateProps {
 }
 
 export function EmptyState({ 
-    icon = '📭',
+    icon = 'fa-inbox',
     title,
     message,
     action
 }: EmptyStateProps) {
     return (
         <div className="empty-state">
-            <div className="empty-icon">{icon}</div>
+            <div className="empty-icon"><i className={`fas ${icon}`}></i></div>
             <h3 className="empty-title">{title}</h3>
             <p className="empty-message">{message}</p>
             {action && (

@@ -14,11 +14,11 @@ export function ErrorMessage({
     message,
     retryAction,
     backLink,
-    backLinkText = '← Go back'
+    backLinkText = 'Go back'
 }: ErrorMessageProps) {
     return (
         <div className="error-message">
-            <div className="error-icon">⚠️</div>
+            <div className="error-icon"><i className="fas fa-exclamation-triangle"></i></div>
             <h3 className="error-title">{title}</h3>
             <p className="error-text">{message}</p>
             <div className="error-actions">

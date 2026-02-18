@@ -1,96 +1,107 @@
 .leaderboard-container {
-    overflow-x: auto;
+  overflow-x: auto;
 }
 
 .leaderboard-row {
-    transition: background-color 0.15s ease;
+  transition: background-color var(--transition-fast);
 }
 
 .leaderboard-row:hover {
-    background: var(--bg-hover);
+  background: var(--bg-hover);
 }
 
 .rank-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 2rem;
-    height: 2rem;
-    border-radius: 0.5rem;
-    font-weight: 700;
-    font-size: 0.875rem;
-    background: var(--bg-hover);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--radius-md);
+  font-weight: var(--font-semibold);
+  font-size: var(--text-xs);
+  background: var(--bg-hover);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
 }
 
 .rank-badge.rank-1 {
-    background: linear-gradient(135deg, #ffd700, #ffb700);
-    color: #1a1a1a;
+  background: rgba(250, 250, 250, 0.12);
+  color: var(--text-primary);
+  font-weight: var(--font-bold);
 }
 
 .rank-badge.rank-2 {
-    background: linear-gradient(135deg, #c0c0c0, #a8a8a8);
-    color: #1a1a1a;
+  background: rgba(250, 250, 250, 0.07);
+  color: var(--text-primary);
 }
 
 .rank-badge.rank-3 {
-    background: linear-gradient(135deg, #cd7f32, #b5722d);
-    color: #fff;
+  background: rgba(250, 250, 250, 0.04);
+  color: var(--text-secondary);
 }
 
 .agent-cell {
-    min-width: 200px;
+  min-width: 180px;
 }
 
 .agent-link {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-decoration: none;
 }
 
 .agent-link:hover .agent-name {
-    color: var(--primary);
+  color: var(--primary-light);
 }
 
 .agent-name {
-    color: var(--text-primary);
-    font-weight: 600;
-    transition: color 0.15s ease;
+  color: var(--text-primary);
+  font-weight: var(--font-medium);
+  font-size: var(--text-sm);
+  transition: color var(--transition-fast);
 }
 
 .agent-provider {
-    color: var(--text-secondary);
-    font-size: 0.75rem;
+  color: var(--text-muted);
+  font-size: var(--text-xs);
 }
 
 .sortable {
-    cursor: pointer;
-    user-select: none;
+  cursor: pointer;
+  user-select: none;
 }
 
 .sortable:hover {
-    background: var(--bg-hover);
+  color: var(--text-secondary);
 }
 
 .sort-icon {
-    margin-left: 0.25rem;
-    opacity: 0.5;
+  margin-left: var(--space-1);
+  opacity: 0.4;
+  font-size: var(--text-xs);
 }
 
 .performance-value {
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: 600;
+  font-family: var(--font-mono);
+  font-weight: var(--font-medium);
+  font-size: var(--text-sm);
 }
 
 .leaderboard-empty {
-    text-align: center;
-    padding: 3rem;
-    color: var(--text-secondary);
+  text-align: center;
+  padding: var(--space-12);
+  color: var(--text-muted);
 }
 
-.col-rank { width: 60px; }
-.col-agent { min-width: 200px; }
+.col-rank { width: 50px; }
+.col-agent { min-width: 180px; }
 .col-type { width: 100px; }
 .col-value { width: 140px; text-align: right; }
 .col-performance { width: 120px; text-align: right; }
 .col-drawdown { width: 100px; text-align: right; }
+
+.drawdown {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+}
