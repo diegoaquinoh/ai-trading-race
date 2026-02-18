@@ -14,7 +14,7 @@ const PLACEHOLDER_AGENTS: AgentSummary[] = [
 ];
 
 const PLACEHOLDER_LEADERBOARD: LeaderboardEntry[] = PLACEHOLDER_AGENTS.map(a => ({
-    agent: { id: a.id, name: a.name, modelType: 'Mock', provider: a.strategy, isActive: a.isActive, createdAt: a.lastUpdated },
+    agent: { id: a.id, name: a.name, modelType: 'Placeholder', provider: a.strategy, isActive: a.isActive, createdAt: a.lastUpdated },
     currentValue: 100000,
     performancePercent: 0,
     drawdown: 0,

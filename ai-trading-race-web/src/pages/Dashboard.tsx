@@ -8,9 +8,9 @@ import './Dashboard.css';
 
 // Fallback data shown ONLY in dev mode when the backend is unreachable
 const FALLBACK_LEADERBOARD: LeaderboardEntry[] = [
-    { agent: { id: 'ph-1', name: 'Agent Alpha', modelType: 'Mock', provider: 'Momentum Strategy', isActive: true, createdAt: new Date().toISOString() }, currentValue: 100000, performancePercent: 0, drawdown: 0 },
-    { agent: { id: 'ph-2', name: 'Agent Beta', modelType: 'Mock', provider: 'Mean Reversion', isActive: true, createdAt: new Date().toISOString() }, currentValue: 100000, performancePercent: 0, drawdown: 0 },
-    { agent: { id: 'ph-3', name: 'Agent Gamma', modelType: 'Mock', provider: 'ML Ensemble', isActive: false, createdAt: new Date().toISOString() }, currentValue: 100000, performancePercent: 0, drawdown: 0 },
+    { agent: { id: 'ph-1', name: 'Agent Alpha', modelType: 'Placeholder', provider: 'Momentum Strategy', isActive: true, createdAt: new Date().toISOString() }, currentValue: 100000, performancePercent: 0, drawdown: 0 },
+    { agent: { id: 'ph-2', name: 'Agent Beta', modelType: 'Placeholder', provider: 'Mean Reversion', isActive: true, createdAt: new Date().toISOString() }, currentValue: 100000, performancePercent: 0, drawdown: 0 },
+    { agent: { id: 'ph-3', name: 'Agent Gamma', modelType: 'Placeholder', provider: 'ML Ensemble', isActive: false, createdAt: new Date().toISOString() }, currentValue: 100000, performancePercent: 0, drawdown: 0 },
 ];
 
 const FALLBACK_PRICES: MarketPrice[] = [
