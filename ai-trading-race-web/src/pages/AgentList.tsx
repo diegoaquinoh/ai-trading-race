@@ -1,7 +1,9 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useAgents } from '../hooks/useApi';
-import { LoadingSpinner, ConnectionBanner } from '../components';
+import { LoadingSpinner, ConnectionBanner, ServerUnavailable } from '../components';
+import { isVisibleAgentName } from '../config/hiddenModels';
+import { isDev } from '../config/env';
 import type { AgentSummary } from '../types';
 import './AgentList.css';
 
@@ -18,14 +20,17 @@ export function AgentList() {
     const [statusFilter, setStatusFilter] = useState<StatusFilter>('all');
     const [searchQuery, setSearchQuery] = useState('');
 
-    // Use fallback data when the query has errored
-    const displayAgents = agents ?? (error ? FALLBACK_AGENTS : []);
+    // Use fallback data when the query has errored (dev only)
+    const displayAgents = agents ?? (isDev && error ? FALLBACK_AGENTS : []);
 
     // Filter agents based on status and search
     const filteredAgents = useMemo(() => {
         if (!displayAgents.length) return [];
 
         return displayAgents.filter(agent => {
+            // Hide agents whose model provider API key we don't have yet (see config/hiddenModels.ts)
+            if (!isVisibleAgentName(agent.name)) return false;
+
             // Status filter
             if (statusFilter === 'active' && !agent.isActive) return false;
             if (statusFilter === 'inactive' && agent.isActive) return false;
@@ -43,6 +48,24 @@ export function AgentList() {
         return (
             <div className="agent-list-loading">
                 <LoadingSpinner size="lg" message="Loading agents..." />
+            </div>
+        );
+    }
+
+    // In production, show a full error state when the server is unreachable and there's no cached data
+    if (!isDev && error && !agents) {
+        return (
+            <div className="agent-list-page">
+                <header className="page-header">
+                    <h1><i className="fas fa-robot"></i> AI Agents</h1>
+                    <p className="page-subtitle">Manage and monitor your trading agents</p>
+                </header>
+                <ServerUnavailable
+                    title="Server Unavailable"
+                    message="Unable to load agents. The server may be down or experiencing issues. Please try again shortly."
+                    onRetry={() => refetch()}
+                    isRetrying={isFetching}
+                />
             </div>
         );
     }

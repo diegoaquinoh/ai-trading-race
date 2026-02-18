@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useLeaderboard, useMarketPrices, useAllAgentEquity } from '../hooks/useApi';
-import { StatCard, LeaderboardTable, EquityChart, MarketPrices, RefreshIndicator, LoadingSpinner, ConnectionBanner } from '../components';
+import { StatCard, LeaderboardTable, EquityChart, MarketPrices, RefreshIndicator, LoadingSpinner, ConnectionBanner, ServerUnavailable } from '../components';
+import { isVisibleModelType } from '../config/hiddenModels';
+import { isDev } from '../config/env';
 import type { LeaderboardEntry, MarketPrice } from '../types';
 import './Dashboard.css';
 
-// Fallback data shown when the backend is unreachable and react-query data is undefined
+// Fallback data shown ONLY in dev mode when the backend is unreachable
 const FALLBACK_LEADERBOARD: LeaderboardEntry[] = [
-    { agent: { id: 'ph-1', name: 'Agent Alpha', modelType: 'Mock', provider: 'Momentum Strategy', isActive: true, createdAt: new Date().toISOString() }, currentValue: 100000, performancePercent: 0, drawdown: 0 },
-    { agent: { id: 'ph-2', name: 'Agent Beta', modelType: 'Mock', provider: 'Mean Reversion', isActive: true, createdAt: new Date().toISOString() }, currentValue: 100000, performancePercent: 0, drawdown: 0 },
-    { agent: { id: 'ph-3', name: 'Agent Gamma', modelType: 'Mock', provider: 'ML Ensemble', isActive: false, createdAt: new Date().toISOString() }, currentValue: 100000, performancePercent: 0, drawdown: 0 },
+    { agent: { id: 'ph-1', name: 'Agent Alpha', modelType: 'Placeholder', provider: 'Momentum Strategy', isActive: true, createdAt: new Date().toISOString() }, currentValue: 100000, performancePercent: 0, drawdown: 0 },
+    { agent: { id: 'ph-2', name: 'Agent Beta', modelType: 'Placeholder', provider: 'Mean Reversion', isActive: true, createdAt: new Date().toISOString() }, currentValue: 100000, performancePercent: 0, drawdown: 0 },
+    { agent: { id: 'ph-3', name: 'Agent Gamma', modelType: 'Placeholder', provider: 'ML Ensemble', isActive: false, createdAt: new Date().toISOString() }, currentValue: 100000, performancePercent: 0, drawdown: 0 },
 ];
 
 const FALLBACK_PRICES: MarketPrice[] = [
@@ -41,9 +43,15 @@ export function Dashboard() {
         return () => clearInterval(interval);
     }, []);
 
-    // Use fallback data when queries have errored and data is undefined
-    const displayLeaderboard = leaderboard ?? (error ? FALLBACK_LEADERBOARD : []);
-    const displayPrices = marketPrices ?? (pricesError ? FALLBACK_PRICES : []);
+    // Use fallback data when queries have errored and data is undefined (dev only)
+    const allLeaderboard = leaderboard ?? (isDev && error ? FALLBACK_LEADERBOARD : []);
+    // Hide agents whose model provider API key we don't have yet (see config/hiddenModels.ts)
+    const displayLeaderboard = allLeaderboard.filter(e => isVisibleModelType(e.agent.modelType));
+    const displayPrices = marketPrices ?? (isDev && pricesError ? FALLBACK_PRICES : []);
+
+    // Only show equity curves for visible agents
+    const visibleAgentIds = new Set(displayLeaderboard.map(e => e.agent.id));
+    const displayEquity = equityData?.filter(d => visibleAgentIds.has(d.agentId));
 
     // Calculate stats from leaderboard
     const stats = calculateStats(displayLeaderboard);
@@ -55,6 +63,24 @@ export function Dashboard() {
         return (
             <div className="dashboard-loading">
                 <LoadingSpinner size="lg" message="Loading leaderboard..." />
+            </div>
+        );
+    }
+
+    // In production, show a full error state when the server is unreachable and there's no cached data
+    if (!isDev && error && !leaderboard) {
+        return (
+            <div className="dashboard">
+                <header className="dashboard-header">
+                    <h1><i className="fas fa-flag-checkered"></i> AI Trading Race</h1>
+                    <p className="subtitle">Watch AI agents compete in real-time crypto trading</p>
+                </header>
+                <ServerUnavailable
+                    title="Server Unavailable"
+                    message="Unable to load the leaderboard. The server may be down or experiencing issues. Please try again shortly."
+                    onRetry={() => refetch()}
+                    isRetrying={isFetching}
+                />
             </div>
         );
     }
@@ -133,7 +159,7 @@ export function Dashboard() {
                     </div>
                 ) : (
                     <EquityChart 
-                        agents={equityData} 
+                        agents={displayEquity} 
                         height={450}
                         showLegend={true}
                     />
