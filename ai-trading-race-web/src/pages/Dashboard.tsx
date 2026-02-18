@@ -1,11 +1,25 @@
 import { useState, useEffect } from 'react';
 import { useLeaderboard, useMarketPrices, useAllAgentEquity } from '../hooks/useApi';
-import { StatCard, LeaderboardTable, EquityChart, MarketPrices, RefreshIndicator, LoadingSpinner, ErrorMessage } from '../components';
+import { StatCard, LeaderboardTable, EquityChart, MarketPrices, RefreshIndicator, LoadingSpinner, ConnectionBanner } from '../components';
+import type { LeaderboardEntry, MarketPrice } from '../types';
 import './Dashboard.css';
+
+// Fallback data shown when the backend is unreachable and react-query data is undefined
+const FALLBACK_LEADERBOARD: LeaderboardEntry[] = [
+    { agent: { id: 'ph-1', name: 'Agent Alpha', modelType: 'Mock', provider: 'Momentum Strategy', isActive: true, createdAt: new Date().toISOString() }, currentValue: 100000, performancePercent: 0, drawdown: 0 },
+    { agent: { id: 'ph-2', name: 'Agent Beta', modelType: 'Mock', provider: 'Mean Reversion', isActive: true, createdAt: new Date().toISOString() }, currentValue: 100000, performancePercent: 0, drawdown: 0 },
+    { agent: { id: 'ph-3', name: 'Agent Gamma', modelType: 'Mock', provider: 'ML Ensemble', isActive: false, createdAt: new Date().toISOString() }, currentValue: 100000, performancePercent: 0, drawdown: 0 },
+];
+
+const FALLBACK_PRICES: MarketPrice[] = [
+    { symbol: 'BTC', name: 'Bitcoin', price: 0, change24h: 0, changePercent24h: 0, high24h: 0, low24h: 0, updatedAt: new Date().toISOString() },
+    { symbol: 'ETH', name: 'Ethereum', price: 0, change24h: 0, changePercent24h: 0, high24h: 0, low24h: 0, updatedAt: new Date().toISOString() },
+    { symbol: 'SOL', name: 'Solana', price: 0, change24h: 0, changePercent24h: 0, high24h: 0, low24h: 0, updatedAt: new Date().toISOString() },
+];
 
 export function Dashboard() {
     const { data: leaderboard, isLoading, error, dataUpdatedAt, isFetching, refetch } = useLeaderboard();
-    const { data: marketPrices, isLoading: pricesLoading } = useMarketPrices();
+    const { data: marketPrices, isLoading: pricesLoading, error: pricesError } = useMarketPrices();
     const { data: equityData, isLoading: equityLoading } = useAllAgentEquity(leaderboard);
     
     const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
@@ -27,10 +41,17 @@ export function Dashboard() {
         return () => clearInterval(interval);
     }, []);
 
-    // Calculate stats from leaderboard
-    const stats = calculateStats(leaderboard);
+    // Use fallback data when queries have errored and data is undefined
+    const displayLeaderboard = leaderboard ?? (error ? FALLBACK_LEADERBOARD : []);
+    const displayPrices = marketPrices ?? (pricesError ? FALLBACK_PRICES : []);
 
-    if (isLoading) {
+    // Calculate stats from leaderboard
+    const stats = calculateStats(displayLeaderboard);
+
+    // Pick the first available error to display
+    const displayError = error ?? pricesError ?? null;
+
+    if (isLoading && !leaderboard) {
         return (
             <div className="dashboard-loading">
                 <LoadingSpinner size="lg" message="Loading leaderboard..." />
@@ -38,54 +59,50 @@ export function Dashboard() {
         );
     }
 
-    if (error) {
-        return (
-            <ErrorMessage 
-                title="Failed to load dashboard"
-                message={error.message}
-                retryAction={() => refetch()}
-                backLink="/"
-            />
-        );
-    }
-
     return (
         <div className="dashboard">
             <header className="dashboard-header">
-                <h1>🏁 AI Trading Race</h1>
+                <h1><i className="fas fa-flag-checkered"></i> AI Trading Race</h1>
                 <p className="subtitle">Watch AI agents compete in real-time crypto trading</p>
             </header>
 
+            {/* Connection Banner — shown when any query has an error */}
+            <ConnectionBanner 
+                error={displayError} 
+                onRetry={() => refetch()} 
+                isRetrying={isFetching} 
+            />
+
             {/* Market Prices */}
             <section className="market-section">
-                <h2>💰 Market Prices</h2>
-                <MarketPrices prices={marketPrices ?? []} isLoading={pricesLoading} />
+                <h2><i className="fas fa-coins"></i> Market Prices</h2>
+                <MarketPrices prices={displayPrices} isLoading={pricesLoading && !marketPrices} />
             </section>
 
             {/* Stats Cards */}
             <section className="stats-section">
                 <div className="stats-grid">
                     <StatCard
-                        icon="🏆"
+                        iconClass="fas fa-trophy"
                         title="Best Performer"
                         value={stats.bestAgent?.name ?? 'N/A'}
                         trend={stats.bestPerformance >= 0 ? 'up' : 'down'}
                         trendValue={`${stats.bestPerformance >= 0 ? '+' : ''}${stats.bestPerformance.toFixed(2)}%`}
                     />
                     <StatCard
-                        icon="📊"
+                        iconClass="fas fa-users"
                         title="Total Agents"
                         value={stats.totalAgents}
                         subtitle={`${stats.activeAgents} active`}
                     />
                     <StatCard
-                        icon="💵"
+                        iconClass="fas fa-wallet"
                         title="Total AUM"
                         value={`$${(stats.totalValue / 1000).toFixed(0)}k`}
                         subtitle="Assets under management"
                     />
                     <StatCard
-                        icon="📈"
+                        iconClass="fas fa-chart-line"
                         title="Avg Performance"
                         value={`${stats.avgPerformance >= 0 ? '+' : ''}${stats.avgPerformance.toFixed(2)}%`}
                         trend={stats.avgPerformance >= 0 ? 'up' : 'down'}
@@ -96,19 +113,19 @@ export function Dashboard() {
             {/* Leaderboard */}
             <section className="leaderboard-section">
                 <div className="section-header">
-                    <h2>📊 Leaderboard</h2>
+                    <h2><i className="fas fa-list-ol"></i> Leaderboard</h2>
                     <RefreshIndicator 
                         lastUpdate={lastUpdate} 
                         isRefreshing={isFetching} 
                         nextRefreshIn={secondsUntilRefresh}
                     />
                 </div>
-                <LeaderboardTable entries={leaderboard ?? []} />
+                <LeaderboardTable entries={displayLeaderboard} />
             </section>
 
             {/* Equity Chart */}
             <section className="chart-section">
-                <h2>📈 Equity Race</h2>
+                <h2><i className="fas fa-chart-area"></i> Equity Race</h2>
                 {equityLoading ? (
                     <div className="chart-loading">
                         <div className="spinner"></div>
@@ -135,8 +152,8 @@ interface DashboardStats {
     avgPerformance: number;
 }
 
-function calculateStats(leaderboard: ReturnType<typeof useLeaderboard>['data']): DashboardStats {
-    if (!leaderboard || leaderboard.length === 0) {
+function calculateStats(leaderboard: LeaderboardEntry[]): DashboardStats {
+    if (leaderboard.length === 0) {
         return {
             bestAgent: null,
             bestPerformance: 0,

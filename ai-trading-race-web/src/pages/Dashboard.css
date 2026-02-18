@@ -1,83 +1,108 @@
-/* Dashboard-specific styles */
-
 .dashboard {
-    max-width: 1400px;
-    margin: 0 auto;
-    animation: fadeIn var(--transition-slow);
+  max-width: 1400px;
+  margin: 0 auto;
+  animation: fadeIn var(--transition-slow);
 }
 
 .dashboard-loading {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
 }
 
-/* Market Section */
+.dashboard-header {
+  margin-bottom: var(--space-8);
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.dashboard-header h1 {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-light);
+  margin-bottom: var(--space-2);
+  letter-spacing: var(--tracking-tight);
+}
+
+.dashboard-header h1 i {
+  color: var(--text-muted);
+  margin-right: var(--space-3);
+  font-size: 0.8em;
+}
+
+.dashboard-header .subtitle {
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+}
+
 .market-section {
-    margin-bottom: 2rem;
+  margin-bottom: var(--space-6);
 }
 
 .market-section h2 {
-    margin-bottom: 1rem;
+  margin-bottom: var(--space-4);
 }
 
-/* Stats Section */
 .stats-section {
-    background: transparent;
-    border: none;
-    padding: 0;
-    margin-bottom: 2rem;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin-bottom: var(--space-6);
 }
 
 .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-4);
 }
 
-/* Section Headers */
 .section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
 }
 
 .section-header h2 {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
-/* Chart Section */
 .chart-loading {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 400px;
-    color: var(--text-secondary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  color: var(--text-muted);
+  font-size: var(--text-sm);
 }
 
 .chart-loading .spinner {
-    margin-bottom: 1rem;
+  margin-bottom: var(--space-4);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+@media (max-width: 1024px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 
-    .section-header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 @media (max-width: 480px) {
-    .stats-grid {
-        grid-template-columns: 1fr;
-    }
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
 }

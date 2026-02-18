@@ -8,8 +8,8 @@ export function Footer() {
             <div className="footer-content">
                 <div className="footer-left">
                     <span className="footer-brand">AI Trading Race</span>
-                    <span className="footer-separator">•</span>
-                    <span className="footer-copyright">© {currentYear} Academic Project</span>
+                    <span className="footer-separator"></span>
+                    <span className="footer-copyright">© {currentYear} Diego Aquino</span>
                 </div>
                 <div className="footer-right">
                     <span className="footer-status">

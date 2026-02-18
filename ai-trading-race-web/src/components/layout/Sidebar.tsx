@@ -10,8 +10,8 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
     const location = useLocation();
 
     const navItems = [
-        { path: '/', icon: '📊', label: 'Dashboard' },
-        { path: '/agents', icon: '🤖', label: 'Agents' },
+        { path: '/', icon: 'fas fa-chart-bar', label: 'Dashboard' },
+        { path: '/agents', icon: 'fas fa-robot', label: 'Agents' },
     ];
 
     return (
@@ -30,7 +30,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                                 className={`sidebar-link ${location.pathname === item.path ? 'active' : ''}`}
                                 onClick={onClose}
                             >
-                                <span className="sidebar-link-icon">{item.icon}</span>
+                                <span className="sidebar-link-icon"><i className={item.icon}></i></span>
                                 <span className="sidebar-link-label">{item.label}</span>
                             </Link>
                         ))}

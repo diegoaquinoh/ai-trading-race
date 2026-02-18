@@ -54,8 +54,8 @@ export function LeaderboardTable({
   };
 
   const getSortIcon = (column: string) => {
-    if (sortColumn !== column) return "↕";
-    return sortDirection === "asc" ? "↑" : "↓";
+    if (sortColumn !== column) return <i className="fas fa-sort"></i>;
+    return sortDirection === "asc" ? <i className="fas fa-sort-up"></i> : <i className="fas fa-sort-down"></i>;
   };
 
   return (

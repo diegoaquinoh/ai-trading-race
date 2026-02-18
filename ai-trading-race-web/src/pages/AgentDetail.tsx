@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useAgent, useEquity, useTrades, usePortfolio, useDecisions } from '../hooks/useApi';
-import { StatCard, EquityChart, TradeHistory, DecisionHistory } from '../components';
+import { StatCard, EquityChart, TradeHistory, DecisionHistory, ConnectionBanner } from '../components';
 import type { AgentDetail as AgentDetailType, Portfolio } from '../types';
 import './AgentDetail.css';
 
@@ -9,10 +9,12 @@ type PeriodFilter = '1H' | '6H' | '1D' | '7D' | '30D' | 'ALL';
 
 export function AgentDetail() {
     const { id } = useParams<{ id: string }>();
-    const { data: agent, isLoading: agentLoading, error: agentError } = useAgent(id!) as { 
+    const { data: agent, isLoading: agentLoading, error: agentError, refetch, isFetching } = useAgent(id!) as { 
         data: AgentDetailType | undefined, 
         isLoading: boolean, 
-        error: Error | null 
+        error: Error | null,
+        refetch: () => void,
+        isFetching: boolean,
     };
     const { data: equity, isLoading: equityLoading } = useEquity(id!);
     const { data: trades, isLoading: tradesLoading } = useTrades(id!);
@@ -69,7 +71,8 @@ export function AgentDetail() {
         };
     }, [agent]);
 
-    if (agentLoading || equityLoading) {
+    // Show spinner only on first load without any placeholder data
+    if (agentLoading && !agent) {
         return (
             <div className="loading">
                 <div className="spinner"></div>
@@ -78,41 +81,48 @@ export function AgentDetail() {
         );
     }
 
-    if (agentError || !agent) {
-        return (
-            <div className="error">
-                <p>Agent not found</p>
-                <Link to="/agents">← Back to Agents</Link>
-            </div>
-        );
-    }
+    // Use placeholder data from the hook if agent is not available
+    const displayAgent = agent ?? {
+        id: id ?? 'unknown',
+        name: 'Agent (offline)',
+        strategy: '—',
+        isActive: false,
+        createdAt: new Date().toISOString(),
+    };
 
     return (
         <div className="agent-detail">
             <nav className="breadcrumb">
-                <Link to="/">Dashboard</Link> / <Link to="/agents">Agents</Link> / <span>{agent.name}</span>
+                <Link to="/">Dashboard</Link> / <Link to="/agents">Agents</Link> / <span>{displayAgent.name}</span>
             </nav>
+
+            {/* Connection Banner */}
+            <ConnectionBanner 
+                error={agentError} 
+                onRetry={() => refetch()} 
+                isRetrying={isFetching} 
+            />
 
             <header className="agent-header">
                 <div className="agent-title">
-                    <h1>{agent.name}</h1>
-                    <span className={`status-badge ${agent.isActive ? 'active' : 'inactive'}`}>
-                        {agent.isActive ? 'Active' : 'Inactive'}
+                    <h1>{displayAgent.name}</h1>
+                    <span className={`status-badge ${displayAgent.isActive ? 'active' : 'inactive'}`}>
+                        {displayAgent.isActive ? 'Active' : 'Inactive'}
                     </span>
                 </div>
-                <p className="agent-strategy">{agent.strategy}</p>
+                <p className="agent-strategy">{displayAgent.strategy}</p>
             </header>
 
             {/* Key Metrics */}
             <section className="metrics-section">
                 <div className="metrics-grid">
                     <StatCard
-                        icon="💰"
+                        iconClass="fas fa-wallet"
                         title="Portfolio Value"
                         value={`$${(portfolio?.totalValue ?? metrics.currentValue).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
                     />
                     <StatCard
-                        icon="📈"
+                        iconClass="fas fa-chart-line"
                         title="Performance"
                         value={`${(() => {
                             // Calculate live performance if portfolio data is available
@@ -124,13 +134,13 @@ export function AgentDetail() {
                         trend={((portfolio?.totalValue ?? metrics.currentValue) >= metrics.initialValue) ? 'up' : 'down'}
                     />
                     <StatCard
-                        icon="📉"
+                        iconClass="fas fa-arrow-down"
                         title="Max Drawdown"
                         value={`-${metrics.maxDrawdown.toFixed(2)}%`}
                         trend={metrics.maxDrawdown > 10 ? 'down' : 'neutral'}
                     />
                     <StatCard
-                        icon="🔄"
+                        iconClass="fas fa-exchange-alt"
                         title="Total Trades"
                         value={metrics.totalTrades}
                     />
@@ -139,7 +149,7 @@ export function AgentDetail() {
 
             {/* Portfolio Breakdown */}
             <section className="portfolio-section">
-                <h2>💼 Portfolio Breakdown</h2>
+                <h2><i className="fas fa-briefcase"></i> Portfolio Breakdown</h2>
                 <div className="portfolio-summary">
                     <div className="portfolio-item">
                         <span className="label">Cash</span>
@@ -158,7 +168,7 @@ export function AgentDetail() {
                 {/* Positions Table */}
                 {portfolio?.positions && portfolio.positions.length > 0 && (
                     <div className="positions-container">
-                        <h3>📊 Holdings</h3>
+                        <h3><i className="fas fa-th-list"></i> Holdings</h3>
                         <table className="positions-table">
                             <thead>
                                 <tr>
@@ -202,7 +212,7 @@ export function AgentDetail() {
             {/* Equity Chart with Period Selector */}
             <section className="chart-section">
                 <div className="section-header">
-                    <h2>📈 Equity Curve</h2>
+                    <h2><i className="fas fa-chart-line"></i> Equity Curve</h2>
                     <div className="period-selector">
                         {(['1H', '6H', '1D', '7D', '30D', 'ALL'] as PeriodFilter[]).map(p => (
                             <button
@@ -217,8 +227,8 @@ export function AgentDetail() {
                 </div>
                 <EquityChart
                     agents={[{
-                        agentId: agent.id,
-                        agentName: agent.name,
+                        agentId: displayAgent.id,
+                        agentName: displayAgent.name,
                         data: filteredEquity
                     }]}
                     height={350}
@@ -228,7 +238,7 @@ export function AgentDetail() {
 
             {/* Trade History */}
             <section className="trades-section">
-                <h2>📋 Trade History</h2>
+                <h2><i className="fas fa-history"></i> Trade History</h2>
                 {tradesLoading ? (
                     <div className="loading-inline">
                         <div className="spinner"></div>
@@ -254,23 +264,23 @@ export function AgentDetail() {
 
             {/* Agent Info */}
             <section className="info-section">
-                <h2>ℹ️ Agent Information</h2>
+                <h2><i className="fas fa-info-circle"></i> Agent Information</h2>
                 <div className="info-grid">
                     <div className="info-item">
                         <span className="info-label">Agent ID</span>
-                        <span className="info-value mono">{agent.id}</span>
+                        <span className="info-value mono">{displayAgent.id}</span>
                     </div>
                     <div className="info-item">
                         <span className="info-label">Created</span>
-                        <span className="info-value">{new Date(agent.createdAt).toLocaleDateString()}</span>
+                        <span className="info-value">{new Date(displayAgent.createdAt).toLocaleDateString()}</span>
                     </div>
                     <div className="info-item">
                         <span className="info-label">Status</span>
-                        <span className={`info-value ${agent.isActive ? 'text-green' : 'text-muted'}`}>
-                            {agent.isActive ? 'Active' : 'Inactive'}
+                        <span className={`info-value ${displayAgent.isActive ? 'text-green' : 'text-muted'}`}>
+                            {displayAgent.isActive ? 'Active' : 'Inactive'}
                         </span>
                     </div>
-                    {agent.performance && (
+                    {agent?.performance && (
                         <div className="info-item">
                             <span className="info-label">Last Calculated</span>
                             <span className="info-value">{new Date(agent.performance.calculatedAt).toLocaleString()}</span>

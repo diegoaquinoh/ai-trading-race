@@ -106,7 +106,7 @@ export function TradeHistory({ trades, pageSize = 10 }: TradeHistoryProps) {
                         disabled={currentPage === 1}
                         className="page-btn"
                     >
-                        ← Prev
+                        <i className="fas fa-arrow-left"></i> Prev
                     </button>
                     <span className="page-info">
                         Page {currentPage} of {totalPages}
@@ -116,7 +116,7 @@ export function TradeHistory({ trades, pageSize = 10 }: TradeHistoryProps) {
                         disabled={currentPage === totalPages}
                         className="page-btn"
                     >
-                        Next →
+                        Next <i className="fas fa-arrow-right"></i>
                     </button>
                 </div>
             )}
