@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
-
 /**
  * Detects if an error is a network-level failure (server unreachable, CORS preflight failed, etc.)
  */
@@ -22,7 +20,7 @@ export function isNetworkError(error: unknown): boolean {
  */
 export function getErrorMessage(error: unknown): string {
     if (isNetworkError(error)) {
-        return `Server not reachable at ${API_BASE_URL}`;
+        return 'Server temporarily unavailable. Please try again later.';
     }
 
     if (axios.isAxiosError(error)) {
