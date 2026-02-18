@@ -332,7 +332,7 @@ public sealed class TradingDbContext : DbContext
                     Strategy = "Momentum-based trading with risk management",
                     Instructions = "You are a conservative trader. Focus on momentum signals and always maintain diversification.",
                     ModelProvider = ModelProvider.Llama,
-                    IsActive = true
+                    IsActive = false  // TODO: Re-enable once Groq/Together.ai API key is configured
                 },
                 new Agent
                 {
@@ -341,7 +341,7 @@ public sealed class TradingDbContext : DbContext
                     Strategy = "Value-oriented with technical analysis",
                     Instructions = "You are a value investor. Look for undervalued opportunities and use technical indicators for timing.",
                     ModelProvider = ModelProvider.Mock,  // Using Mock until Anthropic integration
-                    IsActive = true
+                    IsActive = false  // TODO: Re-enable once Anthropic API key is configured
                 },
                 new Agent
                 {
@@ -350,7 +350,7 @@ public sealed class TradingDbContext : DbContext
                     Strategy = "Aggressive trend following",
                     Instructions = "You are an aggressive trader. Follow trends and capitalize on momentum, but respect position limits.",
                     ModelProvider = ModelProvider.Mock,  // Using Mock until xAI integration
-                    IsActive = true
+                    IsActive = false  // TODO: Re-enable once xAI API key is configured
                 },
                 new Agent
                 {
