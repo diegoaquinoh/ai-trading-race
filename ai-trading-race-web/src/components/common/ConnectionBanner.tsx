@@ -1,4 +1,5 @@
 import { isNetworkError, getErrorMessage } from '../../services/errorUtils';
+import { isDev } from '../../config/env';
 import './ConnectionBanner.css';
 
 interface ConnectionBannerProps {
@@ -28,8 +29,11 @@ export function ConnectionBanner({ error, onRetry, isRetrying }: ConnectionBanne
                 </span>
                 <span className="connection-banner-text">
                     {message}
-                    {networkErr && (
+                    {networkErr && isDev && (
                         <span className="connection-banner-hint"> — showing placeholder data</span>
+                    )}
+                    {networkErr && !isDev && (
+                        <span className="connection-banner-hint"> — some data may be unavailable</span>
                     )}
                 </span>
             </div>

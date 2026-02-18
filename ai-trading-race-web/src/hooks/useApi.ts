@@ -1,5 +1,6 @@
 import { useQuery, useQueries } from '@tanstack/react-query';
 import { agentsApi, equityApi, tradesApi, marketApi, portfolioApi, decisionsApi } from '../services/api';
+import { isDev } from '../config/env';
 import type { AgentSummary, AgentDetail, LeaderboardEntry, MarketPrice, Portfolio, Trade, DecisionLog, EquitySnapshot } from '../types';
 
 // ═══════════════════════════════════════════════════════════════════════
@@ -51,7 +52,7 @@ export function useAgents() {
     return useQuery({
         queryKey: ['agents'],
         queryFn: agentsApi.getAll,
-        placeholderData: PLACEHOLDER_AGENTS,
+        ...(isDev && { placeholderData: PLACEHOLDER_AGENTS }),
     });
 }
 
@@ -61,7 +62,7 @@ export function useAgent(id: string) {
         queryKey: ['agent', id],
         queryFn: () => agentsApi.getById(id),
         enabled: !!id,
-        placeholderData: PLACEHOLDER_AGENT_DETAIL,
+        ...(isDev && { placeholderData: PLACEHOLDER_AGENT_DETAIL }),
     });
 }
 
@@ -71,7 +72,7 @@ export function useEquity(agentId: string) {
         queryKey: ['equity', agentId],
         queryFn: () => equityApi.getByAgentId(agentId),
         enabled: !!agentId,
-        placeholderData: [] as EquitySnapshot[],
+        ...(isDev && { placeholderData: [] as EquitySnapshot[] }),
     });
 }
 
@@ -81,7 +82,7 @@ export function useLeaderboard() {
         queryKey: ['leaderboard'],
         queryFn: equityApi.getLeaderboard,
         refetchInterval: 30000,
-        placeholderData: PLACEHOLDER_LEADERBOARD,
+        ...(isDev && { placeholderData: PLACEHOLDER_LEADERBOARD }),
     });
 }
 
@@ -91,7 +92,7 @@ export function useTrades(agentId: string) {
         queryKey: ['trades', agentId],
         queryFn: () => tradesApi.getByAgentId(agentId),
         enabled: !!agentId,
-        placeholderData: [] as Trade[],
+        ...(isDev && { placeholderData: [] as Trade[] }),
     });
 }
 
@@ -101,7 +102,7 @@ export function usePortfolio(agentId: string) {
         queryKey: ['portfolio', agentId],
         queryFn: () => portfolioApi.getByAgentId(agentId),
         enabled: !!agentId,
-        placeholderData: PLACEHOLDER_PORTFOLIO,
+        ...(isDev && { placeholderData: PLACEHOLDER_PORTFOLIO }),
     });
 }
 
@@ -111,7 +112,7 @@ export function useMarketPrices() {
         queryKey: ['marketPrices'],
         queryFn: marketApi.getAll,
         refetchInterval: 60000,
-        placeholderData: PLACEHOLDER_MARKET_PRICES,
+        ...(isDev && { placeholderData: PLACEHOLDER_MARKET_PRICES }),
     });
 }
 
@@ -121,7 +122,7 @@ export function useDecisions(agentId: string) {
         queryKey: ['decisions', agentId],
         queryFn: () => decisionsApi.getByAgentId(agentId),
         enabled: !!agentId,
-        placeholderData: [] as DecisionLog[],
+        ...(isDev && { placeholderData: [] as DecisionLog[] }),
     });
 }
 

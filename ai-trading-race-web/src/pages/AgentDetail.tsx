@@ -1,7 +1,8 @@
 import { useState, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useAgent, useEquity, useTrades, usePortfolio, useDecisions } from '../hooks/useApi';
-import { StatCard, EquityChart, TradeHistory, DecisionHistory, ConnectionBanner } from '../components';
+import { StatCard, EquityChart, TradeHistory, DecisionHistory, ConnectionBanner, ServerUnavailable } from '../components';
+import { isDev } from '../config/env';
 import type { AgentDetail as AgentDetailType, Portfolio } from '../types';
 import './AgentDetail.css';
 
@@ -81,7 +82,24 @@ export function AgentDetail() {
         );
     }
 
-    // Use placeholder data from the hook if agent is not available
+    // In production, show a full error state when the server is unreachable and there's no cached data
+    if (!isDev && agentError && !agent) {
+        return (
+            <div className="agent-detail">
+                <nav className="breadcrumb">
+                    <Link to="/">Dashboard</Link> / <Link to="/agents">Agents</Link> / <span>Agent</span>
+                </nav>
+                <ServerUnavailable
+                    title="Agent Unavailable"
+                    message="Unable to load agent details. The server may be down or experiencing issues. Please try again shortly."
+                    onRetry={() => refetch()}
+                    isRetrying={isFetching}
+                />
+            </div>
+        );
+    }
+
+    // In dev, use placeholder data from the hook if agent is not available
     const displayAgent = agent ?? {
         id: id ?? 'unknown',
         name: 'Agent (offline)',
