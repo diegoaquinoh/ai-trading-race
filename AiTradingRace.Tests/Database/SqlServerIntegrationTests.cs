@@ -18,6 +18,7 @@ namespace AiTradingRace.Tests.Database;
 /// These tests require Docker to be running. They use Testcontainers to spin up
 /// an ephemeral SQL Server container for each test class run.
 /// </remarks>
+[Trait("Category", "Integration")]
 public class SqlServerIntegrationTests : IAsyncLifetime
 {
     private readonly MsSqlContainer _sqlContainer;

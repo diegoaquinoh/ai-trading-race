@@ -38,7 +38,7 @@ A competitive simulation where AI trading agents (LLMs) race against each other,
 | Phase 9   | Cloud deployment (Azure)                                      | ✅ Complete |
 | Phase 10  | Knowledge graph (GraphRAG-lite)                               | ✅ Complete |
 | Phase 10b | LangChain + Neo4j refactor                                    | 🔜 Planned  |
-| Phase 11  | Monitoring & observability                                    | 🔜 Planned  |
+| Phase 11  | Improve Monitoring & observability                                    | 🔜 Planned  |
 
 ## 🏗️ Architecture
 

@@ -51,8 +51,8 @@ class DecisionService:
         for symbol in ["BTC", "ETH"]:
             symbol_candles = [c for c in context.candles if c.symbol == symbol]
 
-            if len(symbol_candles) < 21:
-                # Not enough data for indicators
+            if len(symbol_candles) < 7:
+                # Not enough data for basic indicators
                 continue
 
             # Convert to DataFrame

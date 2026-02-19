@@ -21,7 +21,10 @@ export function AgentList() {
     const [searchQuery, setSearchQuery] = useState('');
 
     // Use fallback data when the query has errored (dev only)
-    const displayAgents = agents ?? (isDev && error ? FALLBACK_AGENTS : []);
+    const displayAgents = useMemo(
+        () => agents ?? (isDev && error ? FALLBACK_AGENTS : []),
+        [agents, error]
+    );
 
     // Filter agents based on status and search
     const filteredAgents = useMemo(() => {

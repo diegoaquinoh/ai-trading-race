@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useCountdown } from '../hooks/useCountdown';
 import { useLeaderboard, useMarketPrices, useAllAgentEquity } from '../hooks/useApi';
 import { StatCard, LeaderboardTable, EquityChart, MarketPrices, RefreshIndicator, LoadingSpinner, ConnectionBanner, ServerUnavailable } from '../components';
 import { isVisibleModelType } from '../config/hiddenModels';
@@ -24,24 +24,8 @@ export function Dashboard() {
     const { data: marketPrices, isLoading: pricesLoading, error: pricesError } = useMarketPrices();
     const { data: equityData, isLoading: equityLoading } = useAllAgentEquity(leaderboard);
     
-    const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
-    const [secondsUntilRefresh, setSecondsUntilRefresh] = useState(30);
-
-    // Track last update time
-    useEffect(() => {
-        if (dataUpdatedAt) {
-            setLastUpdate(new Date(dataUpdatedAt));
-            setSecondsUntilRefresh(30);
-        }
-    }, [dataUpdatedAt]);
-
-    // Countdown timer
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setSecondsUntilRefresh(prev => Math.max(0, prev - 1));
-        }, 1000);
-        return () => clearInterval(interval);
-    }, []);
+    const lastUpdate = dataUpdatedAt ? new Date(dataUpdatedAt) : null;
+    const { remaining: secondsUntilRefresh } = useCountdown(30, dataUpdatedAt);
 
     // Use fallback data when queries have errored and data is undefined (dev only)
     const allLeaderboard = leaderboard ?? (isDev && error ? FALLBACK_LEADERBOARD : []);

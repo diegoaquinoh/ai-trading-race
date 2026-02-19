@@ -12,6 +12,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
     const navItems = [
         { path: '/', icon: 'fas fa-chart-bar', label: 'Dashboard' },
         { path: '/agents', icon: 'fas fa-robot', label: 'Agents' },
+        { path: '/about', icon: 'fas fa-info-circle', label: 'About' },
     ];
 
     return (
@@ -53,7 +54,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
 
                 <div className="sidebar-footer">
                     <div className="sidebar-version">
-                        <span>v2.0.2</span>
+                        <span>v2.0.3</span>
                         <span className="version-env">Development</span>
                     </div>
                 </div>
