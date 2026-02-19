@@ -38,13 +38,14 @@ def engineer_features(candles_df: pd.DataFrame) -> pd.DataFrame:
     """
     df = candles_df.copy()
     close = df["close"]
+    n = len(df)
 
     # Moving averages
-    df["sma_7"] = SMAIndicator(close, window=7).sma_indicator()
-    df["sma_21"] = SMAIndicator(close, window=21).sma_indicator()
+    df["sma_7"] = SMAIndicator(close, window=min(7, n)).sma_indicator()
+    df["sma_21"] = SMAIndicator(close, window=min(21, n)).sma_indicator()
 
     # RSI (Relative Strength Index)
-    df["rsi_14"] = RSIIndicator(close, window=14).rsi()
+    df["rsi_14"] = RSIIndicator(close, window=min(14, max(2, n - 1))).rsi()
 
     # MACD (Moving Average Convergence Divergence)
     macd = MACD(close)
@@ -60,14 +61,21 @@ def engineer_features(candles_df: pd.DataFrame) -> pd.DataFrame:
 
     # Price momentum (returns)
     df["returns_1"] = close.pct_change(1)
-    df["returns_7"] = close.pct_change(7)
+    df["returns_7"] = close.pct_change(min(7, n - 1)) if n > 1 else close.pct_change(1)
 
     # Volatility (rolling std of returns)
-    df["volatility_7"] = df["returns_1"].rolling(7).std()
+    df["volatility_7"] = df["returns_1"].rolling(min(7, n), min_periods=2).std()
 
     # Volume momentum
-    df["volume_sma_7"] = df["volume"].rolling(7).mean()
+    df["volume_sma_7"] = df["volume"].rolling(min(7, n), min_periods=1).mean()
     df["volume_ratio"] = df["volume"] / df["volume_sma_7"]
+
+    # Fill remaining NaNs with neutral defaults so we don't lose all rows
+    df["rsi_14"] = df["rsi_14"].fillna(50.0)
+    df["macd"] = df["macd"].fillna(0.0)
+    df["macd_signal"] = df["macd_signal"].fillna(0.0)
+    df["macd_diff"] = df["macd_diff"].fillna(0.0)
+    df["bb_width"] = df["bb_width"].fillna(0.0)
 
     return df.dropna()
 

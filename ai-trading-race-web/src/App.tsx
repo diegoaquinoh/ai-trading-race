@@ -5,6 +5,7 @@ import { Header, Sidebar, Footer } from './components/layout';
 import { Dashboard } from './pages/Dashboard';
 import { AgentList } from './pages/AgentList';
 import { AgentDetail } from './pages/AgentDetail';
+import { About } from './pages/About';
 import './styles/variables.css';
 import './App.css';
 
@@ -36,6 +37,7 @@ function App() {
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/agents" element={<AgentList />} />
                 <Route path="/agents/:id" element={<AgentDetail />} />
+                <Route path="/about" element={<About />} />
               </Routes>
             </div>
           </main>

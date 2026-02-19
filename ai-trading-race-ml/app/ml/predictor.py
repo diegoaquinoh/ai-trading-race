@@ -33,19 +33,23 @@ class PredictionResult(NamedTuple):
 # Trading rules for signal generation
 TRADING_RULES = {
     "rsi_14": [
-        {"threshold": 30, "operator": "<", "contribution": SignalContribution.BULLISH, "rule": "<30 = oversold"},
-        {"threshold": 70, "operator": ">", "contribution": SignalContribution.BEARISH, "rule": ">70 = overbought"},
+        {"threshold": 40, "operator": "<", "contribution": SignalContribution.BULLISH, "rule": "<40 = oversold zone"},
+        {"threshold": 60, "operator": ">", "contribution": SignalContribution.BEARISH, "rule": ">60 = overbought zone"},
     ],
     "macd_diff": [
         {"threshold": 0, "operator": ">", "contribution": SignalContribution.BULLISH, "rule": ">0 = bullish crossover"},
         {"threshold": 0, "operator": "<", "contribution": SignalContribution.BEARISH, "rule": "<0 = bearish crossover"},
     ],
     "returns_7": [
-        {"threshold": 0.05, "operator": ">", "contribution": SignalContribution.BULLISH, "rule": ">5% = strong uptrend"},
-        {"threshold": -0.05, "operator": "<", "contribution": SignalContribution.BEARISH, "rule": "<-5% = strong downtrend"},
+        {"threshold": 0.02, "operator": ">", "contribution": SignalContribution.BULLISH, "rule": ">2% = uptrend"},
+        {"threshold": -0.02, "operator": "<", "contribution": SignalContribution.BEARISH, "rule": "<-2% = downtrend"},
     ],
     "bb_width": [
         {"threshold": 0.1, "operator": ">", "contribution": SignalContribution.NEUTRAL, "rule": ">10% = high volatility"},
+    ],
+    "returns_1": [
+        {"threshold": 0.005, "operator": ">", "contribution": SignalContribution.BULLISH, "rule": ">0.5% = short-term momentum up"},
+        {"threshold": -0.005, "operator": "<", "contribution": SignalContribution.BEARISH, "rule": "<-0.5% = short-term momentum down"},
     ],
 }
 
@@ -99,7 +103,7 @@ class TradingPredictor:
     def _rule_based_predict(
         self, feature_values: dict[str, float], signals: list[dict]
     ) -> PredictionResult:
-        """Simple RSI + MACD based strategy as fallback."""
+        """RSI + MACD based strategy as fallback."""
         rsi = feature_values.get("rsi_14", 50)
         macd_diff = feature_values.get("macd_diff", 0)
 
@@ -107,10 +111,10 @@ class TradingPredictor:
         bullish_count = sum(1 for s in signals if s["contribution"] == SignalContribution.BULLISH and s["fired"])
         bearish_count = sum(1 for s in signals if s["contribution"] == SignalContribution.BEARISH and s["fired"])
 
-        # Decision logic
-        if rsi < 30 and macd_diff > 0:
+        # Strong signals: RSI extreme OR MACD crossover with confirming RSI direction
+        if rsi < 35 or (rsi < 45 and macd_diff > 0):
             return PredictionResult(action=PredictedAction.BUY, confidence=0.7, signals=signals)
-        elif rsi > 70 and macd_diff < 0:
+        elif rsi > 65 or (rsi > 55 and macd_diff < 0):
             return PredictionResult(action=PredictedAction.SELL, confidence=0.7, signals=signals)
         elif bullish_count > bearish_count:
             return PredictionResult(action=PredictedAction.BUY, confidence=0.55, signals=signals)

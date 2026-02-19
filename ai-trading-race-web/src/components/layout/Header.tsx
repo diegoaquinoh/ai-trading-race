@@ -38,11 +38,17 @@ export function Header({ onToggleSidebar, sidebarOpen }: HeaderProps) {
                 >
                     Dashboard
                 </Link>
-                <Link 
-                    to="/agents" 
+                <Link
+                    to="/agents"
                     className={`nav-link ${location.pathname.startsWith('/agents') ? 'active' : ''}`}
                 >
                     Agents
+                </Link>
+                <Link
+                    to="/about"
+                    className={`nav-link ${location.pathname === '/about' ? 'active' : ''}`}
+                >
+                    About
                 </Link>
             </nav>
 
