@@ -17,8 +17,9 @@ jobs:
           fetch-depth: 0
       
       - name: Check PR title format
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
         run: |
-          PR_TITLE="${{ github.event.pull_request.title }}"
           if [[ ! "$PR_TITLE" =~ ^(feat|fix|docs|style|refactor|perf|test|chore|ci|build)(\(.+\))?\:\ .+$ ]]; then
             echo "❌ PR title must follow Conventional Commits format"
             echo "Examples: feat: add new feature, fix(api): correct bug"
