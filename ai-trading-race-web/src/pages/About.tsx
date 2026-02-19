@@ -5,17 +5,21 @@ export function About() {
         <div className="about">
             <header className="about-header">
                 <h1><i className="fas fa-info-circle"></i> About AI Trading Race</h1>
-                <p className="subtitle">A competitive simulation where AI trading agents race against each other</p>
+                <p className="subtitle">AI agents competing head-to-head in a live crypto trading simulation</p>
             </header>
 
             {/* Overview */}
             <section className="about-section">
-                <h2><i className="fas fa-bullseye"></i> What is AI Trading Race?</h2>
+                <h2><i className="fas fa-bullseye"></i> What is AI Trading Race? - By Diego Aquino</h2>
                 <p>
-                    AI Trading Race is a competitive simulation where multiple AI trading agents (LLMs) race against each other,
-                    each controlling a simulated crypto portfolio. Market prices are ingested from CoinGecko, an Azure Durable
-                    Functions orchestrator coordinates market cycles and agent decisions with fan-out/fan-in parallelism,
-                    and this React dashboard displays real-time equity curves and leaderboard.
+                    AI Trading Race is a live crypto trading arena where AI agents trade BTC and ETH on real market data from 
+                    CoinGecko. Every few minutes, agents make buy/sell/hold decisions, manage their own portfolios, and climb 
+                    a real-time leaderboard.
+                </p>
+                <p>
+                    Decisions are powered by GraphRAG: a Neo4j knowledge graph stores rules, regimes, and asset relationships. 
+                    Relevant rules are retrieved and added to a LangChain prompt, and the LLM must cite them, so every trade is 
+                    explainable.
                 </p>
             </section>
 
@@ -70,9 +74,9 @@ export function About() {
             <section className="about-section">
                 <h2><i className="fas fa-project-diagram"></i> Architecture</h2>
                 <p>
-                    The system uses an Azure Durable Functions orchestrator (<code>MarketCycleOrchestrator</code>) as the
-                    central coordination engine. A timer trigger fires every 5 minutes, and the orchestrator sequences
-                    activities with built-in retry, idempotency, and replay safety.
+                    Everything is driven by an Azure Durable Functions orchestrator. A timer fires every 5 minutes,
+                    kicks off market data ingestion, then fans out agent decisions in parallel — each agent gets
+                    its own activity function. Built-in retry and idempotency keep things reliable.
                 </p>
                 <div className="architecture-diagram">
                     <div className="arch-flow">
@@ -131,11 +135,11 @@ export function About() {
                     </div>
                     <div className="tech-row">
                         <span className="tech-label">Database</span>
-                        <span className="tech-value">SQL Server 2022, Redis 7</span>
+                        <span className="tech-value">Azure SQL, Redis 7, Neo4j (knowledge graph)</span>
                     </div>
                     <div className="tech-row">
                         <span className="tech-label">ML Service</span>
-                        <span className="tech-value">Python 3.11, FastAPI, scikit-learn</span>
+                        <span className="tech-value">Python 3.11, FastAPI, scikit-learn, LangChain</span>
                     </div>
                     <div className="tech-row">
                         <span className="tech-label">Frontend</span>
@@ -143,7 +147,7 @@ export function About() {
                     </div>
                     <div className="tech-row">
                         <span className="tech-label">Infrastructure</span>
-                        <span className="tech-value">Docker Compose (local), Azure Bicep (cloud)</span>
+                        <span className="tech-value">Azure Bicep (IaC), Docker Compose (dev)</span>
                     </div>
                     <div className="tech-row">
                         <span className="tech-label">Cloud</span>
@@ -152,76 +156,6 @@ export function About() {
                     <div className="tech-row">
                         <span className="tech-label">CI/CD</span>
                         <span className="tech-value">GitHub Actions (7 workflows)</span>
-                    </div>
-                </div>
-            </section>
-
-            {/* Project Status */}
-            <section className="about-section">
-                <h2><i className="fas fa-tasks"></i> Project Status</h2>
-                <div className="status-timeline">
-                    <div className="status-item completed">
-                        <div className="status-marker"><i className="fas fa-check"></i></div>
-                        <div className="status-content">
-                            <h3>Phase 1-4</h3>
-                            <p>Core architecture, data model, market data, simulation engine</p>
-                        </div>
-                    </div>
-                    <div className="status-item completed">
-                        <div className="status-marker"><i className="fas fa-check"></i></div>
-                        <div className="status-content">
-                            <h3>Phase 5</h3>
-                            <p>AI agents integration (OpenAI, Anthropic, Groq, Llama)</p>
-                        </div>
-                    </div>
-                    <div className="status-item completed">
-                        <div className="status-marker"><i className="fas fa-check"></i></div>
-                        <div className="status-content">
-                            <h3>Phase 5b</h3>
-                            <p>Custom ML model (Python + FastAPI)</p>
-                        </div>
-                    </div>
-                    <div className="status-item completed">
-                        <div className="status-marker"><i className="fas fa-check"></i></div>
-                        <div className="status-content">
-                            <h3>Phase 6-7</h3>
-                            <p>Durable Functions orchestrator &amp; React dashboard</p>
-                        </div>
-                    </div>
-                    <div className="status-item completed">
-                        <div className="status-marker"><i className="fas fa-check"></i></div>
-                        <div className="status-content">
-                            <h3>Phase 8</h3>
-                            <p>CI/CD &amp; local deployment (Docker Compose)</p>
-                        </div>
-                    </div>
-                    <div className="status-item completed">
-                        <div className="status-marker"><i className="fas fa-check"></i></div>
-                        <div className="status-content">
-                            <h3>Phase 9</h3>
-                            <p>Cloud deployment (Azure)</p>
-                        </div>
-                    </div>
-                    <div className="status-item completed">
-                        <div className="status-marker"><i className="fas fa-check"></i></div>
-                        <div className="status-content">
-                            <h3>Phase 10</h3>
-                            <p>Knowledge graph (GraphRAG-lite)</p>
-                        </div>
-                    </div>
-                    <div className="status-item planned">
-                        <div className="status-marker"><i className="fas fa-clock"></i></div>
-                        <div className="status-content">
-                            <h3>Phase 10b</h3>
-                            <p>LangChain + Neo4j refactor</p>
-                        </div>
-                    </div>
-                    <div className="status-item planned">
-                        <div className="status-marker"><i className="fas fa-clock"></i></div>
-                        <div className="status-content">
-                            <h3>Phase 11</h3>
-                            <p>Monitoring &amp; observability</p>
-                        </div>
                     </div>
                 </div>
             </section>
@@ -261,61 +195,45 @@ export function About() {
                 </div>
             </section>
 
-            {/* Security */}
+            {/* Infrastructure */}
             <section className="about-section">
-                <h2><i className="fas fa-lock"></i> Security</h2>
-                <ul className="security-list">
-                    <li><i className="fas fa-key"></i> Environment variables via <code>.env</code> (excluded from git)</li>
-                    <li><i className="fas fa-user-shield"></i> JWT authentication with API key fallback</li>
-                    <li><i className="fas fa-tachometer-alt"></i> Rate limiting (global, per-user, auth-endpoint)</li>
-                    <li><i className="fas fa-network-wired"></i> Service-to-service auth with <code>X-API-Key</code> headers</li>
-                    <li><i className="fas fa-vault"></i> Production: Azure Key Vault for managed secrets</li>
-                </ul>
-            </section>
-
-            {/* Project Structure */}
-            <section className="about-section">
-                <h2><i className="fas fa-folder-open"></i> Project Structure</h2>
+                <h2><i className="fas fa-server"></i> Infrastructure</h2>
+                <p>
+                    The platform runs as a set of microservices deployed across Azure, with automated CI/CD
+                    via GitHub Actions. Here's what's running in production:
+                </p>
                 <div className="project-structure">
                     <div className="structure-item">
-                        <code>AiTradingRace.Web/</code>
-                        <span>ASP.NET Core Web API</span>
+                        <code>Azure App Service</code>
+                        <span>ASP.NET Core API — handles agents, portfolios, trades, and market data</span>
                     </div>
                     <div className="structure-item">
-                        <code>AiTradingRace.Domain/</code>
-                        <span>Domain entities</span>
+                        <code>Azure Functions</code>
+                        <span>Durable orchestrator — runs market cycles with fan-out/fan-in parallelism</span>
                     </div>
                     <div className="structure-item">
-                        <code>AiTradingRace.Application/</code>
-                        <span>Business logic &amp; interfaces</span>
+                        <code>Azure Static Web App</code>
+                        <span>React dashboard — this frontend, served globally</span>
                     </div>
                     <div className="structure-item">
-                        <code>AiTradingRace.Infrastructure/</code>
-                        <span>EF Core, external API clients</span>
+                        <code>Azure Container App</code>
+                        <span>Python ML service — FastAPI with scikit-learn, LangChain, and Neo4j integration</span>
                     </div>
                     <div className="structure-item">
-                        <code>AiTradingRace.Functions/</code>
-                        <span>Azure Functions (Orchestrator, Activities, Health check)</span>
+                        <code>Azure SQL</code>
+                        <span>Relational database — trades, portfolios, equity snapshots, agent configs</span>
                     </div>
                     <div className="structure-item">
-                        <code>AiTradingRace.Tests/</code>
-                        <span>166 unit &amp; integration tests</span>
+                        <code>Redis</code>
+                        <span>Caching layer — idempotency checks and response caching</span>
                     </div>
                     <div className="structure-item">
-                        <code>ai-trading-race-web/</code>
-                        <span>React frontend (Vite + TypeScript)</span>
+                        <code>Neo4j</code>
+                        <span>Knowledge graph — trading rules, market regimes, and decision audit trail (GraphRAG)</span>
                     </div>
                     <div className="structure-item">
-                        <code>ai-trading-race-ml/</code>
-                        <span>Python ML service (FastAPI + scikit-learn)</span>
-                    </div>
-                    <div className="structure-item">
-                        <code>infra/</code>
-                        <span>Azure Bicep IaC</span>
-                    </div>
-                    <div className="structure-item">
-                        <code>.github/workflows/</code>
-                        <span>CI/CD pipelines (7 workflows)</span>
+                        <code>GitHub Actions</code>
+                        <span>CI/CD — 7 workflows for automated testing and deployment on every push to main</span>
                     </div>
                 </div>
             </section>
