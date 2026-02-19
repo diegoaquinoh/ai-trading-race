@@ -15,6 +15,8 @@ param mlApiKey string
 @secure()
 param azureOpenAiApiKey string = ''
 param azureOpenAiEndpoint string = ''
+param azureOpenAiGPT4oMiniDeploymentName string = ''
+param azureOpenAiGPT41NanoDeploymentName string = ''
 
 param ghcrUsername string
 
@@ -90,6 +92,8 @@ module functions 'modules/functions.bicep' = {
     webAppOutboundIps: appService.outputs.outboundIpAddresses
     azureOpenAiApiKey: azureOpenAiApiKey
     azureOpenAiEndpoint: azureOpenAiEndpoint
+    azureOpenAiGPT4oMiniDeploymentName: azureOpenAiGPT4oMiniDeploymentName
+    azureOpenAiGPT41NanoDeploymentName: azureOpenAiGPT41NanoDeploymentName
     mlApiKey: mlApiKey
     mlAppFqdn: containerApps.outputs.mlAppFqdn
   }

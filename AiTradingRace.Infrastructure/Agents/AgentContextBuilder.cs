@@ -3,9 +3,11 @@ using AiTradingRace.Application.Common.Models;
 using AiTradingRace.Application.Knowledge;
 using AiTradingRace.Application.MarketData;
 using AiTradingRace.Application.Portfolios;
+using AiTradingRace.Domain.Entities;
 using AiTradingRace.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace AiTradingRace.Infrastructure.Agents;
 
@@ -20,6 +22,7 @@ public sealed class AgentContextBuilder : IAgentContextBuilder
     private readonly IMarketDataProvider _marketDataProvider;
     private readonly IKnowledgeGraphService _knowledgeGraphService;
     private readonly IRegimeDetector _regimeDetector;
+    private readonly AzureOpenAiOptions _azureOptions;
     private readonly ILogger<AgentContextBuilder> _logger;
 
     public AgentContextBuilder(
@@ -28,6 +31,7 @@ public sealed class AgentContextBuilder : IAgentContextBuilder
         IMarketDataProvider marketDataProvider,
         IKnowledgeGraphService knowledgeGraphService,
         IRegimeDetector regimeDetector,
+        IOptions<AzureOpenAiOptions> azureOptions,
         ILogger<AgentContextBuilder> logger)
     {
         _dbContext = dbContext;
@@ -35,6 +39,7 @@ public sealed class AgentContextBuilder : IAgentContextBuilder
         _marketDataProvider = marketDataProvider;
         _knowledgeGraphService = knowledgeGraphService;
         _regimeDetector = regimeDetector;
+        _azureOptions = azureOptions.Value;
         _logger = logger;
     }
 
@@ -148,8 +153,23 @@ public sealed class AgentContextBuilder : IAgentContextBuilder
             portfolio,
             candles,
             agent.Instructions,
+            ResolveDeploymentName(agent),
             knowledgeGraph,
             detectedRegime);
+    }
+
+    private string? ResolveDeploymentName(Agent agent)
+    {
+        if (agent.ModelProvider != ModelProvider.AzureOpenAI || string.IsNullOrEmpty(agent.DeploymentKey))
+            return null;
+
+        return agent.DeploymentKey switch
+        {
+            "GPT4oMini" => _azureOptions.GPT4_o_Mini_DeploymentName,
+            "GPT41Nano" => _azureOptions.GPT4_1_nano_DeploymentName,
+            _ => throw new InvalidOperationException(
+                $"Unknown DeploymentKey '{agent.DeploymentKey}' for agent {agent.Id}.")
+        };
     }
 
     private async Task<IReadOnlyList<MarketCandleDto>> GetRecentCandlesAsync(

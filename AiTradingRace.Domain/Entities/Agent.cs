@@ -22,6 +22,12 @@ public class Agent
     /// </summary>
     public ModelProvider ModelProvider { get; set; } = ModelProvider.AzureOpenAI;
 
+    /// <summary>
+    /// Key that maps to a deployment name in configuration (e.g., "GPT4oMini", "GPT41Nano").
+    /// Only used for providers that support multiple deployments (AzureOpenAI).
+    /// </summary>
+    public string? DeploymentKey { get; set; }
+
     public bool IsActive { get; set; } = true;
 
     public DateTimeOffset CreatedAt { get; init; } = DateTimeOffset.UtcNow;

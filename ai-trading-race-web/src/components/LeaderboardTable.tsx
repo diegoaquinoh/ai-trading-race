@@ -3,10 +3,10 @@ import type { LeaderboardEntry } from "../types";
 import "./LeaderboardTable.css";
 
 /** Maps backend ModelProvider enum strings to user-friendly display names */
-function getModelDisplayName(modelType: string): string {
+function getModelDisplayName(modelType: string, agentName: string): string {
   switch (modelType) {
     case "AzureOpenAI":
-      return "GPT-4o";
+      return agentName; // Each Azure OpenAI agent has its own model name
     case "Llama":
       return "Llama";
     case "CustomML":
@@ -22,7 +22,7 @@ function getModelDisplayName(modelType: string): string {
 function getModelBadgeClass(modelType: string): string {
   switch (modelType) {
     case "AzureOpenAI":
-      return "gpt-4o";
+      return "azureopenai";
     case "CustomML":
       return "customml";
     case "Mock":
@@ -105,7 +105,7 @@ export function LeaderboardTable({
                 <span
                   className={`badge ${getModelBadgeClass(entry.agent.modelType)}`}
                 >
-                  {getModelDisplayName(entry.agent.modelType)}
+                  {getModelDisplayName(entry.agent.modelType, entry.agent.name)}
                 </span>
               </td>
               <td className="value">

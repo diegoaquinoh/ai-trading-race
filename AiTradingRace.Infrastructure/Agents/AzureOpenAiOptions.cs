@@ -18,9 +18,14 @@ public sealed class AzureOpenAiOptions
     public string ApiKey { get; set; } = string.Empty;
 
     /// <summary>
-    /// Deployment name of the model (e.g., gpt-4o, gpt-35-turbo).
+    /// Deployment name for the GPT-4o-mini agent.
     /// </summary>
-    public string DeploymentName { get; set; } = "gpt-4o";
+    public string GPT4_o_Mini_DeploymentName { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Deployment name for the GPT-4.1-nano agent.
+    /// </summary>
+    public string GPT4_1_nano_DeploymentName { get; set; } = string.Empty;
 
     /// <summary>
     /// Temperature for response generation (0.0 = deterministic, 1.0 = creative).

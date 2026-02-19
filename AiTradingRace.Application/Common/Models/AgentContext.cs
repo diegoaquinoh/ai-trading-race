@@ -9,6 +9,7 @@ public record AgentContext(
     PortfolioState Portfolio,
     IReadOnlyList<MarketCandleDto> RecentCandles,
     string Instructions,
+    string? DeploymentName = null,
     // Phase 10: Knowledge Graph & Regime Detection
     KnowledgeSubgraph? KnowledgeGraph = null,
     MarketRegime? DetectedRegime = null);

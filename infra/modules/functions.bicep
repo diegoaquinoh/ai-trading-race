@@ -11,7 +11,8 @@ param webAppOutboundIps string
 @secure()
 param azureOpenAiApiKey string = ''
 param azureOpenAiEndpoint string = ''
-param azureOpenAiDeploymentName string = 'gpt-4o'
+param azureOpenAiGPT4oMiniDeploymentName string = ''
+param azureOpenAiGPT41NanoDeploymentName string = ''
 
 param coinGeckoBaseUrl string = 'https://api.coingecko.com/api/v3/'
 param coinGeckoApiKey string = ''
@@ -91,7 +92,8 @@ resource functionApp 'Microsoft.Web/sites@2023-12-01' = {
         // Azure OpenAI - agent decisions
         { name: 'AzureOpenAI__Endpoint', value: azureOpenAiEndpoint }
         { name: 'AzureOpenAI__ApiKey', value: azureOpenAiApiKey }
-        { name: 'AzureOpenAI__DeploymentName', value: azureOpenAiDeploymentName }
+        { name: 'AzureOpenAI__GPT4_o_Mini_DeploymentName', value: azureOpenAiGPT4oMiniDeploymentName }
+        { name: 'AzureOpenAI__GPT4_1_nano_DeploymentName', value: azureOpenAiGPT41NanoDeploymentName }
         // Custom ML Agent
         { name: 'CustomMlAgent__BaseUrl', value: mlAppFqdn != '' ? 'https://${mlAppFqdn}' : '' }
         { name: 'CustomMlAgent__ApiKey', value: mlApiKey }
