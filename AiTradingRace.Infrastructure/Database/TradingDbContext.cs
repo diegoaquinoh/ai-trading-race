@@ -68,6 +68,7 @@ public sealed class TradingDbContext : DbContext
                 .HasConversion<string>()
                 .HasMaxLength(32)
                 .IsRequired();
+            builder.Property(x => x.DeploymentKey).HasMaxLength(64);
             builder.Property(x => x.CreatedAt).HasDefaultValueSql("SYSUTCDATETIME()");
             builder.Property(x => x.IsActive).HasDefaultValue(true);
 
@@ -298,6 +299,7 @@ public sealed class TradingDbContext : DbContext
         private static readonly Guid AgentGrokId = Guid.Parse("33333333-3333-3333-3333-333333333333");
         private static readonly Guid AgentCustomMlId = Guid.Parse("44444444-0000-4444-0000-444444444444");
         private static readonly Guid AgentGpt4oId = Guid.Parse("55555555-0000-5555-0000-555555555555");
+        private static readonly Guid AgentGpt41NanoId = Guid.Parse("66666666-0000-6666-0000-666666666666");
 
         private static readonly Guid CandleBtcSeedId = Guid.Parse("44444444-4444-4444-4444-444444444444");
         private static readonly Guid CandleEthSeedId = Guid.Parse("55555555-5555-5555-5555-555555555555");
@@ -364,10 +366,21 @@ public sealed class TradingDbContext : DbContext
                 new Agent
                 {
                     Id = AgentGpt4oId,
-                    Name = "GPT-4o",
+                    Name = "GPT-4o-mini",
                     Strategy = "Multi-factor analysis with sentiment and on-chain data",
                     Instructions = "You are a balanced trader. Combine fundamental analysis, market sentiment, and technical indicators to make well-rounded trading decisions.",
                     ModelProvider = ModelProvider.AzureOpenAI,
+                    DeploymentKey = "GPT4oMini",
+                    IsActive = true
+                },
+                new Agent
+                {
+                    Id = AgentGpt41NanoId,
+                    Name = "GPT-4.1-nano",
+                    Strategy = "Fast, cost-efficient trading with technical signal focus",
+                    Instructions = "You are a fast-acting trader. Use technical indicators to make quick, data-driven trading decisions. Favor clear signals over complex analysis.",
+                    ModelProvider = ModelProvider.AzureOpenAI,
+                    DeploymentKey = "GPT41Nano",
                     IsActive = true
                 });
 

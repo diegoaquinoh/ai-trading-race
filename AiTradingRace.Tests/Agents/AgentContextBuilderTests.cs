@@ -7,6 +7,7 @@ using AiTradingRace.Infrastructure.Agents;
 using AiTradingRace.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Moq;
 
 namespace AiTradingRace.Tests.Agents;
@@ -22,6 +23,7 @@ public class AgentContextBuilderTests : IDisposable
     private readonly Mock<IKnowledgeGraphService> _knowledgeGraphServiceMock;
     private readonly Mock<IRegimeDetector> _regimeDetectorMock;
     private readonly Mock<ILogger<AgentContextBuilder>> _loggerMock;
+    private readonly IOptions<AzureOpenAiOptions> _azureOptions = Options.Create(new AzureOpenAiOptions());
     private readonly Guid _activeAgentId = Guid.Parse("11111111-1111-1111-1111-111111111111");
     private readonly Guid _inactiveAgentId = Guid.Parse("22222222-2222-2222-2222-222222222222");
 
@@ -110,6 +112,7 @@ public class AgentContextBuilderTests : IDisposable
             _marketDataProviderMock.Object,
             _knowledgeGraphServiceMock.Object,
             _regimeDetectorMock.Object,
+            _azureOptions,
             _loggerMock.Object);
     }
 

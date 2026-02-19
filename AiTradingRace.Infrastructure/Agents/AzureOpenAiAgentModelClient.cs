@@ -19,7 +19,6 @@ public sealed class AzureOpenAiAgentModelClient : IAgentModelClient
     private readonly Lazy<AzureOpenAIClient> _openAIClient;
     private readonly AzureOpenAiOptions _options;
     private readonly ILogger<AzureOpenAiAgentModelClient> _logger;
-    private ChatClient? _chatClient;
 
     public AzureOpenAiAgentModelClient(
         Lazy<AzureOpenAIClient> openAIClient,
@@ -31,14 +30,20 @@ public sealed class AzureOpenAiAgentModelClient : IAgentModelClient
         _logger = logger;
     }
 
-    private ChatClient ChatClient => _chatClient ??= _openAIClient.Value.GetChatClient(_options.DeploymentName);
+    private ChatClient GetChatClient(string deploymentName) =>
+        _openAIClient.Value.GetChatClient(deploymentName);
 
     /// <inheritdoc />
     public async Task<AgentDecision> GenerateDecisionAsync(
         AgentContext context,
         CancellationToken cancellationToken = default)
     {
-        _logger.LogDebug("Generating decision for agent {AgentId}", context.AgentId);
+        var deploymentName = context.DeploymentName
+            ?? throw new InvalidOperationException(
+                $"Agent {context.AgentId} has no deployment name configured.");
+
+        _logger.LogDebug("Generating decision for agent {AgentId} using deployment {Deployment}",
+            context.AgentId, deploymentName);
 
         var systemPrompt = BuildSystemPrompt(context.Instructions, context);
         var userPrompt = BuildUserPrompt(context);
@@ -58,7 +63,8 @@ public sealed class AzureOpenAiAgentModelClient : IAgentModelClient
 
         try
         {
-            var response = await ChatClient.CompleteChatAsync(
+            var chatClient = GetChatClient(deploymentName);
+            var response = await chatClient.CompleteChatAsync(
                 chatMessages,
                 chatOptions,
                 cancellationToken);
