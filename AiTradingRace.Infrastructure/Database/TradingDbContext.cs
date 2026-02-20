@@ -199,7 +199,7 @@ public sealed class TradingDbContext : DbContext
             builder.HasOne(x => x.DecisionLog)
                 .WithMany()
                 .HasForeignKey(x => x.DecisionLogId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasIndex(x => x.DecisionLogId);
 
