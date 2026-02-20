@@ -17,7 +17,7 @@ public sealed class InMemoryPortfolioService : IPortfolioService
         return Task.FromResult(state);
     }
 
-    public Task<PortfolioState> ApplyDecisionAsync(
+    public Task<(PortfolioState State, IReadOnlyList<Guid> CreatedTradeIds)> ApplyDecisionAsync(
         Guid agentId,
         AgentDecision decision,
         CancellationToken cancellationToken = default)
@@ -26,7 +26,18 @@ public sealed class InMemoryPortfolioService : IPortfolioService
             _ => CreateDefaultPortfolio(agentId),
             (_, current) => ApplyOrders(current, decision));
 
-        return Task.FromResult(state);
+        // In-memory service doesn't persist trades, so return empty list
+        return Task.FromResult<(PortfolioState State, IReadOnlyList<Guid> CreatedTradeIds)>(
+            (state, Array.Empty<Guid>()));
+    }
+
+    public Task LinkTradesToDecisionAsync(
+        IReadOnlyList<Guid> tradeIds,
+        int decisionLogId,
+        CancellationToken cancellationToken = default)
+    {
+        // No-op for in-memory service
+        return Task.CompletedTask;
     }
 
     private static PortfolioState CreateDefaultPortfolio(Guid agentId)

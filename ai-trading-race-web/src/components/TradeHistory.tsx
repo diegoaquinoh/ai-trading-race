@@ -1,52 +1,16 @@
-import { useState, useMemo } from 'react';
-import type { Trade, DecisionLog } from '../types';
+import { useState } from 'react';
+import type { Trade } from '../types';
 import './TradeHistory.css';
 
 interface TradeHistoryProps {
     trades: Trade[];
-    decisions?: DecisionLog[];
     pageSize?: number;
 }
 
-/**
- * Find the closest decision log for a given trade by matching action, asset,
- * and picking the decision with the nearest timestamp (within a 5-minute window).
- */
-function findMatchingDecision(trade: Trade, decisions: DecisionLog[]): DecisionLog | null {
-    const tradeTime = new Date(trade.executedAt).getTime();
-    const maxDelta = 5 * 60 * 1000; // 5 minutes
-
-    let best: DecisionLog | null = null;
-    let bestDelta = Infinity;
-
-    for (const d of decisions) {
-        if (d.action.toLowerCase() !== trade.side.toLowerCase()) continue;
-        if (d.asset && d.asset.toUpperCase() !== trade.assetSymbol.toUpperCase()) continue;
-
-        const delta = Math.abs(new Date(d.timestamp).getTime() - tradeTime);
-        if (delta < bestDelta && delta <= maxDelta) {
-            bestDelta = delta;
-            best = d;
-        }
-    }
-    return best;
-}
-
-export function TradeHistory({ trades, decisions = [], pageSize = 10 }: TradeHistoryProps) {
+export function TradeHistory({ trades, pageSize = 10 }: TradeHistoryProps) {
     const [currentPage, setCurrentPage] = useState(1);
     const [filter, setFilter] = useState<'all' | 'buy' | 'sell'>('all');
     const [expandedId, setExpandedId] = useState<string | null>(null);
-
-    // Pre-compute trade → decision mapping
-    const decisionByTradeId = useMemo(() => {
-        if (decisions.length === 0) return new Map<string, DecisionLog>();
-        const map = new Map<string, DecisionLog>();
-        for (const trade of trades) {
-            const match = findMatchingDecision(trade, decisions);
-            if (match) map.set(trade.id, match);
-        }
-        return map;
-    }, [trades, decisions]);
 
     // Filter trades
     const filteredTrades = trades.filter(trade => {
@@ -76,19 +40,19 @@ export function TradeHistory({ trades, decisions = [], pageSize = 10 }: TradeHis
             {/* Filter bar */}
             <div className="trade-filter-bar">
                 <div className="trade-filters">
-                    <button 
+                    <button
                         className={`filter-btn ${filter === 'all' ? 'active' : ''}`}
                         onClick={() => { setFilter('all'); setCurrentPage(1); }}
                     >
                         All ({trades.length})
                     </button>
-                    <button 
+                    <button
                         className={`filter-btn buy ${filter === 'buy' ? 'active' : ''}`}
                         onClick={() => { setFilter('buy'); setCurrentPage(1); }}
                     >
                         Buy ({trades.filter(t => t.side.toLowerCase() === 'buy').length})
                     </button>
-                    <button 
+                    <button
                         className={`filter-btn sell ${filter === 'sell' ? 'active' : ''}`}
                         onClick={() => { setFilter('sell'); setCurrentPage(1); }}
                     >
@@ -107,23 +71,20 @@ export function TradeHistory({ trades, decisions = [], pageSize = 10 }: TradeHis
                         <th>Quantity</th>
                         <th>Price</th>
                         <th>Value</th>
-                        {decisions.length > 0 && <th>Rationale</th>}
-                        {decisions.length > 0 && <th></th>}
+                        <th>Rationale</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     {paginatedTrades.map((trade) => {
-                        const decision = decisionByTradeId.get(trade.id);
+                        const hasRationale = !!trade.rationale;
                         const isExpanded = expandedId === trade.id;
-                        const ruleIds: string[] = decision
-                            ? (() => { try { return JSON.parse(decision.citedRuleIds) || []; } catch { return []; } })()
-                            : [];
 
                         return (
                             <tr
                                 key={trade.id}
-                                className={`trade-row ${decision ? 'has-rationale' : ''} ${isExpanded ? 'expanded' : ''}`}
-                                onClick={() => decision && setExpandedId(isExpanded ? null : trade.id)}
+                                className={`trade-row ${hasRationale ? 'has-rationale' : ''} ${isExpanded ? 'expanded' : ''}`}
+                                onClick={() => hasRationale && setExpandedId(isExpanded ? null : trade.id)}
                             >
                                 <td className="trade-time">
                                     {new Date(trade.executedAt).toLocaleString()}
@@ -143,40 +104,31 @@ export function TradeHistory({ trades, decisions = [], pageSize = 10 }: TradeHis
                                 <td className="trade-value">
                                     ${(trade.totalValue ?? trade.quantity * trade.price).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                                 </td>
-                                {decisions.length > 0 && (
-                                    <td className="trade-rationale">
-                                        {decision ? (
-                                            isExpanded ? (
-                                                <div className="rationale-expanded">
-                                                    <p>{decision.rationale}</p>
-                                                    {ruleIds.length > 0 && (
-                                                        <div className="cited-rules">
-                                                            <span className="rules-label">Rules:</span>
-                                                            {ruleIds.map(rule => (
-                                                                <span key={rule} className="rule-tag">{rule}</span>
-                                                            ))}
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            ) : (
-                                                <span className="rationale-truncated">
-                                                    {decision.rationale.length > 60
-                                                        ? decision.rationale.slice(0, 60) + '...'
-                                                        : decision.rationale}
-                                                </span>
-                                            )
+                                <td className="trade-rationale">
+                                    {hasRationale ? (
+                                        isExpanded ? (
+                                            <div className="rationale-expanded">
+                                                <p>{trade.rationale}</p>
+                                                {trade.detectedRegime && (
+                                                    <span className="rule-tag">{trade.detectedRegime}</span>
+                                                )}
+                                            </div>
                                         ) : (
-                                            <span className="rationale-none">-</span>
-                                        )}
-                                    </td>
-                                )}
-                                {decisions.length > 0 && (
-                                    <td className="trade-expand">
-                                        {decision && (
-                                            <span className="expand-icon">{isExpanded ? '\u25B2' : '\u25BC'}</span>
-                                        )}
-                                    </td>
-                                )}
+                                            <span className="rationale-truncated">
+                                                {trade.rationale!.length > 60
+                                                    ? trade.rationale!.slice(0, 60) + '...'
+                                                    : trade.rationale}
+                                            </span>
+                                        )
+                                    ) : (
+                                        <span className="rationale-none">-</span>
+                                    )}
+                                </td>
+                                <td className="trade-expand">
+                                    {hasRationale && (
+                                        <span className="expand-icon">{isExpanded ? '\u25B2' : '\u25BC'}</span>
+                                    )}
+                                </td>
                             </tr>
                         );
                     })}
@@ -186,8 +138,8 @@ export function TradeHistory({ trades, decisions = [], pageSize = 10 }: TradeHis
             {/* Pagination */}
             {totalPages > 1 && (
                 <div className="trade-pagination">
-                    <button 
-                        onClick={() => goToPage(currentPage - 1)} 
+                    <button
+                        onClick={() => goToPage(currentPage - 1)}
                         disabled={currentPage === 1}
                         className="page-btn"
                     >
@@ -196,8 +148,8 @@ export function TradeHistory({ trades, decisions = [], pageSize = 10 }: TradeHis
                     <span className="page-info">
                         Page {currentPage} of {totalPages}
                     </span>
-                    <button 
-                        onClick={() => goToPage(currentPage + 1)} 
+                    <button
+                        onClick={() => goToPage(currentPage + 1)}
                         disabled={currentPage === totalPages}
                         className="page-btn"
                     >

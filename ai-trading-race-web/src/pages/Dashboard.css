@@ -70,6 +70,14 @@
   margin-bottom: 0;
 }
 
+.decisions-section {
+  margin-bottom: var(--space-6);
+}
+
+.decisions-section h2 {
+  margin-bottom: var(--space-4);
+}
+
 .chart-loading {
   display: flex;
   flex-direction: column;

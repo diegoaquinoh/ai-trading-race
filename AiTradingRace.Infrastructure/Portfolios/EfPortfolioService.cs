@@ -25,7 +25,7 @@ public sealed class EfPortfolioService : IPortfolioService
         return await BuildPortfolioStateAsync(portfolio, captureSnapshot: false, cancellationToken);
     }
 
-    public async Task<PortfolioState> ApplyDecisionAsync(
+    public async Task<(PortfolioState State, IReadOnlyList<Guid> CreatedTradeIds)> ApplyDecisionAsync(
         Guid agentId,
         AgentDecision decision,
         CancellationToken cancellationToken = default)
@@ -42,6 +42,7 @@ public sealed class EfPortfolioService : IPortfolioService
 
         var now = DateTimeOffset.UtcNow;
         var cash = portfolio.Cash;
+        var createdTradeIds = new List<Guid>();
 
         foreach (var order in decision.Orders)
         {
@@ -87,9 +88,10 @@ public sealed class EfPortfolioService : IPortfolioService
                         existingPosition.Quantity += order.Quantity;
                     }
 
+                    var buyTradeId = Guid.NewGuid();
                     _dbContext.Trades.Add(new Trade
                     {
-                        Id = Guid.NewGuid(),
+                        Id = buyTradeId,
                         PortfolioId = portfolio.Id,
                         MarketAssetId = asset.Id,
                         ExecutedAt = now,
@@ -97,6 +99,7 @@ public sealed class EfPortfolioService : IPortfolioService
                         Price = price,
                         Side = TradeSide.Buy
                     });
+                    createdTradeIds.Add(buyTradeId);
                     break;
 
                 case TradeSide.Sell:
@@ -114,9 +117,10 @@ public sealed class EfPortfolioService : IPortfolioService
                         positions.Remove(asset.Id);
                     }
 
+                    var sellTradeId = Guid.NewGuid();
                     _dbContext.Trades.Add(new Trade
                     {
-                        Id = Guid.NewGuid(),
+                        Id = sellTradeId,
                         PortfolioId = portfolio.Id,
                         MarketAssetId = asset.Id,
                         ExecutedAt = now,
@@ -124,6 +128,7 @@ public sealed class EfPortfolioService : IPortfolioService
                         Price = price,
                         Side = TradeSide.Sell
                     });
+                    createdTradeIds.Add(sellTradeId);
                     break;
 
                 case TradeSide.Hold:
@@ -143,7 +148,21 @@ public sealed class EfPortfolioService : IPortfolioService
         var state = await BuildPortfolioStateAsync(portfolio, captureSnapshot: true, cancellationToken);
 
         await transaction.CommitAsync(cancellationToken);
-        return state;
+        return (state, createdTradeIds);
+    }
+
+    public async Task LinkTradesToDecisionAsync(
+        IReadOnlyList<Guid> tradeIds,
+        int decisionLogId,
+        CancellationToken cancellationToken = default)
+    {
+        if (tradeIds.Count == 0) return;
+
+        await _dbContext.Trades
+            .Where(t => tradeIds.Contains(t.Id))
+            .ExecuteUpdateAsync(
+                s => s.SetProperty(t => t.DecisionLogId, decisionLogId),
+                cancellationToken);
     }
 
     private async Task<Portfolio> GetOrCreatePortfolioAsync(Guid agentId, CancellationToken cancellationToken)

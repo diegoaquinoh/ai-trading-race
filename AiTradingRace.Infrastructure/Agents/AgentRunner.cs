@@ -95,17 +95,20 @@ public sealed class AgentRunner : IAgentRunner
 
             // Step 4: Apply validated decision to portfolio
             PortfolioState portfolio;
+            IReadOnlyList<Guid> createdTradeIds = Array.Empty<Guid>();
             decimal portfolioValueBefore = context.Portfolio.TotalValue;
-            
+
             if (validation.ValidatedDecision.Orders.Count > 0)
             {
                 _logger.LogDebug("Step 4: Applying {OrderCount} validated orders for agent {AgentId}",
                     validation.ValidatedDecision.Orders.Count, agentId);
 
-                portfolio = await _portfolioService.ApplyDecisionAsync(
+                var result = await _portfolioService.ApplyDecisionAsync(
                     agentId,
                     validation.ValidatedDecision,
                     cancellationToken);
+                portfolio = result.State;
+                createdTradeIds = result.CreatedTradeIds;
 
                 _logger.LogInformation("Agent {AgentId}: Executed {OrderCount} trades. Portfolio value: ${TotalValue:F2}",
                     agentId, validation.ValidatedDecision.Orders.Count, portfolio.TotalValue);
@@ -121,10 +124,10 @@ public sealed class AgentRunner : IAgentRunner
             {
                 try
                 {
-                    var action = validation.ValidatedDecision.Orders.Count == 0 
-                        ? "HOLD" 
+                    var action = validation.ValidatedDecision.Orders.Count == 0
+                        ? "HOLD"
                         : validation.ValidatedDecision.Orders[0].Side.ToString().ToUpperInvariant();
-                    
+
                     var marketConditions = new Dictionary<string, decimal>();
                     foreach (var candle in context.RecentCandles.GroupBy(c => c.AssetSymbol))
                     {
@@ -132,7 +135,7 @@ public sealed class AgentRunner : IAgentRunner
                         marketConditions[candle.Key] = latest.Close;
                     }
 
-                    await _decisionLogService.LogDecisionAsync(new CreateDecisionLogDto
+                    var decisionLog = await _decisionLogService.LogDecisionAsync(new CreateDecisionLogDto
                     {
                         AgentId = agentId,
                         Action = action,
@@ -147,9 +150,18 @@ public sealed class AgentRunner : IAgentRunner
                         MarketConditions = marketConditions
                     });
 
+                    // Link trades to the decision log for rationale traceability
+                    if (createdTradeIds.Count > 0)
+                    {
+                        await _portfolioService.LinkTradesToDecisionAsync(
+                            createdTradeIds,
+                            decisionLog.Id,
+                            cancellationToken);
+                    }
+
                     _logger.LogInformation(
                         "Agent {AgentId}: Decision logged with {RuleCount} cited rules in {Regime} regime",
-                        agentId, 
+                        agentId,
                         rawDecision.CitedRuleIds?.Count ?? 0,
                         context.DetectedRegime.Name);
                 }

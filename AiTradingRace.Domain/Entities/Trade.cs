@@ -16,8 +16,11 @@ public class Trade
 
     public TradeSide Side { get; set; } = TradeSide.Buy;
 
+    public int? DecisionLogId { get; set; }
+
     // Navigation properties
     public Portfolio Portfolio { get; set; } = null!;
     public MarketAsset MarketAsset { get; set; } = null!;
+    public DecisionLog? DecisionLog { get; set; }
 }
 

@@ -126,6 +126,35 @@ export function useDecisions(agentId: string) {
     });
 }
 
+// Fetch latest decisions for all agents (for dashboard feed)
+export interface DecisionWithAgent extends DecisionLog {
+    agentName: string;
+}
+
+export function useAllAgentDecisions(leaderboard: LeaderboardEntry[] | undefined) {
+    const queries = useQueries({
+        queries: (leaderboard ?? []).map(entry => ({
+            queryKey: ['decisions', entry.agent.id],
+            queryFn: () => decisionsApi.getByAgentId(entry.agent.id, 5),
+            enabled: !!entry.agent.id,
+            staleTime: 30000,
+        })),
+    });
+
+    const isLoading = queries.some(q => q.isLoading);
+    const data: DecisionWithAgent[] = queries
+        .flatMap((q, i) =>
+            (q.data ?? []).map(d => ({
+                ...d,
+                agentName: leaderboard?.[i]?.agent.name ?? '',
+            }))
+        )
+        .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
+        .slice(0, 10);
+
+    return { data, isLoading };
+}
+
 // Fetch equity for all agents (for multi-agent chart)
 export function useAllAgentEquity(leaderboard: LeaderboardEntry[] | undefined) {
     const queries = useQueries({

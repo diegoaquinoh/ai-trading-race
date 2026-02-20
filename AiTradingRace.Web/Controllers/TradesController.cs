@@ -57,10 +57,11 @@ public class TradesController : ControllerBase
             .Where(t => t.PortfolioId == portfolio.Id)
             .CountAsync(ct);
 
-        // Get paginated trades
+        // Get paginated trades with optional decision rationale
         var trades = await _dbContext.Trades
             .AsNoTracking()
             .Include(t => t.MarketAsset)
+            .Include(t => t.DecisionLog)
             .Where(t => t.PortfolioId == portfolio.Id)
             .OrderByDescending(t => t.ExecutedAt)
             .Skip(offset)
@@ -72,7 +73,9 @@ public class TradesController : ControllerBase
                 t.Quantity,
                 t.Price,
                 t.Side.ToString(),
-                t.Quantity * t.Price))
+                t.Quantity * t.Price,
+                t.DecisionLog != null ? t.DecisionLog.Rationale : null,
+                t.DecisionLog != null ? t.DecisionLog.DetectedRegime : null))
             .ToListAsync(ct);
 
         return Ok(new TradeHistoryResponse(trades, totalCount, limit, offset));
@@ -140,7 +143,9 @@ public record TradeDto(
     decimal Quantity,
     decimal Price,
     string Side,
-    decimal TotalValue);
+    decimal TotalValue,
+    string? Rationale = null,
+    string? DetectedRegime = null);
 
 /// <summary>
 /// Summary of trading activity.

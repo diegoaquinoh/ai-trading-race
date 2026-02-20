@@ -8,9 +8,14 @@ public interface IPortfolioService
         Guid agentId,
         CancellationToken cancellationToken = default);
 
-    Task<PortfolioState> ApplyDecisionAsync(
+    Task<(PortfolioState State, IReadOnlyList<Guid> CreatedTradeIds)> ApplyDecisionAsync(
         Guid agentId,
         AgentDecision decision,
+        CancellationToken cancellationToken = default);
+
+    Task LinkTradesToDecisionAsync(
+        IReadOnlyList<Guid> tradeIds,
+        int decisionLogId,
         CancellationToken cancellationToken = default);
 }
 

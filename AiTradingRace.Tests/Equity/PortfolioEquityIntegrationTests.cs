@@ -133,7 +133,7 @@ public class PortfolioEquityIntegrationTests : IDisposable
                 new("BTC", TradeSide.Buy, 1m, 42000m)
             });
 
-        var afterBuy = await _portfolioService.ApplyDecisionAsync(_agentId, buyDecision);
+        var (afterBuy, _) = await _portfolioService.ApplyDecisionAsync(_agentId, buyDecision);
 
         Assert.Equal(58_000m, afterBuy.Cash); // 100k - 42k
         Assert.Single(afterBuy.Positions);
@@ -250,7 +250,7 @@ public class PortfolioEquityIntegrationTests : IDisposable
             {
                 new("BTC", TradeSide.Sell, 1m, 42000m) // Sell at market
             });
-        var afterSell = await _portfolioService.ApplyDecisionAsync(_agentId, sell);
+        var (afterSell, _) = await _portfolioService.ApplyDecisionAsync(_agentId, sell);
 
         Assert.Equal(62_000m, afterSell.Cash); // 100k - 80k (buy 2 BTC) + 42k (sell 1 BTC)
         Assert.Equal(1m, afterSell.Positions[0].Quantity); // 1 BTC remaining
@@ -304,7 +304,7 @@ public class PortfolioEquityIntegrationTests : IDisposable
                 new("ETH", TradeSide.Buy, 10m, 3200m)
             });
 
-        var portfolio = await _portfolioService.ApplyDecisionAsync(_agentId, decision);
+        var (portfolio, _) = await _portfolioService.ApplyDecisionAsync(_agentId, decision);
 
         // Cash: 100k - 42k - 32k = 26k
         Assert.Equal(26_000m, portfolio.Cash);

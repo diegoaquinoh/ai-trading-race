@@ -216,7 +216,7 @@ public class SqlServerIntegrationTests : IAsyncLifetime
                 new("BTC", TradeSide.Buy, 0.5m, 42000m)
             });
 
-        var portfolio = await portfolioService.ApplyDecisionAsync(agent.Id, decision);
+        var (portfolio, _) = await portfolioService.ApplyDecisionAsync(agent.Id, decision);
 
         Assert.Equal(79000m, portfolio.Cash); // 100k - (0.5 * 42k)
         Assert.Single(portfolio.Positions);
