@@ -32,10 +32,10 @@ public sealed class NoOpAgentRunner : IAgentRunner
         var context = new AgentContext(agentId, ModelProvider.Mock, portfolio, candles, "Bootstrap cycle");
 
         var decision = await _modelClient.GenerateDecisionAsync(context, cancellationToken);
-        portfolio = await _portfolioService.ApplyDecisionAsync(agentId, decision, cancellationToken);
+        var result = await _portfolioService.ApplyDecisionAsync(agentId, decision, cancellationToken);
 
         var completedAt = DateTimeOffset.UtcNow;
-        return new AgentRunResult(agentId, startedAt, completedAt, portfolio, decision);
+        return new AgentRunResult(agentId, startedAt, completedAt, result.State, decision);
     }
 }
 

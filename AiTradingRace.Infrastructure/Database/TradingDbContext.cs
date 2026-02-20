@@ -196,6 +196,13 @@ public sealed class TradingDbContext : DbContext
                 .HasForeignKey(x => x.MarketAssetId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder.HasOne(x => x.DecisionLog)
+                .WithMany()
+                .HasForeignKey(x => x.DecisionLogId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            builder.HasIndex(x => x.DecisionLogId);
+
             builder.ToTable(t =>
             {
                 t.HasCheckConstraint("CK_Trade_Quantity_Positive", "[Quantity] > 0");

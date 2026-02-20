@@ -10,6 +10,7 @@ interface TradeHistoryProps {
 export function TradeHistory({ trades, pageSize = 10 }: TradeHistoryProps) {
     const [currentPage, setCurrentPage] = useState(1);
     const [filter, setFilter] = useState<'all' | 'buy' | 'sell'>('all');
+    const [expandedId, setExpandedId] = useState<string | null>(null);
 
     // Filter trades
     const filteredTrades = trades.filter(trade => {
@@ -70,31 +71,67 @@ export function TradeHistory({ trades, pageSize = 10 }: TradeHistoryProps) {
                         <th>Quantity</th>
                         <th>Price</th>
                         <th>Value</th>
+                        <th>Rationale</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    {paginatedTrades.map((trade) => (
-                        <tr key={trade.id} className="trade-row">
-                            <td className="trade-time">
-                                {new Date(trade.executedAt).toLocaleString()}
-                            </td>
-                            <td className={`trade-action ${trade.side.toLowerCase()}`}>
-                                <span className="action-badge">
-                                    {trade.side.toUpperCase()}
-                                </span>
-                            </td>
-                            <td className="trade-asset">{trade.assetSymbol}</td>
-                            <td className="trade-qty">
-                                {trade.quantity.toFixed(6)}
-                            </td>
-                            <td className="trade-price">
-                                ${trade.price.toLocaleString(undefined, { minimumFractionDigits: 2 })}
-                            </td>
-                            <td className="trade-value">
-                                ${(trade.totalValue ?? trade.quantity * trade.price).toLocaleString(undefined, { minimumFractionDigits: 2 })}
-                            </td>
-                        </tr>
-                    ))}
+                    {paginatedTrades.map((trade) => {
+                        const hasRationale = !!trade.rationale;
+                        const isExpanded = expandedId === trade.id;
+
+                        return (
+                            <tr
+                                key={trade.id}
+                                className={`trade-row ${hasRationale ? 'has-rationale' : ''} ${isExpanded ? 'expanded' : ''}`}
+                                onClick={() => hasRationale && setExpandedId(isExpanded ? null : trade.id)}
+                            >
+                                <td className="trade-time">
+                                    {new Date(trade.executedAt).toLocaleString()}
+                                </td>
+                                <td className={`trade-action ${trade.side.toLowerCase()}`}>
+                                    <span className="action-badge">
+                                        {trade.side.toUpperCase()}
+                                    </span>
+                                </td>
+                                <td className="trade-asset">{trade.assetSymbol}</td>
+                                <td className="trade-qty">
+                                    {trade.quantity.toFixed(6)}
+                                </td>
+                                <td className="trade-price">
+                                    ${trade.price.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                                </td>
+                                <td className="trade-value">
+                                    ${(trade.totalValue ?? trade.quantity * trade.price).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                                </td>
+                                <td className="trade-rationale">
+                                    {hasRationale ? (
+                                        isExpanded ? (
+                                            <div className="rationale-expanded">
+                                                <p>{trade.rationale}</p>
+                                                {trade.detectedRegime && (
+                                                    <span className="rule-tag">{trade.detectedRegime}</span>
+                                                )}
+                                            </div>
+                                        ) : (
+                                            <span className="rationale-truncated">
+                                                {trade.rationale!.length > 60
+                                                    ? trade.rationale!.slice(0, 60) + '...'
+                                                    : trade.rationale}
+                                            </span>
+                                        )
+                                    ) : (
+                                        <span className="rationale-none">-</span>
+                                    )}
+                                </td>
+                                <td className="trade-expand">
+                                    {hasRationale && (
+                                        <span className="expand-icon">{isExpanded ? '\u25B2' : '\u25BC'}</span>
+                                    )}
+                                </td>
+                            </tr>
+                        );
+                    })}
                 </tbody>
             </table>
 

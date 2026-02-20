@@ -102,6 +102,8 @@ export interface Trade {
   price: number;
   totalValue?: number;
   executedAt: string;
+  rationale?: string | null;
+  detectedRegime?: string | null;
 }
 
 export interface EquitySnapshot {
