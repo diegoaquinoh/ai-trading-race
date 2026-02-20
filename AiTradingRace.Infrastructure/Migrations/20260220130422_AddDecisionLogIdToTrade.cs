@@ -175,7 +175,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                 column: "DecisionLogId",
                 principalTable: "DecisionLogs",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.SetNull);
+                onDelete: ReferentialAction.NoAction);
         }
 
         /// <inheritdoc />

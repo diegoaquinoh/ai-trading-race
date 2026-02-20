@@ -965,7 +965,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                     b.HasOne("AiTradingRace.Domain.Entities.DecisionLog", "DecisionLog")
                         .WithMany()
                         .HasForeignKey("DecisionLogId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("AiTradingRace.Domain.Entities.MarketAsset", "MarketAsset")
                         .WithMany()
