@@ -1,7 +1,6 @@
 import { useCountdown } from '../hooks/useCountdown';
 import { useLeaderboard, useMarketPrices, useAllAgentEquity, useAllAgentDecisions } from '../hooks/useApi';
 import { StatCard, LeaderboardTable, EquityChart, MarketPrices, RefreshIndicator, LoadingSpinner, ConnectionBanner, ServerUnavailable, DecisionFeed } from '../components';
-import { isVisibleModelType } from '../config/hiddenModels';
 import { isDev } from '../config/env';
 import type { LeaderboardEntry, MarketPrice } from '../types';
 import './Dashboard.css';
@@ -29,9 +28,7 @@ export function Dashboard() {
     const { remaining: secondsUntilRefresh } = useCountdown(30, dataUpdatedAt);
 
     // Use fallback data when queries have errored and data is undefined (dev only)
-    const allLeaderboard = leaderboard ?? (isDev && error ? FALLBACK_LEADERBOARD : []);
-    // Hide agents whose model provider API key we don't have yet (see config/hiddenModels.ts)
-    const displayLeaderboard = allLeaderboard.filter(e => isVisibleModelType(e.agent.modelType));
+    const displayLeaderboard = leaderboard ?? (isDev && error ? FALLBACK_LEADERBOARD : []);
     const displayPrices = marketPrices ?? (isDev && pricesError ? FALLBACK_PRICES : []);
 
     // Only show equity curves for visible agents

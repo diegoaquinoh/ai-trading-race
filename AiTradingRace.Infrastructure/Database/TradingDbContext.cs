@@ -301,9 +301,6 @@ public sealed class TradingDbContext : DbContext
         private static readonly Guid BtcId = Guid.Parse("c3d4b060-55bb-4e48-8f04-3452ec0c9d4c");
         private static readonly Guid EthId = Guid.Parse("b1fa9f8a-626b-4253-9a5d-0c9c9fb5c9fd");
 
-        private static readonly Guid AgentGptId = Guid.Parse("11111111-1111-1111-1111-111111111111");
-        private static readonly Guid AgentClaudeId = Guid.Parse("22222222-2222-2222-2222-222222222222");
-        private static readonly Guid AgentGrokId = Guid.Parse("33333333-3333-3333-3333-333333333333");
         private static readonly Guid AgentCustomMlId = Guid.Parse("44444444-0000-4444-0000-444444444444");
         private static readonly Guid AgentGpt4oId = Guid.Parse("55555555-0000-5555-0000-555555555555");
         private static readonly Guid AgentGpt41NanoId = Guid.Parse("66666666-0000-6666-0000-666666666666");
@@ -334,33 +331,6 @@ public sealed class TradingDbContext : DbContext
                 });
 
             modelBuilder.Entity<Agent>().HasData(
-                new Agent
-                {
-                    Id = AgentGptId,
-                    Name = "Llama-70B",
-                    Strategy = "Momentum-based trading with risk management",
-                    Instructions = "You are a conservative trader. Focus on momentum signals and always maintain diversification.",
-                    ModelProvider = ModelProvider.Llama,
-                    IsActive = false  // TODO: Re-enable once Groq/Together.ai API key is configured
-                },
-                new Agent
-                {
-                    Id = AgentClaudeId,
-                    Name = "Claude",
-                    Strategy = "Value-oriented with technical analysis",
-                    Instructions = "You are a value investor. Look for undervalued opportunities and use technical indicators for timing.",
-                    ModelProvider = ModelProvider.Mock,  // Using Mock until Anthropic integration
-                    IsActive = false  // TODO: Re-enable once Anthropic API key is configured
-                },
-                new Agent
-                {
-                    Id = AgentGrokId,
-                    Name = "Grok",
-                    Strategy = "Aggressive trend following",
-                    Instructions = "You are an aggressive trader. Follow trends and capitalize on momentum, but respect position limits.",
-                    ModelProvider = ModelProvider.Mock,  // Using Mock until xAI integration
-                    IsActive = false  // TODO: Re-enable once xAI API key is configured
-                },
                 new Agent
                 {
                     Id = AgentCustomMlId,

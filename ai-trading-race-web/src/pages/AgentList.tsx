@@ -2,7 +2,6 @@ import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useAgents } from '../hooks/useApi';
 import { LoadingSpinner, ConnectionBanner, ServerUnavailable } from '../components';
-import { isVisibleAgentName } from '../config/hiddenModels';
 import { isDev } from '../config/env';
 import type { AgentSummary } from '../types';
 import './AgentList.css';
@@ -31,9 +30,6 @@ export function AgentList() {
         if (!displayAgents.length) return [];
 
         return displayAgents.filter(agent => {
-            // Hide agents whose model provider API key we don't have yet (see config/hiddenModels.ts)
-            if (!isVisibleAgentName(agent.name)) return false;
-
             // Status filter
             if (statusFilter === 'active' && !agent.isActive) return false;
             if (statusFilter === 'inactive' && agent.isActive) return false;
