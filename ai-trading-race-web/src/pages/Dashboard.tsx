@@ -1,6 +1,6 @@
 import { useCountdown } from '../hooks/useCountdown';
-import { useLeaderboard, useMarketPrices, useAllAgentEquity } from '../hooks/useApi';
-import { StatCard, LeaderboardTable, EquityChart, MarketPrices, RefreshIndicator, LoadingSpinner, ConnectionBanner, ServerUnavailable } from '../components';
+import { useLeaderboard, useMarketPrices, useAllAgentEquity, useAllAgentDecisions } from '../hooks/useApi';
+import { StatCard, LeaderboardTable, EquityChart, MarketPrices, RefreshIndicator, LoadingSpinner, ConnectionBanner, ServerUnavailable, DecisionFeed } from '../components';
 import { isVisibleModelType } from '../config/hiddenModels';
 import { isDev } from '../config/env';
 import type { LeaderboardEntry, MarketPrice } from '../types';
@@ -23,6 +23,7 @@ export function Dashboard() {
     const { data: leaderboard, isLoading, error, dataUpdatedAt, isFetching, refetch } = useLeaderboard();
     const { data: marketPrices, isLoading: pricesLoading, error: pricesError } = useMarketPrices();
     const { data: equityData, isLoading: equityLoading } = useAllAgentEquity(leaderboard);
+    const { data: allDecisions, isLoading: decisionsLoading } = useAllAgentDecisions(leaderboard);
     
     const lastUpdate = dataUpdatedAt ? new Date(dataUpdatedAt) : null;
     const { remaining: secondsUntilRefresh } = useCountdown(30, dataUpdatedAt);
@@ -131,6 +132,12 @@ export function Dashboard() {
                     />
                 </div>
                 <LeaderboardTable entries={displayLeaderboard} />
+            </section>
+
+            {/* Latest Agent Decisions */}
+            <section className="decisions-section">
+                <h2><i className="fas fa-brain"></i> Latest Agent Decisions</h2>
+                <DecisionFeed decisions={allDecisions} isLoading={decisionsLoading} />
             </section>
 
             {/* Equity Chart */}

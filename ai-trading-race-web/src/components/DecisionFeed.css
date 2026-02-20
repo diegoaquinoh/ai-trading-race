@@ -1,0 +1,209 @@
+.decision-feed {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.feed-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    cursor: pointer;
+    transition: background var(--transition-fast), border-color var(--transition-fast);
+    animation: fadeInUp var(--transition-slow) both;
+}
+
+.feed-card:hover {
+    background: var(--bg-hover);
+    border-color: var(--border-light);
+}
+
+.feed-card.expanded {
+    background: var(--bg-hover);
+    border-color: var(--border-light);
+}
+
+.feed-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-2);
+    gap: var(--space-2);
+}
+
+.feed-card-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+}
+
+.feed-agent-name {
+    font-weight: var(--font-semibold);
+    font-size: var(--text-sm);
+    color: var(--text-primary);
+}
+
+.feed-action-badge {
+    display: inline-block;
+    padding: 2px var(--space-2);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-xs);
+    font-weight: var(--font-semibold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+}
+
+.feed-action-badge.buy {
+    color: var(--secondary);
+    background: rgba(34, 197, 94, 0.1);
+}
+
+.feed-action-badge.sell {
+    color: var(--danger);
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.feed-action-badge.hold {
+    color: var(--warning);
+    background: rgba(234, 179, 8, 0.1);
+}
+
+.feed-asset {
+    font-weight: var(--font-medium);
+    font-size: var(--text-xs);
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+}
+
+.feed-regime-badge {
+    display: inline-block;
+    padding: 2px var(--space-2);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-xs);
+    font-weight: var(--font-medium);
+    background: var(--bg-hover);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+}
+
+.feed-time {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.feed-rationale {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    line-height: var(--leading-normal);
+    margin: 0 0 var(--space-3) 0;
+}
+
+.feed-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.feed-impact {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+}
+
+.feed-impact.positive {
+    color: var(--secondary);
+}
+
+.feed-impact.negative {
+    color: var(--danger);
+}
+
+.feed-view-agent {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.feed-view-agent:hover {
+    color: var(--text-primary);
+}
+
+.feed-view-agent i {
+    margin-left: var(--space-1);
+    font-size: 0.7em;
+}
+
+/* Expanded details */
+.feed-expanded-details {
+    margin-top: var(--space-3);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.feed-rules,
+.feed-errors {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1);
+    align-items: center;
+}
+
+.feed-detail-label {
+    font-size: var(--text-xs);
+    font-weight: var(--font-medium);
+    color: var(--text-muted);
+    margin-right: var(--space-1);
+}
+
+/* Loading & empty states */
+.decision-feed-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+}
+
+.decision-feed-loading .spinner {
+    margin-bottom: var(--space-4);
+}
+
+.decision-feed-empty {
+    text-align: center;
+    padding: var(--space-12);
+    color: var(--text-muted);
+}
+
+.decision-feed-empty i {
+    font-size: var(--text-2xl);
+    display: block;
+    margin-bottom: var(--space-3);
+    opacity: 0.4;
+}
+
+.decision-feed-empty p {
+    font-size: var(--text-sm);
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .feed-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .feed-time {
+        order: -1;
+    }
+}

@@ -6,6 +6,7 @@ export { MarketPrices } from './MarketPrices';
 export { RefreshIndicator } from './RefreshIndicator';
 export { TradeHistory } from './TradeHistory';
 export { DecisionHistory } from './DecisionHistory';
+export { DecisionFeed } from './DecisionFeed';
 export { PositionCard } from './PositionCard';
 
 // Common UI components

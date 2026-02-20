@@ -263,7 +263,7 @@ export function AgentDetail() {
                         <p>Loading trades...</p>
                     </div>
                 ) : (
-                    <TradeHistory trades={trades ?? []} decisions={decisions ?? []} pageSize={10} />
+                    <TradeHistory trades={trades ?? []} pageSize={10} />
                 )}
             </section>
 
