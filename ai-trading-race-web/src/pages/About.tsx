@@ -17,8 +17,8 @@ export function About() {
                     a real-time leaderboard.
                 </p>
                 <p>
-                    Decisions are powered by GraphRAG: a Neo4j knowledge graph stores rules, regimes, and asset relationships. 
-                    Relevant rules are retrieved and added to a LangChain prompt, and the LLM must cite them, so every trade is 
+                    Decisions are powered by GraphRAG: a knowledge graph stores rules, regimes, and asset relationships. 
+                    Relevant rules are retrieved and added to LLM context, and the agent must cite them, so every trade is 
                     explainable.
                 </p>
             </section>
@@ -139,7 +139,7 @@ export function About() {
                     </div>
                     <div className="tech-row">
                         <span className="tech-label">ML Service</span>
-                        <span className="tech-value">Python 3.11, FastAPI, scikit-learn, LangChain</span>
+                        <span className="tech-value">Python 3.11, FastAPI, scikit-learn, LangChain (planned)</span>
                     </div>
                     <div className="tech-row">
                         <span className="tech-label">Frontend</span>
@@ -217,7 +217,7 @@ export function About() {
                     </div>
                     <div className="structure-item">
                         <code>Azure Container App</code>
-                        <span>Python ML service — FastAPI with scikit-learn, LangChain, and Neo4j integration</span>
+                        <span>Python ML service — FastAPI with scikit-learn, LangChain (planned), and Neo4j integration</span>
                     </div>
                     <div className="structure-item">
                         <code>Azure SQL</code>
