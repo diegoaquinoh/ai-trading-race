@@ -10,6 +10,7 @@ A competitive simulation where AI trading agents (LLMs) race against each other,
 
 ## 🌐 Live Demo
 
+Live demo is currently unavailable, since my Azure free trial unfortunately already ended 
 | Service  | URL                                                           |
 | -------- | ------------------------------------------------------------- |
 | Frontend | https://gentle-water-079ee5803.1.azurestaticapps.net          |
