@@ -50,7 +50,10 @@ COPY --chown=appuser:appuser models/ ./models/
 USER appuser
 
 # Environment variables (can be overridden at runtime)
-ENV ML_SERVICE_MODEL_PATH=models/trading_model.pkl \
+# ENVIRONMENT=production: docs are hidden and the public development signing keys
+# are refused. Development is an explicit opt-in.
+ENV ENVIRONMENT=production \
+    ML_SERVICE_MODEL_PATH=models/trading_model.pkl \
     ML_SERVICE_MODEL_VERSION=1.0.0 \
     ML_SERVICE_LOG_LEVEL=INFO \
     ML_SERVICE_API_KEY="" \

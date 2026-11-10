@@ -128,11 +128,31 @@ def test_dev_key_warning(monkeypatch, caplog):
     from research_engine.pricing import calc_store
 
     monkeypatch.delenv(calc_store.SIGNING_KEY_ENV, raising=False)
+    monkeypatch.setenv("ENVIRONMENT", "development")
     monkeypatch.setattr(calc_store, "_warned", False)
     with caplog.at_level("WARNING"):
         key = calc_store.signing_key_from_env()
     assert key == calc_store.DEV_SIGNING_KEY
     assert "development signing key" in caplog.text
+    monkeypatch.setenv(calc_store.SIGNING_KEY_ENV, "prod-key")
+    assert calc_store.signing_key_from_env() == b"prod-key"
+
+
+def test_public_dev_key_is_never_used_outside_development(monkeypatch, caplog):
+    from research_engine.pricing import calc_store
+
+    monkeypatch.delenv(calc_store.SIGNING_KEY_ENV, raising=False)
+    monkeypatch.setenv("ENVIRONMENT", "production")
+    monkeypatch.setattr(calc_store, "_warned", False)
+    monkeypatch.setattr(calc_store, "_process_key", None)
+    with caplog.at_level("WARNING"):
+        key = calc_store.signing_key_from_env()
+    assert key != calc_store.DEV_SIGNING_KEY
+    assert len(key) == 32
+    assert "random per-process key" in caplog.text
+    # Stable within the process, so separate stores verify each other's results.
+    assert calc_store.signing_key_from_env() == key
+    assert calc_store.CalculationStore()._key == key
     monkeypatch.setenv(calc_store.SIGNING_KEY_ENV, "prod-key")
     assert calc_store.signing_key_from_env() == b"prod-key"
 

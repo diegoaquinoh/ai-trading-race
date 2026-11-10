@@ -4,8 +4,12 @@ Other components resolve a model-supplied ``calculation_id`` here and call
 ``verify`` before trusting it: a plausible-looking id that was never produced
 by the engine, or a tampered payload, fails verification.
 
-Signing key: ``RESEARCH_SIGNING_KEY`` (UTF-8). If unset, a fixed development
-key is used and a warning is logged once; never use it outside development.
+Signing key: ``RESEARCH_SIGNING_KEY`` (UTF-8). If unset:
+
+- with ``ENVIRONMENT=development`` (the default when ENVIRONMENT is unset), a fixed,
+  public development key is used and a warning is logged once;
+- in any other environment, a random per-process key is used instead, so nobody can
+  forge a signature; results signed by an earlier process no longer verify.
 """
 
 from __future__ import annotations
@@ -13,6 +17,7 @@ from __future__ import annotations
 import json
 import logging
 import os
+import secrets
 import threading
 from pathlib import Path
 from typing import Optional
@@ -25,6 +30,21 @@ log = logging.getLogger(__name__)
 SIGNING_KEY_ENV = "RESEARCH_SIGNING_KEY"
 DEV_SIGNING_KEY = b"dev-only-insecure-research-signing-key"
 _warned = False
+_process_key: Optional[bytes] = None
+_process_key_lock = threading.Lock()
+
+
+def _is_development() -> bool:
+    return os.getenv("ENVIRONMENT", "development") == "development"
+
+
+def _per_process_key() -> bytes:
+    """One random key per process, shared by every store so they verify each other."""
+    global _process_key
+    with _process_key_lock:
+        if _process_key is None:
+            _process_key = secrets.token_bytes(32)
+        return _process_key
 
 
 def signing_key_from_env() -> bytes:
@@ -32,6 +52,15 @@ def signing_key_from_env() -> bytes:
     value = os.environ.get(SIGNING_KEY_ENV)
     if value:
         return value.encode("utf-8")
+    if not _is_development():
+        if not _warned:
+            log.warning(
+                "%s is not set outside development; using a random per-process key. "
+                "Calculation signatures will not verify after a restart.",
+                SIGNING_KEY_ENV,
+            )
+            _warned = True
+        return _per_process_key()
     if not _warned:
         log.warning(
             "%s is not set; using the development signing key. Calculation signatures "

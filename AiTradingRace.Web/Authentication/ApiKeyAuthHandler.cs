@@ -61,15 +61,15 @@ public class ApiKeyAuthHandler : AuthenticationHandler<ApiKeyAuthOptions>
 
         // Verify full key with SHA256 hash comparison
         var providedHash = ComputeSha256Hash(providedKey);
-        if (!string.Equals(providedHash, apiKey.KeyHash, StringComparison.OrdinalIgnoreCase))
+        if (!HashesEqual(providedHash, apiKey.KeyHash))
         {
             _logger.LogWarning("API key verification failed for key ID: {KeyId}", apiKey.Id);
             return AuthenticateResult.Fail("Invalid API key");
         }
 
-        // Update last used timestamp (fire and forget to not slow down request)
+        // Update last used timestamp. Awaited: the scoped DbContext must not be used concurrently.
         apiKey.LastUsedAt = DateTimeOffset.UtcNow;
-        _ = _dbContext.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync();
 
         // Build claims from API key
         var claims = new List<Claim>
@@ -77,14 +77,20 @@ public class ApiKeyAuthHandler : AuthenticationHandler<ApiKeyAuthOptions>
             new(ClaimTypes.NameIdentifier, apiKey.UserId.ToString()),
             new(ClaimTypes.Name, apiKey.Name),
             new("api_key_id", apiKey.Id.ToString()),
-            new(ClaimTypes.Role, apiKey.User.Role.ToString()),
             new(ClaimTypes.AuthenticationMethod, "ApiKey"),
         };
 
-        // Add scopes as claims
-        foreach (var scope in apiKey.Scopes.Split(',', StringSplitOptions.RemoveEmptyEntries))
+        // The key acts with the role its scopes grant, never above its owner's role.
+        var role = ApiKeyScopes.EffectiveRole(apiKey.User.Role, apiKey.Scopes);
+        if (role is not null)
         {
-            claims.Add(new Claim("scope", scope.Trim()));
+            claims.Add(new Claim(ClaimTypes.Role, role.Value.ToString()));
+        }
+
+        // Add scopes as claims
+        foreach (var scope in ApiKeyScopes.Parse(apiKey.Scopes))
+        {
+            claims.Add(new Claim("scope", scope));
         }
 
         var identity = new ClaimsIdentity(claims, Scheme.Name);
@@ -96,6 +102,11 @@ public class ApiKeyAuthHandler : AuthenticationHandler<ApiKeyAuthOptions>
 
         return AuthenticateResult.Success(ticket);
     }
+
+    private static bool HashesEqual(string providedHash, string storedHash) =>
+        CryptographicOperations.FixedTimeEquals(
+            Encoding.ASCII.GetBytes(providedHash),
+            Encoding.ASCII.GetBytes(storedHash.ToLowerInvariant()));
 
     private static string ComputeSha256Hash(string input)
     {

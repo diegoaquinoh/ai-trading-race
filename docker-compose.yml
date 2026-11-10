@@ -6,7 +6,8 @@ services:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: ai-trading-sqlserver
     ports:
-      - "1433:1433"
+      # Loopback only: other containers use ai-trading-network, not the host port.
+      - "127.0.0.1:1433:1433"
     environment:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=${SA_PASSWORD:?SA_PASSWORD environment variable is required}
@@ -28,12 +29,15 @@ services:
     image: redis:7-alpine
     container_name: ai-trading-redis
     ports:
-      - "6379:6379"
-    command: redis-server --appendonly yes
+      - "127.0.0.1:6379:6379"
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD:?REDIS_PASSWORD environment variable is required}
+    # The password comes from the environment so it stays out of the compose command line.
+    command: ["sh", "-c", "exec redis-server --appendonly yes --requirepass \"$$REDIS_PASSWORD\""]
     volumes:
       - redis-data:/data
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: ["CMD-SHELL", "REDISCLI_AUTH=\"$$REDIS_PASSWORD\" redis-cli ping | grep -q PONG"]
       interval: 10s
       timeout: 5s
       retries: 3
@@ -48,8 +52,10 @@ services:
       dockerfile: Dockerfile
     container_name: ai-trading-ml-service
     ports:
-      - "8000:8000"
+      - "127.0.0.1:8000:8000"
     environment:
+      # Production unless a developer opts in: hides /docs and refuses the public dev signing key.
+      - ENVIRONMENT=${ML_SERVICE_ENVIRONMENT:-production}
       - ML_SERVICE_MODEL_PATH=models/trading_model.pkl
       - ML_SERVICE_MODEL_VERSION=1.0.0
       - ML_SERVICE_LOG_LEVEL=INFO
@@ -59,6 +65,7 @@ services:
       - ML_SERVICE_REDIS_HOST=redis
       - ML_SERVICE_REDIS_PORT=6379
       - ML_SERVICE_REDIS_DB=0
+      - ML_SERVICE_REDIS_PASSWORD=${REDIS_PASSWORD:?REDIS_PASSWORD environment variable is required}
       - ML_SERVICE_REDIS_TTL_SECONDS=3600
       # Internal research API v1 (/internal/v1/*). The signing key is shared with .NET
       # (ResearchEngine:SigningKey) and signs TransitionProposals and StrategyResults.
@@ -94,9 +101,9 @@ services:
     image: mcr.microsoft.com/azure-storage/azurite
     container_name: ai-trading-azurite
     ports:
-      - "10000:10000"  # Blob service
-      - "10001:10001"  # Queue service
-      - "10002:10002"  # Table service
+      - "127.0.0.1:10000:10000"  # Blob service
+      - "127.0.0.1:10001:10001"  # Queue service
+      - "127.0.0.1:10002:10002"  # Table service
     command: azurite --blobHost 0.0.0.0 --queueHost 0.0.0.0 --tableHost 0.0.0.0
     volumes:
       - azurite-data:/data

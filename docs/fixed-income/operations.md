@@ -56,6 +56,10 @@ cd AiTradingRace.Functions && func start                    # only if FixedIncom
 cd ai-trading-race-web && npm install && npm run dev        # dashboard; fixed income pages under /fi
 ```
 
+Compose publishes every port on `127.0.0.1` only, Redis requires `REDIS_PASSWORD`, and the ML
+container runs with `ENVIRONMENT=production` (no `/docs`, no public development signing keys) unless
+`ML_SERVICE_ENVIRONMENT=development` is set.
+
 Without Docker for Python: `cd ai-trading-race-ml && .venv/bin/uvicorn app.main:app --port 8000`
 with the same `ML_SERVICE_*` variables. `ML_SERVICE_EVIDENCE_AUTOLOAD=fixtures` (compose default)
 ingests the offline FOMC fixtures and activates the default index at startup, never inside a request.
@@ -74,7 +78,7 @@ manifests record resolved non-secret settings only.
 |---|---|---|
 | `ML_SERVICE_API_KEY` = `ResearchEngine__ApiKey` | Python / .NET | `X-API-Key` for `/internal/v1/*` |
 | `ML_SERVICE_SIGNING_KEY` = `ResearchEngine__SigningKey` | Python / .NET | HMAC key: Python signs `TransitionProposal`s and `StrategyResult`s, .NET verifies. Required outside `ENVIRONMENT=development`; the two values must be identical |
-| `RESEARCH_SIGNING_KEY` | Python only | Signs the content-addressed calculation store (a fixed development key with a warning when unset) |
+| `RESEARCH_SIGNING_KEY` | Python only | Signs the content-addressed calculation store. When unset: a fixed public key with a warning in development; a random per-process key in any other environment (signatures then do not survive a restart) |
 | `FI_TRANSITION_SIGNING_KEY` | CLI `replay` | Signs offline replay transitions (never stored in run artifacts) |
 | `FI_RESULT_SIGNING_KEY` | Python agents | Signs StrategyResults outside the service (development key when unset) |
 | `ML_SERVICE_STRATEGY_PROVIDER` | Python | `reference` (default) \| `recorded` \| `anthropic` \| `openai`; chosen by configuration, never by request fields |
@@ -82,6 +86,8 @@ manifests record resolved non-secret settings only.
 | `ANTHROPIC_API_KEY`, `OPENAI_API_KEY` | Python | hosted provider keys (none are configured for this project) |
 | `ResearchEngine__BaseUrl` | .NET | Python service URL (`http://localhost:8000`) |
 | `ConnectionStrings__TradingDb`, `SA_PASSWORD` | .NET / compose | SQL Server |
+| `REDIS_PASSWORD` | compose | Redis `requirepass`; passed to the ML service as `ML_SERVICE_REDIS_PASSWORD` |
+| `ML_SERVICE_ENVIRONMENT` | compose | `ENVIRONMENT` of the ML container (default `production`) |
 | `NEO4J_URI`, `NEO4J_USER`, `NEO4J_PASSWORD` | Python `--graph neo4j` | Neo4j backend (loopback-only development default) |
 | `FI_RESEARCH_HOME`, `FI_RESEARCH_DB_URL` | Python | evidence home; SQL Server research store |
 
@@ -199,6 +205,6 @@ A parser or chunker change alters chunk ids: rebuild the index, re-run the bench
 | `/internal/v1/*` returns 401/503 | Missing `X-API-Key`, or `ML_SERVICE_SIGNING_KEY` unset outside development |
 | .NET rejects a proposal (hash/signature mismatch) | `ML_SERVICE_SIGNING_KEY` ≠ `ResearchEngine__SigningKey`, or engine version not allowlisted |
 | Evidence strategies return 503 / `failed_dependency` | No READY active index: set `ML_SERVICE_EVIDENCE_AUTOLOAD=fixtures` or run `index build --activate` |
-| `RESEARCH_SIGNING_KEY is not set` warning | Expected in development; set it for any shared environment |
+| `RESEARCH_SIGNING_KEY is not set` warning | Expected in development. Outside development the store falls back to a random per-process key; set the variable so signatures survive restarts |
 | Priced run refused | Provide a versioned price schedule and `maxCostUsd` |
 | Portfolio blocked | Reconciliation failure; investigate the journal, then admin unblock |

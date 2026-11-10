@@ -191,37 +191,51 @@ if ! az sql server show --name "$SQL_SERVER_NAME" --resource-group "$RESOURCE_GR
     echo "   Set AZURE_SQL_SERVER_NAME if the name differs"
     ERRORS=$((ERRORS+1))
 else
-    # Allow Azure services (0.0.0.0 - 0.0.0.0 is a special range)
-    echo "Adding rule: Allow Azure services..."
-    az sql server firewall-rule create \
-        --resource-group "$RESOURCE_GROUP" \
-        --server "$SQL_SERVER_NAME" \
-        --name "AllowAzureServices" \
-        --start-ip-address 0.0.0.0 \
-        --end-ip-address 0.0.0.0 > /dev/null 2>&1 && \
-        echo -e "  ${GREEN}AllowAzureServices (0.0.0.0 - 0.0.0.0)${NC}" || \
-        echo -e "  ${YELLOW}AllowAzureServices rule may already exist${NC}"
+    # Allow only the outbound IPs of the apps that use the database. The "Allow Azure
+    # services" rule (0.0.0.0 - 0.0.0.0) admits every Azure customer's IPs, so it is removed.
+    echo "Adding rules for App Service and Function App outbound IPs..."
+    APP_IPS=$(az webapp show --resource-group "$RESOURCE_GROUP" --name "$WEB_APP_NAME" \
+        --query possibleOutboundIpAddresses -o tsv 2>/dev/null || true)
+    FUNC_IPS=$(az functionapp show --resource-group "$RESOURCE_GROUP" --name "$FUNC_APP_NAME" \
+        --query possibleOutboundIpAddresses -o tsv 2>/dev/null || true)
+    ALLOWED_IPS=$(printf '%s,%s' "$APP_IPS" "$FUNC_IPS" | tr ',' '\n' | sed 's/ //g' | grep -v '^$' | sort -u || true)
 
-    # Remove overly permissive rules
+    if [ -z "$ALLOWED_IPS" ]; then
+        echo -e "  ${YELLOW}No app outbound IPs found; keeping existing rules unchanged${NC}"
+        ERRORS=$((ERRORS+1))
+    else
+        INDEX=0
+        while IFS= read -r ip; do
+            az sql server firewall-rule create \
+                --resource-group "$RESOURCE_GROUP" \
+                --server "$SQL_SERVER_NAME" \
+                --name "AllowAppOutbound-$INDEX" \
+                --start-ip-address "$ip" \
+                --end-ip-address "$ip" > /dev/null 2>&1 && \
+                echo -e "  ${GREEN}AllowAppOutbound-$INDEX ($ip)${NC}" || \
+                echo -e "  ${YELLOW}Could not create rule for $ip${NC}"
+            INDEX=$((INDEX+1))
+        done <<< "$ALLOWED_IPS"
+    fi
+
+    # Remove overly permissive rules (only once app rules exist, so the apps keep access)
     echo "Removing overly permissive rules..."
     FIREWALL_RULES=$(az sql server firewall-rule list \
         --resource-group "$RESOURCE_GROUP" \
         --server "$SQL_SERVER_NAME" \
         --query "[].{Name:name, Start:startIpAddress, End:endIpAddress}" -o json 2>/dev/null)
 
-    # Check for and remove any "allow all" style rules
-    PERMISSIVE_RULES=$(echo "$FIREWALL_RULES" | python3 -c "
+    PERMISSIVE_RULES=""
+    if [ -n "$ALLOWED_IPS" ]; then
+        PERMISSIVE_RULES=$(echo "$FIREWALL_RULES" | python3 -c "
 import sys, json
-rules = json.load(sys.stdin)
-for r in rules:
-    if r['Name'] == 'AllowAzureServices':
-        continue
-    if r['Start'] == '0.0.0.0' and r['End'] == '255.255.255.255':
+for r in json.load(sys.stdin):
+    allow_azure = r['Start'] == '0.0.0.0' and r['End'] == '0.0.0.0'
+    allow_all = r['Start'] == '0.0.0.0' and r['End'] == '255.255.255.255'
+    if allow_azure or allow_all or r['Name'] in ('AllowAzureServices', 'AllowAllWindowsAzureIps', 'AllowAll'):
         print(r['Name'])
-    elif r['Name'] in ['AllowAllWindowsAzureIps', 'AllowAll']:
-        if r['Start'] != '0.0.0.0' or r['End'] != '0.0.0.0':
-            print(r['Name'])
 " 2>/dev/null || true)
+    fi
 
     if [ -n "$PERMISSIVE_RULES" ]; then
         while IFS= read -r rule; do
@@ -232,7 +246,7 @@ for r in rules:
                 --name "$rule" > /dev/null 2>&1 || true
         done <<< "$PERMISSIVE_RULES"
     else
-        echo -e "  ${GREEN}No overly permissive rules found${NC}"
+        echo -e "  ${GREEN}No overly permissive rules removed${NC}"
     fi
 
     # Show final firewall rules
