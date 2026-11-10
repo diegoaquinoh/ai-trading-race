@@ -1,0 +1,68 @@
+{
+  "additionalProperties": false,
+  "description": "Fill/cost assumptions (spec 9.4). Illustrative, not measured costs.",
+  "properties": {
+    "batchPriority": {
+      "const": "sells_first_then_security_id_v1",
+      "default": "sells_first_then_security_id_v1",
+      "title": "Batchpriority",
+      "type": "string"
+    },
+    "cashInterestRate": {
+      "default": "0",
+      "pattern": "^-?\\d+(\\.\\d+)?$",
+      "title": "Cashinterestrate",
+      "type": "string"
+    },
+    "commissionUsdPerMillionFace": {
+      "default": "0",
+      "pattern": "^-?\\d+(\\.\\d+)?$",
+      "title": "Commissionusdpermillionface",
+      "type": "string"
+    },
+    "executionModelId": {
+      "default": "synthetic-half-spread-0.02-v1",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+      "title": "Executionmodelid",
+      "type": "string"
+    },
+    "faceSizing": {
+      "const": "fixed_at_submission_v1",
+      "default": "fixed_at_submission_v1",
+      "title": "Facesizing",
+      "type": "string"
+    },
+    "fillTiming": {
+      "const": "next_session_close_daily",
+      "default": "next_session_close_daily",
+      "title": "Filltiming",
+      "type": "string"
+    },
+    "fundingRule": {
+      "const": "settled_cash_reserve_commitments_v1",
+      "default": "settled_cash_reserve_commitments_v1",
+      "title": "Fundingrule",
+      "type": "string"
+    },
+    "halfSpreadPer100": {
+      "default": "0.02",
+      "pattern": "^-?\\d+(\\.\\d+)?$",
+      "title": "Halfspreadper100",
+      "type": "string"
+    },
+    "slippagePer100": {
+      "default": "0",
+      "pattern": "^-?\\d+(\\.\\d+)?$",
+      "title": "Slippageper100",
+      "type": "string"
+    },
+    "timeInForce": {
+      "const": "next_session_only",
+      "default": "next_session_only",
+      "title": "Timeinforce",
+      "type": "string"
+    }
+  },
+  "title": "ExecutionModel",
+  "type": "object"
+}

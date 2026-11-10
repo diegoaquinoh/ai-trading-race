@@ -36,9 +36,9 @@ lint-frontend: ## Lint frontend
 # ─── ML Service ───
 
 test-ml: lint-ml ## Run ML tests with coverage (matching CI)
-	cd ai-trading-race-ml && pytest tests/ --cov=app --cov-report=term
+	cd ai-trading-race-ml && pytest tests/ --cov=app --cov=research_engine --cov-report=term
 
 lint-ml: ## Run ML linting (black + flake8 + mypy, matching CI)
-	cd ai-trading-race-ml && black --check app/ tests/
-	cd ai-trading-race-ml && flake8 app/ tests/ --max-line-length=100
-	cd ai-trading-race-ml && mypy app/ --ignore-missing-imports
+	cd ai-trading-race-ml && black --check app/ research_engine/ tests/
+	cd ai-trading-race-ml && flake8 app/ research_engine/ tests/
+	cd ai-trading-race-ml && mypy app/ research_engine/ --ignore-missing-imports

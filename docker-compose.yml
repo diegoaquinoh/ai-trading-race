@@ -60,6 +60,22 @@ services:
       - ML_SERVICE_REDIS_PORT=6379
       - ML_SERVICE_REDIS_DB=0
       - ML_SERVICE_REDIS_TTL_SECONDS=3600
+      # Internal research API v1 (/internal/v1/*). The signing key is shared with .NET
+      # (ResearchEngine:SigningKey) and signs TransitionProposals and StrategyResults.
+      - ML_SERVICE_SIGNING_KEY=${ML_SERVICE_SIGNING_KEY:?ML_SERVICE_SIGNING_KEY environment variable is required}
+      - RESEARCH_SIGNING_KEY=${RESEARCH_SIGNING_KEY:?RESEARCH_SIGNING_KEY environment variable is required}
+      - ML_SERVICE_STRATEGY_PROVIDER=${ML_SERVICE_STRATEGY_PROVIDER:-reference}
+      - ML_SERVICE_STRATEGY_MODEL=${ML_SERVICE_STRATEGY_MODEL:-}
+      - ML_SERVICE_STRATEGY_BASE_URL=${ML_SERVICE_STRATEGY_BASE_URL:-}
+      - ML_SERVICE_RECORDED_RESPONSES_DIR=${ML_SERVICE_RECORDED_RESPONSES_DIR:-}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - ML_SERVICE_MAX_CONCURRENT_DECISIONS=${ML_SERVICE_MAX_CONCURRENT_DECISIONS:-4}
+      - ML_SERVICE_DECISION_RETRY_AFTER_SECONDS=5
+      - ML_SERVICE_EVIDENCE_AUTOLOAD=${ML_SERVICE_EVIDENCE_AUTOLOAD:-fixtures}
+      - ML_SERVICE_INGESTION_ONLINE=${ML_SERVICE_INGESTION_ONLINE:-false}
+      - ML_SERVICE_ACTIVATE_INDEX_BUILDS=true
+      - ML_SERVICE_WARM_CURVES=true
     depends_on:
       redis:
         condition: service_healthy
@@ -88,7 +104,36 @@ services:
     networks:
       - ai-trading-network
 
+  # Neo4j graph backend for evidence retrieval (optional: docker compose --profile graph up neo4j)
+  neo4j:
+    image: neo4j:5.26-community
+    container_name: ai-trading-neo4j
+    profiles: ["graph"]
+    ports:
+      - "127.0.0.1:7474:7474"
+      - "127.0.0.1:7687:7687"
+    environment:
+      # Loopback-only development default; set NEO4J_PASSWORD for anything shared.
+      # (A required ":?" variable would break `docker compose up` without the profile.)
+      # Not NEO4J_-prefixed: the image maps NEO4J_* variables to server settings.
+      - GRAPH_HEALTH_PASSWORD=${NEO4J_PASSWORD:-local-dev-graph-only}
+      - NEO4J_AUTH=neo4j/${NEO4J_PASSWORD:-local-dev-graph-only}
+      - NEO4J_server_memory_heap_max__size=1G
+    volumes:
+      - neo4j-data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "cypher-shell -u neo4j -p \"$$GRAPH_HEALTH_PASSWORD\" 'RETURN 1' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    restart: unless-stopped
+    networks:
+      - ai-trading-network
+
 volumes:
+  neo4j-data:
+    driver: local
   sqlserver-data:
     driver: local
   redis-data:

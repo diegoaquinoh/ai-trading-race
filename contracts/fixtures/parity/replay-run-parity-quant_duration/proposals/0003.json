@@ -1,0 +1,518 @@
+{
+  "cashFlows": [],
+  "commandId": "cmd:run-parity:quant_duration:2024-01-02:decision",
+  "commandType": "submit_decision",
+  "engineVersion": "research-engine/0.1.0+simulation-v1+pricing:1.0.0+quantlib-1.44",
+  "eventPriorityTable": "event-priority-v1",
+  "events": [
+    {
+      "decisionId": "dec:run-parity:quant_duration:2024-01-02:r0",
+      "effectiveAt": "2024-01-03T00:00:00Z",
+      "eventId": "evt:submit:dec:run-parity:quant_duration:2024-01-02:r0",
+      "orders": [
+        {
+          "batchPriority": 0,
+          "bootstrap": true,
+          "decisionId": "dec:run-parity:quant_duration:2024-01-02:r0",
+          "eligibleSessionDate": "2024-01-03",
+          "expiresAt": "2024-01-03T22:00:00Z",
+          "face": "146000",
+          "orderId": "ord:dec:run-parity:quant_duration:2024-01-02:r0:SYN-USD-NOTE-003",
+          "reservedCashUsd": "149639.69",
+          "securityId": "SYN-USD-NOTE-003",
+          "side": "BUY",
+          "status": "ACCEPTED",
+          "statusReason": null,
+          "submittedAt": "2024-01-03T00:00:00Z"
+        },
+        {
+          "batchPriority": 1,
+          "bootstrap": true,
+          "decisionId": "dec:run-parity:quant_duration:2024-01-02:r0",
+          "eligibleSessionDate": "2024-01-03",
+          "expiresAt": "2024-01-03T22:00:00Z",
+          "face": "162000",
+          "orderId": "ord:dec:run-parity:quant_duration:2024-01-02:r0:SYN-USD-NOTE-006",
+          "reservedCashUsd": "150139.98",
+          "securityId": "SYN-USD-NOTE-006",
+          "side": "BUY",
+          "status": "ACCEPTED",
+          "statusReason": null,
+          "submittedAt": "2024-01-03T00:00:00Z"
+        },
+        {
+          "batchPriority": 2,
+          "bootstrap": true,
+          "decisionId": "dec:run-parity:quant_duration:2024-01-02:r0",
+          "eligibleSessionDate": "2024-01-03",
+          "expiresAt": "2024-01-03T22:00:00Z",
+          "face": "168000",
+          "orderId": "ord:dec:run-parity:quant_duration:2024-01-02:r0:SYN-USD-NOTE-007",
+          "reservedCashUsd": "170314.47",
+          "securityId": "SYN-USD-NOTE-007",
+          "side": "BUY",
+          "status": "ACCEPTED",
+          "statusReason": null,
+          "submittedAt": "2024-01-03T00:00:00Z"
+        },
+        {
+          "batchPriority": 3,
+          "bootstrap": true,
+          "decisionId": "dec:run-parity:quant_duration:2024-01-02:r0",
+          "eligibleSessionDate": "2024-01-03",
+          "expiresAt": "2024-01-03T22:00:00Z",
+          "face": "207000",
+          "orderId": "ord:dec:run-parity:quant_duration:2024-01-02:r0:SYN-USD-NOTE-008",
+          "reservedCashUsd": "169804.18",
+          "securityId": "SYN-USD-NOTE-008",
+          "side": "BUY",
+          "status": "ACCEPTED",
+          "statusReason": null,
+          "submittedAt": "2024-01-03T00:00:00Z"
+        },
+        {
+          "batchPriority": 4,
+          "bootstrap": true,
+          "decisionId": "dec:run-parity:quant_duration:2024-01-02:r0",
+          "eligibleSessionDate": "2024-01-03",
+          "expiresAt": "2024-01-03T22:00:00Z",
+          "face": "346000",
+          "orderId": "ord:dec:run-parity:quant_duration:2024-01-02:r0:SYN-USD-NOTE-009",
+          "reservedCashUsd": "300669.87",
+          "securityId": "SYN-USD-NOTE-009",
+          "side": "BUY",
+          "status": "ACCEPTED",
+          "statusReason": null,
+          "submittedAt": "2024-01-03T00:00:00Z"
+        }
+      ],
+      "priority": 70,
+      "type": "orders_submitted"
+    }
+  ],
+  "expectedVersion": 1,
+  "fills": [],
+  "inputHashes": {
+    "executionModel": "sha256:d3f9bd5e39ee45dc8e845e76f05c96cfd8a606e6c546d66b15c707b7eefc7887",
+    "marketSnapshot": "sha256:b2d12f2859f15c212cc8e9c5da222bca9b2e4cd4402fba826c9beb773d6b98aa",
+    "portfolioState": "sha256:546c2bf06d2af06249ab38bd34b9eb9771b7b205dccbb82cee6bda2b7744492e",
+    "riskPolicy": "sha256:9fad814adb712358027210d8a4eb8b572da99cbf0ac74718e632f964726b5e23"
+  },
+  "journals": [],
+  "newState": {
+    "asOf": "2024-01-03T00:00:00Z",
+    "blockedReason": null,
+    "bookedUnrealizedUsd": "0",
+    "cashFlowsProcessedThrough": null,
+    "cashUsd": "1000000.00",
+    "currency": "USD",
+    "externalCapitalUsd": "1000000.00",
+    "interestIncomeUsd": "0",
+    "lastValuationId": null,
+    "openOrders": [
+      {
+        "batchPriority": 0,
+        "bootstrap": true,
+        "decisionId": "dec:run-parity:quant_duration:2024-01-02:r0",
+        "eligibleSessionDate": "2024-01-03",
+        "expiresAt": "2024-01-03T22:00:00Z",
+        "face": "146000",
+        "orderId": "ord:dec:run-parity:quant_duration:2024-01-02:r0:SYN-USD-NOTE-003",
+        "reservedCashUsd": "149639.69",
+        "securityId": "SYN-USD-NOTE-003",
+        "side": "BUY",
+        "status": "ACCEPTED",
+        "statusReason": null,
+        "submittedAt": "2024-01-03T00:00:00Z"
+      },
+      {
+        "batchPriority": 1,
+        "bootstrap": true,
+        "decisionId": "dec:run-parity:quant_duration:2024-01-02:r0",
+        "eligibleSessionDate": "2024-01-03",
+        "expiresAt": "2024-01-03T22:00:00Z",
+        "face": "162000",
+        "orderId": "ord:dec:run-parity:quant_duration:2024-01-02:r0:SYN-USD-NOTE-006",
+        "reservedCashUsd": "150139.98",
+        "securityId": "SYN-USD-NOTE-006",
+        "side": "BUY",
+        "status": "ACCEPTED",
+        "statusReason": null,
+        "submittedAt": "2024-01-03T00:00:00Z"
+      },
+      {
+        "batchPriority": 2,
+        "bootstrap": true,
+        "decisionId": "dec:run-parity:quant_duration:2024-01-02:r0",
+        "eligibleSessionDate": "2024-01-03",
+        "expiresAt": "2024-01-03T22:00:00Z",
+        "face": "168000",
+        "orderId": "ord:dec:run-parity:quant_duration:2024-01-02:r0:SYN-USD-NOTE-007",
+        "reservedCashUsd": "170314.47",
+        "securityId": "SYN-USD-NOTE-007",
+        "side": "BUY",
+        "status": "ACCEPTED",
+        "statusReason": null,
+        "submittedAt": "2024-01-03T00:00:00Z"
+      },
+      {
+        "batchPriority": 3,
+        "bootstrap": true,
+        "decisionId": "dec:run-parity:quant_duration:2024-01-02:r0",
+        "eligibleSessionDate": "2024-01-03",
+        "expiresAt": "2024-01-03T22:00:00Z",
+        "face": "207000",
+        "orderId": "ord:dec:run-parity:quant_duration:2024-01-02:r0:SYN-USD-NOTE-008",
+        "reservedCashUsd": "169804.18",
+        "securityId": "SYN-USD-NOTE-008",
+        "side": "BUY",
+        "status": "ACCEPTED",
+        "statusReason": null,
+        "submittedAt": "2024-01-03T00:00:00Z"
+      },
+      {
+        "batchPriority": 4,
+        "bootstrap": true,
+        "decisionId": "dec:run-parity:quant_duration:2024-01-02:r0",
+        "eligibleSessionDate": "2024-01-03",
+        "expiresAt": "2024-01-03T22:00:00Z",
+        "face": "346000",
+        "orderId": "ord:dec:run-parity:quant_duration:2024-01-02:r0:SYN-USD-NOTE-009",
+        "reservedCashUsd": "300669.87",
+        "securityId": "SYN-USD-NOTE-009",
+        "side": "BUY",
+        "status": "ACCEPTED",
+        "statusReason": null,
+        "submittedAt": "2024-01-03T00:00:00Z"
+      }
+    ],
+    "pendingSettlements": [],
+    "portfolioId": "pf:run-parity:quant_duration",
+    "positions": [],
+    "realizedGainLossUsd": "0",
+    "reservedCashUsd": "940568.19",
+    "riskBreaches": [],
+    "runId": "run-parity",
+    "schemaVersion": "1.0",
+    "spreadCostUsd": "0",
+    "strategyId": "quant_duration",
+    "transactionFeesUsd": "0",
+    "version": 2
+  },
+  "newStateHash": "sha256:b055009ac2d5690b17388d3f784a61a9220b24eb7f6717b8c2f23319dddc2049",
+  "newVersion": 2,
+  "noOp": false,
+  "orderStatusChanges": [],
+  "ordersCreated": [
+    {
+      "batchPriority": 0,
+      "bootstrap": true,
+      "decisionId": "dec:run-parity:quant_duration:2024-01-02:r0",
+      "eligibleSessionDate": "2024-01-03",
+      "expiresAt": "2024-01-03T22:00:00Z",
+      "face": "146000",
+      "orderId": "ord:dec:run-parity:quant_duration:2024-01-02:r0:SYN-USD-NOTE-003",
+      "reservedCashUsd": "149639.69",
+      "securityId": "SYN-USD-NOTE-003",
+      "side": "BUY",
+      "status": "ACCEPTED",
+      "statusReason": null,
+      "submittedAt": "2024-01-03T00:00:00Z"
+    },
+    {
+      "batchPriority": 1,
+      "bootstrap": true,
+      "decisionId": "dec:run-parity:quant_duration:2024-01-02:r0",
+      "eligibleSessionDate": "2024-01-03",
+      "expiresAt": "2024-01-03T22:00:00Z",
+      "face": "162000",
+      "orderId": "ord:dec:run-parity:quant_duration:2024-01-02:r0:SYN-USD-NOTE-006",
+      "reservedCashUsd": "150139.98",
+      "securityId": "SYN-USD-NOTE-006",
+      "side": "BUY",
+      "status": "ACCEPTED",
+      "statusReason": null,
+      "submittedAt": "2024-01-03T00:00:00Z"
+    },
+    {
+      "batchPriority": 2,
+      "bootstrap": true,
+      "decisionId": "dec:run-parity:quant_duration:2024-01-02:r0",
+      "eligibleSessionDate": "2024-01-03",
+      "expiresAt": "2024-01-03T22:00:00Z",
+      "face": "168000",
+      "orderId": "ord:dec:run-parity:quant_duration:2024-01-02:r0:SYN-USD-NOTE-007",
+      "reservedCashUsd": "170314.47",
+      "securityId": "SYN-USD-NOTE-007",
+      "side": "BUY",
+      "status": "ACCEPTED",
+      "statusReason": null,
+      "submittedAt": "2024-01-03T00:00:00Z"
+    },
+    {
+      "batchPriority": 3,
+      "bootstrap": true,
+      "decisionId": "dec:run-parity:quant_duration:2024-01-02:r0",
+      "eligibleSessionDate": "2024-01-03",
+      "expiresAt": "2024-01-03T22:00:00Z",
+      "face": "207000",
+      "orderId": "ord:dec:run-parity:quant_duration:2024-01-02:r0:SYN-USD-NOTE-008",
+      "reservedCashUsd": "169804.18",
+      "securityId": "SYN-USD-NOTE-008",
+      "side": "BUY",
+      "status": "ACCEPTED",
+      "statusReason": null,
+      "submittedAt": "2024-01-03T00:00:00Z"
+    },
+    {
+      "batchPriority": 4,
+      "bootstrap": true,
+      "decisionId": "dec:run-parity:quant_duration:2024-01-02:r0",
+      "eligibleSessionDate": "2024-01-03",
+      "expiresAt": "2024-01-03T22:00:00Z",
+      "face": "346000",
+      "orderId": "ord:dec:run-parity:quant_duration:2024-01-02:r0:SYN-USD-NOTE-009",
+      "reservedCashUsd": "300669.87",
+      "securityId": "SYN-USD-NOTE-009",
+      "side": "BUY",
+      "status": "ACCEPTED",
+      "statusReason": null,
+      "submittedAt": "2024-01-03T00:00:00Z"
+    }
+  ],
+  "policyEvaluation": {
+    "action": "BOOTSTRAP",
+    "bootstrapExemptionApplied": true,
+    "breachMode": false,
+    "calculationIds": [
+      "calc-0c3c21e65c6d26c4",
+      "calc-17b74b2aadbe9b00",
+      "calc-3a38c2f691cfd441",
+      "calc-3d67b47d3e5606f5",
+      "calc-729092b1ef971277",
+      "calc-9513013ad0e8aee6",
+      "calc-9a7e7e1826596784",
+      "calc-b245b99c76adee4f",
+      "calc-b767434771936cbc",
+      "calc-d0fe49fc32be81bb",
+      "calc-d7eac5f7af660942",
+      "calc-ee12bc71a392682c"
+    ],
+    "checks": [
+      {
+        "checkId": "max_orders_per_decision",
+        "limit": "6",
+        "observed": "5",
+        "passed": true,
+        "reason": null,
+        "unit": "COUNT"
+      },
+      {
+        "checkId": "funding_settled_cash",
+        "limit": "1000000.00",
+        "observed": "940568.19",
+        "passed": true,
+        "reason": null,
+        "unit": "USD"
+      },
+      {
+        "checkId": "long_only",
+        "limit": null,
+        "observed": null,
+        "passed": true,
+        "reason": null,
+        "unit": "BOOL"
+      },
+      {
+        "checkId": "max_daily_turnover_ratio",
+        "limit": "0.20",
+        "observed": "0.93799569",
+        "passed": true,
+        "reason": "bootstrap_turnover_exemption",
+        "unit": "RATIO"
+      },
+      {
+        "checkId": "min_cash_ratio",
+        "limit": "0.05",
+        "observed": "0.06201707",
+        "passed": true,
+        "reason": null,
+        "unit": "RATIO"
+      },
+      {
+        "checkId": "max_single_security_ratio:SYN-USD-NOTE-003",
+        "limit": "0.40",
+        "observed": "0.14925357",
+        "passed": true,
+        "reason": null,
+        "unit": "RATIO"
+      },
+      {
+        "checkId": "max_single_security_ratio:SYN-USD-NOTE-006",
+        "limit": "0.40",
+        "observed": "0.14971069",
+        "passed": true,
+        "reason": null,
+        "unit": "RATIO"
+      },
+      {
+        "checkId": "max_single_security_ratio:SYN-USD-NOTE-007",
+        "limit": "0.40",
+        "observed": "0.16987007",
+        "passed": true,
+        "reason": null,
+        "unit": "RATIO"
+      },
+      {
+        "checkId": "max_single_security_ratio:SYN-USD-NOTE-008",
+        "limit": "0.40",
+        "observed": "0.16925444",
+        "passed": true,
+        "reason": null,
+        "unit": "RATIO"
+      },
+      {
+        "checkId": "max_single_security_ratio:SYN-USD-NOTE-009",
+        "limit": "0.40",
+        "observed": "0.29975190",
+        "passed": true,
+        "reason": null,
+        "unit": "RATIO"
+      },
+      {
+        "checkId": "parallel_dv01_usd",
+        "limit": "599.88",
+        "observed": "460.22",
+        "passed": true,
+        "reason": null,
+        "unit": "USD_PER_BP"
+      }
+    ],
+    "decisionId": "dec:run-parity:quant_duration:2024-01-02:r0",
+    "normalizationNotes": [],
+    "normalizedTargets": [
+      {
+        "securityId": "CASH-USD",
+        "weight": "0.060000"
+      },
+      {
+        "securityId": "SYN-USD-NOTE-003",
+        "weight": "0.150000"
+      },
+      {
+        "securityId": "SYN-USD-NOTE-006",
+        "weight": "0.150000"
+      },
+      {
+        "securityId": "SYN-USD-NOTE-007",
+        "weight": "0.170000"
+      },
+      {
+        "securityId": "SYN-USD-NOTE-008",
+        "weight": "0.170000"
+      },
+      {
+        "securityId": "SYN-USD-NOTE-009",
+        "weight": "0.300000"
+      }
+    ],
+    "orderCount": 5,
+    "originalTargets": [
+      {
+        "securityId": "SYN-USD-NOTE-003",
+        "weight": "0.150000"
+      },
+      {
+        "securityId": "SYN-USD-NOTE-006",
+        "weight": "0.150000"
+      },
+      {
+        "securityId": "SYN-USD-NOTE-007",
+        "weight": "0.170000"
+      },
+      {
+        "securityId": "SYN-USD-NOTE-008",
+        "weight": "0.170000"
+      },
+      {
+        "securityId": "SYN-USD-NOTE-009",
+        "weight": "0.300000"
+      },
+      {
+        "securityId": "CASH-USD",
+        "weight": "0.060000"
+      }
+    ],
+    "passed": true,
+    "policyId": "treasury-long-only-v1",
+    "postTradeCashRatio": "0.06201707",
+    "postTradeMaxSecurityRatio": "0.29975190",
+    "postTradeNavUsd": "999794.20",
+    "postTradeParallelDv01Usd": "460.22",
+    "preTradeCashRatio": "1.00000000",
+    "preTradeMaxSecurityRatio": "0.00000000",
+    "preTradeNavUsd": "1000000.00",
+    "preTradeParallelDv01Usd": "0.00",
+    "rejectedReasons": [],
+    "sizedOrders": [
+      {
+        "estimatedConsiderationUsd": "149274.69",
+        "estimatedDirtyPricePer100": "102.2429357527",
+        "face": "146000",
+        "securityId": "SYN-USD-NOTE-003",
+        "side": "BUY"
+      },
+      {
+        "estimatedConsiderationUsd": "149734.98",
+        "estimatedDirtyPricePer100": "92.4290022165",
+        "face": "162000",
+        "securityId": "SYN-USD-NOTE-006",
+        "side": "BUY"
+      },
+      {
+        "estimatedConsiderationUsd": "169894.47",
+        "estimatedDirtyPricePer100": "101.1276633607",
+        "face": "168000",
+        "securityId": "SYN-USD-NOTE-007",
+        "side": "BUY"
+      },
+      {
+        "estimatedConsiderationUsd": "169286.68",
+        "estimatedDirtyPricePer100": "81.7810069052",
+        "face": "207000",
+        "securityId": "SYN-USD-NOTE-008",
+        "side": "BUY"
+      },
+      {
+        "estimatedConsiderationUsd": "299804.87",
+        "estimatedDirtyPricePer100": "86.6488073835",
+        "face": "346000",
+        "securityId": "SYN-USD-NOTE-009",
+        "side": "BUY"
+      }
+    ],
+    "turnoverRatio": "0.93799569"
+  },
+  "portfolioId": "pf:run-parity:quant_duration",
+  "proposalHash": "sha256:e6db550359a9b11bcfaf79d33b6a120d2c593431d9d758ce5b92416f161212f1",
+  "proposalId": "prop-64374a8aab3b7078",
+  "reconciliation": {
+    "bookEquityUsd": "1000000.00",
+    "differenceUsd": null,
+    "economicEquityUsd": null,
+    "journalsBalanced": true,
+    "ledgerCashUsd": "1000000.00",
+    "ledgerPrincipalFaceCheck": true,
+    "messages": [],
+    "ok": true,
+    "stateCashUsd": "1000000.00"
+  },
+  "requestHash": "sha256:0b0d8b93ee2ce0aeacad2136ab1399389c52d1d99cf5cef7c09af39e821c9608",
+  "runId": "run-parity",
+  "schemaVersion": "1.0",
+  "settlementsCompleted": [],
+  "settlementsCreated": [],
+  "signature": "hmac-sha256:b2b9f75fcb46767be9aef8398b4b004ec8be075b9e3cd934e5423993c3268d07",
+  "strategyId": "quant_duration",
+  "valuation": null
+}

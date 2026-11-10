@@ -1,0 +1,221 @@
+{
+  "auditVersion": "demo-audit-v1",
+  "decision": {
+    "agentPolicyCheck": null,
+    "attempts": [
+      {
+        "agentRole": "lead",
+        "attemptId": "att:dec:fi-demo-2024q1-faults-r0:llm_team:2024-01-31:r0:lead:01",
+        "attemptNumber": 1,
+        "durationMs": 0,
+        "error": "provider_error: injected provider outage (F1-provider-outage)",
+        "inputTokens": 0,
+        "model": "reference-heuristic-v1",
+        "outputTokens": 0,
+        "provider": "reference",
+        "purpose": "task_assignment",
+        "recordedResponseId": null,
+        "startedAt": "2024-02-01T00:00:00Z",
+        "status": "provider_error"
+      }
+    ],
+    "counterevidence": [],
+    "coverageGaps": [],
+    "decisionId": "dec:fi-demo-2024q1-faults-r0:llm_team:2024-01-31:r0",
+    "evidenceBundleIds": [
+      "eb-b3228b8f5ea39bd3e4f8fc5a"
+    ],
+    "explanation": "",
+    "noteStatus": null,
+    "outcome": "failed_dependency",
+    "proposal": null,
+    "reasons": [
+      "provider_error:lead:task_assignment",
+      "injected provider outage (F1-provider-outage)"
+    ],
+    "resultHash": "sha256:93e329c54badddbed743157478c3c39e457276113e21ba3d4f710f6255cceb48",
+    "specialistTasks": [],
+    "strategyId": "llm_team",
+    "toolTraces": [
+      {
+        "agentRole": "lead",
+        "error": null,
+        "outputRef": "calc-3d5511cca72242aa",
+        "status": "ok",
+        "tool": "get_portfolio_risk"
+      },
+      {
+        "agentRole": "lead",
+        "error": null,
+        "outputRef": "calc-2030a50ec1df4fd3",
+        "status": "ok",
+        "tool": "get_market_features"
+      },
+      {
+        "agentRole": "lead",
+        "error": null,
+        "outputRef": "eb-b3228b8f5ea39bd3e4f8fc5a",
+        "status": "ok",
+        "tool": "retrieve_evidence"
+      }
+    ],
+    "usage": {
+      "budgetExhausted": null,
+      "durationMs": 0,
+      "estimatedCostUsd": "0.000000",
+      "evidenceCalls": 1,
+      "evidenceTokens": 3491,
+      "generationCalls": 1,
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "priceScheduleId": "reference-zero-cost-v1",
+      "toolCalls": 3,
+      "uniqueEvidenceChunks": 6
+    },
+    "validation": []
+  },
+  "fault": {
+    "description": "The model provider fails (non-transient) for the team lead on the FOMC statement day.",
+    "expected": "failed_dependency; no order; the portfolio is still processed and valued",
+    "faultId": "F1-provider-outage",
+    "kind": "provider_outage",
+    "role": "lead",
+    "session": "2024-01-31",
+    "strategyId": "llm_team"
+  },
+  "financialCommands": [
+    {
+      "cashFlows": [],
+      "commandId": "cmd:fi-demo-2024q1-faults-r0:llm_team:2024-01-31:process",
+      "commandType": "process_events",
+      "events": [
+        {
+          "effectiveAt": "2024-01-31T14:00:00Z",
+          "type": "settlement_due"
+        },
+        {
+          "effectiveAt": "2024-01-31T14:00:00Z",
+          "type": "settlement_due"
+        },
+        {
+          "effectiveAt": "2024-01-31T14:00:00Z",
+          "type": "settlement_due"
+        },
+        {
+          "effectiveAt": "2024-01-31T14:00:00Z",
+          "type": "settlement_due"
+        },
+        {
+          "effectiveAt": "2024-01-31T14:00:00Z",
+          "type": "settlement_due"
+        },
+        {
+          "effectiveAt": "2024-01-31T20:30:00Z",
+          "type": "execution_observation"
+        }
+      ],
+      "fills": [
+        {
+          "accruedPer100": "0.8777173913",
+          "considerationUsd": "191717.94",
+          "dirtyPricePer100": "86.7502008608",
+          "executedAt": "2024-01-31T20:30:00Z",
+          "executionCleanPricePer100": "85.8724834695",
+          "face": "221000",
+          "feesUsd": "0.00",
+          "fillId": "fill:ord:dec:fi-demo-2024q1-faults-r0:llm_team:2024-01-30:r0:SYN-USD-NOTE-009",
+          "halfSpreadPer100": "0.02",
+          "observationId": "obs:curve-830eae84c6e24b31:SYN-USD-NOTE-009",
+          "orderId": "ord:dec:fi-demo-2024q1-faults-r0:llm_team:2024-01-30:r0:SYN-USD-NOTE-009",
+          "quoteKind": "synthetic_model",
+          "referenceCleanPricePer100": "85.8924834695",
+          "securityId": "SYN-USD-NOTE-009",
+          "settlementDate": "2024-02-01",
+          "side": "SELL",
+          "spreadCostUsd": "44.20",
+          "timingLabel": "next_session_close_daily"
+        }
+      ],
+      "newStateHash": "sha256:180a8fbf808f61563471411604973c3dc43ce54bdfcdf2d792882ec17b3e89e0",
+      "newVersion": 7,
+      "orderStatusChanges": [
+        {
+          "batchPriority": 0,
+          "bootstrap": false,
+          "decisionId": "dec:fi-demo-2024q1-faults-r0:llm_team:2024-01-30:r0",
+          "eligibleSessionDate": "2024-01-31",
+          "expiresAt": "2024-01-31T22:00:00Z",
+          "face": "221000",
+          "orderId": "ord:dec:fi-demo-2024q1-faults-r0:llm_team:2024-01-30:r0:SYN-USD-NOTE-009",
+          "reservedCashUsd": "0",
+          "securityId": "SYN-USD-NOTE-009",
+          "side": "SELL",
+          "status": "FILLED",
+          "statusReason": null,
+          "submittedAt": "2024-01-31T00:00:00Z"
+        }
+      ],
+      "ordersCreated": [],
+      "policyEvaluation": null,
+      "reconciliationOk": true,
+      "settlementsCompleted": [
+        "stl:fill:ord:dec:fi-demo-2024q1-faults-r0:llm_team:2024-01-29:r0:SYN-USD-NOTE-003",
+        "stl:fill:ord:dec:fi-demo-2024q1-faults-r0:llm_team:2024-01-29:r0:SYN-USD-NOTE-006",
+        "stl:fill:ord:dec:fi-demo-2024q1-faults-r0:llm_team:2024-01-29:r0:SYN-USD-NOTE-007",
+        "stl:fill:ord:dec:fi-demo-2024q1-faults-r0:llm_team:2024-01-29:r0:SYN-USD-NOTE-008",
+        "stl:fill:ord:dec:fi-demo-2024q1-faults-r0:llm_team:2024-01-29:r0:SYN-USD-NOTE-009"
+      ],
+      "settlementsCreated": [
+        {
+          "cashUsd": "191717.94",
+          "face": "221000",
+          "fillId": "fill:ord:dec:fi-demo-2024q1-faults-r0:llm_team:2024-01-30:r0:SYN-USD-NOTE-009",
+          "securityId": "SYN-USD-NOTE-009",
+          "settlementDate": "2024-02-01",
+          "settlementId": "stl:fill:ord:dec:fi-demo-2024q1-faults-r0:llm_team:2024-01-30:r0:SYN-USD-NOTE-009",
+          "side": "SELL"
+        }
+      ],
+      "valuation": null
+    },
+    {
+      "cashFlows": [],
+      "commandId": "cmd:fi-demo-2024q1-faults-r0:llm_team:2024-01-31:value",
+      "commandType": "value_portfolio",
+      "events": [
+        {
+          "effectiveAt": "2024-02-01T01:00:00Z",
+          "type": "valuation_mark"
+        }
+      ],
+      "fills": [],
+      "newStateHash": "sha256:44ad3c42fc72f5e88ddc1205a40227ea9a89e229ca6e68940b2e143f0f9f08e7",
+      "newVersion": 8,
+      "orderStatusChanges": [],
+      "ordersCreated": [],
+      "policyEvaluation": null,
+      "reconciliationOk": true,
+      "settlementsCompleted": [],
+      "settlementsCreated": [],
+      "valuation": {
+        "cashUsd": "63022.22",
+        "complete": true,
+        "effectiveDurationYears": "3.119805",
+        "equityUsd": "1003282.32",
+        "parallelDv01Usd": "313.00"
+      }
+    }
+  ],
+  "label": "FAILURE INJECTION (declared fault; not a natural outcome)",
+  "ordersCreated": 0,
+  "otherCompetitorsSameSession": {
+    "cash": "completed_hold",
+    "llm_graph": "failed_dependency",
+    "llm_market": "completed_hold",
+    "llm_rag": "completed_hold",
+    "quant_duration": "completed_hold",
+    "static_ladder": "completed_hold"
+  },
+  "policyGate": null,
+  "portfolioStillProcessed": true
+}

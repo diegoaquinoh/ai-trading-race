@@ -9,7 +9,6 @@ from typing import Optional
 
 import pandas as pd
 
-from app.config import settings
 from app.ml.features import get_feature_values, prepare_inference_features
 from app.ml.predictor import PredictedAction, TradingPredictor
 from app.models.enums import TradeSide

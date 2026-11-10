@@ -1,0 +1,61 @@
+{
+  "calendarVersion": "us-gov-calendar-v1",
+  "configVersion": "replay-config-v1",
+  "conventionVersion": "conventions-v1",
+  "endDate": "2024-02-09",
+  "executionModel": {
+    "batchPriority": "sells_first_then_security_id_v1",
+    "cashInterestRate": "0",
+    "commissionUsdPerMillionFace": "0",
+    "executionModelId": "synthetic-half-spread-0.02-v1",
+    "faceSizing": "fixed_at_submission_v1",
+    "fillTiming": "next_session_close_daily",
+    "fundingRule": "settled_cash_reserve_commitments_v1",
+    "halfSpreadPer100": "0.02",
+    "slippagePer100": "0",
+    "timeInForce": "next_session_only"
+  },
+  "experimentId": "exp-parity",
+  "informationPolicy": "reconstructed_publication_plus_lag_v1",
+  "initialCapitalUsd": "1000000",
+  "instrumentUniverseVersion": "synthetic_universe_v1.0",
+  "repetition": 0,
+  "resourceLimits": {},
+  "responseMode": "recorded_replay",
+  "riskPolicy": {
+    "bootstrapTurnoverExemption": true,
+    "breachPolicy": "block_risk_increasing_v1",
+    "initialCapitalUsd": "1000000",
+    "leverageAllowed": false,
+    "longOnly": true,
+    "maxDailyTurnoverRatio": "0.20",
+    "maxMarkAgeBusinessDays": 1,
+    "maxOrdersPerDecision": 6,
+    "maxParallelDv01UsdPerMillionNav": "600",
+    "maxSingleSecurityRatio": "0.40",
+    "minCashRatio": "0.05",
+    "minWeightChange": "0.02",
+    "policyId": "treasury-long-only-v1",
+    "projectionMode": "disabled",
+    "weightSumTolerance": "0.000001"
+  },
+  "runId": "run-parity",
+  "seed": 0,
+  "signingKeyId": "parity-fixture",
+  "splits": {},
+  "startDate": "2024-01-02",
+  "strategies": [
+    {
+      "config": {},
+      "strategyId": "cash"
+    },
+    {
+      "config": {},
+      "strategyId": "quant_duration"
+    },
+    {
+      "config": {},
+      "strategyId": "static_ladder"
+    }
+  ]
+}

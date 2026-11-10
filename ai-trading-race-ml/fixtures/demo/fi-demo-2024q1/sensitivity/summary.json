@@ -1,0 +1,208 @@
+{
+  "profiles": [
+    {
+      "decisionOutcomes": {
+        "completed_hold": 413,
+        "completed_proposal": 14
+      },
+      "halfSpreadPer100": "0.00",
+      "profile": "synthetic-half-spread-0.00-v1",
+      "runId": "fi-demo-2024q1-cost-hs000-r0",
+      "status": "completed",
+      "strategies": {
+        "cash": {
+          "averageDv01Usd": 0.0,
+          "fillCount": 0,
+          "grossReturn": 0.0,
+          "netReturn": 0.0,
+          "proposalCount": 0,
+          "spreadCostUsd": "0"
+        },
+        "llm_graph": {
+          "averageDv01Usd": 305.1927868852459,
+          "fillCount": 6,
+          "grossReturn": -0.00320309,
+          "netReturn": -0.00320309,
+          "proposalCount": 2,
+          "spreadCostUsd": "0.00"
+        },
+        "llm_market": {
+          "averageDv01Usd": 368.5095081967213,
+          "fillCount": 7,
+          "grossReturn": -0.00690278,
+          "netReturn": -0.00690278,
+          "proposalCount": 3,
+          "spreadCostUsd": "0.00"
+        },
+        "llm_rag": {
+          "averageDv01Usd": 305.1927868852459,
+          "fillCount": 6,
+          "grossReturn": -0.00320309,
+          "netReturn": -0.00320309,
+          "proposalCount": 2,
+          "spreadCostUsd": "0.00"
+        },
+        "llm_team": {
+          "averageDv01Usd": 305.1927868852459,
+          "fillCount": 6,
+          "grossReturn": -0.00320309,
+          "netReturn": -0.00320309,
+          "proposalCount": 2,
+          "spreadCostUsd": "0.00"
+        },
+        "quant_duration": {
+          "averageDv01Usd": 387.38081967213117,
+          "fillCount": 8,
+          "grossReturn": -0.00381213,
+          "netReturn": -0.00381213,
+          "proposalCount": 4,
+          "spreadCostUsd": "0.00"
+        },
+        "static_ladder": {
+          "averageDv01Usd": 438.27196721311475,
+          "fillCount": 5,
+          "grossReturn": -0.00433732,
+          "netReturn": -0.00433732,
+          "proposalCount": 1,
+          "spreadCostUsd": "0.00"
+        }
+      }
+    },
+    {
+      "decisionOutcomes": {
+        "completed_hold": 413,
+        "completed_proposal": 14
+      },
+      "halfSpreadPer100": "0.02",
+      "profile": "synthetic-half-spread-0.02-v1",
+      "runId": "fi-demo-2024q1-cost-hs002-r0",
+      "status": "completed",
+      "strategies": {
+        "cash": {
+          "averageDv01Usd": 0.0,
+          "fillCount": 0,
+          "grossReturn": 0.0,
+          "netReturn": 0.0,
+          "proposalCount": 0,
+          "spreadCostUsd": "0"
+        },
+        "llm_graph": {
+          "averageDv01Usd": 305.1927868852459,
+          "fillCount": 6,
+          "grossReturn": -0.00320309,
+          "netReturn": -0.00345269,
+          "proposalCount": 2,
+          "spreadCostUsd": "249.60"
+        },
+        "llm_market": {
+          "averageDv01Usd": 368.5095081967213,
+          "fillCount": 7,
+          "grossReturn": -0.00690275,
+          "netReturn": -0.00719715,
+          "proposalCount": 3,
+          "spreadCostUsd": "294.40"
+        },
+        "llm_rag": {
+          "averageDv01Usd": 305.1927868852459,
+          "fillCount": 6,
+          "grossReturn": -0.00320309,
+          "netReturn": -0.00345269,
+          "proposalCount": 2,
+          "spreadCostUsd": "249.60"
+        },
+        "llm_team": {
+          "averageDv01Usd": 305.1927868852459,
+          "fillCount": 6,
+          "grossReturn": -0.00320309,
+          "netReturn": -0.00345269,
+          "proposalCount": 2,
+          "spreadCostUsd": "249.60"
+        },
+        "quant_duration": {
+          "averageDv01Usd": 387.22934426229506,
+          "fillCount": 8,
+          "grossReturn": -0.0038112,
+          "netReturn": -0.004046,
+          "proposalCount": 4,
+          "spreadCostUsd": "234.80"
+        },
+        "static_ladder": {
+          "averageDv01Usd": 438.27196721311475,
+          "fillCount": 5,
+          "grossReturn": -0.00433732,
+          "netReturn": -0.00454312,
+          "proposalCount": 1,
+          "spreadCostUsd": "205.80"
+        }
+      }
+    },
+    {
+      "decisionOutcomes": {
+        "completed_hold": 413,
+        "completed_proposal": 14
+      },
+      "halfSpreadPer100": "0.05",
+      "profile": "synthetic-half-spread-0.05-v1",
+      "runId": "fi-demo-2024q1-cost-hs005-r0",
+      "status": "completed",
+      "strategies": {
+        "cash": {
+          "averageDv01Usd": 0.0,
+          "fillCount": 0,
+          "grossReturn": 0.0,
+          "netReturn": 0.0,
+          "proposalCount": 0,
+          "spreadCostUsd": "0"
+        },
+        "llm_graph": {
+          "averageDv01Usd": 305.1927868852459,
+          "fillCount": 6,
+          "grossReturn": -0.00320309,
+          "netReturn": -0.00382709,
+          "proposalCount": 2,
+          "spreadCostUsd": "624.00"
+        },
+        "llm_market": {
+          "averageDv01Usd": 368.4993442622951,
+          "fillCount": 7,
+          "grossReturn": -0.00690271,
+          "netReturn": -0.00763821,
+          "proposalCount": 3,
+          "spreadCostUsd": "735.50"
+        },
+        "llm_rag": {
+          "averageDv01Usd": 305.1927868852459,
+          "fillCount": 6,
+          "grossReturn": -0.00320309,
+          "netReturn": -0.00382709,
+          "proposalCount": 2,
+          "spreadCostUsd": "624.00"
+        },
+        "llm_team": {
+          "averageDv01Usd": 305.1927868852459,
+          "fillCount": 6,
+          "grossReturn": -0.00320309,
+          "netReturn": -0.00382709,
+          "proposalCount": 2,
+          "spreadCostUsd": "624.00"
+        },
+        "quant_duration": {
+          "averageDv01Usd": 387.22934426229506,
+          "fillCount": 8,
+          "grossReturn": -0.0038112,
+          "netReturn": -0.0043982,
+          "proposalCount": 4,
+          "spreadCostUsd": "587.00"
+        },
+        "static_ladder": {
+          "averageDv01Usd": 438.27196721311475,
+          "fillCount": 5,
+          "grossReturn": -0.00433732,
+          "netReturn": -0.00485182,
+          "proposalCount": 1,
+          "spreadCostUsd": "514.50"
+        }
+      }
+    }
+  ]
+}

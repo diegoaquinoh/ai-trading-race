@@ -1,0 +1,4913 @@
+{
+  "compatibilityKey": "synthetic_curve|synthetic-half-spread-0.02-v1|treasury-long-only-v1|2024-01-02|2024-03-29",
+  "dataMode": "synthetic_curve",
+  "dataModeLabel": "SYNTHETIC CURVE SIMULATION (model prices, not market quotes)",
+  "demo": {
+    "completeness": {
+      "dataGaps": [],
+      "decisionsExpected": 427,
+      "decisionsRecorded": 427,
+      "exclusions": [],
+      "incompleteValuations": 0,
+      "outcomes": {
+        "completed_hold": 413,
+        "completed_proposal": 14
+      },
+      "runFailures": [],
+      "sessions": 61
+    },
+    "demoReportVersion": "demo-report-v1",
+    "label": "canonical recorded-response replay",
+    "limitations": [
+      "Synthetic-curve mode: SYN-USD-NOTE-* instruments are hypothetical; marks and fills are curve-model observations plus a declared half-spread, not market quotes. The run shows nothing about observed-security relative value or achievable execution.",
+      "Same curve for marks and fills: any rich/cheap signal is mechanically neutral.",
+      "Retrospective information policy: document availability is reconstructed (publication time + 120 minutes) and curve availability is 18:00 New York; this is a historical replay, not a forward paper-trading test.",
+      "Pretrained-model hindsight: not applicable to reference-heuristic-v1 (a rule-based model with no pretrained knowledge), but it applies to any hosted LLM run on this window; such runs must be labelled retrospective and repeated forward.",
+      "AI strategies ran on reference-heuristic-v1, a deterministic rule-based policy model, not a hosted LLM; the results say nothing about LLM decision quality.",
+      "Stochastic repetitions are not applicable to the deterministic reference model; hosted models need at least three repetitions when affordable (spec 16.2).",
+      "Short window (61 sessions, 60 daily returns): no statistical significance; paired block-bootstrap intervals are descriptive only; Sharpe ratios are unavailable because no risk-free series is declared.",
+      "Exposures differ: equal risk limits did not produce equal duration/DV01; compare the exposure section before reading return differences.",
+      "Cash earns zero (zero_cash_interest_v1); excess returns are not interpreted.",
+      "Half-spread assumptions (0.00/0.02/0.05 per 100 face) are illustrative, not measured Treasury transaction costs.",
+      "Evidence pages are 2026 web versions of the FOMC releases (flag current_web_version_not_archived_original), not archived originals."
+    ],
+    "modelDisclosure": "AI strategies ran on provider reference / reference-heuristic-v1, a deterministic rule-based policy model. It is not a hosted LLM.",
+    "ragGraphOverlap": {
+      "meanJaccard": 0.2274,
+      "perSession": [
+        {
+          "common": 5,
+          "graph": 18,
+          "jaccard": 0.2632,
+          "rag": 6,
+          "session": "2024-01-03"
+        },
+        {
+          "common": 5,
+          "graph": 18,
+          "jaccard": 0.2632,
+          "rag": 6,
+          "session": "2024-01-04"
+        },
+        {
+          "common": 5,
+          "graph": 18,
+          "jaccard": 0.2632,
+          "rag": 6,
+          "session": "2024-01-05"
+        },
+        {
+          "common": 5,
+          "graph": 18,
+          "jaccard": 0.2632,
+          "rag": 6,
+          "session": "2024-01-08"
+        },
+        {
+          "common": 5,
+          "graph": 18,
+          "jaccard": 0.2632,
+          "rag": 6,
+          "session": "2024-01-09"
+        },
+        {
+          "common": 5,
+          "graph": 18,
+          "jaccard": 0.2632,
+          "rag": 6,
+          "session": "2024-01-10"
+        },
+        {
+          "common": 5,
+          "graph": 18,
+          "jaccard": 0.2632,
+          "rag": 6,
+          "session": "2024-01-11"
+        },
+        {
+          "common": 5,
+          "graph": 18,
+          "jaccard": 0.2632,
+          "rag": 6,
+          "session": "2024-01-12"
+        },
+        {
+          "common": 5,
+          "graph": 18,
+          "jaccard": 0.2632,
+          "rag": 6,
+          "session": "2024-01-16"
+        },
+        {
+          "common": 5,
+          "graph": 18,
+          "jaccard": 0.2632,
+          "rag": 6,
+          "session": "2024-01-17"
+        },
+        {
+          "common": 5,
+          "graph": 18,
+          "jaccard": 0.2632,
+          "rag": 6,
+          "session": "2024-01-18"
+        },
+        {
+          "common": 5,
+          "graph": 18,
+          "jaccard": 0.2632,
+          "rag": 6,
+          "session": "2024-01-19"
+        },
+        {
+          "common": 5,
+          "graph": 18,
+          "jaccard": 0.2632,
+          "rag": 6,
+          "session": "2024-01-22"
+        },
+        {
+          "common": 5,
+          "graph": 18,
+          "jaccard": 0.2632,
+          "rag": 6,
+          "session": "2024-01-23"
+        },
+        {
+          "common": 5,
+          "graph": 18,
+          "jaccard": 0.2632,
+          "rag": 6,
+          "session": "2024-01-24"
+        },
+        {
+          "common": 5,
+          "graph": 18,
+          "jaccard": 0.2632,
+          "rag": 6,
+          "session": "2024-01-25"
+        },
+        {
+          "common": 5,
+          "graph": 18,
+          "jaccard": 0.2632,
+          "rag": 6,
+          "session": "2024-01-26"
+        },
+        {
+          "common": 5,
+          "graph": 18,
+          "jaccard": 0.2632,
+          "rag": 6,
+          "session": "2024-01-29"
+        },
+        {
+          "common": 5,
+          "graph": 18,
+          "jaccard": 0.2632,
+          "rag": 6,
+          "session": "2024-01-30"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-01-31"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-02-01"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-02-02"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-02-05"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-02-06"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-02-07"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-02-08"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-02-09"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-02-12"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-02-13"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-02-14"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-02-15"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-02-16"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-02-20"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-02-21"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-02-22"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-02-23"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-02-26"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-02-27"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-02-28"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-02-29"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-03-01"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-03-04"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-03-05"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-03-06"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-03-07"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-03-08"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-03-11"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-03-12"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-03-13"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-03-14"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-03-15"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-03-18"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-03-19"
+        },
+        {
+          "common": 5,
+          "graph": 18,
+          "jaccard": 0.2632,
+          "rag": 6,
+          "session": "2024-03-20"
+        },
+        {
+          "common": 5,
+          "graph": 18,
+          "jaccard": 0.2632,
+          "rag": 6,
+          "session": "2024-03-21"
+        },
+        {
+          "common": 5,
+          "graph": 18,
+          "jaccard": 0.2632,
+          "rag": 6,
+          "session": "2024-03-22"
+        },
+        {
+          "common": 5,
+          "graph": 18,
+          "jaccard": 0.2632,
+          "rag": 6,
+          "session": "2024-03-25"
+        },
+        {
+          "common": 5,
+          "graph": 18,
+          "jaccard": 0.2632,
+          "rag": 6,
+          "session": "2024-03-26"
+        },
+        {
+          "common": 5,
+          "graph": 18,
+          "jaccard": 0.2632,
+          "rag": 6,
+          "session": "2024-03-27"
+        },
+        {
+          "common": 5,
+          "graph": 18,
+          "jaccard": 0.2632,
+          "rag": 6,
+          "session": "2024-03-28"
+        }
+      ],
+      "sessionsCompared": 60,
+      "sessionsWithIdenticalPassages": 0
+    },
+    "strategies": {
+      "cash": {
+        "evidence": null,
+        "exposure": {
+          "daily": [
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-02"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-03"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-04"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-05"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-08"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-09"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-10"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-11"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-12"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-16"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-17"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-18"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-19"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-22"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-23"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-24"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-25"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-26"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-29"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-30"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-31"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-01"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-02"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-05"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-06"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-07"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-08"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-09"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-12"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-13"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-14"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-15"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-16"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-20"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-21"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-22"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-23"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-26"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-27"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-28"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-29"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-03-01"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-03-04"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-03-05"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-03-06"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-03-07"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-03-08"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-03-11"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-03-12"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-03-13"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-03-14"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-03-15"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-03-18"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-03-19"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-03-20"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-03-21"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-03-22"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-03-25"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-03-26"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-03-27"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-03-28"
+            }
+          ]
+        },
+        "proposalActions": {},
+        "responseSource": "deterministic_code",
+        "usage": {
+          "attemptStatuses": {},
+          "budgetExhausted": [],
+          "decisionsWithModelCalls": 0,
+          "estimatedModelCostUsd": null,
+          "evidenceCalls": 0,
+          "evidenceTokens": 0,
+          "generationCalls": 0,
+          "inputTokens": 0,
+          "maxGenerationCallsPerDecision": 0,
+          "maxToolCallsPerDecision": 0,
+          "outputTokens": 0,
+          "priceSchedules": [],
+          "providers": [],
+          "recordedResponseIds": 0,
+          "toolCalls": 0,
+          "uniqueEvidenceChunks": 0
+        }
+      },
+      "llm_graph": {
+        "evidence": {
+          "bundles": 120,
+          "citations": 180,
+          "claimValidation": {
+            "valid": 180
+          },
+          "claims": 180,
+          "decisionsWithEvidence": 60,
+          "deliveredPassages": 1080,
+          "distinctDocuments": 10,
+          "graphAddedPassages": 0,
+          "noteStatuses": {
+            "supported": 60
+          },
+          "temporalViolations": 0,
+          "validationSteps": {
+            "calc_refs": {
+              "failed": 0,
+              "passed": 60
+            },
+            "citation_membership": {
+              "failed": 0,
+              "passed": 60
+            },
+            "policy": {
+              "failed": 0,
+              "passed": 60
+            },
+            "quote_offsets": {
+              "failed": 0,
+              "passed": 60
+            },
+            "schema": {
+              "failed": 0,
+              "passed": 60
+            },
+            "support": {
+              "failed": 0,
+              "passed": 60
+            },
+            "temporal": {
+              "failed": 0,
+              "passed": 60
+            }
+          }
+        },
+        "exposure": {
+          "daily": [
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-02"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 4.610118,
+              "dv01Usd": 460.92,
+              "equityUsd": 999794.23,
+              "session": "2024-01-03"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 3.188276,
+              "dv01Usd": 317.73,
+              "equityUsd": 996550.31,
+              "session": "2024-01-04"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.182119,
+              "dv01Usd": 316.69,
+              "equityUsd": 995223.05,
+              "session": "2024-01-05"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.179625,
+              "dv01Usd": 317.0,
+              "equityUsd": 996964.12,
+              "session": "2024-01-08"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.1769,
+              "dv01Usd": 316.74,
+              "equityUsd": 996997.86,
+              "session": "2024-01-09"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.173884,
+              "dv01Usd": 316.33,
+              "equityUsd": 996678.35,
+              "session": "2024-01-10"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.176423,
+              "dv01Usd": 317.33,
+              "equityUsd": 999023.31,
+              "session": "2024-01-11"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.176561,
+              "dv01Usd": 317.93,
+              "equityUsd": 1000858.71,
+              "session": "2024-01-12"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.161043,
+              "dv01Usd": 315.5,
+              "equityUsd": 998073.69,
+              "session": "2024-01-16"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.155564,
+              "dv01Usd": 314.3,
+              "equityUsd": 996032.07,
+              "session": "2024-01-17"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.15143,
+              "dv01Usd": 313.7,
+              "equityUsd": 995424.19,
+              "session": "2024-01-18"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.148188,
+              "dv01Usd": 313.1,
+              "equityUsd": 994540.16,
+              "session": "2024-01-19"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.145747,
+              "dv01Usd": 313.35,
+              "equityUsd": 996091.99,
+              "session": "2024-01-22"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.140676,
+              "dv01Usd": 312.63,
+              "equityUsd": 995420.36,
+              "session": "2024-01-23"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.136637,
+              "dv01Usd": 312.02,
+              "equityUsd": 994749.53,
+              "session": "2024-01-24"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.139119,
+              "dv01Usd": 312.88,
+              "equityUsd": 996719.04,
+              "session": "2024-01-25"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.135443,
+              "dv01Usd": 312.25,
+              "equityUsd": 995869.96,
+              "session": "2024-01-26"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.135139,
+              "dv01Usd": 312.95,
+              "equityUsd": 998196.81,
+              "session": "2024-01-29"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.133116,
+              "dv01Usd": 312.59,
+              "equityUsd": 997693.9,
+              "session": "2024-01-30"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.136659,
+              "dv01Usd": 313.77,
+              "equityUsd": 1000318.01,
+              "session": "2024-01-31"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.143603,
+              "dv01Usd": 315.53,
+              "equityUsd": 1003736.56,
+              "session": "2024-02-01"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.128459,
+              "dv01Usd": 312.29,
+              "equityUsd": 998221.62,
+              "session": "2024-02-02"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.112339,
+              "dv01Usd": 309.48,
+              "equityUsd": 994376.97,
+              "session": "2024-02-05"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.116688,
+              "dv01Usd": 310.85,
+              "equityUsd": 997361.95,
+              "session": "2024-02-06"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.113523,
+              "dv01Usd": 310.37,
+              "equityUsd": 996859.62,
+              "session": "2024-02-07"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.107381,
+              "dv01Usd": 309.24,
+              "equityUsd": 995193.12,
+              "session": "2024-02-08"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.10399,
+              "dv01Usd": 308.72,
+              "equityUsd": 994589.75,
+              "session": "2024-02-09"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.098573,
+              "dv01Usd": 308.32,
+              "equityUsd": 995046.98,
+              "session": "2024-02-12"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.085103,
+              "dv01Usd": 305.44,
+              "equityUsd": 990045.82,
+              "session": "2024-02-13"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.086873,
+              "dv01Usd": 306.19,
+              "equityUsd": 991908.23,
+              "session": "2024-02-14"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.08693,
+              "dv01Usd": 306.43,
+              "equityUsd": 992667.77,
+              "session": "2024-02-15"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.080718,
+              "dv01Usd": 305.23,
+              "equityUsd": 990770.31,
+              "session": "2024-02-16"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.074931,
+              "dv01Usd": 305.08,
+              "equityUsd": 992165.34,
+              "session": "2024-02-20"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.069389,
+              "dv01Usd": 304.11,
+              "equityUsd": 990794.44,
+              "session": "2024-02-21"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.066495,
+              "dv01Usd": 303.59,
+              "equityUsd": 990008.47,
+              "session": "2024-02-22"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.069461,
+              "dv01Usd": 304.41,
+              "equityUsd": 991735.83,
+              "session": "2024-02-23"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.061324,
+              "dv01Usd": 303.42,
+              "equityUsd": 991135.05,
+              "session": "2024-02-26"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.057622,
+              "dv01Usd": 302.89,
+              "equityUsd": 990594.68,
+              "session": "2024-02-27"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.059508,
+              "dv01Usd": 303.62,
+              "equityUsd": 992375.03,
+              "session": "2024-02-28"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.057846,
+              "dv01Usd": 303.5,
+              "equityUsd": 992521.44,
+              "session": "2024-02-29"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.061284,
+              "dv01Usd": 304.64,
+              "equityUsd": 995151.52,
+              "session": "2024-03-01"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.053398,
+              "dv01Usd": 303.55,
+              "equityUsd": 994139.44,
+              "session": "2024-03-04"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.057216,
+              "dv01Usd": 304.66,
+              "equityUsd": 996518.55,
+              "session": "2024-03-05"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.057189,
+              "dv01Usd": 304.84,
+              "equityUsd": 997110.66,
+              "session": "2024-03-06"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.057253,
+              "dv01Usd": 305.2,
+              "equityUsd": 998269.35,
+              "session": "2024-03-07"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.055929,
+              "dv01Usd": 305.21,
+              "equityUsd": 998731.51,
+              "session": "2024-03-08"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.049294,
+              "dv01Usd": 304.48,
+              "equityUsd": 998524.74,
+              "session": "2024-03-11"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.042605,
+              "dv01Usd": 303.21,
+              "equityUsd": 996562.98,
+              "session": "2024-03-12"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.037952,
+              "dv01Usd": 302.45,
+              "equityUsd": 995568.33,
+              "session": "2024-03-13"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.028859,
+              "dv01Usd": 300.73,
+              "equityUsd": 992881.43,
+              "session": "2024-03-14"
+            },
+            {
+              "cashUsd": 257712.54,
+              "complete": true,
+              "durationYears": 3.025095,
+              "dv01Usd": 300.08,
+              "equityUsd": 991965.37,
+              "session": "2024-03-15"
+            },
+            {
+              "cashUsd": 257712.54,
+              "complete": true,
+              "durationYears": 3.017505,
+              "dv01Usd": 299.21,
+              "equityUsd": 991581.14,
+              "session": "2024-03-18"
+            },
+            {
+              "cashUsd": 257712.54,
+              "complete": true,
+              "durationYears": 3.018395,
+              "dv01Usd": 299.7,
+              "equityUsd": 992917.93,
+              "session": "2024-03-19"
+            },
+            {
+              "cashUsd": 257712.54,
+              "complete": true,
+              "durationYears": 3.018526,
+              "dv01Usd": 300.15,
+              "equityUsd": 994374.61,
+              "session": "2024-03-20"
+            },
+            {
+              "cashUsd": 257712.54,
+              "complete": true,
+              "durationYears": 3.016566,
+              "dv01Usd": 299.94,
+              "equityUsd": 994297.49,
+              "session": "2024-03-21"
+            },
+            {
+              "cashUsd": 257712.54,
+              "complete": true,
+              "durationYears": 3.018895,
+              "dv01Usd": 300.69,
+              "equityUsd": 996023.66,
+              "session": "2024-03-22"
+            },
+            {
+              "cashUsd": 257712.54,
+              "complete": true,
+              "durationYears": 3.010646,
+              "dv01Usd": 299.72,
+              "equityUsd": 995543.39,
+              "session": "2024-03-25"
+            },
+            {
+              "cashUsd": 257712.54,
+              "complete": true,
+              "durationYears": 3.00995,
+              "dv01Usd": 299.79,
+              "equityUsd": 996003.68,
+              "session": "2024-03-26"
+            },
+            {
+              "cashUsd": 257712.54,
+              "complete": true,
+              "durationYears": 3.011343,
+              "dv01Usd": 300.29,
+              "equityUsd": 997207.0,
+              "session": "2024-03-27"
+            },
+            {
+              "cashUsd": 257712.54,
+              "complete": true,
+              "durationYears": 3.008368,
+              "dv01Usd": 299.8,
+              "equityUsd": 996547.31,
+              "session": "2024-03-28"
+            }
+          ]
+        },
+        "proposalActions": {
+          "BOOTSTRAP": 1,
+          "REBALANCE": 1
+        },
+        "responseSource": "recorded_responses:reference/reference-heuristic-v1",
+        "usage": {
+          "attemptStatuses": {
+            "ok": 120
+          },
+          "budgetExhausted": [],
+          "decisionsWithModelCalls": 60,
+          "estimatedModelCostUsd": "0.000000",
+          "evidenceCalls": 120,
+          "evidenceTokens": 396588,
+          "generationCalls": 120,
+          "inputTokens": 1459477,
+          "maxGenerationCallsPerDecision": 2,
+          "maxToolCallsPerDecision": 6,
+          "outputTokens": 78740,
+          "priceSchedules": [
+            "reference-zero-cost-v1"
+          ],
+          "providers": [
+            "reference/reference-heuristic-v1"
+          ],
+          "recordedResponseIds": 120,
+          "toolCalls": 360,
+          "uniqueEvidenceChunks": 720
+        }
+      },
+      "llm_market": {
+        "evidence": null,
+        "exposure": {
+          "daily": [
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-02"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 4.610118,
+              "dv01Usd": 460.92,
+              "equityUsd": 999794.23,
+              "session": "2024-01-03"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.602722,
+              "dv01Usd": 458.7,
+              "equityUsd": 996594.11,
+              "session": "2024-01-04"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.59549,
+              "dv01Usd": 457.01,
+              "equityUsd": 994483.36,
+              "session": "2024-01-05"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.591169,
+              "dv01Usd": 457.69,
+              "equityUsd": 996900.4,
+              "session": "2024-01-08"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.587377,
+              "dv01Usd": 457.27,
+              "equityUsd": 996800.84,
+              "session": "2024-01-09"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.583679,
+              "dv01Usd": 456.67,
+              "equityUsd": 996301.32,
+              "session": "2024-01-10"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.585135,
+              "dv01Usd": 458.28,
+              "equityUsd": 999498.66,
+              "session": "2024-01-11"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.583354,
+              "dv01Usd": 459.13,
+              "equityUsd": 1001739.56,
+              "session": "2024-01-12"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.565098,
+              "dv01Usd": 455.41,
+              "equityUsd": 997589.77,
+              "session": "2024-01-16"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.560112,
+              "dv01Usd": 453.71,
+              "equityUsd": 994956.48,
+              "session": "2024-01-17"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.554829,
+              "dv01Usd": 452.71,
+              "equityUsd": 993920.82,
+              "session": "2024-01-18"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.551782,
+              "dv01Usd": 451.93,
+              "equityUsd": 992856.29,
+              "session": "2024-01-19"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.5478,
+              "dv01Usd": 452.54,
+              "equityUsd": 995074.19,
+              "session": "2024-01-22"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.541464,
+              "dv01Usd": 451.39,
+              "equityUsd": 993921.61,
+              "session": "2024-01-23"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.536245,
+              "dv01Usd": 450.35,
+              "equityUsd": 992789.58,
+              "session": "2024-01-24"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.53813,
+              "dv01Usd": 451.8,
+              "equityUsd": 995570.29,
+              "session": "2024-01-25"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.534267,
+              "dv01Usd": 450.91,
+              "equityUsd": 994454.47,
+              "session": "2024-01-26"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.532802,
+              "dv01Usd": 452.32,
+              "equityUsd": 997877.37,
+              "session": "2024-01-29"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.531353,
+              "dv01Usd": 451.98,
+              "equityUsd": 997460.87,
+              "session": "2024-01-30"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.534119,
+              "dv01Usd": 453.92,
+              "equityUsd": 1001131.51,
+              "session": "2024-01-31"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.54146,
+              "dv01Usd": 456.99,
+              "equityUsd": 1006261.16,
+              "session": "2024-02-01"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.525556,
+              "dv01Usd": 451.8,
+              "equityUsd": 998331.36,
+              "session": "2024-02-02"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.507045,
+              "dv01Usd": 447.39,
+              "equityUsd": 992639.05,
+              "session": "2024-02-05"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.510508,
+              "dv01Usd": 449.6,
+              "equityUsd": 996785.16,
+              "session": "2024-02-06"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.507146,
+              "dv01Usd": 448.98,
+              "equityUsd": 996161.4,
+              "session": "2024-02-07"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.500237,
+              "dv01Usd": 447.2,
+              "equityUsd": 993726.49,
+              "session": "2024-02-08"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.496311,
+              "dv01Usd": 446.42,
+              "equityUsd": 992865.79,
+              "session": "2024-02-09"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.489098,
+              "dv01Usd": 445.97,
+              "equityUsd": 993455.07,
+              "session": "2024-02-12"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 3.084099,
+              "dv01Usd": 304.2,
+              "equityUsd": 986341.16,
+              "session": "2024-02-13"
+            },
+            {
+              "cashUsd": 247774.7,
+              "complete": true,
+              "durationYears": 3.085766,
+              "dv01Usd": 304.94,
+              "equityUsd": 988225.23,
+              "session": "2024-02-14"
+            },
+            {
+              "cashUsd": 252393.2,
+              "complete": true,
+              "durationYears": 3.085812,
+              "dv01Usd": 305.18,
+              "equityUsd": 988981.27,
+              "session": "2024-02-15"
+            },
+            {
+              "cashUsd": 252393.2,
+              "complete": true,
+              "durationYears": 3.079612,
+              "dv01Usd": 303.99,
+              "equityUsd": 987090.95,
+              "session": "2024-02-16"
+            },
+            {
+              "cashUsd": 252393.2,
+              "complete": true,
+              "durationYears": 3.073805,
+              "dv01Usd": 303.84,
+              "equityUsd": 988481.82,
+              "session": "2024-02-20"
+            },
+            {
+              "cashUsd": 252393.2,
+              "complete": true,
+              "durationYears": 3.068274,
+              "dv01Usd": 302.87,
+              "equityUsd": 987116.85,
+              "session": "2024-02-21"
+            },
+            {
+              "cashUsd": 252393.2,
+              "complete": true,
+              "durationYears": 3.065378,
+              "dv01Usd": 302.35,
+              "equityUsd": 986332.21,
+              "session": "2024-02-22"
+            },
+            {
+              "cashUsd": 252393.2,
+              "complete": true,
+              "durationYears": 3.06832,
+              "dv01Usd": 303.17,
+              "equityUsd": 988050.84,
+              "session": "2024-02-23"
+            },
+            {
+              "cashUsd": 252393.2,
+              "complete": true,
+              "durationYears": 3.060183,
+              "dv01Usd": 302.18,
+              "equityUsd": 987453.47,
+              "session": "2024-02-26"
+            },
+            {
+              "cashUsd": 252393.2,
+              "complete": true,
+              "durationYears": 3.056484,
+              "dv01Usd": 301.65,
+              "equityUsd": 986915.89,
+              "session": "2024-02-27"
+            },
+            {
+              "cashUsd": 252393.2,
+              "complete": true,
+              "durationYears": 3.058354,
+              "dv01Usd": 302.38,
+              "equityUsd": 988689.85,
+              "session": "2024-02-28"
+            },
+            {
+              "cashUsd": 252393.2,
+              "complete": true,
+              "durationYears": 3.056685,
+              "dv01Usd": 302.26,
+              "equityUsd": 988835.1,
+              "session": "2024-02-29"
+            },
+            {
+              "cashUsd": 252393.2,
+              "complete": true,
+              "durationYears": 3.060101,
+              "dv01Usd": 303.4,
+              "equityUsd": 991456.19,
+              "session": "2024-03-01"
+            },
+            {
+              "cashUsd": 252393.2,
+              "complete": true,
+              "durationYears": 3.052214,
+              "dv01Usd": 302.31,
+              "equityUsd": 990447.19,
+              "session": "2024-03-04"
+            },
+            {
+              "cashUsd": 252393.2,
+              "complete": true,
+              "durationYears": 3.056003,
+              "dv01Usd": 303.4,
+              "equityUsd": 992815.84,
+              "session": "2024-03-05"
+            },
+            {
+              "cashUsd": 252393.2,
+              "complete": true,
+              "durationYears": 3.055965,
+              "dv01Usd": 303.58,
+              "equityUsd": 993404.53,
+              "session": "2024-03-06"
+            },
+            {
+              "cashUsd": 252393.2,
+              "complete": true,
+              "durationYears": 3.056021,
+              "dv01Usd": 303.94,
+              "equityUsd": 994559.97,
+              "session": "2024-03-07"
+            },
+            {
+              "cashUsd": 252393.2,
+              "complete": true,
+              "durationYears": 3.054692,
+              "dv01Usd": 303.95,
+              "equityUsd": 995021.05,
+              "session": "2024-03-08"
+            },
+            {
+              "cashUsd": 252393.2,
+              "complete": true,
+              "durationYears": 3.04805,
+              "dv01Usd": 303.22,
+              "equityUsd": 994815.02,
+              "session": "2024-03-11"
+            },
+            {
+              "cashUsd": 252393.2,
+              "complete": true,
+              "durationYears": 3.041375,
+              "dv01Usd": 301.97,
+              "equityUsd": 992861.15,
+              "session": "2024-03-12"
+            },
+            {
+              "cashUsd": 252393.2,
+              "complete": true,
+              "durationYears": 3.036728,
+              "dv01Usd": 301.2,
+              "equityUsd": 991870.73,
+              "session": "2024-03-13"
+            },
+            {
+              "cashUsd": 252393.2,
+              "complete": true,
+              "durationYears": 3.027661,
+              "dv01Usd": 299.49,
+              "equityUsd": 989195.78,
+              "session": "2024-03-14"
+            },
+            {
+              "cashUsd": 255711.2,
+              "complete": true,
+              "durationYears": 3.023898,
+              "dv01Usd": 298.85,
+              "equityUsd": 988282.33,
+              "session": "2024-03-15"
+            },
+            {
+              "cashUsd": 255711.2,
+              "complete": true,
+              "durationYears": 3.016305,
+              "dv01Usd": 297.98,
+              "equityUsd": 987900.55,
+              "session": "2024-03-18"
+            },
+            {
+              "cashUsd": 255711.2,
+              "complete": true,
+              "durationYears": 3.017181,
+              "dv01Usd": 298.47,
+              "equityUsd": 989232.44,
+              "session": "2024-03-19"
+            },
+            {
+              "cashUsd": 255711.2,
+              "complete": true,
+              "durationYears": 3.017304,
+              "dv01Usd": 298.92,
+              "equityUsd": 990685.57,
+              "session": "2024-03-20"
+            },
+            {
+              "cashUsd": 255711.2,
+              "complete": true,
+              "durationYears": 3.015339,
+              "dv01Usd": 298.7,
+              "equityUsd": 990608.18,
+              "session": "2024-03-21"
+            },
+            {
+              "cashUsd": 255711.2,
+              "complete": true,
+              "durationYears": 3.017649,
+              "dv01Usd": 299.45,
+              "equityUsd": 992327.15,
+              "session": "2024-03-22"
+            },
+            {
+              "cashUsd": 255711.2,
+              "complete": true,
+              "durationYears": 3.009399,
+              "dv01Usd": 298.49,
+              "equityUsd": 991850.13,
+              "session": "2024-03-25"
+            },
+            {
+              "cashUsd": 255711.2,
+              "complete": true,
+              "durationYears": 3.008695,
+              "dv01Usd": 298.56,
+              "equityUsd": 992308.26,
+              "session": "2024-03-26"
+            },
+            {
+              "cashUsd": 255711.2,
+              "complete": true,
+              "durationYears": 3.010072,
+              "dv01Usd": 299.05,
+              "equityUsd": 993505.77,
+              "session": "2024-03-27"
+            },
+            {
+              "cashUsd": 255711.2,
+              "complete": true,
+              "durationYears": 4.393073,
+              "dv01Usd": 436.15,
+              "equityUsd": 992802.85,
+              "session": "2024-03-28"
+            }
+          ]
+        },
+        "proposalActions": {
+          "BOOTSTRAP": 1,
+          "REBALANCE": 2
+        },
+        "responseSource": "recorded_responses:reference/reference-heuristic-v1",
+        "usage": {
+          "attemptStatuses": {
+            "ok": 120
+          },
+          "budgetExhausted": [],
+          "decisionsWithModelCalls": 60,
+          "estimatedModelCostUsd": "0.000000",
+          "evidenceCalls": 0,
+          "evidenceTokens": 0,
+          "generationCalls": 120,
+          "inputTokens": 344582,
+          "maxGenerationCallsPerDecision": 2,
+          "maxToolCallsPerDecision": 4,
+          "outputTokens": 28714,
+          "priceSchedules": [
+            "reference-zero-cost-v1"
+          ],
+          "providers": [
+            "reference/reference-heuristic-v1"
+          ],
+          "recordedResponseIds": 120,
+          "toolCalls": 240,
+          "uniqueEvidenceChunks": 0
+        }
+      },
+      "llm_rag": {
+        "evidence": {
+          "bundles": 60,
+          "citations": 180,
+          "claimValidation": {
+            "valid": 180
+          },
+          "claims": 180,
+          "decisionsWithEvidence": 60,
+          "deliveredPassages": 360,
+          "distinctDocuments": 7,
+          "graphAddedPassages": 0,
+          "noteStatuses": {
+            "supported": 60
+          },
+          "temporalViolations": 0,
+          "validationSteps": {
+            "calc_refs": {
+              "failed": 0,
+              "passed": 60
+            },
+            "citation_membership": {
+              "failed": 0,
+              "passed": 60
+            },
+            "policy": {
+              "failed": 0,
+              "passed": 60
+            },
+            "quote_offsets": {
+              "failed": 0,
+              "passed": 60
+            },
+            "schema": {
+              "failed": 0,
+              "passed": 60
+            },
+            "support": {
+              "failed": 0,
+              "passed": 60
+            },
+            "temporal": {
+              "failed": 0,
+              "passed": 60
+            }
+          }
+        },
+        "exposure": {
+          "daily": [
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-02"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 4.610118,
+              "dv01Usd": 460.92,
+              "equityUsd": 999794.23,
+              "session": "2024-01-03"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 3.188276,
+              "dv01Usd": 317.73,
+              "equityUsd": 996550.31,
+              "session": "2024-01-04"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.182119,
+              "dv01Usd": 316.69,
+              "equityUsd": 995223.05,
+              "session": "2024-01-05"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.179625,
+              "dv01Usd": 317.0,
+              "equityUsd": 996964.12,
+              "session": "2024-01-08"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.1769,
+              "dv01Usd": 316.74,
+              "equityUsd": 996997.86,
+              "session": "2024-01-09"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.173884,
+              "dv01Usd": 316.33,
+              "equityUsd": 996678.35,
+              "session": "2024-01-10"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.176423,
+              "dv01Usd": 317.33,
+              "equityUsd": 999023.31,
+              "session": "2024-01-11"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.176561,
+              "dv01Usd": 317.93,
+              "equityUsd": 1000858.71,
+              "session": "2024-01-12"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.161043,
+              "dv01Usd": 315.5,
+              "equityUsd": 998073.69,
+              "session": "2024-01-16"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.155564,
+              "dv01Usd": 314.3,
+              "equityUsd": 996032.07,
+              "session": "2024-01-17"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.15143,
+              "dv01Usd": 313.7,
+              "equityUsd": 995424.19,
+              "session": "2024-01-18"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.148188,
+              "dv01Usd": 313.1,
+              "equityUsd": 994540.16,
+              "session": "2024-01-19"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.145747,
+              "dv01Usd": 313.35,
+              "equityUsd": 996091.99,
+              "session": "2024-01-22"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.140676,
+              "dv01Usd": 312.63,
+              "equityUsd": 995420.36,
+              "session": "2024-01-23"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.136637,
+              "dv01Usd": 312.02,
+              "equityUsd": 994749.53,
+              "session": "2024-01-24"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.139119,
+              "dv01Usd": 312.88,
+              "equityUsd": 996719.04,
+              "session": "2024-01-25"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.135443,
+              "dv01Usd": 312.25,
+              "equityUsd": 995869.96,
+              "session": "2024-01-26"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.135139,
+              "dv01Usd": 312.95,
+              "equityUsd": 998196.81,
+              "session": "2024-01-29"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.133116,
+              "dv01Usd": 312.59,
+              "equityUsd": 997693.9,
+              "session": "2024-01-30"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.136659,
+              "dv01Usd": 313.77,
+              "equityUsd": 1000318.01,
+              "session": "2024-01-31"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.143603,
+              "dv01Usd": 315.53,
+              "equityUsd": 1003736.56,
+              "session": "2024-02-01"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.128459,
+              "dv01Usd": 312.29,
+              "equityUsd": 998221.62,
+              "session": "2024-02-02"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.112339,
+              "dv01Usd": 309.48,
+              "equityUsd": 994376.97,
+              "session": "2024-02-05"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.116688,
+              "dv01Usd": 310.85,
+              "equityUsd": 997361.95,
+              "session": "2024-02-06"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.113523,
+              "dv01Usd": 310.37,
+              "equityUsd": 996859.62,
+              "session": "2024-02-07"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.107381,
+              "dv01Usd": 309.24,
+              "equityUsd": 995193.12,
+              "session": "2024-02-08"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.10399,
+              "dv01Usd": 308.72,
+              "equityUsd": 994589.75,
+              "session": "2024-02-09"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.098573,
+              "dv01Usd": 308.32,
+              "equityUsd": 995046.98,
+              "session": "2024-02-12"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.085103,
+              "dv01Usd": 305.44,
+              "equityUsd": 990045.82,
+              "session": "2024-02-13"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.086873,
+              "dv01Usd": 306.19,
+              "equityUsd": 991908.23,
+              "session": "2024-02-14"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.08693,
+              "dv01Usd": 306.43,
+              "equityUsd": 992667.77,
+              "session": "2024-02-15"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.080718,
+              "dv01Usd": 305.23,
+              "equityUsd": 990770.31,
+              "session": "2024-02-16"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.074931,
+              "dv01Usd": 305.08,
+              "equityUsd": 992165.34,
+              "session": "2024-02-20"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.069389,
+              "dv01Usd": 304.11,
+              "equityUsd": 990794.44,
+              "session": "2024-02-21"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.066495,
+              "dv01Usd": 303.59,
+              "equityUsd": 990008.47,
+              "session": "2024-02-22"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.069461,
+              "dv01Usd": 304.41,
+              "equityUsd": 991735.83,
+              "session": "2024-02-23"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.061324,
+              "dv01Usd": 303.42,
+              "equityUsd": 991135.05,
+              "session": "2024-02-26"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.057622,
+              "dv01Usd": 302.89,
+              "equityUsd": 990594.68,
+              "session": "2024-02-27"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.059508,
+              "dv01Usd": 303.62,
+              "equityUsd": 992375.03,
+              "session": "2024-02-28"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.057846,
+              "dv01Usd": 303.5,
+              "equityUsd": 992521.44,
+              "session": "2024-02-29"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.061284,
+              "dv01Usd": 304.64,
+              "equityUsd": 995151.52,
+              "session": "2024-03-01"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.053398,
+              "dv01Usd": 303.55,
+              "equityUsd": 994139.44,
+              "session": "2024-03-04"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.057216,
+              "dv01Usd": 304.66,
+              "equityUsd": 996518.55,
+              "session": "2024-03-05"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.057189,
+              "dv01Usd": 304.84,
+              "equityUsd": 997110.66,
+              "session": "2024-03-06"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.057253,
+              "dv01Usd": 305.2,
+              "equityUsd": 998269.35,
+              "session": "2024-03-07"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.055929,
+              "dv01Usd": 305.21,
+              "equityUsd": 998731.51,
+              "session": "2024-03-08"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.049294,
+              "dv01Usd": 304.48,
+              "equityUsd": 998524.74,
+              "session": "2024-03-11"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.042605,
+              "dv01Usd": 303.21,
+              "equityUsd": 996562.98,
+              "session": "2024-03-12"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.037952,
+              "dv01Usd": 302.45,
+              "equityUsd": 995568.33,
+              "session": "2024-03-13"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.028859,
+              "dv01Usd": 300.73,
+              "equityUsd": 992881.43,
+              "session": "2024-03-14"
+            },
+            {
+              "cashUsd": 257712.54,
+              "complete": true,
+              "durationYears": 3.025095,
+              "dv01Usd": 300.08,
+              "equityUsd": 991965.37,
+              "session": "2024-03-15"
+            },
+            {
+              "cashUsd": 257712.54,
+              "complete": true,
+              "durationYears": 3.017505,
+              "dv01Usd": 299.21,
+              "equityUsd": 991581.14,
+              "session": "2024-03-18"
+            },
+            {
+              "cashUsd": 257712.54,
+              "complete": true,
+              "durationYears": 3.018395,
+              "dv01Usd": 299.7,
+              "equityUsd": 992917.93,
+              "session": "2024-03-19"
+            },
+            {
+              "cashUsd": 257712.54,
+              "complete": true,
+              "durationYears": 3.018526,
+              "dv01Usd": 300.15,
+              "equityUsd": 994374.61,
+              "session": "2024-03-20"
+            },
+            {
+              "cashUsd": 257712.54,
+              "complete": true,
+              "durationYears": 3.016566,
+              "dv01Usd": 299.94,
+              "equityUsd": 994297.49,
+              "session": "2024-03-21"
+            },
+            {
+              "cashUsd": 257712.54,
+              "complete": true,
+              "durationYears": 3.018895,
+              "dv01Usd": 300.69,
+              "equityUsd": 996023.66,
+              "session": "2024-03-22"
+            },
+            {
+              "cashUsd": 257712.54,
+              "complete": true,
+              "durationYears": 3.010646,
+              "dv01Usd": 299.72,
+              "equityUsd": 995543.39,
+              "session": "2024-03-25"
+            },
+            {
+              "cashUsd": 257712.54,
+              "complete": true,
+              "durationYears": 3.00995,
+              "dv01Usd": 299.79,
+              "equityUsd": 996003.68,
+              "session": "2024-03-26"
+            },
+            {
+              "cashUsd": 257712.54,
+              "complete": true,
+              "durationYears": 3.011343,
+              "dv01Usd": 300.29,
+              "equityUsd": 997207.0,
+              "session": "2024-03-27"
+            },
+            {
+              "cashUsd": 257712.54,
+              "complete": true,
+              "durationYears": 3.008368,
+              "dv01Usd": 299.8,
+              "equityUsd": 996547.31,
+              "session": "2024-03-28"
+            }
+          ]
+        },
+        "proposalActions": {
+          "BOOTSTRAP": 1,
+          "REBALANCE": 1
+        },
+        "responseSource": "recorded_responses:reference/reference-heuristic-v1",
+        "usage": {
+          "attemptStatuses": {
+            "ok": 120
+          },
+          "budgetExhausted": [],
+          "decisionsWithModelCalls": 60,
+          "estimatedModelCostUsd": "0.000000",
+          "evidenceCalls": 60,
+          "evidenceTokens": 208324,
+          "generationCalls": 120,
+          "inputTokens": 1084781,
+          "maxGenerationCallsPerDecision": 2,
+          "maxToolCallsPerDecision": 5,
+          "outputTokens": 75452,
+          "priceSchedules": [
+            "reference-zero-cost-v1"
+          ],
+          "providers": [
+            "reference/reference-heuristic-v1"
+          ],
+          "recordedResponseIds": 120,
+          "toolCalls": 300,
+          "uniqueEvidenceChunks": 360
+        }
+      },
+      "llm_team": {
+        "evidence": {
+          "bundles": 60,
+          "citations": 180,
+          "claimValidation": {
+            "valid": 180
+          },
+          "claims": 180,
+          "decisionsWithEvidence": 60,
+          "deliveredPassages": 360,
+          "distinctDocuments": 5,
+          "graphAddedPassages": 0,
+          "noteStatuses": {
+            "supported": 60
+          },
+          "temporalViolations": 0,
+          "validationSteps": {
+            "calc_refs": {
+              "failed": 0,
+              "passed": 60
+            },
+            "citation_membership": {
+              "failed": 0,
+              "passed": 60
+            },
+            "policy": {
+              "failed": 0,
+              "passed": 60
+            },
+            "quote_offsets": {
+              "failed": 0,
+              "passed": 60
+            },
+            "schema": {
+              "failed": 0,
+              "passed": 60
+            },
+            "support": {
+              "failed": 0,
+              "passed": 60
+            },
+            "temporal": {
+              "failed": 0,
+              "passed": 60
+            }
+          }
+        },
+        "exposure": {
+          "daily": [
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-02"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 4.610118,
+              "dv01Usd": 460.92,
+              "equityUsd": 999794.23,
+              "session": "2024-01-03"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 3.188276,
+              "dv01Usd": 317.73,
+              "equityUsd": 996550.31,
+              "session": "2024-01-04"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.182119,
+              "dv01Usd": 316.69,
+              "equityUsd": 995223.05,
+              "session": "2024-01-05"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.179625,
+              "dv01Usd": 317.0,
+              "equityUsd": 996964.12,
+              "session": "2024-01-08"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.1769,
+              "dv01Usd": 316.74,
+              "equityUsd": 996997.86,
+              "session": "2024-01-09"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.173884,
+              "dv01Usd": 316.33,
+              "equityUsd": 996678.35,
+              "session": "2024-01-10"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.176423,
+              "dv01Usd": 317.33,
+              "equityUsd": 999023.31,
+              "session": "2024-01-11"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.176561,
+              "dv01Usd": 317.93,
+              "equityUsd": 1000858.71,
+              "session": "2024-01-12"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.161043,
+              "dv01Usd": 315.5,
+              "equityUsd": 998073.69,
+              "session": "2024-01-16"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.155564,
+              "dv01Usd": 314.3,
+              "equityUsd": 996032.07,
+              "session": "2024-01-17"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.15143,
+              "dv01Usd": 313.7,
+              "equityUsd": 995424.19,
+              "session": "2024-01-18"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.148188,
+              "dv01Usd": 313.1,
+              "equityUsd": 994540.16,
+              "session": "2024-01-19"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.145747,
+              "dv01Usd": 313.35,
+              "equityUsd": 996091.99,
+              "session": "2024-01-22"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.140676,
+              "dv01Usd": 312.63,
+              "equityUsd": 995420.36,
+              "session": "2024-01-23"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.136637,
+              "dv01Usd": 312.02,
+              "equityUsd": 994749.53,
+              "session": "2024-01-24"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.139119,
+              "dv01Usd": 312.88,
+              "equityUsd": 996719.04,
+              "session": "2024-01-25"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.135443,
+              "dv01Usd": 312.25,
+              "equityUsd": 995869.96,
+              "session": "2024-01-26"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.135139,
+              "dv01Usd": 312.95,
+              "equityUsd": 998196.81,
+              "session": "2024-01-29"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.133116,
+              "dv01Usd": 312.59,
+              "equityUsd": 997693.9,
+              "session": "2024-01-30"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.136659,
+              "dv01Usd": 313.77,
+              "equityUsd": 1000318.01,
+              "session": "2024-01-31"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.143603,
+              "dv01Usd": 315.53,
+              "equityUsd": 1003736.56,
+              "session": "2024-02-01"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.128459,
+              "dv01Usd": 312.29,
+              "equityUsd": 998221.62,
+              "session": "2024-02-02"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.112339,
+              "dv01Usd": 309.48,
+              "equityUsd": 994376.97,
+              "session": "2024-02-05"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.116688,
+              "dv01Usd": 310.85,
+              "equityUsd": 997361.95,
+              "session": "2024-02-06"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.113523,
+              "dv01Usd": 310.37,
+              "equityUsd": 996859.62,
+              "session": "2024-02-07"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.107381,
+              "dv01Usd": 309.24,
+              "equityUsd": 995193.12,
+              "session": "2024-02-08"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.10399,
+              "dv01Usd": 308.72,
+              "equityUsd": 994589.75,
+              "session": "2024-02-09"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.098573,
+              "dv01Usd": 308.32,
+              "equityUsd": 995046.98,
+              "session": "2024-02-12"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.085103,
+              "dv01Usd": 305.44,
+              "equityUsd": 990045.82,
+              "session": "2024-02-13"
+            },
+            {
+              "cashUsd": 249757.04,
+              "complete": true,
+              "durationYears": 3.086873,
+              "dv01Usd": 306.19,
+              "equityUsd": 991908.23,
+              "session": "2024-02-14"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.08693,
+              "dv01Usd": 306.43,
+              "equityUsd": 992667.77,
+              "session": "2024-02-15"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.080718,
+              "dv01Usd": 305.23,
+              "equityUsd": 990770.31,
+              "session": "2024-02-16"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.074931,
+              "dv01Usd": 305.08,
+              "equityUsd": 992165.34,
+              "session": "2024-02-20"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.069389,
+              "dv01Usd": 304.11,
+              "equityUsd": 990794.44,
+              "session": "2024-02-21"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.066495,
+              "dv01Usd": 303.59,
+              "equityUsd": 990008.47,
+              "session": "2024-02-22"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.069461,
+              "dv01Usd": 304.41,
+              "equityUsd": 991735.83,
+              "session": "2024-02-23"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.061324,
+              "dv01Usd": 303.42,
+              "equityUsd": 991135.05,
+              "session": "2024-02-26"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.057622,
+              "dv01Usd": 302.89,
+              "equityUsd": 990594.68,
+              "session": "2024-02-27"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.059508,
+              "dv01Usd": 303.62,
+              "equityUsd": 992375.03,
+              "session": "2024-02-28"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.057846,
+              "dv01Usd": 303.5,
+              "equityUsd": 992521.44,
+              "session": "2024-02-29"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.061284,
+              "dv01Usd": 304.64,
+              "equityUsd": 995151.52,
+              "session": "2024-03-01"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.053398,
+              "dv01Usd": 303.55,
+              "equityUsd": 994139.44,
+              "session": "2024-03-04"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.057216,
+              "dv01Usd": 304.66,
+              "equityUsd": 996518.55,
+              "session": "2024-03-05"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.057189,
+              "dv01Usd": 304.84,
+              "equityUsd": 997110.66,
+              "session": "2024-03-06"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.057253,
+              "dv01Usd": 305.2,
+              "equityUsd": 998269.35,
+              "session": "2024-03-07"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.055929,
+              "dv01Usd": 305.21,
+              "equityUsd": 998731.51,
+              "session": "2024-03-08"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.049294,
+              "dv01Usd": 304.48,
+              "equityUsd": 998524.74,
+              "session": "2024-03-11"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.042605,
+              "dv01Usd": 303.21,
+              "equityUsd": 996562.98,
+              "session": "2024-03-12"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.037952,
+              "dv01Usd": 302.45,
+              "equityUsd": 995568.33,
+              "session": "2024-03-13"
+            },
+            {
+              "cashUsd": 254394.54,
+              "complete": true,
+              "durationYears": 3.028859,
+              "dv01Usd": 300.73,
+              "equityUsd": 992881.43,
+              "session": "2024-03-14"
+            },
+            {
+              "cashUsd": 257712.54,
+              "complete": true,
+              "durationYears": 3.025095,
+              "dv01Usd": 300.08,
+              "equityUsd": 991965.37,
+              "session": "2024-03-15"
+            },
+            {
+              "cashUsd": 257712.54,
+              "complete": true,
+              "durationYears": 3.017505,
+              "dv01Usd": 299.21,
+              "equityUsd": 991581.14,
+              "session": "2024-03-18"
+            },
+            {
+              "cashUsd": 257712.54,
+              "complete": true,
+              "durationYears": 3.018395,
+              "dv01Usd": 299.7,
+              "equityUsd": 992917.93,
+              "session": "2024-03-19"
+            },
+            {
+              "cashUsd": 257712.54,
+              "complete": true,
+              "durationYears": 3.018526,
+              "dv01Usd": 300.15,
+              "equityUsd": 994374.61,
+              "session": "2024-03-20"
+            },
+            {
+              "cashUsd": 257712.54,
+              "complete": true,
+              "durationYears": 3.016566,
+              "dv01Usd": 299.94,
+              "equityUsd": 994297.49,
+              "session": "2024-03-21"
+            },
+            {
+              "cashUsd": 257712.54,
+              "complete": true,
+              "durationYears": 3.018895,
+              "dv01Usd": 300.69,
+              "equityUsd": 996023.66,
+              "session": "2024-03-22"
+            },
+            {
+              "cashUsd": 257712.54,
+              "complete": true,
+              "durationYears": 3.010646,
+              "dv01Usd": 299.72,
+              "equityUsd": 995543.39,
+              "session": "2024-03-25"
+            },
+            {
+              "cashUsd": 257712.54,
+              "complete": true,
+              "durationYears": 3.00995,
+              "dv01Usd": 299.79,
+              "equityUsd": 996003.68,
+              "session": "2024-03-26"
+            },
+            {
+              "cashUsd": 257712.54,
+              "complete": true,
+              "durationYears": 3.011343,
+              "dv01Usd": 300.29,
+              "equityUsd": 997207.0,
+              "session": "2024-03-27"
+            },
+            {
+              "cashUsd": 257712.54,
+              "complete": true,
+              "durationYears": 3.008368,
+              "dv01Usd": 299.8,
+              "equityUsd": 996547.31,
+              "session": "2024-03-28"
+            }
+          ]
+        },
+        "proposalActions": {
+          "BOOTSTRAP": 1,
+          "REBALANCE": 1
+        },
+        "responseSource": "recorded_responses:reference/reference-heuristic-v1",
+        "usage": {
+          "attemptStatuses": {
+            "ok": 300
+          },
+          "budgetExhausted": [],
+          "decisionsWithModelCalls": 60,
+          "estimatedModelCostUsd": "0.000000",
+          "evidenceCalls": 60,
+          "evidenceTokens": 209460,
+          "generationCalls": 300,
+          "inputTokens": 1560587,
+          "maxGenerationCallsPerDecision": 5,
+          "maxToolCallsPerDecision": 5,
+          "outputTokens": 151805,
+          "priceSchedules": [
+            "reference-zero-cost-v1"
+          ],
+          "providers": [
+            "reference/reference-heuristic-v1"
+          ],
+          "recordedResponseIds": 300,
+          "toolCalls": 300,
+          "uniqueEvidenceChunks": 360
+        }
+      },
+      "quant_duration": {
+        "evidence": null,
+        "exposure": {
+          "daily": [
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-02"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 4.610118,
+              "dv01Usd": 460.92,
+              "equityUsd": 999794.23,
+              "session": "2024-01-03"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 3.989164,
+              "dv01Usd": 397.55,
+              "equityUsd": 996575.11,
+              "session": "2024-01-04"
+            },
+            {
+              "cashUsd": 142638.87,
+              "complete": true,
+              "durationYears": 3.982126,
+              "dv01Usd": 396.14,
+              "equityUsd": 994804.23,
+              "session": "2024-01-05"
+            },
+            {
+              "cashUsd": 142638.87,
+              "complete": true,
+              "durationYears": 3.978833,
+              "dv01Usd": 396.66,
+              "equityUsd": 996928.04,
+              "session": "2024-01-08"
+            },
+            {
+              "cashUsd": 142638.87,
+              "complete": true,
+              "durationYears": 3.975458,
+              "dv01Usd": 396.31,
+              "equityUsd": 996886.3,
+              "session": "2024-01-09"
+            },
+            {
+              "cashUsd": 142638.87,
+              "complete": true,
+              "durationYears": 3.971993,
+              "dv01Usd": 395.8,
+              "equityUsd": 996464.87,
+              "session": "2024-01-10"
+            },
+            {
+              "cashUsd": 142638.87,
+              "complete": true,
+              "durationYears": 3.974214,
+              "dv01Usd": 397.14,
+              "equityUsd": 999292.46,
+              "session": "2024-01-11"
+            },
+            {
+              "cashUsd": 142638.87,
+              "complete": true,
+              "durationYears": 3.973405,
+              "dv01Usd": 397.88,
+              "equityUsd": 1001357.45,
+              "session": "2024-01-12"
+            },
+            {
+              "cashUsd": 142638.87,
+              "complete": true,
+              "durationYears": 3.955866,
+              "dv01Usd": 394.72,
+              "equityUsd": 997799.69,
+              "session": "2024-01-16"
+            },
+            {
+              "cashUsd": 142638.87,
+              "complete": true,
+              "durationYears": 3.950461,
+              "dv01Usd": 393.24,
+              "equityUsd": 995423.06,
+              "session": "2024-01-17"
+            },
+            {
+              "cashUsd": 142638.87,
+              "complete": true,
+              "durationYears": 3.945527,
+              "dv01Usd": 392.41,
+              "equityUsd": 994572.97,
+              "session": "2024-01-18"
+            },
+            {
+              "cashUsd": 142638.87,
+              "complete": true,
+              "durationYears": 3.942333,
+              "dv01Usd": 391.7,
+              "equityUsd": 993586.74,
+              "session": "2024-01-19"
+            },
+            {
+              "cashUsd": 142638.87,
+              "complete": true,
+              "durationYears": 3.939251,
+              "dv01Usd": 392.16,
+              "equityUsd": 995515.7,
+              "session": "2024-01-22"
+            },
+            {
+              "cashUsd": 142638.87,
+              "complete": true,
+              "durationYears": 3.933298,
+              "dv01Usd": 391.19,
+              "equityUsd": 994571.75,
+              "session": "2024-01-23"
+            },
+            {
+              "cashUsd": 142638.87,
+              "complete": true,
+              "durationYears": 3.928431,
+              "dv01Usd": 390.34,
+              "equityUsd": 993639.78,
+              "session": "2024-01-24"
+            },
+            {
+              "cashUsd": 142638.87,
+              "complete": true,
+              "durationYears": 3.930857,
+              "dv01Usd": 391.54,
+              "equityUsd": 996068.6,
+              "session": "2024-01-25"
+            },
+            {
+              "cashUsd": 142638.87,
+              "complete": true,
+              "durationYears": 3.926983,
+              "dv01Usd": 390.76,
+              "equityUsd": 995068.49,
+              "session": "2024-01-26"
+            },
+            {
+              "cashUsd": 142638.87,
+              "complete": true,
+              "durationYears": 3.9264,
+              "dv01Usd": 391.86,
+              "equityUsd": 998015.94,
+              "session": "2024-01-29"
+            },
+            {
+              "cashUsd": 142638.87,
+              "complete": true,
+              "durationYears": 3.924731,
+              "dv01Usd": 391.52,
+              "equityUsd": 997561.95,
+              "session": "2024-01-30"
+            },
+            {
+              "cashUsd": 142638.87,
+              "complete": true,
+              "durationYears": 3.928194,
+              "dv01Usd": 393.13,
+              "equityUsd": 1000778.62,
+              "session": "2024-01-31"
+            },
+            {
+              "cashUsd": 142638.87,
+              "complete": true,
+              "durationYears": 3.935946,
+              "dv01Usd": 395.63,
+              "equityUsd": 1005166.01,
+              "session": "2024-02-01"
+            },
+            {
+              "cashUsd": 142638.87,
+              "complete": true,
+              "durationYears": 3.981185,
+              "dv01Usd": 397.43,
+              "equityUsd": 998278.76,
+              "session": "2024-02-02"
+            },
+            {
+              "cashUsd": 119485.59,
+              "complete": true,
+              "durationYears": 3.963314,
+              "dv01Usd": 393.68,
+              "equityUsd": 993310.03,
+              "session": "2024-02-05"
+            },
+            {
+              "cashUsd": 119485.59,
+              "complete": true,
+              "durationYears": 3.967176,
+              "dv01Usd": 395.54,
+              "equityUsd": 997028.14,
+              "session": "2024-02-06"
+            },
+            {
+              "cashUsd": 119485.59,
+              "complete": true,
+              "durationYears": 3.963842,
+              "dv01Usd": 394.98,
+              "equityUsd": 996447.2,
+              "session": "2024-02-07"
+            },
+            {
+              "cashUsd": 119485.59,
+              "complete": true,
+              "durationYears": 3.957111,
+              "dv01Usd": 393.46,
+              "equityUsd": 994311.14,
+              "session": "2024-02-08"
+            },
+            {
+              "cashUsd": 119485.59,
+              "complete": true,
+              "durationYears": 3.95333,
+              "dv01Usd": 392.78,
+              "equityUsd": 993547.24,
+              "session": "2024-02-09"
+            },
+            {
+              "cashUsd": 119485.59,
+              "complete": true,
+              "durationYears": 3.946705,
+              "dv01Usd": 392.34,
+              "equityUsd": 994088.98,
+              "session": "2024-02-12"
+            },
+            {
+              "cashUsd": 119485.59,
+              "complete": true,
+              "durationYears": 3.932729,
+              "dv01Usd": 388.48,
+              "equityUsd": 987812.38,
+              "session": "2024-02-13"
+            },
+            {
+              "cashUsd": 119485.59,
+              "complete": true,
+              "durationYears": 3.934016,
+              "dv01Usd": 389.51,
+              "equityUsd": 990111.52,
+              "session": "2024-02-14"
+            },
+            {
+              "cashUsd": 125301.09,
+              "complete": true,
+              "durationYears": 3.93391,
+              "dv01Usd": 389.89,
+              "equityUsd": 991097.51,
+              "session": "2024-02-15"
+            },
+            {
+              "cashUsd": 125301.09,
+              "complete": true,
+              "durationYears": 3.927295,
+              "dv01Usd": 388.3,
+              "equityUsd": 988714.87,
+              "session": "2024-02-16"
+            },
+            {
+              "cashUsd": 125301.09,
+              "complete": true,
+              "durationYears": 3.919809,
+              "dv01Usd": 388.22,
+              "equityUsd": 990408.98,
+              "session": "2024-02-20"
+            },
+            {
+              "cashUsd": 125301.09,
+              "complete": true,
+              "durationYears": 3.913663,
+              "dv01Usd": 386.92,
+              "equityUsd": 988643.72,
+              "session": "2024-02-21"
+            },
+            {
+              "cashUsd": 125301.09,
+              "complete": true,
+              "durationYears": 3.910842,
+              "dv01Usd": 386.29,
+              "equityUsd": 987741.83,
+              "session": "2024-02-22"
+            },
+            {
+              "cashUsd": 125301.09,
+              "complete": true,
+              "durationYears": 3.914111,
+              "dv01Usd": 387.51,
+              "equityUsd": 990032.58,
+              "session": "2024-02-23"
+            },
+            {
+              "cashUsd": 125301.09,
+              "complete": true,
+              "durationYears": 3.904573,
+              "dv01Usd": 386.25,
+              "equityUsd": 989212.28,
+              "session": "2024-02-26"
+            },
+            {
+              "cashUsd": 125301.09,
+              "complete": true,
+              "durationYears": 3.900286,
+              "dv01Usd": 385.54,
+              "equityUsd": 988493.76,
+              "session": "2024-02-27"
+            },
+            {
+              "cashUsd": 125301.09,
+              "complete": true,
+              "durationYears": 3.901789,
+              "dv01Usd": 386.55,
+              "equityUsd": 990708.45,
+              "session": "2024-02-28"
+            },
+            {
+              "cashUsd": 125301.09,
+              "complete": true,
+              "durationYears": 3.899929,
+              "dv01Usd": 386.46,
+              "equityUsd": 990932.01,
+              "session": "2024-02-29"
+            },
+            {
+              "cashUsd": 125301.09,
+              "complete": true,
+              "durationYears": 3.902834,
+              "dv01Usd": 388.01,
+              "equityUsd": 994181.77,
+              "session": "2024-03-01"
+            },
+            {
+              "cashUsd": 125301.09,
+              "complete": true,
+              "durationYears": 3.987825,
+              "dv01Usd": 395.97,
+              "equityUsd": 992939.28,
+              "session": "2024-03-04"
+            },
+            {
+              "cashUsd": 100125.22,
+              "complete": true,
+              "durationYears": 3.991402,
+              "dv01Usd": 397.57,
+              "equityUsd": 996077.06,
+              "session": "2024-03-05"
+            },
+            {
+              "cashUsd": 100125.22,
+              "complete": true,
+              "durationYears": 3.991215,
+              "dv01Usd": 397.88,
+              "equityUsd": 996896.07,
+              "session": "2024-03-06"
+            },
+            {
+              "cashUsd": 100125.22,
+              "complete": true,
+              "durationYears": 3.990455,
+              "dv01Usd": 398.38,
+              "equityUsd": 998327.74,
+              "session": "2024-03-07"
+            },
+            {
+              "cashUsd": 100125.22,
+              "complete": true,
+              "durationYears": 3.988484,
+              "dv01Usd": 398.41,
+              "equityUsd": 998889.46,
+              "session": "2024-03-08"
+            },
+            {
+              "cashUsd": 100125.22,
+              "complete": true,
+              "durationYears": 3.980602,
+              "dv01Usd": 397.51,
+              "equityUsd": 998627.99,
+              "session": "2024-03-11"
+            },
+            {
+              "cashUsd": 100125.22,
+              "complete": true,
+              "durationYears": 3.973534,
+              "dv01Usd": 395.79,
+              "equityUsd": 996076.93,
+              "session": "2024-03-12"
+            },
+            {
+              "cashUsd": 100125.22,
+              "complete": true,
+              "durationYears": 3.968412,
+              "dv01Usd": 394.77,
+              "equityUsd": 994772.96,
+              "session": "2024-03-13"
+            },
+            {
+              "cashUsd": 100125.22,
+              "complete": true,
+              "durationYears": 3.958635,
+              "dv01Usd": 392.39,
+              "equityUsd": 991214.59,
+              "session": "2024-03-14"
+            },
+            {
+              "cashUsd": 103936.97,
+              "complete": true,
+              "durationYears": 3.954747,
+              "dv01Usd": 391.55,
+              "equityUsd": 990072.14,
+              "session": "2024-03-15"
+            },
+            {
+              "cashUsd": 103936.97,
+              "complete": true,
+              "durationYears": 3.945637,
+              "dv01Usd": 390.43,
+              "equityUsd": 989525.92,
+              "session": "2024-03-18"
+            },
+            {
+              "cashUsd": 103936.97,
+              "complete": true,
+              "durationYears": 3.945953,
+              "dv01Usd": 391.14,
+              "equityUsd": 991244.55,
+              "session": "2024-03-19"
+            },
+            {
+              "cashUsd": 103936.97,
+              "complete": true,
+              "durationYears": 3.945013,
+              "dv01Usd": 391.75,
+              "equityUsd": 993025.17,
+              "session": "2024-03-20"
+            },
+            {
+              "cashUsd": 103936.97,
+              "complete": true,
+              "durationYears": 3.942786,
+              "dv01Usd": 391.5,
+              "equityUsd": 992951.63,
+              "session": "2024-03-21"
+            },
+            {
+              "cashUsd": 103936.97,
+              "complete": true,
+              "durationYears": 3.944738,
+              "dv01Usd": 392.58,
+              "equityUsd": 995207.91,
+              "session": "2024-03-22"
+            },
+            {
+              "cashUsd": 103936.97,
+              "complete": true,
+              "durationYears": 3.934861,
+              "dv01Usd": 391.33,
+              "equityUsd": 994512.98,
+              "session": "2024-03-25"
+            },
+            {
+              "cashUsd": 103936.97,
+              "complete": true,
+              "durationYears": 3.933817,
+              "dv01Usd": 391.47,
+              "equityUsd": 995127.54,
+              "session": "2024-03-26"
+            },
+            {
+              "cashUsd": 103936.97,
+              "complete": true,
+              "durationYears": 3.935034,
+              "dv01Usd": 392.22,
+              "equityUsd": 996734.02,
+              "session": "2024-03-27"
+            },
+            {
+              "cashUsd": 103936.97,
+              "complete": true,
+              "durationYears": 3.932045,
+              "dv01Usd": 391.61,
+              "equityUsd": 995954.0,
+              "session": "2024-03-28"
+            }
+          ]
+        },
+        "proposalActions": {
+          "BOOTSTRAP": 1,
+          "REBALANCE": 3
+        },
+        "responseSource": "deterministic_code",
+        "usage": {
+          "attemptStatuses": {},
+          "budgetExhausted": [],
+          "decisionsWithModelCalls": 0,
+          "estimatedModelCostUsd": null,
+          "evidenceCalls": 0,
+          "evidenceTokens": 0,
+          "generationCalls": 0,
+          "inputTokens": 0,
+          "maxGenerationCallsPerDecision": 0,
+          "maxToolCallsPerDecision": 0,
+          "outputTokens": 0,
+          "priceSchedules": [],
+          "providers": [],
+          "recordedResponseIds": 0,
+          "toolCalls": 0,
+          "uniqueEvidenceChunks": 0
+        }
+      },
+      "static_ladder": {
+        "evidence": null,
+        "exposure": {
+          "daily": [
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-02"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 4.610118,
+              "dv01Usd": 460.92,
+              "equityUsd": 999794.23,
+              "session": "2024-01-03"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.602722,
+              "dv01Usd": 458.7,
+              "equityUsd": 996594.11,
+              "session": "2024-01-04"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.59549,
+              "dv01Usd": 457.01,
+              "equityUsd": 994483.36,
+              "session": "2024-01-05"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.591169,
+              "dv01Usd": 457.69,
+              "equityUsd": 996900.4,
+              "session": "2024-01-08"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.587377,
+              "dv01Usd": 457.27,
+              "equityUsd": 996800.84,
+              "session": "2024-01-09"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.583679,
+              "dv01Usd": 456.67,
+              "equityUsd": 996301.32,
+              "session": "2024-01-10"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.585135,
+              "dv01Usd": 458.28,
+              "equityUsd": 999498.66,
+              "session": "2024-01-11"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.583354,
+              "dv01Usd": 459.13,
+              "equityUsd": 1001739.56,
+              "session": "2024-01-12"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.565098,
+              "dv01Usd": 455.41,
+              "equityUsd": 997589.77,
+              "session": "2024-01-16"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.560112,
+              "dv01Usd": 453.71,
+              "equityUsd": 994956.48,
+              "session": "2024-01-17"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.554829,
+              "dv01Usd": 452.71,
+              "equityUsd": 993920.82,
+              "session": "2024-01-18"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.551782,
+              "dv01Usd": 451.93,
+              "equityUsd": 992856.29,
+              "session": "2024-01-19"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.5478,
+              "dv01Usd": 452.54,
+              "equityUsd": 995074.19,
+              "session": "2024-01-22"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.541464,
+              "dv01Usd": 451.39,
+              "equityUsd": 993921.61,
+              "session": "2024-01-23"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.536245,
+              "dv01Usd": 450.35,
+              "equityUsd": 992789.58,
+              "session": "2024-01-24"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.53813,
+              "dv01Usd": 451.8,
+              "equityUsd": 995570.29,
+              "session": "2024-01-25"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.534267,
+              "dv01Usd": 450.91,
+              "equityUsd": 994454.47,
+              "session": "2024-01-26"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.532802,
+              "dv01Usd": 452.32,
+              "equityUsd": 997877.37,
+              "session": "2024-01-29"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.531353,
+              "dv01Usd": 451.98,
+              "equityUsd": 997460.87,
+              "session": "2024-01-30"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.534119,
+              "dv01Usd": 453.92,
+              "equityUsd": 1001131.51,
+              "session": "2024-01-31"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.54146,
+              "dv01Usd": 456.99,
+              "equityUsd": 1006261.16,
+              "session": "2024-02-01"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.525556,
+              "dv01Usd": 451.8,
+              "equityUsd": 998331.36,
+              "session": "2024-02-02"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.507045,
+              "dv01Usd": 447.39,
+              "equityUsd": 992639.05,
+              "session": "2024-02-05"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.510508,
+              "dv01Usd": 449.6,
+              "equityUsd": 996785.16,
+              "session": "2024-02-06"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.507146,
+              "dv01Usd": 448.98,
+              "equityUsd": 996161.4,
+              "session": "2024-02-07"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.500237,
+              "dv01Usd": 447.2,
+              "equityUsd": 993726.49,
+              "session": "2024-02-08"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.496311,
+              "dv01Usd": 446.42,
+              "equityUsd": 992865.79,
+              "session": "2024-02-09"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.489098,
+              "dv01Usd": 445.97,
+              "equityUsd": 993455.07,
+              "session": "2024-02-12"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.475204,
+              "dv01Usd": 441.43,
+              "equityUsd": 986385.35,
+              "session": "2024-02-13"
+            },
+            {
+              "cashUsd": 60572.53,
+              "complete": true,
+              "durationYears": 4.476145,
+              "dv01Usd": 442.67,
+              "equityUsd": 988945.65,
+              "session": "2024-02-14"
+            },
+            {
+              "cashUsd": 67290.53,
+              "complete": true,
+              "durationYears": 4.475918,
+              "dv01Usd": 443.16,
+              "equityUsd": 990088.62,
+              "session": "2024-02-15"
+            },
+            {
+              "cashUsd": 67290.53,
+              "complete": true,
+              "durationYears": 4.469237,
+              "dv01Usd": 441.3,
+              "equityUsd": 987409.6,
+              "session": "2024-02-16"
+            },
+            {
+              "cashUsd": 67290.53,
+              "complete": true,
+              "durationYears": 4.460893,
+              "dv01Usd": 441.3,
+              "equityUsd": 989259.45,
+              "session": "2024-02-20"
+            },
+            {
+              "cashUsd": 67290.53,
+              "complete": true,
+              "durationYears": 4.454543,
+              "dv01Usd": 439.77,
+              "equityUsd": 987239.6,
+              "session": "2024-02-21"
+            },
+            {
+              "cashUsd": 67290.53,
+              "complete": true,
+              "durationYears": 4.451812,
+              "dv01Usd": 439.09,
+              "equityUsd": 986307.87,
+              "session": "2024-02-22"
+            },
+            {
+              "cashUsd": 67290.53,
+              "complete": true,
+              "durationYears": 4.455139,
+              "dv01Usd": 440.61,
+              "equityUsd": 988991.09,
+              "session": "2024-02-23"
+            },
+            {
+              "cashUsd": 67290.53,
+              "complete": true,
+              "durationYears": 4.444985,
+              "dv01Usd": 439.17,
+              "equityUsd": 988017.84,
+              "session": "2024-02-26"
+            },
+            {
+              "cashUsd": 67290.53,
+              "complete": true,
+              "durationYears": 4.440461,
+              "dv01Usd": 438.35,
+              "equityUsd": 987170.99,
+              "session": "2024-02-27"
+            },
+            {
+              "cashUsd": 67290.53,
+              "complete": true,
+              "durationYears": 4.441675,
+              "dv01Usd": 439.57,
+              "equityUsd": 989651.66,
+              "session": "2024-02-28"
+            },
+            {
+              "cashUsd": 67290.53,
+              "complete": true,
+              "durationYears": 4.439735,
+              "dv01Usd": 439.5,
+              "equityUsd": 989925.53,
+              "session": "2024-02-29"
+            },
+            {
+              "cashUsd": 67290.53,
+              "complete": true,
+              "durationYears": 4.44223,
+              "dv01Usd": 441.35,
+              "equityUsd": 993539.2,
+              "session": "2024-03-01"
+            },
+            {
+              "cashUsd": 67290.53,
+              "complete": true,
+              "durationYears": 4.433117,
+              "dv01Usd": 439.85,
+              "equityUsd": 992190.04,
+              "session": "2024-03-04"
+            },
+            {
+              "cashUsd": 67290.53,
+              "complete": true,
+              "durationYears": 4.436964,
+              "dv01Usd": 441.79,
+              "equityUsd": 995713.88,
+              "session": "2024-03-05"
+            },
+            {
+              "cashUsd": 67290.53,
+              "complete": true,
+              "durationYears": 4.436893,
+              "dv01Usd": 442.22,
+              "equityUsd": 996681.24,
+              "session": "2024-03-06"
+            },
+            {
+              "cashUsd": 67290.53,
+              "complete": true,
+              "durationYears": 4.435963,
+              "dv01Usd": 442.8,
+              "equityUsd": 998195.69,
+              "session": "2024-03-07"
+            },
+            {
+              "cashUsd": 67290.53,
+              "complete": true,
+              "durationYears": 4.433846,
+              "dv01Usd": 442.84,
+              "equityUsd": 998775.39,
+              "session": "2024-03-08"
+            },
+            {
+              "cashUsd": 67290.53,
+              "complete": true,
+              "durationYears": 4.425687,
+              "dv01Usd": 441.9,
+              "equityUsd": 998487.99,
+              "session": "2024-03-11"
+            },
+            {
+              "cashUsd": 67290.53,
+              "complete": true,
+              "durationYears": 4.418322,
+              "dv01Usd": 439.92,
+              "equityUsd": 995661.86,
+              "session": "2024-03-12"
+            },
+            {
+              "cashUsd": 67290.53,
+              "complete": true,
+              "durationYears": 4.412973,
+              "dv01Usd": 438.74,
+              "equityUsd": 994204.51,
+              "session": "2024-03-13"
+            },
+            {
+              "cashUsd": 67290.53,
+              "complete": true,
+              "durationYears": 4.402654,
+              "dv01Usd": 435.95,
+              "equityUsd": 990208.82,
+              "session": "2024-03-14"
+            },
+            {
+              "cashUsd": 70608.53,
+              "complete": true,
+              "durationYears": 4.398721,
+              "dv01Usd": 435.04,
+              "equityUsd": 989007.21,
+              "session": "2024-03-15"
+            },
+            {
+              "cashUsd": 70608.53,
+              "complete": true,
+              "durationYears": 4.389168,
+              "dv01Usd": 433.81,
+              "equityUsd": 988354.93,
+              "session": "2024-03-18"
+            },
+            {
+              "cashUsd": 70608.53,
+              "complete": true,
+              "durationYears": 4.389477,
+              "dv01Usd": 434.66,
+              "equityUsd": 990228.66,
+              "session": "2024-03-19"
+            },
+            {
+              "cashUsd": 70608.53,
+              "complete": true,
+              "durationYears": 4.388285,
+              "dv01Usd": 435.35,
+              "equityUsd": 992073.77,
+              "session": "2024-03-20"
+            },
+            {
+              "cashUsd": 70608.53,
+              "complete": true,
+              "durationYears": 4.386037,
+              "dv01Usd": 435.11,
+              "equityUsd": 992026.86,
+              "session": "2024-03-21"
+            },
+            {
+              "cashUsd": 70608.53,
+              "complete": true,
+              "durationYears": 4.388117,
+              "dv01Usd": 436.42,
+              "equityUsd": 994540.75,
+              "session": "2024-03-22"
+            },
+            {
+              "cashUsd": 70608.53,
+              "complete": true,
+              "durationYears": 4.377737,
+              "dv01Usd": 435.02,
+              "equityUsd": 993705.63,
+              "session": "2024-03-25"
+            },
+            {
+              "cashUsd": 70608.53,
+              "complete": true,
+              "durationYears": 4.376693,
+              "dv01Usd": 435.22,
+              "equityUsd": 994401.43,
+              "session": "2024-03-26"
+            },
+            {
+              "cashUsd": 70608.53,
+              "complete": true,
+              "durationYears": 4.378078,
+              "dv01Usd": 436.16,
+              "equityUsd": 996240.93,
+              "session": "2024-03-27"
+            },
+            {
+              "cashUsd": 70608.53,
+              "complete": true,
+              "durationYears": 4.375134,
+              "dv01Usd": 435.53,
+              "equityUsd": 995456.88,
+              "session": "2024-03-28"
+            }
+          ]
+        },
+        "proposalActions": {
+          "BOOTSTRAP": 1
+        },
+        "responseSource": "deterministic_code",
+        "usage": {
+          "attemptStatuses": {},
+          "budgetExhausted": [],
+          "decisionsWithModelCalls": 0,
+          "estimatedModelCostUsd": null,
+          "evidenceCalls": 0,
+          "evidenceTokens": 0,
+          "generationCalls": 0,
+          "inputTokens": 0,
+          "maxGenerationCallsPerDecision": 0,
+          "maxToolCallsPerDecision": 0,
+          "outputTokens": 0,
+          "priceSchedules": [],
+          "providers": [],
+          "recordedResponseIds": 0,
+          "toolCalls": 0,
+          "uniqueEvidenceChunks": 0
+        }
+      }
+    }
+  },
+  "exclusions": [],
+  "executionModel": "synthetic-half-spread-0.02-v1",
+  "experimentId": "fi-demo-2024q1",
+  "failures": [],
+  "limitations": [
+    "Synthetic instruments priced from curve inputs; execution prices are model observations plus declared half-spread, not market quotes.",
+    "Same-curve marks and fills: any rich/cheap signal is mechanically neutral.",
+    "Spread assumptions (0.00/0.02/0.05 per 100 face) are illustrative, not measured costs.",
+    "Daily-only data: fills are labelled next-session close observations.",
+    "Short replays do not support statistical significance claims.",
+    "Retrospective LLM runs may reflect pretrained knowledge of later events.",
+    "Cash earns the configured cash return only (fixture: zero)."
+  ],
+  "manifestHash": "sha256:b021fbe6e7094f2e880e2138b645c42ea4384a8a4c51dffe7cc3a48429d507da",
+  "manifestVerified": true,
+  "pairedComparisons": [
+    {
+      "available": true,
+      "blockPolicy": {
+        "blockLength": 5,
+        "confidence": 0.95,
+        "method": "moving_block_bootstrap_v1",
+        "resamples": 1000,
+        "seed": 0
+      },
+      "ciHigh": 0.00037348078477612926,
+      "ciLow": -0.0004955394508555884,
+      "meanDifference": -5.589120648612613e-05,
+      "note": "uncertainty estimate; not a significance claim for short samples",
+      "observations": 60,
+      "strategyId": "llm_graph",
+      "versus": "cash"
+    },
+    {
+      "available": true,
+      "blockPolicy": {
+        "blockLength": 5,
+        "confidence": 0.95,
+        "method": "moving_block_bootstrap_v1",
+        "resamples": 1000,
+        "seed": 0
+      },
+      "ciHigh": 0.00041328250485789367,
+      "ciLow": -0.0006993164337226001,
+      "meanDifference": -0.00011738516158316139,
+      "note": "uncertainty estimate; not a significance claim for short samples",
+      "observations": 60,
+      "strategyId": "llm_market",
+      "versus": "cash"
+    },
+    {
+      "available": true,
+      "blockPolicy": {
+        "blockLength": 5,
+        "confidence": 0.95,
+        "method": "moving_block_bootstrap_v1",
+        "resamples": 1000,
+        "seed": 0
+      },
+      "ciHigh": 0.00037348078477612926,
+      "ciLow": -0.0004955394508555884,
+      "meanDifference": -5.589120648612613e-05,
+      "note": "uncertainty estimate; not a significance claim for short samples",
+      "observations": 60,
+      "strategyId": "llm_rag",
+      "versus": "cash"
+    },
+    {
+      "available": true,
+      "blockPolicy": {
+        "blockLength": 5,
+        "confidence": 0.95,
+        "method": "moving_block_bootstrap_v1",
+        "resamples": 1000,
+        "seed": 0
+      },
+      "ciHigh": 0.00037348078477612926,
+      "ciLow": -0.0004955394508555884,
+      "meanDifference": -5.589120648612613e-05,
+      "note": "uncertainty estimate; not a significance claim for short samples",
+      "observations": 60,
+      "strategyId": "llm_team",
+      "versus": "cash"
+    },
+    {
+      "available": true,
+      "blockPolicy": {
+        "blockLength": 5,
+        "confidence": 0.95,
+        "method": "moving_block_bootstrap_v1",
+        "resamples": 1000,
+        "seed": 0
+      },
+      "ciHigh": 0.0004667028052606156,
+      "ciLow": -0.0006370118929417098,
+      "meanDifference": -6.483752061124146e-05,
+      "note": "uncertainty estimate; not a significance claim for short samples",
+      "observations": 60,
+      "strategyId": "quant_duration",
+      "versus": "cash"
+    },
+    {
+      "available": true,
+      "blockPolicy": {
+        "blockLength": 5,
+        "confidence": 0.95,
+        "method": "moving_block_bootstrap_v1",
+        "resamples": 1000,
+        "seed": 0
+      },
+      "ciHigh": 0.000526731575678358,
+      "ciLow": -0.0007313436782306154,
+      "meanDifference": -7.239376407896864e-05,
+      "note": "uncertainty estimate; not a significance claim for short samples",
+      "observations": 60,
+      "strategyId": "static_ladder",
+      "versus": "cash"
+    }
+  ],
+  "ranking": [
+    "cash",
+    "llm_graph",
+    "llm_rag",
+    "llm_team",
+    "quant_duration",
+    "static_ladder",
+    "llm_market"
+  ],
+  "reportVersion": "replay-report-v1",
+  "responseMode": "recorded_replay",
+  "responseSource": "recorded_provider_responses",
+  "riskPolicy": "treasury-long-only-v1",
+  "runId": "fi-demo-2024q1-r0",
+  "status": "completed",
+  "strategies": [
+    {
+      "configHash": "sha256:e574780550641e1ff2151df48f9a701102f0817de5dbd08777c5b9ec67e83f6b",
+      "failedOrSkippedDecisions": [],
+      "invested": false,
+      "kind": "cash_reference",
+      "metrics": {
+        "annualizedReturn": null,
+        "annualizedUnavailableReason": "fewer_than_252_returns",
+        "attribution": {
+          "carryUsd": "0.00",
+          "costsUsd": "0",
+          "priceUsd": "0.00",
+          "reconciles": true,
+          "residualUsd": "0.00",
+          "totalUsd": "0.00"
+        },
+        "averageCashProportion": 1.0,
+        "averageDv01Usd": 0.0,
+        "averageEffectiveDurationYears": 0.0,
+        "cancelledOrderCount": 0,
+        "completeValuationCount": 61,
+        "couponIncomeUsd": "0",
+        "dailyVolatility": 0.0,
+        "decisionCount": 61,
+        "decisionOutcomes": {
+          "completed_hold": 61
+        },
+        "drawdown": {
+          "maxDrawdown": 0.0,
+          "peakIndex": 0,
+          "recovered": true,
+          "recoveryObservations": null,
+          "troughIndex": 0
+        },
+        "elapsedCalendarDays": 86,
+        "endEffectiveDurationYears": 0.0,
+        "endEquityUsd": "1000000.00",
+        "endValuationAt": "2024-03-29T00:00:00+00:00",
+        "expiryCount": 0,
+        "externalFlowsUsd": "0.00",
+        "feesUsd": "0",
+        "fillCount": 0,
+        "grossReturn": 0.0,
+        "incompleteValuationCount": 0,
+        "interestIncomeUsd": "0",
+        "maxDv01Usd": 0.0,
+        "metricsVersion": "metrics-v1",
+        "netReturn": 0.0,
+        "observationCount": 60,
+        "ordersCreated": 0,
+        "policyEvaluations": 0,
+        "policyRejections": 0,
+        "proposalCount": 0,
+        "realizedPnlUsd": "0",
+        "redemptionsUsd": "0",
+        "rejectedOrderCount": 0,
+        "sharpe": {
+          "unavailableReason": "missing_risk_free_series",
+          "value": null
+        },
+        "spreadCostUsd": "0",
+        "startEquityUsd": "1000000.00",
+        "startValuationAt": "2024-01-03T01:00:00+00:00",
+        "totalPnlUsd": "0.00",
+        "tradedConsiderationUsd": "0",
+        "turnoverRatio": 0.0,
+        "unrealizedPnlUsd": "0.00",
+        "valuationCount": 61
+      },
+      "missingDecisions": 0,
+      "rejectedProposals": [],
+      "strategyId": "cash"
+    },
+    {
+      "configHash": "sha256:28fafb2a477f96448cda47055108bcd60875211fb269371fc7c1b2c26e0e870d",
+      "failedOrSkippedDecisions": [],
+      "invested": true,
+      "kind": "single_agent",
+      "metrics": {
+        "annualizedReturn": null,
+        "annualizedUnavailableReason": "fewer_than_252_returns",
+        "attribution": {
+          "carryUsd": "4619.77",
+          "costsUsd": "-249.60",
+          "priceUsd": "-7822.86",
+          "reconciles": true,
+          "residualUsd": "0.00",
+          "totalUsd": "-3452.69"
+        },
+        "averageCashProportion": 0.27522700947294887,
+        "averageDv01Usd": 305.1927868852459,
+        "averageEffectiveDurationYears": 3.065896573770492,
+        "cancelledOrderCount": 0,
+        "completeValuationCount": 61,
+        "couponIncomeUsd": "7955.50",
+        "dailyVolatility": 0.0018867054925450796,
+        "decisionCount": 61,
+        "decisionOutcomes": {
+          "completed_hold": 59,
+          "completed_proposal": 2
+        },
+        "drawdown": {
+          "maxDrawdown": -0.013676985124463418,
+          "peakIndex": 21,
+          "recovered": false,
+          "recoveryObservations": null,
+          "troughIndex": 35
+        },
+        "elapsedCalendarDays": 86,
+        "endEffectiveDurationYears": 3.008368,
+        "endEquityUsd": "996547.31",
+        "endValuationAt": "2024-03-29T00:00:00+00:00",
+        "expiryCount": 0,
+        "externalFlowsUsd": "0.00",
+        "feesUsd": "0.00",
+        "fillCount": 6,
+        "grossReturn": -0.00320309,
+        "incompleteValuationCount": 0,
+        "interestIncomeUsd": "2364.25",
+        "maxDv01Usd": 460.92,
+        "metricsVersion": "metrics-v1",
+        "netReturn": -0.00345269,
+        "observationCount": 60,
+        "ordersCreated": 6,
+        "policyEvaluations": 2,
+        "policyRejections": 0,
+        "proposalCount": 2,
+        "realizedPnlUsd": "-1092.10",
+        "redemptionsUsd": "0",
+        "rejectedOrderCount": 0,
+        "sharpe": {
+          "unavailableReason": "missing_risk_free_series",
+          "value": null
+        },
+        "spreadCostUsd": "249.60",
+        "startEquityUsd": "1000000.00",
+        "startValuationAt": "2024-01-03T01:00:00+00:00",
+        "totalPnlUsd": "-3452.69",
+        "tradedConsiderationUsd": "1128611.98",
+        "turnoverRatio": 1.1337557234042532,
+        "unrealizedPnlUsd": "-4724.84",
+        "valuationCount": 61
+      },
+      "missingDecisions": 0,
+      "rejectedProposals": [],
+      "strategyId": "llm_graph"
+    },
+    {
+      "configHash": "sha256:a723453b066abc34c25c0e2d98bb999d527e07582335ebd2c4dad058b5f65e5a",
+      "failedOrSkippedDecisions": [],
+      "invested": true,
+      "kind": "single_agent",
+      "metrics": {
+        "annualizedReturn": null,
+        "annualizedUnavailableReason": "fewer_than_252_returns",
+        "attribution": {
+          "carryUsd": "5067.15",
+          "costsUsd": "-294.40",
+          "priceUsd": "-11969.90",
+          "reconciles": true,
+          "residualUsd": "0.00",
+          "totalUsd": "-7197.15"
+        },
+        "averageCashProportion": 0.19069056374782908,
+        "averageDv01Usd": 368.5095081967213,
+        "averageEffectiveDurationYears": 3.708277098360656,
+        "cancelledOrderCount": 0,
+        "completeValuationCount": 61,
+        "couponIncomeUsd": "7936.50",
+        "dailyVolatility": 0.002465966251470541,
+        "decisionCount": 61,
+        "decisionOutcomes": {
+          "completed_hold": 58,
+          "completed_proposal": 3
+        },
+        "drawdown": {
+          "maxDrawdown": -0.0198049480514582,
+          "peakIndex": 21,
+          "recovered": false,
+          "recoveryObservations": null,
+          "troughIndex": 35
+        },
+        "elapsedCalendarDays": 86,
+        "endEffectiveDurationYears": 4.393073,
+        "endEquityUsd": "992802.85",
+        "endValuationAt": "2024-03-29T00:00:00+00:00",
+        "expiryCount": 0,
+        "externalFlowsUsd": "0.00",
+        "feesUsd": "0.00",
+        "fillCount": 7,
+        "grossReturn": -0.00690275,
+        "incompleteValuationCount": 0,
+        "interestIncomeUsd": "2816.43",
+        "maxDv01Usd": 460.92,
+        "metricsVersion": "metrics-v1",
+        "netReturn": -0.00719715,
+        "observationCount": 60,
+        "ordersCreated": 7,
+        "policyEvaluations": 3,
+        "policyRejections": 0,
+        "proposalCount": 3,
+        "realizedPnlUsd": "-5268.54",
+        "redemptionsUsd": "0",
+        "rejectedOrderCount": 0,
+        "sharpe": {
+          "unavailableReason": "missing_risk_free_series",
+          "value": null
+        },
+        "spreadCostUsd": "294.40",
+        "startEquityUsd": "1000000.00",
+        "startValuationAt": "2024-01-03T01:00:00+00:00",
+        "totalPnlUsd": "-7197.15",
+        "tradedConsiderationUsd": "1315348.95",
+        "turnoverRatio": 1.3242844719851061,
+        "unrealizedPnlUsd": "-4745.04",
+        "valuationCount": 61
+      },
+      "missingDecisions": 0,
+      "rejectedProposals": [],
+      "strategyId": "llm_market"
+    },
+    {
+      "configHash": "sha256:fdc7ecf7d06d2e7f10933d50945b23d1e74024e42b6f13c52b61eda53abdad40",
+      "failedOrSkippedDecisions": [],
+      "invested": true,
+      "kind": "single_agent",
+      "metrics": {
+        "annualizedReturn": null,
+        "annualizedUnavailableReason": "fewer_than_252_returns",
+        "attribution": {
+          "carryUsd": "4619.77",
+          "costsUsd": "-249.60",
+          "priceUsd": "-7822.86",
+          "reconciles": true,
+          "residualUsd": "0.00",
+          "totalUsd": "-3452.69"
+        },
+        "averageCashProportion": 0.27522700947294887,
+        "averageDv01Usd": 305.1927868852459,
+        "averageEffectiveDurationYears": 3.065896573770492,
+        "cancelledOrderCount": 0,
+        "completeValuationCount": 61,
+        "couponIncomeUsd": "7955.50",
+        "dailyVolatility": 0.0018867054925450796,
+        "decisionCount": 61,
+        "decisionOutcomes": {
+          "completed_hold": 59,
+          "completed_proposal": 2
+        },
+        "drawdown": {
+          "maxDrawdown": -0.013676985124463418,
+          "peakIndex": 21,
+          "recovered": false,
+          "recoveryObservations": null,
+          "troughIndex": 35
+        },
+        "elapsedCalendarDays": 86,
+        "endEffectiveDurationYears": 3.008368,
+        "endEquityUsd": "996547.31",
+        "endValuationAt": "2024-03-29T00:00:00+00:00",
+        "expiryCount": 0,
+        "externalFlowsUsd": "0.00",
+        "feesUsd": "0.00",
+        "fillCount": 6,
+        "grossReturn": -0.00320309,
+        "incompleteValuationCount": 0,
+        "interestIncomeUsd": "2364.25",
+        "maxDv01Usd": 460.92,
+        "metricsVersion": "metrics-v1",
+        "netReturn": -0.00345269,
+        "observationCount": 60,
+        "ordersCreated": 6,
+        "policyEvaluations": 2,
+        "policyRejections": 0,
+        "proposalCount": 2,
+        "realizedPnlUsd": "-1092.10",
+        "redemptionsUsd": "0",
+        "rejectedOrderCount": 0,
+        "sharpe": {
+          "unavailableReason": "missing_risk_free_series",
+          "value": null
+        },
+        "spreadCostUsd": "249.60",
+        "startEquityUsd": "1000000.00",
+        "startValuationAt": "2024-01-03T01:00:00+00:00",
+        "totalPnlUsd": "-3452.69",
+        "tradedConsiderationUsd": "1128611.98",
+        "turnoverRatio": 1.1337557234042532,
+        "unrealizedPnlUsd": "-4724.84",
+        "valuationCount": 61
+      },
+      "missingDecisions": 0,
+      "rejectedProposals": [],
+      "strategyId": "llm_rag"
+    },
+    {
+      "configHash": "sha256:1f19f96560ba4ad0ac55af714c0bd1ee044f72cfea335f1cd3eba8c8aaa68a23",
+      "failedOrSkippedDecisions": [],
+      "invested": true,
+      "kind": "specialist_team",
+      "metrics": {
+        "annualizedReturn": null,
+        "annualizedUnavailableReason": "fewer_than_252_returns",
+        "attribution": {
+          "carryUsd": "4619.77",
+          "costsUsd": "-249.60",
+          "priceUsd": "-7822.86",
+          "reconciles": true,
+          "residualUsd": "0.00",
+          "totalUsd": "-3452.69"
+        },
+        "averageCashProportion": 0.27522700947294887,
+        "averageDv01Usd": 305.1927868852459,
+        "averageEffectiveDurationYears": 3.065896573770492,
+        "cancelledOrderCount": 0,
+        "completeValuationCount": 61,
+        "couponIncomeUsd": "7955.50",
+        "dailyVolatility": 0.0018867054925450796,
+        "decisionCount": 61,
+        "decisionOutcomes": {
+          "completed_hold": 59,
+          "completed_proposal": 2
+        },
+        "drawdown": {
+          "maxDrawdown": -0.013676985124463418,
+          "peakIndex": 21,
+          "recovered": false,
+          "recoveryObservations": null,
+          "troughIndex": 35
+        },
+        "elapsedCalendarDays": 86,
+        "endEffectiveDurationYears": 3.008368,
+        "endEquityUsd": "996547.31",
+        "endValuationAt": "2024-03-29T00:00:00+00:00",
+        "expiryCount": 0,
+        "externalFlowsUsd": "0.00",
+        "feesUsd": "0.00",
+        "fillCount": 6,
+        "grossReturn": -0.00320309,
+        "incompleteValuationCount": 0,
+        "interestIncomeUsd": "2364.25",
+        "maxDv01Usd": 460.92,
+        "metricsVersion": "metrics-v1",
+        "netReturn": -0.00345269,
+        "observationCount": 60,
+        "ordersCreated": 6,
+        "policyEvaluations": 2,
+        "policyRejections": 0,
+        "proposalCount": 2,
+        "realizedPnlUsd": "-1092.10",
+        "redemptionsUsd": "0",
+        "rejectedOrderCount": 0,
+        "sharpe": {
+          "unavailableReason": "missing_risk_free_series",
+          "value": null
+        },
+        "spreadCostUsd": "249.60",
+        "startEquityUsd": "1000000.00",
+        "startValuationAt": "2024-01-03T01:00:00+00:00",
+        "totalPnlUsd": "-3452.69",
+        "tradedConsiderationUsd": "1128611.98",
+        "turnoverRatio": 1.1337557234042532,
+        "unrealizedPnlUsd": "-4724.84",
+        "valuationCount": 61
+      },
+      "missingDecisions": 0,
+      "rejectedProposals": [],
+      "strategyId": "llm_team"
+    },
+    {
+      "configHash": "sha256:218cbc1c100f3c2bc96b69484efc44b6707a2b8bddc30f7160f3f90c1193485e",
+      "failedOrSkippedDecisions": [],
+      "invested": true,
+      "kind": "quant_policy",
+      "metrics": {
+        "annualizedReturn": null,
+        "annualizedUnavailableReason": "fewer_than_252_returns",
+        "attribution": {
+          "carryUsd": "5294.81",
+          "costsUsd": "-234.80",
+          "priceUsd": "-9106.01",
+          "reconciles": true,
+          "residualUsd": "0.00",
+          "totalUsd": "-4046.00"
+        },
+        "averageCashProportion": 0.1516886773701298,
+        "averageDv01Usd": 387.22934426229506,
+        "averageEffectiveDurationYears": 3.893397262295082,
+        "cancelledOrderCount": 0,
+        "completeValuationCount": 61,
+        "couponIncomeUsd": "9627.25",
+        "dailyVolatility": 0.0023553885231546367,
+        "decisionCount": 61,
+        "decisionOutcomes": {
+          "completed_hold": 57,
+          "completed_proposal": 4
+        },
+        "drawdown": {
+          "maxDrawdown": -0.01733462913255498,
+          "peakIndex": 21,
+          "recovered": false,
+          "recoveryObservations": null,
+          "troughIndex": 35
+        },
+        "elapsedCalendarDays": 86,
+        "endEffectiveDurationYears": 3.932045,
+        "endEquityUsd": "995954.00",
+        "endValuationAt": "2024-03-29T00:00:00+00:00",
+        "expiryCount": 0,
+        "externalFlowsUsd": "0.00",
+        "feesUsd": "0.00",
+        "fillCount": 8,
+        "grossReturn": -0.0038112,
+        "incompleteValuationCount": 0,
+        "interestIncomeUsd": "2653.87",
+        "maxDv01Usd": 460.92,
+        "metricsVersion": "metrics-v1",
+        "netReturn": -0.004046,
+        "observationCount": 60,
+        "ordersCreated": 8,
+        "policyEvaluations": 4,
+        "policyRejections": 0,
+        "proposalCount": 4,
+        "realizedPnlUsd": "-473.74",
+        "redemptionsUsd": "0",
+        "rejectedOrderCount": 0,
+        "sharpe": {
+          "unavailableReason": "missing_risk_free_series",
+          "value": null
+        },
+        "spreadCostUsd": "234.80",
+        "startEquityUsd": "1000000.00",
+        "startValuationAt": "2024-01-03T01:00:00+00:00",
+        "totalPnlUsd": "-4046.00",
+        "tradedConsiderationUsd": "1069822.96",
+        "turnoverRatio": 1.0755861076472013,
+        "unrealizedPnlUsd": "-6226.13",
+        "valuationCount": 61
+      },
+      "missingDecisions": 0,
+      "rejectedProposals": [],
+      "strategyId": "quant_duration"
+    },
+    {
+      "configHash": "sha256:e814430d69352532975fe9afa96a306f16e426766a7f7b1815b55349475d0d01",
+      "failedOrSkippedDecisions": [],
+      "invested": true,
+      "kind": "quant_policy",
+      "metrics": {
+        "annualizedReturn": null,
+        "annualizedUnavailableReason": "fewer_than_252_returns",
+        "attribution": {
+          "carryUsd": "5609.20",
+          "costsUsd": "-205.80",
+          "priceUsd": "-9946.52",
+          "reconciles": true,
+          "residualUsd": "0.00",
+          "totalUsd": "-4543.12"
+        },
+        "averageCashProportion": 0.09561644159806341,
+        "averageDv01Usd": 438.27196721311475,
+        "averageEffectiveDurationYears": 4.4091188360655735,
+        "cancelledOrderCount": 0,
+        "completeValuationCount": 61,
+        "couponIncomeUsd": "10036.00",
+        "dailyVolatility": 0.0026645320818529474,
+        "decisionCount": 61,
+        "decisionOutcomes": {
+          "completed_hold": 60,
+          "completed_proposal": 1
+        },
+        "drawdown": {
+          "maxDrawdown": -0.019829136603066382,
+          "peakIndex": 21,
+          "recovered": false,
+          "recoveryObservations": null,
+          "troughIndex": 35
+        },
+        "elapsedCalendarDays": 86,
+        "endEffectiveDurationYears": 4.375134,
+        "endEquityUsd": "995456.88",
+        "endValuationAt": "2024-03-29T00:00:00+00:00",
+        "expiryCount": 0,
+        "externalFlowsUsd": "0.00",
+        "feesUsd": "0.00",
+        "fillCount": 5,
+        "grossReturn": -0.00433732,
+        "incompleteValuationCount": 0,
+        "interestIncomeUsd": "2827.84",
+        "maxDv01Usd": 460.92,
+        "metricsVersion": "metrics-v1",
+        "netReturn": -0.00454312,
+        "observationCount": 60,
+        "ordersCreated": 5,
+        "policyEvaluations": 1,
+        "policyRejections": 0,
+        "proposalCount": 1,
+        "realizedPnlUsd": "0",
+        "redemptionsUsd": "0",
+        "rejectedOrderCount": 0,
+        "sharpe": {
+          "unavailableReason": "missing_risk_free_series",
+          "value": null
+        },
+        "spreadCostUsd": "205.80",
+        "startEquityUsd": "1000000.00",
+        "startValuationAt": "2024-01-03T01:00:00+00:00",
+        "totalPnlUsd": "-4543.12",
+        "tradedConsiderationUsd": "939427.47",
+        "turnoverRatio": 0.9450196605576877,
+        "unrealizedPnlUsd": "-7370.96",
+        "valuationCount": 61
+      },
+      "missingDecisions": 0,
+      "rejectedProposals": [],
+      "strategyId": "static_ladder"
+    }
+  ],
+  "strategyResponseSources": {
+    "cash": "deterministic_code",
+    "llm_graph": "recorded_responses:reference/reference-heuristic-v1",
+    "llm_market": "recorded_responses:reference/reference-heuristic-v1",
+    "llm_rag": "recorded_responses:reference/reference-heuristic-v1",
+    "llm_team": "recorded_responses:reference/reference-heuristic-v1",
+    "quant_duration": "deterministic_code",
+    "static_ladder": "deterministic_code"
+  },
+  "window": {
+    "end": "2024-03-29",
+    "sessions": 61,
+    "start": "2024-01-02"
+  }
+}

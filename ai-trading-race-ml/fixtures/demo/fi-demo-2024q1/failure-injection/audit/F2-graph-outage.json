@@ -1,0 +1,204 @@
+{
+  "auditVersion": "demo-audit-v1",
+  "decision": {
+    "agentPolicyCheck": null,
+    "attempts": [],
+    "counterevidence": [],
+    "coverageGaps": [],
+    "decisionId": "dec:fi-demo-2024q1-faults-r0:llm_graph:2024-01-31:r0",
+    "evidenceBundleIds": [],
+    "explanation": "",
+    "noteStatus": null,
+    "outcome": "failed_dependency",
+    "proposal": null,
+    "reasons": [
+      "graph_retrieval_unavailable",
+      "retrieval_mode:graph_rag_v1",
+      "no_fallback_to_hybrid_rag_v1",
+      "injected graph outage (F2-graph-outage)"
+    ],
+    "resultHash": "sha256:9aa11235746cc674da7b1d1510afa5145b911ac7b6ebf7aeba18f548f71b5b89",
+    "specialistTasks": [],
+    "strategyId": "llm_graph",
+    "toolTraces": [
+      {
+        "agentRole": "single",
+        "error": null,
+        "outputRef": "calc-86f8bd7787993d25",
+        "status": "ok",
+        "tool": "get_portfolio_risk"
+      },
+      {
+        "agentRole": "single",
+        "error": null,
+        "outputRef": "calc-2030a50ec1df4fd3",
+        "status": "ok",
+        "tool": "get_market_features"
+      },
+      {
+        "agentRole": "single",
+        "error": "GraphUnavailable: injected graph outage (F2-graph-outage)",
+        "outputRef": null,
+        "status": "error",
+        "tool": "retrieve_evidence"
+      }
+    ],
+    "usage": {
+      "budgetExhausted": null,
+      "durationMs": 0,
+      "estimatedCostUsd": "0.000000",
+      "evidenceCalls": 1,
+      "evidenceTokens": 0,
+      "generationCalls": 0,
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "priceScheduleId": "reference-zero-cost-v1",
+      "toolCalls": 3,
+      "uniqueEvidenceChunks": 0
+    },
+    "validation": []
+  },
+  "fault": {
+    "description": "The evidence graph is unavailable for graph_rag_v1 retrieval.",
+    "expected": "failed_dependency with no fallback to hybrid_rag_v1 (spec 15.3)",
+    "faultId": "F2-graph-outage",
+    "kind": "graph_outage",
+    "session": "2024-01-31",
+    "strategyId": "llm_graph"
+  },
+  "financialCommands": [
+    {
+      "cashFlows": [],
+      "commandId": "cmd:fi-demo-2024q1-faults-r0:llm_graph:2024-01-31:process",
+      "commandType": "process_events",
+      "events": [
+        {
+          "effectiveAt": "2024-01-31T14:00:00Z",
+          "type": "settlement_due"
+        },
+        {
+          "effectiveAt": "2024-01-31T14:00:00Z",
+          "type": "settlement_due"
+        },
+        {
+          "effectiveAt": "2024-01-31T14:00:00Z",
+          "type": "settlement_due"
+        },
+        {
+          "effectiveAt": "2024-01-31T14:00:00Z",
+          "type": "settlement_due"
+        },
+        {
+          "effectiveAt": "2024-01-31T14:00:00Z",
+          "type": "settlement_due"
+        },
+        {
+          "effectiveAt": "2024-01-31T20:30:00Z",
+          "type": "execution_observation"
+        }
+      ],
+      "fills": [
+        {
+          "accruedPer100": "0.8777173913",
+          "considerationUsd": "191717.94",
+          "dirtyPricePer100": "86.7502008608",
+          "executedAt": "2024-01-31T20:30:00Z",
+          "executionCleanPricePer100": "85.8724834695",
+          "face": "221000",
+          "feesUsd": "0.00",
+          "fillId": "fill:ord:dec:fi-demo-2024q1-faults-r0:llm_graph:2024-01-30:r0:SYN-USD-NOTE-009",
+          "halfSpreadPer100": "0.02",
+          "observationId": "obs:curve-830eae84c6e24b31:SYN-USD-NOTE-009",
+          "orderId": "ord:dec:fi-demo-2024q1-faults-r0:llm_graph:2024-01-30:r0:SYN-USD-NOTE-009",
+          "quoteKind": "synthetic_model",
+          "referenceCleanPricePer100": "85.8924834695",
+          "securityId": "SYN-USD-NOTE-009",
+          "settlementDate": "2024-02-01",
+          "side": "SELL",
+          "spreadCostUsd": "44.20",
+          "timingLabel": "next_session_close_daily"
+        }
+      ],
+      "newStateHash": "sha256:6249bcf47621a25aea45faf808fce1fef98b936f12488c7661015a2822188242",
+      "newVersion": 7,
+      "orderStatusChanges": [
+        {
+          "batchPriority": 0,
+          "bootstrap": false,
+          "decisionId": "dec:fi-demo-2024q1-faults-r0:llm_graph:2024-01-30:r0",
+          "eligibleSessionDate": "2024-01-31",
+          "expiresAt": "2024-01-31T22:00:00Z",
+          "face": "221000",
+          "orderId": "ord:dec:fi-demo-2024q1-faults-r0:llm_graph:2024-01-30:r0:SYN-USD-NOTE-009",
+          "reservedCashUsd": "0",
+          "securityId": "SYN-USD-NOTE-009",
+          "side": "SELL",
+          "status": "FILLED",
+          "statusReason": null,
+          "submittedAt": "2024-01-31T00:00:00Z"
+        }
+      ],
+      "ordersCreated": [],
+      "policyEvaluation": null,
+      "reconciliationOk": true,
+      "settlementsCompleted": [
+        "stl:fill:ord:dec:fi-demo-2024q1-faults-r0:llm_graph:2024-01-29:r0:SYN-USD-NOTE-003",
+        "stl:fill:ord:dec:fi-demo-2024q1-faults-r0:llm_graph:2024-01-29:r0:SYN-USD-NOTE-006",
+        "stl:fill:ord:dec:fi-demo-2024q1-faults-r0:llm_graph:2024-01-29:r0:SYN-USD-NOTE-007",
+        "stl:fill:ord:dec:fi-demo-2024q1-faults-r0:llm_graph:2024-01-29:r0:SYN-USD-NOTE-008",
+        "stl:fill:ord:dec:fi-demo-2024q1-faults-r0:llm_graph:2024-01-29:r0:SYN-USD-NOTE-009"
+      ],
+      "settlementsCreated": [
+        {
+          "cashUsd": "191717.94",
+          "face": "221000",
+          "fillId": "fill:ord:dec:fi-demo-2024q1-faults-r0:llm_graph:2024-01-30:r0:SYN-USD-NOTE-009",
+          "securityId": "SYN-USD-NOTE-009",
+          "settlementDate": "2024-02-01",
+          "settlementId": "stl:fill:ord:dec:fi-demo-2024q1-faults-r0:llm_graph:2024-01-30:r0:SYN-USD-NOTE-009",
+          "side": "SELL"
+        }
+      ],
+      "valuation": null
+    },
+    {
+      "cashFlows": [],
+      "commandId": "cmd:fi-demo-2024q1-faults-r0:llm_graph:2024-01-31:value",
+      "commandType": "value_portfolio",
+      "events": [
+        {
+          "effectiveAt": "2024-02-01T01:00:00Z",
+          "type": "valuation_mark"
+        }
+      ],
+      "fills": [],
+      "newStateHash": "sha256:ede862708c44b7695e376cf7f738b9504fa48d2419f8936e1f8e1553c123294f",
+      "newVersion": 8,
+      "orderStatusChanges": [],
+      "ordersCreated": [],
+      "policyEvaluation": null,
+      "reconciliationOk": true,
+      "settlementsCompleted": [],
+      "settlementsCreated": [],
+      "valuation": {
+        "cashUsd": "63022.22",
+        "complete": true,
+        "effectiveDurationYears": "3.119805",
+        "equityUsd": "1003282.32",
+        "parallelDv01Usd": "313.00"
+      }
+    }
+  ],
+  "label": "FAILURE INJECTION (declared fault; not a natural outcome)",
+  "ordersCreated": 0,
+  "otherCompetitorsSameSession": {
+    "cash": "completed_hold",
+    "llm_market": "completed_hold",
+    "llm_rag": "completed_hold",
+    "llm_team": "failed_dependency",
+    "quant_duration": "completed_hold",
+    "static_ladder": "completed_hold"
+  },
+  "policyGate": null,
+  "portfolioStillProcessed": true
+}

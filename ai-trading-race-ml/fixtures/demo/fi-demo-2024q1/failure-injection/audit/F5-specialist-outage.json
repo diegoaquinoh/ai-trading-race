@@ -1,0 +1,387 @@
+{
+  "auditVersion": "demo-audit-v1",
+  "decision": {
+    "agentPolicyCheck": {
+      "action": "HOLD",
+      "bootstrapExemptionApplied": false,
+      "breachMode": false,
+      "calculationIds": [
+        "calc-007a627d332c4ec8",
+        "calc-0e42902ddd129c5b",
+        "calc-27a149a0ec027756",
+        "calc-2bc5a259e3e0dab2",
+        "calc-407d995eecb88324",
+        "calc-464a47c788de9530",
+        "calc-5112e80961ba17c5",
+        "calc-9b9c25601708e379",
+        "calc-a65fcbf94ef4eceb",
+        "calc-ccb3d6d6a6e958a0",
+        "calc-ef7a7612feb0fdda",
+        "calc-f5870113a7983574"
+      ],
+      "checks": [],
+      "decisionId": "dec:fi-demo-2024q1-faults-r0:llm_team:2024-02-21:r0",
+      "normalizationNotes": [],
+      "normalizedTargets": [],
+      "orderCount": 0,
+      "originalTargets": [],
+      "passed": true,
+      "policyId": "treasury-long-only-v1",
+      "postTradeCashRatio": "0.26098370",
+      "postTradeMaxSecurityRatio": "0.16851145",
+      "postTradeNavUsd": "993809.82",
+      "postTradeParallelDv01Usd": "303.38",
+      "preTradeCashRatio": "0.26098370",
+      "preTradeMaxSecurityRatio": "0.16851145",
+      "preTradeNavUsd": "993809.82",
+      "preTradeParallelDv01Usd": "303.38",
+      "rejectedReasons": [],
+      "sizedOrders": [],
+      "turnoverRatio": "0"
+    },
+    "attempts": [
+      {
+        "agentRole": "lead",
+        "attemptId": "att:dec:fi-demo-2024q1-faults-r0:llm_team:2024-02-21:r0:lead:01",
+        "attemptNumber": 1,
+        "durationMs": 0,
+        "error": null,
+        "inputTokens": 2248,
+        "model": "reference-heuristic-v1",
+        "outputTokens": 114,
+        "provider": "reference",
+        "purpose": "task_assignment",
+        "recordedResponseId": "rec-12685bd93cd83342a88b4c59",
+        "startedAt": "2024-02-22T00:00:00Z",
+        "status": "ok"
+      },
+      {
+        "agentRole": "macro_researcher",
+        "attemptId": "att:dec:fi-demo-2024q1-faults-r0:llm_team:2024-02-21:r0:macro_researcher:01",
+        "attemptNumber": 2,
+        "durationMs": 0,
+        "error": "provider_error: injected provider outage (F5-specialist-outage)",
+        "inputTokens": 0,
+        "model": "reference-heuristic-v1",
+        "outputTokens": 0,
+        "provider": "reference",
+        "purpose": "specialist",
+        "recordedResponseId": null,
+        "startedAt": "2024-02-22T00:00:00Z",
+        "status": "provider_error"
+      },
+      {
+        "agentRole": "critical_reviewer",
+        "attemptId": "att:dec:fi-demo-2024q1-faults-r0:llm_team:2024-02-21:r0:critical_reviewer:01",
+        "attemptNumber": 3,
+        "durationMs": 0,
+        "error": null,
+        "inputTokens": 2828,
+        "model": "reference-heuristic-v1",
+        "outputTokens": 60,
+        "provider": "reference",
+        "purpose": "specialist",
+        "recordedResponseId": "rec-7d7dbd8b66fbfd0eb230dc46",
+        "startedAt": "2024-02-22T00:00:00Z",
+        "status": "ok"
+      },
+      {
+        "agentRole": "critical_reviewer",
+        "attemptId": "att:dec:fi-demo-2024q1-faults-r0:llm_team:2024-02-21:r0:critical_reviewer:02",
+        "attemptNumber": 4,
+        "durationMs": 0,
+        "error": null,
+        "inputTokens": 2733,
+        "model": "reference-heuristic-v1",
+        "outputTokens": 162,
+        "provider": "reference",
+        "purpose": "specialist",
+        "recordedResponseId": "rec-70a403572e28fc1153fd4489",
+        "startedAt": "2024-02-22T00:00:00Z",
+        "status": "ok"
+      },
+      {
+        "agentRole": "lead",
+        "attemptId": "att:dec:fi-demo-2024q1-faults-r0:llm_team:2024-02-21:r0:lead:02",
+        "attemptNumber": 5,
+        "durationMs": 0,
+        "error": null,
+        "inputTokens": 9530,
+        "model": "reference-heuristic-v1",
+        "outputTokens": 1306,
+        "provider": "reference",
+        "purpose": "synthesis",
+        "recordedResponseId": "rec-d30d97bbba640bdb9d47e979",
+        "startedAt": "2024-02-22T00:00:00Z",
+        "status": "ok"
+      }
+    ],
+    "counterevidence": [
+      "A move toward easing would make a shorter duration costly: parallel_down_25 full repricing P&L 7635.693314 USD on current holdings"
+    ],
+    "coverageGaps": [],
+    "decisionId": "dec:fi-demo-2024q1-faults-r0:llm_team:2024-02-21:r0",
+    "evidenceBundleIds": [
+      "eb-1ff1e073aa73c7098e625386"
+    ],
+    "explanation": "Reference lexicon reference-lexicon-v1: hawkish policy signal across 5 delivered documents (weighted hawkish 3.48, dovish 0.00, neutral 2.73). Holding: duration 3.0526 already within 0.25y of the 3.0y target.",
+    "noteStatus": "supported",
+    "outcome": "completed_hold",
+    "proposal": {
+      "action": "HOLD",
+      "supportingCalculationIds": [
+        "calc-10c420575008b46d",
+        "calc-9889bda8017c43e9",
+        "calc-e350804113b85f46",
+        "calc-89df89aa3eaea5c7"
+      ],
+      "supportingClaimIds": [
+        "ld-clm-1",
+        "ld-clm-2",
+        "ld-clm-3"
+      ],
+      "targetWeights": []
+    },
+    "reasons": [
+      "explicit_hold"
+    ],
+    "resultHash": "sha256:f5e8e818ec458cb5958a8693cc0720a602ed46f3f658930dcaa9a3033a3427c8",
+    "specialistTasks": [
+      {
+        "budgetReserved": {
+          "evidence_calls": 2,
+          "evidence_tokens": 2706,
+          "generation_calls": 2,
+          "input_tokens": 11193,
+          "output_tokens": 5903,
+          "tool_calls": 5,
+          "unique_evidence_chunks": 4
+        },
+        "claimIds": [],
+        "expectedOutputSchema": "agent-output-v1:report",
+        "findings": [
+          "task_error:provider_error:macro_researcher:specialist; injected provider outage (F5-specialist-outage)"
+        ],
+        "inputSnapshotIds": [
+          "pfs:pf:fi-demo-2024q1-faults-r0:llm_team:v23",
+          "curve-51dcb57ce928940a",
+          "eb-1ff1e073aa73c7098e625386"
+        ],
+        "instruction": "Compare the delivered policy communications; report supported claims with exact quotes, contradictory evidence and coverage gaps.",
+        "role": "macro_researcher",
+        "status": "failed",
+        "taskId": "task:dec:fi-demo-2024q1-faults-r0:llm_team:2024-02-21:r0:macro_researcher",
+        "usage": {
+          "generation_calls": 1
+        }
+      },
+      {
+        "budgetReserved": {
+          "evidence_calls": 0,
+          "evidence_tokens": 1803,
+          "generation_calls": 2,
+          "input_tokens": 7461,
+          "output_tokens": 3935,
+          "tool_calls": 4,
+          "unique_evidence_chunks": 2
+        },
+        "claimIds": [],
+        "expectedOutputSchema": "agent-output-v1:report",
+        "findings": [
+          "Reviewed the candidate duration change against approved scenarios."
+        ],
+        "inputSnapshotIds": [
+          "pfs:pf:fi-demo-2024q1-faults-r0:llm_team:v23",
+          "curve-51dcb57ce928940a",
+          "eb-1ff1e073aa73c7098e625386"
+        ],
+        "instruction": "Challenge a duration change using opposite-direction and curve-shape scenarios on the current exposures; list objections and assumptions.",
+        "role": "critical_reviewer",
+        "status": "completed",
+        "taskId": "task:dec:fi-demo-2024q1-faults-r0:llm_team:2024-02-21:r0:critical_reviewer",
+        "usage": {
+          "generation_calls": 2,
+          "input_tokens": 5561,
+          "output_tokens": 222,
+          "tool_calls": 2
+        }
+      }
+    ],
+    "strategyId": "llm_team",
+    "toolTraces": [
+      {
+        "agentRole": "lead",
+        "error": null,
+        "outputRef": "calc-10c420575008b46d",
+        "status": "ok",
+        "tool": "get_portfolio_risk"
+      },
+      {
+        "agentRole": "lead",
+        "error": null,
+        "outputRef": "calc-9889bda8017c43e9",
+        "status": "ok",
+        "tool": "get_market_features"
+      },
+      {
+        "agentRole": "lead",
+        "error": null,
+        "outputRef": "eb-1ff1e073aa73c7098e625386",
+        "status": "ok",
+        "tool": "retrieve_evidence"
+      },
+      {
+        "agentRole": "critical_reviewer",
+        "error": null,
+        "outputRef": "calc-e350804113b85f46",
+        "status": "ok",
+        "tool": "run_scenario"
+      },
+      {
+        "agentRole": "critical_reviewer",
+        "error": null,
+        "outputRef": "calc-89df89aa3eaea5c7",
+        "status": "ok",
+        "tool": "run_scenario"
+      }
+    ],
+    "usage": {
+      "budgetExhausted": null,
+      "durationMs": 0,
+      "estimatedCostUsd": "0.000000",
+      "evidenceCalls": 1,
+      "evidenceTokens": 3491,
+      "generationCalls": 5,
+      "inputTokens": 17339,
+      "outputTokens": 1642,
+      "priceScheduleId": "reference-zero-cost-v1",
+      "toolCalls": 5,
+      "uniqueEvidenceChunks": 6
+    },
+    "validation": [
+      {
+        "details": [
+          "attempt:att:dec:fi-demo-2024q1-faults-r0:llm_team:2024-02-21:r0:lead:02"
+        ],
+        "passed": true,
+        "severity": "warning",
+        "step": "schema"
+      },
+      {
+        "details": [
+          "attempt:att:dec:fi-demo-2024q1-faults-r0:llm_team:2024-02-21:r0:lead:02"
+        ],
+        "passed": true,
+        "severity": "info",
+        "step": "citation_membership"
+      },
+      {
+        "details": [
+          "attempt:att:dec:fi-demo-2024q1-faults-r0:llm_team:2024-02-21:r0:lead:02"
+        ],
+        "passed": true,
+        "severity": "info",
+        "step": "temporal"
+      },
+      {
+        "details": [
+          "attempt:att:dec:fi-demo-2024q1-faults-r0:llm_team:2024-02-21:r0:lead:02"
+        ],
+        "passed": true,
+        "severity": "info",
+        "step": "quote_offsets"
+      },
+      {
+        "details": [
+          "attempt:att:dec:fi-demo-2024q1-faults-r0:llm_team:2024-02-21:r0:lead:02"
+        ],
+        "passed": true,
+        "severity": "info",
+        "step": "calc_refs"
+      },
+      {
+        "details": [
+          "attempt:att:dec:fi-demo-2024q1-faults-r0:llm_team:2024-02-21:r0:lead:02",
+          "classifier:support-lexical-v1"
+        ],
+        "passed": true,
+        "severity": "warning",
+        "step": "support"
+      },
+      {
+        "details": [
+          "attempt:att:dec:fi-demo-2024q1-faults-r0:llm_team:2024-02-21:r0:lead:02"
+        ],
+        "passed": true,
+        "severity": "info",
+        "step": "policy"
+      }
+    ]
+  },
+  "fault": {
+    "description": "The model provider fails (non-transient) for the macro researcher specialist only.",
+    "expected": "specialist task recorded as failed with the provider error; the lead still synthesizes a decision (non-graph specialist failures are contained by design)",
+    "faultId": "F5-specialist-outage",
+    "kind": "provider_outage",
+    "role": "macro_researcher",
+    "session": "2024-02-21",
+    "strategyId": "llm_team"
+  },
+  "financialCommands": [
+    {
+      "cashFlows": [],
+      "commandId": "cmd:fi-demo-2024q1-faults-r0:llm_team:2024-02-21:process",
+      "commandType": "process_events",
+      "events": [],
+      "fills": [],
+      "newStateHash": "sha256:ab859d0ed8cd9c2401d42c5dfe6647228651c19231af4c1caddef697c46a6b11",
+      "newVersion": 23,
+      "orderStatusChanges": [],
+      "ordersCreated": [],
+      "policyEvaluation": null,
+      "reconciliationOk": true,
+      "settlementsCompleted": [],
+      "settlementsCreated": [],
+      "valuation": null
+    },
+    {
+      "cashFlows": [],
+      "commandId": "cmd:fi-demo-2024q1-faults-r0:llm_team:2024-02-21:value",
+      "commandType": "value_portfolio",
+      "events": [
+        {
+          "effectiveAt": "2024-02-22T01:00:00Z",
+          "type": "valuation_mark"
+        }
+      ],
+      "fills": [],
+      "newStateHash": "sha256:b4bc7db9089f18904a13d309ff753717524e97a4cac4799abadc75c2e196e291",
+      "newVersion": 24,
+      "orderStatusChanges": [],
+      "ordersCreated": [],
+      "policyEvaluation": null,
+      "reconciliationOk": true,
+      "settlementsCompleted": [],
+      "settlementsCreated": [],
+      "valuation": {
+        "cashUsd": "259368.16",
+        "complete": true,
+        "effectiveDurationYears": "3.052650",
+        "equityUsd": "993809.82",
+        "parallelDv01Usd": "303.38"
+      }
+    }
+  ],
+  "label": "FAILURE INJECTION (declared fault; not a natural outcome)",
+  "ordersCreated": 0,
+  "otherCompetitorsSameSession": {
+    "cash": "completed_hold",
+    "llm_graph": "completed_hold",
+    "llm_market": "completed_proposal",
+    "llm_rag": "abstained_insufficient_evidence",
+    "quant_duration": "completed_hold",
+    "static_ladder": "completed_hold"
+  },
+  "policyGate": null,
+  "portfolioStillProcessed": true
+}

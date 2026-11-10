@@ -1,0 +1,637 @@
+{
+  "auditVersion": "demo-audit-v1",
+  "decision": {
+    "agentPolicyCheck": {
+      "action": "HOLD",
+      "bootstrapExemptionApplied": false,
+      "breachMode": false,
+      "calculationIds": [
+        "calc-007a627d332c4ec8",
+        "calc-0e42902ddd129c5b",
+        "calc-27a149a0ec027756",
+        "calc-2bc5a259e3e0dab2",
+        "calc-407d995eecb88324",
+        "calc-464a47c788de9530",
+        "calc-5112e80961ba17c5",
+        "calc-9b9c25601708e379",
+        "calc-a65fcbf94ef4eceb",
+        "calc-ccb3d6d6a6e958a0",
+        "calc-ef7a7612feb0fdda",
+        "calc-f5870113a7983574"
+      ],
+      "checks": [],
+      "decisionId": "dec:fi-demo-2024q1-faults-r0:llm_market:2024-02-21:r0",
+      "normalizationNotes": [],
+      "normalizedTargets": [],
+      "orderCount": 0,
+      "originalTargets": [],
+      "passed": true,
+      "policyId": "treasury-long-only-v1",
+      "postTradeCashRatio": "0.25761035",
+      "postTradeMaxSecurityRatio": "0.16928064",
+      "postTradeNavUsd": "989294.05",
+      "postTradeParallelDv01Usd": "303.38",
+      "preTradeCashRatio": "0.25761035",
+      "preTradeMaxSecurityRatio": "0.16928064",
+      "preTradeNavUsd": "989294.05",
+      "preTradeParallelDv01Usd": "303.38",
+      "rejectedReasons": [],
+      "sizedOrders": [],
+      "turnoverRatio": "0"
+    },
+    "attempts": [
+      {
+        "agentRole": "single",
+        "attemptId": "att:dec:fi-demo-2024q1-faults-r0:llm_market:2024-02-21:r0:single:01",
+        "attemptNumber": 1,
+        "durationMs": 0,
+        "error": null,
+        "inputTokens": 2692,
+        "model": "reference-heuristic-v1",
+        "outputTokens": 51,
+        "provider": "reference",
+        "purpose": "tool_selection",
+        "recordedResponseId": "rec-bb733d649a826a012a5bec6d",
+        "startedAt": "2024-02-22T00:00:00Z",
+        "status": "ok"
+      },
+      {
+        "agentRole": "single",
+        "attemptId": "att:dec:fi-demo-2024q1-faults-r0:llm_market:2024-02-21:r0:single:02",
+        "attemptNumber": 2,
+        "durationMs": 0,
+        "error": null,
+        "inputTokens": 3059,
+        "model": "reference-heuristic-v1",
+        "outputTokens": 477,
+        "provider": "reference",
+        "purpose": "tool_selection",
+        "recordedResponseId": "rec-a4771b8f02599dd11959db42",
+        "startedAt": "2024-02-22T00:00:00Z",
+        "status": "ok"
+      }
+    ],
+    "counterevidence": [],
+    "coverageGaps": [
+      "Market-only strategy: no documentary evidence by design."
+    ],
+    "decisionId": "dec:fi-demo-2024q1-faults-r0:llm_market:2024-02-21:r0",
+    "evidenceBundleIds": [],
+    "explanation": "Market-only reference rule: 2Y par yield rose 27.00 bp over 21 sessions. Holding: duration 3.0666 already within 0.25y of the 3.0y target.",
+    "noteStatus": "supported",
+    "outcome": "completed_proposal",
+    "proposal": {
+      "action": "REBALANCE",
+      "supportingCalculationIds": [],
+      "supportingClaimIds": [],
+      "targetWeights": [
+        {
+          "securityId": "SYN-USD-NOTE-009",
+          "weight": "0.70"
+        },
+        {
+          "securityId": "CASH-USD",
+          "weight": "0.30"
+        }
+      ]
+    },
+    "reasons": [
+      "explicit_hold",
+      "failure_injection:F4-policy-breach:proposal_overwritten"
+    ],
+    "resultHash": "sha256:21980f6ff0425bd0837fc0d514ead5ff387f317fe8eea0a556509ff19873ca25",
+    "specialistTasks": [],
+    "strategyId": "llm_market",
+    "toolTraces": [
+      {
+        "agentRole": "single",
+        "error": null,
+        "outputRef": "calc-6e58734905722554",
+        "status": "ok",
+        "tool": "get_portfolio_risk"
+      },
+      {
+        "agentRole": "single",
+        "error": null,
+        "outputRef": "calc-9889bda8017c43e9",
+        "status": "ok",
+        "tool": "get_market_features"
+      },
+      {
+        "agentRole": "single",
+        "error": null,
+        "outputRef": "calc-ccb0afc3b2af0e3c",
+        "status": "ok",
+        "tool": "run_scenario"
+      },
+      {
+        "agentRole": "single",
+        "error": null,
+        "outputRef": "calc-e350804113b85f46",
+        "status": "ok",
+        "tool": "run_scenario"
+      }
+    ],
+    "usage": {
+      "budgetExhausted": null,
+      "durationMs": 0,
+      "estimatedCostUsd": "0.000000",
+      "evidenceCalls": 0,
+      "evidenceTokens": 0,
+      "generationCalls": 2,
+      "inputTokens": 5751,
+      "outputTokens": 528,
+      "priceScheduleId": "reference-zero-cost-v1",
+      "toolCalls": 4,
+      "uniqueEvidenceChunks": 0
+    },
+    "validation": [
+      {
+        "details": [
+          "attempt:att:dec:fi-demo-2024q1-faults-r0:llm_market:2024-02-21:r0:single:02"
+        ],
+        "passed": true,
+        "severity": "warning",
+        "step": "schema"
+      },
+      {
+        "details": [
+          "attempt:att:dec:fi-demo-2024q1-faults-r0:llm_market:2024-02-21:r0:single:02"
+        ],
+        "passed": true,
+        "severity": "info",
+        "step": "citation_membership"
+      },
+      {
+        "details": [
+          "attempt:att:dec:fi-demo-2024q1-faults-r0:llm_market:2024-02-21:r0:single:02"
+        ],
+        "passed": true,
+        "severity": "info",
+        "step": "temporal"
+      },
+      {
+        "details": [
+          "attempt:att:dec:fi-demo-2024q1-faults-r0:llm_market:2024-02-21:r0:single:02"
+        ],
+        "passed": true,
+        "severity": "info",
+        "step": "quote_offsets"
+      },
+      {
+        "details": [
+          "attempt:att:dec:fi-demo-2024q1-faults-r0:llm_market:2024-02-21:r0:single:02"
+        ],
+        "passed": true,
+        "severity": "info",
+        "step": "calc_refs"
+      },
+      {
+        "details": [
+          "attempt:att:dec:fi-demo-2024q1-faults-r0:llm_market:2024-02-21:r0:single:02",
+          "classifier:support-lexical-v1"
+        ],
+        "passed": true,
+        "severity": "warning",
+        "step": "support"
+      },
+      {
+        "details": [
+          "attempt:att:dec:fi-demo-2024q1-faults-r0:llm_market:2024-02-21:r0:single:02"
+        ],
+        "passed": true,
+        "severity": "info",
+        "step": "policy"
+      }
+    ]
+  },
+  "fault": {
+    "description": "After agent validation, the proposal is overwritten with 70% in one note and 30% cash, simulating a faulty strategy output that reaches the authoritative policy gate.",
+    "expected": "SUBMIT_DECISION policy evaluation rejects the order set; no order is created",
+    "faultId": "F4-policy-breach",
+    "kind": "policy_breach",
+    "session": "2024-02-21",
+    "strategyId": "llm_market"
+  },
+  "financialCommands": [
+    {
+      "cashFlows": [],
+      "commandId": "cmd:fi-demo-2024q1-faults-r0:llm_market:2024-02-21:process",
+      "commandType": "process_events",
+      "events": [],
+      "fills": [],
+      "newStateHash": "sha256:48190adbdbe971af42df7c1c9ddbed09f2f34dc835b83811acc2882448e3ab78",
+      "newVersion": 24,
+      "orderStatusChanges": [],
+      "ordersCreated": [],
+      "policyEvaluation": null,
+      "reconciliationOk": true,
+      "settlementsCompleted": [],
+      "settlementsCreated": [],
+      "valuation": null
+    },
+    {
+      "cashFlows": [],
+      "commandId": "cmd:fi-demo-2024q1-faults-r0:llm_market:2024-02-21:decision",
+      "commandType": "submit_decision",
+      "events": [],
+      "fills": [],
+      "newStateHash": "sha256:48190adbdbe971af42df7c1c9ddbed09f2f34dc835b83811acc2882448e3ab78",
+      "newVersion": 24,
+      "orderStatusChanges": [],
+      "ordersCreated": [],
+      "policyEvaluation": {
+        "action": "REBALANCE",
+        "bootstrapExemptionApplied": false,
+        "breachMode": false,
+        "calculationIds": [
+          "calc-007a627d332c4ec8",
+          "calc-0e42902ddd129c5b",
+          "calc-27a149a0ec027756",
+          "calc-2bc5a259e3e0dab2",
+          "calc-407d995eecb88324",
+          "calc-464a47c788de9530",
+          "calc-5112e80961ba17c5",
+          "calc-53cab59685c239f1",
+          "calc-9b9c25601708e379",
+          "calc-a65fcbf94ef4eceb",
+          "calc-ccb3d6d6a6e958a0",
+          "calc-ef7a7612feb0fdda",
+          "calc-f5870113a7983574"
+        ],
+        "checks": [
+          {
+            "checkId": "max_orders_per_decision",
+            "limit": "6",
+            "observed": "5",
+            "passed": true,
+            "reason": null,
+            "unit": "COUNT"
+          },
+          {
+            "checkId": "funding_settled_cash",
+            "limit": "254852.39",
+            "observed": "588665.07",
+            "passed": false,
+            "reason": "unfundable_purchases_receivables_do_not_fund",
+            "unit": "USD"
+          },
+          {
+            "checkId": "long_only",
+            "limit": null,
+            "observed": null,
+            "passed": true,
+            "reason": null,
+            "unit": "BOOL"
+          },
+          {
+            "checkId": "max_daily_turnover_ratio",
+            "limit": "0.20",
+            "observed": "1.22886745",
+            "passed": false,
+            "reason": "turnover_cap_exceeded",
+            "unit": "RATIO"
+          },
+          {
+            "checkId": "min_cash_ratio",
+            "limit": "0.05",
+            "observed": "0.30002853",
+            "passed": true,
+            "reason": null,
+            "unit": "RATIO"
+          },
+          {
+            "checkId": "max_single_security_ratio:SYN-USD-NOTE-009",
+            "limit": "0.40",
+            "observed": "0.69997789",
+            "passed": false,
+            "reason": "limit_exceeded",
+            "unit": "RATIO"
+          },
+          {
+            "checkId": "parallel_dv01_usd",
+            "limit": "593.41",
+            "observed": "511.66",
+            "passed": true,
+            "reason": null,
+            "unit": "USD_PER_BP"
+          }
+        ],
+        "decisionId": "dec:fi-demo-2024q1-faults-r0:llm_market:2024-02-21:r0",
+        "normalizationNotes": [
+          "held_security_without_target_set_to_zero:SYN-USD-NOTE-003",
+          "held_security_without_target_set_to_zero:SYN-USD-NOTE-006",
+          "held_security_without_target_set_to_zero:SYN-USD-NOTE-007",
+          "held_security_without_target_set_to_zero:SYN-USD-NOTE-008"
+        ],
+        "normalizedTargets": [
+          {
+            "securityId": "CASH-USD",
+            "weight": "0.30"
+          },
+          {
+            "securityId": "SYN-USD-NOTE-003",
+            "weight": "0"
+          },
+          {
+            "securityId": "SYN-USD-NOTE-006",
+            "weight": "0"
+          },
+          {
+            "securityId": "SYN-USD-NOTE-007",
+            "weight": "0"
+          },
+          {
+            "securityId": "SYN-USD-NOTE-008",
+            "weight": "0"
+          },
+          {
+            "securityId": "SYN-USD-NOTE-009",
+            "weight": "0.70"
+          }
+        ],
+        "orderCount": 0,
+        "originalTargets": [
+          {
+            "securityId": "SYN-USD-NOTE-009",
+            "weight": "0.70"
+          },
+          {
+            "securityId": "CASH-USD",
+            "weight": "0.30"
+          }
+        ],
+        "passed": false,
+        "policyId": "treasury-long-only-v1",
+        "postTradeCashRatio": "0.30002853",
+        "postTradeMaxSecurityRatio": "0.69997789",
+        "postTradeNavUsd": "989017.65",
+        "postTradeParallelDv01Usd": "511.66",
+        "preTradeCashRatio": "0.25761035",
+        "preTradeMaxSecurityRatio": "0.16928064",
+        "preTradeNavUsd": "989294.05",
+        "preTradeParallelDv01Usd": "303.38",
+        "rejectedReasons": [
+          "funding_settled_cash:unfundable_purchases_receivables_do_not_fund",
+          "max_daily_turnover_ratio:turnover_cap_exceeded",
+          "max_single_security_ratio:SYN-USD-NOTE-009:limit_exceeded"
+        ],
+        "sizedOrders": [
+          {
+            "estimatedConsiderationUsd": "146052.87",
+            "estimatedDirtyPricePer100": "100.0362116575",
+            "face": "146000",
+            "securityId": "SYN-USD-NOTE-003",
+            "side": "SELL"
+          },
+          {
+            "estimatedConsiderationUsd": "148208.95",
+            "estimatedDirtyPricePer100": "92.0552483102",
+            "face": "161000",
+            "securityId": "SYN-USD-NOTE-006",
+            "side": "SELL"
+          },
+          {
+            "estimatedConsiderationUsd": "167460.11",
+            "estimatedDirtyPricePer100": "100.2755168524",
+            "face": "167000",
+            "securityId": "SYN-USD-NOTE-007",
+            "side": "SELL"
+          },
+          {
+            "estimatedConsiderationUsd": "167074.26",
+            "estimatedDirtyPricePer100": "80.3241617576",
+            "face": "208000",
+            "securityId": "SYN-USD-NOTE-008",
+            "side": "SELL"
+          },
+          {
+            "estimatedConsiderationUsd": "586915.07",
+            "estimatedDirtyPricePer100": "83.8450105858",
+            "face": "700000",
+            "securityId": "SYN-USD-NOTE-009",
+            "side": "BUY"
+          }
+        ],
+        "turnoverRatio": "1.22886745"
+      },
+      "reconciliationOk": true,
+      "settlementsCompleted": [],
+      "settlementsCreated": [],
+      "valuation": null
+    },
+    {
+      "cashFlows": [],
+      "commandId": "cmd:fi-demo-2024q1-faults-r0:llm_market:2024-02-21:value",
+      "commandType": "value_portfolio",
+      "events": [
+        {
+          "effectiveAt": "2024-02-22T01:00:00Z",
+          "type": "valuation_mark"
+        }
+      ],
+      "fills": [],
+      "newStateHash": "sha256:aabfd93faa31d704a5999f74ed6211671632853d570edafabeb57908f1110d83",
+      "newVersion": 25,
+      "orderStatusChanges": [],
+      "ordersCreated": [],
+      "policyEvaluation": null,
+      "reconciliationOk": true,
+      "settlementsCompleted": [],
+      "settlementsCreated": [],
+      "valuation": {
+        "cashUsd": "254852.39",
+        "complete": true,
+        "effectiveDurationYears": "3.066585",
+        "equityUsd": "989294.05",
+        "parallelDv01Usd": "303.38"
+      }
+    }
+  ],
+  "label": "FAILURE INJECTION (declared fault; not a natural outcome)",
+  "ordersCreated": 0,
+  "otherCompetitorsSameSession": {
+    "cash": "completed_hold",
+    "llm_graph": "completed_hold",
+    "llm_rag": "abstained_insufficient_evidence",
+    "llm_team": "completed_hold",
+    "quant_duration": "completed_hold",
+    "static_ladder": "completed_hold"
+  },
+  "policyGate": {
+    "action": "REBALANCE",
+    "bootstrapExemptionApplied": false,
+    "breachMode": false,
+    "calculationIds": [
+      "calc-007a627d332c4ec8",
+      "calc-0e42902ddd129c5b",
+      "calc-27a149a0ec027756",
+      "calc-2bc5a259e3e0dab2",
+      "calc-407d995eecb88324",
+      "calc-464a47c788de9530",
+      "calc-5112e80961ba17c5",
+      "calc-53cab59685c239f1",
+      "calc-9b9c25601708e379",
+      "calc-a65fcbf94ef4eceb",
+      "calc-ccb3d6d6a6e958a0",
+      "calc-ef7a7612feb0fdda",
+      "calc-f5870113a7983574"
+    ],
+    "checks": [
+      {
+        "checkId": "max_orders_per_decision",
+        "limit": "6",
+        "observed": "5",
+        "passed": true,
+        "reason": null,
+        "unit": "COUNT"
+      },
+      {
+        "checkId": "funding_settled_cash",
+        "limit": "254852.39",
+        "observed": "588665.07",
+        "passed": false,
+        "reason": "unfundable_purchases_receivables_do_not_fund",
+        "unit": "USD"
+      },
+      {
+        "checkId": "long_only",
+        "limit": null,
+        "observed": null,
+        "passed": true,
+        "reason": null,
+        "unit": "BOOL"
+      },
+      {
+        "checkId": "max_daily_turnover_ratio",
+        "limit": "0.20",
+        "observed": "1.22886745",
+        "passed": false,
+        "reason": "turnover_cap_exceeded",
+        "unit": "RATIO"
+      },
+      {
+        "checkId": "min_cash_ratio",
+        "limit": "0.05",
+        "observed": "0.30002853",
+        "passed": true,
+        "reason": null,
+        "unit": "RATIO"
+      },
+      {
+        "checkId": "max_single_security_ratio:SYN-USD-NOTE-009",
+        "limit": "0.40",
+        "observed": "0.69997789",
+        "passed": false,
+        "reason": "limit_exceeded",
+        "unit": "RATIO"
+      },
+      {
+        "checkId": "parallel_dv01_usd",
+        "limit": "593.41",
+        "observed": "511.66",
+        "passed": true,
+        "reason": null,
+        "unit": "USD_PER_BP"
+      }
+    ],
+    "decisionId": "dec:fi-demo-2024q1-faults-r0:llm_market:2024-02-21:r0",
+    "normalizationNotes": [
+      "held_security_without_target_set_to_zero:SYN-USD-NOTE-003",
+      "held_security_without_target_set_to_zero:SYN-USD-NOTE-006",
+      "held_security_without_target_set_to_zero:SYN-USD-NOTE-007",
+      "held_security_without_target_set_to_zero:SYN-USD-NOTE-008"
+    ],
+    "normalizedTargets": [
+      {
+        "securityId": "CASH-USD",
+        "weight": "0.30"
+      },
+      {
+        "securityId": "SYN-USD-NOTE-003",
+        "weight": "0"
+      },
+      {
+        "securityId": "SYN-USD-NOTE-006",
+        "weight": "0"
+      },
+      {
+        "securityId": "SYN-USD-NOTE-007",
+        "weight": "0"
+      },
+      {
+        "securityId": "SYN-USD-NOTE-008",
+        "weight": "0"
+      },
+      {
+        "securityId": "SYN-USD-NOTE-009",
+        "weight": "0.70"
+      }
+    ],
+    "orderCount": 0,
+    "originalTargets": [
+      {
+        "securityId": "SYN-USD-NOTE-009",
+        "weight": "0.70"
+      },
+      {
+        "securityId": "CASH-USD",
+        "weight": "0.30"
+      }
+    ],
+    "passed": false,
+    "policyId": "treasury-long-only-v1",
+    "postTradeCashRatio": "0.30002853",
+    "postTradeMaxSecurityRatio": "0.69997789",
+    "postTradeNavUsd": "989017.65",
+    "postTradeParallelDv01Usd": "511.66",
+    "preTradeCashRatio": "0.25761035",
+    "preTradeMaxSecurityRatio": "0.16928064",
+    "preTradeNavUsd": "989294.05",
+    "preTradeParallelDv01Usd": "303.38",
+    "rejectedReasons": [
+      "funding_settled_cash:unfundable_purchases_receivables_do_not_fund",
+      "max_daily_turnover_ratio:turnover_cap_exceeded",
+      "max_single_security_ratio:SYN-USD-NOTE-009:limit_exceeded"
+    ],
+    "sizedOrders": [
+      {
+        "estimatedConsiderationUsd": "146052.87",
+        "estimatedDirtyPricePer100": "100.0362116575",
+        "face": "146000",
+        "securityId": "SYN-USD-NOTE-003",
+        "side": "SELL"
+      },
+      {
+        "estimatedConsiderationUsd": "148208.95",
+        "estimatedDirtyPricePer100": "92.0552483102",
+        "face": "161000",
+        "securityId": "SYN-USD-NOTE-006",
+        "side": "SELL"
+      },
+      {
+        "estimatedConsiderationUsd": "167460.11",
+        "estimatedDirtyPricePer100": "100.2755168524",
+        "face": "167000",
+        "securityId": "SYN-USD-NOTE-007",
+        "side": "SELL"
+      },
+      {
+        "estimatedConsiderationUsd": "167074.26",
+        "estimatedDirtyPricePer100": "80.3241617576",
+        "face": "208000",
+        "securityId": "SYN-USD-NOTE-008",
+        "side": "SELL"
+      },
+      {
+        "estimatedConsiderationUsd": "586915.07",
+        "estimatedDirtyPricePer100": "83.8450105858",
+        "face": "700000",
+        "securityId": "SYN-USD-NOTE-009",
+        "side": "BUY"
+      }
+    ],
+    "turnoverRatio": "1.22886745"
+  },
+  "portfolioStillProcessed": true
+}

@@ -1,0 +1,127 @@
+{
+  "auditVersion": "demo-audit-v1",
+  "decision": {
+    "agentPolicyCheck": null,
+    "attempts": [],
+    "counterevidence": [],
+    "coverageGaps": [
+      "mandatory retrieval returned no eligible passages"
+    ],
+    "decisionId": "dec:fi-demo-2024q1-faults-r0:llm_rag:2024-02-21:r0",
+    "evidenceBundleIds": [
+      "eb-664d0721b6cc05f9e6e11e23-withheld"
+    ],
+    "explanation": "Mandatory retrieval delivered no eligible passages; no model call was made.",
+    "noteStatus": "insufficient_evidence",
+    "outcome": "abstained_insufficient_evidence",
+    "proposal": null,
+    "reasons": [
+      "mandatory_retrieval_empty"
+    ],
+    "resultHash": "sha256:e1452db0ae0f039c0a73bbf000ac340851ef05ccd02d0ecdedbe89fff0d9f94c",
+    "specialistTasks": [],
+    "strategyId": "llm_rag",
+    "toolTraces": [
+      {
+        "agentRole": "single",
+        "error": null,
+        "outputRef": "calc-6e6ef30f7cf2e048",
+        "status": "ok",
+        "tool": "get_portfolio_risk"
+      },
+      {
+        "agentRole": "single",
+        "error": null,
+        "outputRef": "calc-9889bda8017c43e9",
+        "status": "ok",
+        "tool": "get_market_features"
+      },
+      {
+        "agentRole": "single",
+        "error": null,
+        "outputRef": "eb-664d0721b6cc05f9e6e11e23-withheld",
+        "status": "ok",
+        "tool": "retrieve_evidence"
+      }
+    ],
+    "usage": {
+      "budgetExhausted": null,
+      "durationMs": 0,
+      "estimatedCostUsd": "0.000000",
+      "evidenceCalls": 1,
+      "evidenceTokens": 0,
+      "generationCalls": 0,
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "priceScheduleId": "reference-zero-cost-v1",
+      "toolCalls": 3,
+      "uniqueEvidenceChunks": 0
+    },
+    "validation": []
+  },
+  "fault": {
+    "description": "Retrieval returns an empty evidence bundle (simulated source gap).",
+    "expected": "abstained_insufficient_evidence (configured abstention outcome)",
+    "faultId": "F3-evidence-withheld",
+    "kind": "evidence_withheld",
+    "session": "2024-02-21",
+    "strategyId": "llm_rag"
+  },
+  "financialCommands": [
+    {
+      "cashFlows": [],
+      "commandId": "cmd:fi-demo-2024q1-faults-r0:llm_rag:2024-02-21:process",
+      "commandType": "process_events",
+      "events": [],
+      "fills": [],
+      "newStateHash": "sha256:cb0f0051cae38b1c939e0ddcce74d730df50dd573c13ddf5a06efc8c19bd87e7",
+      "newVersion": 23,
+      "orderStatusChanges": [],
+      "ordersCreated": [],
+      "policyEvaluation": null,
+      "reconciliationOk": true,
+      "settlementsCompleted": [],
+      "settlementsCreated": [],
+      "valuation": null
+    },
+    {
+      "cashFlows": [],
+      "commandId": "cmd:fi-demo-2024q1-faults-r0:llm_rag:2024-02-21:value",
+      "commandType": "value_portfolio",
+      "events": [
+        {
+          "effectiveAt": "2024-02-22T01:00:00Z",
+          "type": "valuation_mark"
+        }
+      ],
+      "fills": [],
+      "newStateHash": "sha256:0ee22810bf3663b923e313eca56dbbb13aa6ad4664fabdbbf9b0bc038992fb6d",
+      "newVersion": 24,
+      "orderStatusChanges": [],
+      "ordersCreated": [],
+      "policyEvaluation": null,
+      "reconciliationOk": true,
+      "settlementsCompleted": [],
+      "settlementsCreated": [],
+      "valuation": {
+        "cashUsd": "259368.16",
+        "complete": true,
+        "effectiveDurationYears": "3.052650",
+        "equityUsd": "993809.82",
+        "parallelDv01Usd": "303.38"
+      }
+    }
+  ],
+  "label": "FAILURE INJECTION (declared fault; not a natural outcome)",
+  "ordersCreated": 0,
+  "otherCompetitorsSameSession": {
+    "cash": "completed_hold",
+    "llm_graph": "completed_hold",
+    "llm_market": "completed_proposal",
+    "llm_team": "completed_hold",
+    "quant_duration": "completed_hold",
+    "static_ladder": "completed_hold"
+  },
+  "policyGate": null,
+  "portfolioStillProcessed": true
+}

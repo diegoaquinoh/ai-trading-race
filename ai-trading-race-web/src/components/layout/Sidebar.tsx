@@ -12,6 +12,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
     const navItems = [
         { path: '/', icon: 'fas fa-chart-bar', label: 'Dashboard' },
         { path: '/agents', icon: 'fas fa-robot', label: 'Agents' },
+        { path: '/fi', icon: 'fas fa-university', label: 'Fixed Income Lab' },
         { path: '/about', icon: 'fas fa-info-circle', label: 'About' },
     ];
 
@@ -28,7 +29,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                             <Link
                                 key={item.path}
                                 to={item.path}
-                                className={`sidebar-link ${location.pathname === item.path ? 'active' : ''}`}
+                                className={`sidebar-link ${location.pathname === item.path || (item.path === '/fi' && location.pathname.startsWith('/fi/')) ? 'active' : ''}`}
                                 onClick={onClose}
                             >
                                 <span className="sidebar-link-icon"><i className={item.icon}></i></span>

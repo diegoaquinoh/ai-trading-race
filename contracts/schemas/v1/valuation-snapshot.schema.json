@@ -1,0 +1,292 @@
+{
+  "$defs": {
+    "DataMode": {
+      "enum": [
+        "synthetic_curve",
+        "observed_security"
+      ],
+      "title": "DataMode",
+      "type": "string"
+    },
+    "MarkType": {
+      "enum": [
+        "curve_model",
+        "observed_mid",
+        "observed_bid",
+        "unavailable"
+      ],
+      "title": "MarkType",
+      "type": "string"
+    },
+    "PositionMark": {
+      "additionalProperties": false,
+      "properties": {
+        "accruedPer100": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Accruedper100"
+        },
+        "calculationId": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Calculationid"
+        },
+        "cleanPricePer100": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cleanpriceper100"
+        },
+        "economicFace": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Economicface",
+          "type": "string"
+        },
+        "markAgeBusinessDays": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Markagebusinessdays"
+        },
+        "markType": {
+          "$ref": "#/$defs/MarkType"
+        },
+        "observedAt": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Observedat"
+        },
+        "pvDirtyUsd": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pvdirtyusd"
+        },
+        "securityId": {
+          "pattern": "^[A-Z0-9][A-Z0-9\\-\\.]{1,63}$",
+          "title": "Securityid",
+          "type": "string"
+        },
+        "stale": {
+          "default": false,
+          "title": "Stale",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "securityId",
+        "economicFace",
+        "markType"
+      ],
+      "title": "PositionMark",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "bondValueUsd": {
+      "anyOf": [
+        {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Bondvalueusd"
+    },
+    "calculationIds": {
+      "items": {
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+        "type": "string"
+      },
+      "title": "Calculationids",
+      "type": "array"
+    },
+    "cashUsd": {
+      "pattern": "^-?\\d+(\\.\\d+)?$",
+      "title": "Cashusd",
+      "type": "string"
+    },
+    "complete": {
+      "title": "Complete",
+      "type": "boolean"
+    },
+    "curveSnapshotId": {
+      "anyOf": [
+        {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Curvesnapshotid"
+    },
+    "dataMode": {
+      "$ref": "#/$defs/DataMode"
+    },
+    "effectiveDurationYears": {
+      "anyOf": [
+        {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Effectivedurationyears"
+    },
+    "equityUsd": {
+      "anyOf": [
+        {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Equityusd"
+    },
+    "incompleteReasons": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Incompletereasons",
+      "type": "array"
+    },
+    "markPolicy": {
+      "default": "synthetic_curve_model_v1",
+      "title": "Markpolicy",
+      "type": "string"
+    },
+    "marks": {
+      "items": {
+        "$ref": "#/$defs/PositionMark"
+      },
+      "title": "Marks",
+      "type": "array"
+    },
+    "parallelDv01Usd": {
+      "anyOf": [
+        {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Paralleldv01Usd"
+    },
+    "payablesPvUsd": {
+      "anyOf": [
+        {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Payablespvusd"
+    },
+    "portfolioId": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+      "title": "Portfolioid",
+      "type": "string"
+    },
+    "receivablesPvUsd": {
+      "anyOf": [
+        {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Receivablespvusd"
+    },
+    "stateVersion": {
+      "title": "Stateversion",
+      "type": "integer"
+    },
+    "valuationAt": {
+      "format": "date-time",
+      "title": "Valuationat",
+      "type": "string"
+    },
+    "valuationId": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+      "title": "Valuationid",
+      "type": "string"
+    }
+  },
+  "required": [
+    "valuationId",
+    "portfolioId",
+    "stateVersion",
+    "valuationAt",
+    "dataMode",
+    "complete",
+    "cashUsd"
+  ],
+  "title": "ValuationSnapshot",
+  "type": "object"
+}

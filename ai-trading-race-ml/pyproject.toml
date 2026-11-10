@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ai-trading-race-ml"
+version = "0.1.0"
+description = "Fixed income research engine and FastAPI adapter"
+requires-python = ">=3.12"
+
+[project.scripts]
+fi-research = "research_engine.cli.main:main"
+
+[tool.setuptools.packages.find]
+include = ["research_engine*", "app*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+markers = [
+    "integration: requires external services (Neo4j, SQL Server, network)",
+    "slow: long-running replay or benchmark tests",
+]
+addopts = "-m 'not integration'"
+
+[tool.black]
+line-length = 100
+target-version = ["py312"]
+
+[tool.mypy]
+python_version = "3.13"
+ignore_missing_imports = true

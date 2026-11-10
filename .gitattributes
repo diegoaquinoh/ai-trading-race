@@ -1,0 +1,5 @@
+# Raw evidence pages are verified byte-for-byte against sha256 hashes in
+# ai-trading-race-ml/fixtures/evidence/raw/MANIFEST.json and synthetic/corrections.json.
+# Never normalize their line endings.
+ai-trading-race-ml/fixtures/evidence/raw/** -text
+ai-trading-race-ml/fixtures/evidence/synthetic/*.htm -text

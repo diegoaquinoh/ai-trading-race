@@ -1,0 +1,53 @@
+{
+  "captureReplayEquivalent": true,
+  "captureReplayMismatches": [],
+  "captureResponseMode": "fresh_inference (reference model, recorded)",
+  "captureStatus": "completed",
+  "disclosure": "reference-heuristic-v1 is a deterministic rule-based policy model used for offline demos and tests. It is not a hosted LLM and its outputs are not model inferences.",
+  "experimentId": "demo-sample-2023-06",
+  "failures": [],
+  "indexBuildId": "ib-c5ff36b8d6d057e4ab95",
+  "model": "reference-heuristic-v1",
+  "outcomes": {
+    "dec:demo-sample-2023-06-r0:llm_graph:2023-06-13:r0": "sha256:e64b3a97482fc7b798472affaa2e74d06fc34ac5f3c4651e29881d764fbd1939",
+    "dec:demo-sample-2023-06-r0:llm_graph:2023-06-14:r0": "sha256:465374a620ad614ee522b01cf8583bf3e54fc13532a10d0f3c1063818788e670",
+    "dec:demo-sample-2023-06-r0:llm_graph:2023-06-15:r0": "sha256:e35e751a3d274a71da15afb2e17e9b619a9b9b394b6888d78cf47fc996665e74",
+    "dec:demo-sample-2023-06-r0:llm_graph:2023-06-16:r0": "sha256:2ba40d26bb81052ba101b78e3eb14340081535e593c61414e1cd9caa6c4c2570",
+    "dec:demo-sample-2023-06-r0:llm_market:2023-06-13:r0": "sha256:9947b208eef1f4c633dc8e57579a6614adef18080fae74d8553ddf1153c472a6",
+    "dec:demo-sample-2023-06-r0:llm_market:2023-06-14:r0": "sha256:79cc81b3dd63fe0df9ac2b913328aa12d347960292a550dd1dda6206308de591",
+    "dec:demo-sample-2023-06-r0:llm_market:2023-06-15:r0": "sha256:c87e7e108f347e625b37d8040275f3b62122f6188b44b1ca366d2bed8d493135",
+    "dec:demo-sample-2023-06-r0:llm_market:2023-06-16:r0": "sha256:9ee0a477fd2f0b8110c194b002646efc59040e2f89b1598bbfcfef536af8a7a3",
+    "dec:demo-sample-2023-06-r0:llm_rag:2023-06-13:r0": "sha256:87b239ea9bc94dd17ffdce9e34e2790890f8050291fc03e2d3db9b0eb721bff4",
+    "dec:demo-sample-2023-06-r0:llm_rag:2023-06-14:r0": "sha256:0f4875dc0463d505c7fa739fa0724e9047c70de84de548486cbdb016392c831b",
+    "dec:demo-sample-2023-06-r0:llm_rag:2023-06-15:r0": "sha256:7f7870fc09faef4604341f2a1c71a1c7d504885f2e96c5bf874eb6fc65c8c1b5",
+    "dec:demo-sample-2023-06-r0:llm_rag:2023-06-16:r0": "sha256:a3cc73570a60d1a87a7f5cf061c1bce1b0ca166db4dd02b797f9d21706f66af2",
+    "dec:demo-sample-2023-06-r0:llm_team:2023-06-13:r0": "sha256:65c3ef9e199d64ebdcfebc295bf8c29488cae8bff8a2315499cda1c67f097ec4",
+    "dec:demo-sample-2023-06-r0:llm_team:2023-06-14:r0": "sha256:6692169d8384b09026ed4d5ebb4016d4459a5c1dbd4441151b129ee959964ad1",
+    "dec:demo-sample-2023-06-r0:llm_team:2023-06-15:r0": "sha256:55db0120d53fde78da32bdc628cdae1e9e8e971ef04830113a6c26ff9f10a944",
+    "dec:demo-sample-2023-06-r0:llm_team:2023-06-16:r0": "sha256:6dea26825424b0f86f64c49d871204a42dcc5ef69d28e434a1a8434acf91f987"
+  },
+  "promptVersion": "fi-agent-prompts-v1@d9bc062da834e51c",
+  "provider": "reference",
+  "recordedResponses": 33,
+  "requestBoundFields": [
+    "requestHash",
+    "resultHash",
+    "signature",
+    "inputHashes.decisionRequest"
+  ],
+  "responseFormat": "recorded-responses-v1",
+  "runResponseMode": "recorded_replay (replay_source=recorded_responses)",
+  "signingKeys": "published non-secret fixture keys (research_engine.agents.recording)",
+  "status": "completed",
+  "strategies": [
+    "llm_graph",
+    "llm_market",
+    "llm_rag",
+    "llm_team"
+  ],
+  "toolSchemaVersion": "fi-agent-tools-v1",
+  "window": {
+    "end": "2023-06-16",
+    "start": "2023-06-13"
+  }
+}

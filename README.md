@@ -1,12 +1,100 @@
-# AI Trading Race 🏁
+# Fixed Income Research Lab (AI Trading Race) 🏁
 
-A competitive simulation where AI trading agents (LLMs) race against each other, each controlling a simulated crypto portfolio. Market prices are ingested from CoinGecko, an Azure Durable Functions orchestrator coordinates market cycles and agent decisions with fan-out/fan-in parallelism, and a React dashboard displays real-time equity curves and leaderboard.
+A reproducible fixed income research and paper-trading lab. Independent strategies (cash, passive,
+quantitative and AI decision architectures) each manage an isolated portfolio of **synthetic**
+U.S. Treasury-style notes priced from observed Treasury par curves. The lab measures what document
+retrieval (RAG), graph-assisted retrieval and a bounded specialist team change, with an auditable
+trail from evidence to trade.
+
+The original **crypto AI Trading Race** (CoinGecko prices, LLM agents, five-minute Durable Functions
+cycle) still works and is documented below as **legacy**.
 
 [![Backend CI](https://github.com/diegoaquinoh/ai-trading-race/workflows/Backend%20CI%2FCD/badge.svg?branch=main)](https://github.com/diegoaquinoh/ai-trading-race/actions)
 [![Functions CI](https://github.com/diegoaquinoh/ai-trading-race/workflows/Azure%20Functions%20CI%2FCD/badge.svg?branch=main)](https://github.com/diegoaquinoh/ai-trading-race/actions)
 [![Frontend CI](https://github.com/diegoaquinoh/ai-trading-race/workflows/Frontend%20CI%2FCD/badge.svg?branch=main)](https://github.com/diegoaquinoh/ai-trading-race/actions)
 [![ML Service CI](https://github.com/diegoaquinoh/ai-trading-race/workflows/ML%20Service%20CI%2FCD/badge.svg?branch=main)](https://github.com/diegoaquinoh/ai-trading-race/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+## 📈 Fixed Income Research Lab
+
+Specification: [docs/FIXED_INCOME_PLATFORM_SPEC.md](./docs/FIXED_INCOME_PLATFORM_SPEC.md) ·
+plan: [docs/fixed-income/IMPLEMENTATION_PLAN.md](./docs/fixed-income/IMPLEMENTATION_PLAN.md) ·
+requirement status: [docs/fixed-income/traceability.md](./docs/fixed-income/traceability.md)
+
+### What is implemented
+
+- **Canonical Python engine** (`ai-trading-race-ml/research_engine`, QuantLib 1.44): synthetic
+  fixed-rate notes, U.S. government-bond calendar, Treasury par-curve bootstrap, settlement- and
+  valuation-anchored pricing, accrued interest, DV01/key-rate/duration, versioned scenarios, fills
+  at the next session's observation with declared half-spreads, balanced ledger postings, FIFO lots,
+  settlement, coupons and redemptions, risk policy, and a daily replay runner with checkpoints.
+- **.NET transactional authority** (schema `fi`, `/api/v1`): verifies HMAC-signed transition
+  proposals, re-checks policy and commits atomically with idempotent command ids. Durable
+  orchestration for replay and (disabled by default) forward paper cycles.
+- **Evidence:** Federal Reserve FOMC statements and minutes 2023–2024 (offline fixtures, provenance
+  and reconstructed availability), chunking, hybrid retrieval (BM25 + deterministic local
+  embedding), a typed knowledge graph (in-memory default, Neo4j optional), graph-assisted
+  retrieval, citation validation, and a 60-question benchmark.
+- **Strategies:** `cash`, `static_ladder`, `quant_duration`, and `llm_market`, `llm_rag`,
+  `llm_graph`, `llm_team` (lead + macro researcher + critical reviewer) under shared decision
+  budgets, typed tools, validation and audit.
+- **Reproducibility:** immutable hashed manifests, separate fresh-inference and recorded-replay
+  modes, recorded demo bundle, reports and methodology card. Dashboard pages under `/fi`.
+
+### What it is not (yet)
+
+- **No hosted LLM has been run.** No LLM credentials exist for this project. AI strategies run on
+  provider `reference` (`reference-heuristic-v1`), a deterministic rule-based policy model, not an
+  LLM. Anthropic/OpenAI-compatible clients exist and are tested only with mocked transports.
+- **No real bonds or market quotes.** Instruments are synthetic; prices are curve-model observations.
+  Observed-security mode (M8) and intraday execution (M9) are gated, not delivered.
+- The Neo4j path is untested against a live server. The repository targets .NET 8, whose support
+  ends 10 Nov 2026; the upgrade is a pending migration
+  ([ADR 0007](./docs/fixed-income/adr/0007-dotnet-10-upgrade-deferred.md)).
+
+### Run the recorded demo offline (no services, no credentials)
+
+```bash
+cd ai-trading-race-ml
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt -r requirements-dev.txt
+.venv/bin/python -m research_engine demo verify     # replays the bundle with every provider disabled (~20 s)
+.venv/bin/python -m research_engine demo build --overwrite   # optional: rebuild the bundle (~70 s)
+```
+
+The bundle `ai-trading-race-ml/fixtures/demo/fi-demo-2024q1/` replays 2024-01-02 → 2024-03-28
+(61 sessions, covering the 31 Jan and 20 Mar 2024 FOMC statements and two minutes releases) for
+seven competitors. Headline from that recorded run: synthetic instruments, reference model (not an
+LLM), one repetition, **not statistically significant**. In a quarter in which the 2Y, 5Y and 10Y
+Treasury par yields rose 25–28 bp, net returns ranged from 0.00% (`cash`) and −0.35% (`llm_rag`/`llm_graph`/
+`llm_team`, which made identical decisions) to −0.72% (`llm_market`), mostly following each
+portfolio's rate exposure (average DV01 305–438 USD/bp). See the
+[demo report](./docs/fixed-income/reports/demo-experiment.md).
+
+### Fixed income documentation
+
+| Document | Content |
+|---|---|
+| [docs/fixed-income/reports/demo-experiment.md](./docs/fixed-income/reports/demo-experiment.md) | Demo experiment report (results, risk, costs, failures, evidence, limitations) |
+| [docs/fixed-income/reports/cost-sensitivity.md](./docs/fixed-income/reports/cost-sensitivity.md) | Half-spread 0.00 / 0.02 / 0.05 reruns |
+| [docs/fixed-income/reports/evidence-benchmark.md](./docs/fixed-income/reports/evidence-benchmark.md) | Hybrid vs graph retrieval benchmark |
+| [docs/fixed-income/reports/methodology-card.md](./docs/fixed-income/reports/methodology-card.md) | Hypotheses, variants, metrics, splits, trial registry |
+| [docs/fixed-income/operations.md](./docs/fixed-income/operations.md) | Local startup, secrets, migrations, checkpoints, backups, index rebuild, troubleshooting |
+| [docs/fixed-income/traceability.md](./docs/fixed-income/traceability.md) | FI-01…FI-16 and milestone status |
+| [docs/fixed-income/adr/](./docs/fixed-income/adr/) | Architecture decision records 0001–0008 |
+| [numerical-methods](./docs/fixed-income/numerical-methods.md) · [accounting](./docs/fixed-income/accounting.md) · [execution-and-policy](./docs/fixed-income/execution-and-policy.md) | Engine design |
+| [evidence-and-retrieval](./docs/fixed-income/evidence-and-retrieval.md) · [provenance-and-time-policy](./docs/fixed-income/provenance-and-time-policy.md) · [agents-and-validation](./docs/fixed-income/agents-and-validation.md) | Evidence, time policy, agents |
+
+Local application startup (SQL Server, Azurite, Python engine, .NET API, React, optional
+`docker compose --profile graph` Neo4j) is in the
+[operations guide](./docs/fixed-income/operations.md). The quick start below starts the same
+infrastructure.
+
+---
+
+# Legacy: crypto AI Trading Race
+
+The sections below document the original crypto race. It remains functional and separate from the
+fixed income path (its tables, `/predict` endpoint and five-minute cycle are unchanged).
 
 ## 🌐 Live Demo
 
@@ -69,7 +157,7 @@ The system uses an **Azure Durable Functions orchestrator** (`MarketCycleOrchest
           │              └──────────────────┬───────────────────┘
           │                                 │ decisions
           │              ┌──────────────────▼───────────────────┐
-          │              │     ExecuteTradesActivity             │
+          │              │   ReportExecutedTradesActivity       │
           │              └──────────────────────────────────────┘
           │
           └──► Decision cycles run every 15 minutes (:00, :15, :30, :45)
@@ -252,6 +340,12 @@ dotnet test --verbosity normal
 
 **Test coverage:** 166 tests covering market data ingestion, portfolio operations, equity calculations, risk validation, agent decisions, and Azure Functions orchestration.
 
+Fixed income Python engine (numerical, simulation, evidence, agents, API, contracts, demo bundle):
+
+```bash
+cd ai-trading-race-ml && .venv/bin/python -m pytest -q   # 398 passed on 2026-11-10 (2 integration tests deselected)
+```
+
 ## ☁️ Cloud Deployment (Azure)
 
 ### First-time setup
@@ -349,6 +443,7 @@ dotnet tool install --global dotnet-ef
 | [ai-trading-race-ml/README.md](./ai-trading-race-ml/README.md)             | ML service setup                     |
 | [ai-trading-race-ml/FASTAPI_SCHEMA.md](./ai-trading-race-ml/FASTAPI_SCHEMA.md) | ML service API & architecture    |
 | [ai-trading-race-ml/DEPLOYMENT.md](./ai-trading-race-ml/DEPLOYMENT.md)     | ML service & Redis deployment guide  |
+| [docs/fixed-income/](./docs/fixed-income/)                                 | Fixed income lab: reports, ADRs, operations, traceability |
 
 ## 🔒 Security
 

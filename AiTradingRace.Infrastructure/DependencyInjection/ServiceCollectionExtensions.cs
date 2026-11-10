@@ -187,6 +187,9 @@ public static class ServiceCollectionExtensions
         services.TryAddScoped<IRegimeDetector, VolatilityBasedRegimeDetector>();
         services.TryAddScoped<IDecisionLogService, DecisionLogService>();
 
+        // Fixed income research platform (schema "fi", /api/v1)
+        services.AddFixedIncomeServices(configuration);
+
         return services;
     }
 
