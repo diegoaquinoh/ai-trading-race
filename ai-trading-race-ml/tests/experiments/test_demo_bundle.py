@@ -47,7 +47,7 @@ def test_providers_disabled_guard_blocks_reference_model():
 def test_demo_verify_passes_on_committed_bundle(capsys):
     code = main(["demo", "verify", "--verbose"])
     payload = json.loads(capsys.readouterr().out)
-    assert code == 0, payload["mismatches"]
+    assert code == 0, "\n".join(payload["mismatches"])
     assert payload["ok"] and not payload["mismatches"]
     names = {c["check"] for c in payload["checks"]}
     for required in (

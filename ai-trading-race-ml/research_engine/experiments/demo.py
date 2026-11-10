@@ -1620,6 +1620,27 @@ class DemoVerification:
         }
 
 
+def _first_difference(expected: Any, actual: Any, path: str = "") -> Optional[str]:
+    """Path and values of the first differing leaf of two wire payloads (for diagnostics)."""
+    if isinstance(expected, dict) and isinstance(actual, dict):
+        for key in sorted(set(expected) | set(actual)):
+            found = _first_difference(expected.get(key), actual.get(key), f"{path}.{key}")
+            if found:
+                return found
+        return None
+    if isinstance(expected, list) and isinstance(actual, list):
+        if len(expected) != len(actual):
+            return f"{path or '.'} length {len(expected)} -> {len(actual)}"
+        for index, (a, b) in enumerate(zip(expected, actual)):
+            found = _first_difference(a, b, f"{path}[{index}]")
+            if found:
+                return found
+        return None
+    if expected != actual:
+        return f"{path or '.'} {str(expected)[:80]!r} -> {str(actual)[:80]!r}"
+    return None
+
+
 def _diff_results(expected: dict, actual: dict, limit: int = 5) -> list[str]:
     out = []
     for decision_id in sorted(set(expected) | set(actual)):
@@ -1627,7 +1648,8 @@ def _diff_results(expected: dict, actual: dict, limit: int = 5) -> list[str]:
         if a is None or b is None:
             out.append(f"{decision_id}:missing")
         elif a.to_wire() != b.to_wire():
-            out.append(f"{decision_id}:result_differs")
+            where = _first_difference(a.to_wire(), b.to_wire())
+            out.append(f"{decision_id}:result_differs at {where}")
         if len(out) >= limit:
             break
     return out
