@@ -13,7 +13,7 @@ public interface IAgentContextBuilder
     /// </summary>
     /// <param name="agentId">The agent's unique identifier.</param>
     /// <param name="candleCount">Number of recent candles to include per asset.</param>
-    /// <param name="includeKnowledgeGraph">Whether to include knowledge graph and regime detection (Phase 10).</param>
+    /// <param name="includeKnowledgeGraph">Whether to include knowledge graph and regime detection.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The agent context with portfolio, market data, instructions, and optionally knowledge graph.</returns>
     /// <exception cref="InvalidOperationException">Thrown if agent not found or inactive.</exception>

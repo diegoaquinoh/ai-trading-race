@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# Credential Rotation Script (Phase 5)
+# Credential Rotation Script
 # Generates new secrets and updates all Azure environments.
-# Run after deploying Azure resources and completing Phase 4.
+# Run after deploying Azure resources and running secure-azure-infra.sh.
 
 set -e
 
-echo "Credential Rotation - Phase 5"
+echo "Credential Rotation"
 echo "=============================="
 echo ""
 

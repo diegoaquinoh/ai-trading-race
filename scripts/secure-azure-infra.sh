@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# Azure Infrastructure Security Script (Phase 4)
+# Azure Infrastructure Security Script
 # Configures IP restrictions, SQL firewall, and internal ingress
 # for the AI Trading Race platform.
 
 set -e
 
-echo "Azure Infrastructure Security - Phase 4"
+echo "Azure Infrastructure Security"
 echo "========================================"
 echo ""
 
@@ -376,6 +376,6 @@ echo "  AZURE_WEB_APP_NAME     (default: ai-trading-race-web)"
 echo ""
 echo "Next steps:"
 echo "  1. Store function keys in Web API app settings"
-echo "  2. Run Phase 5: Credential rotation"
+echo "  2. Rotate credentials: ./scripts/rotate-credentials.sh"
 echo "  3. Run security verification tests"
 echo ""

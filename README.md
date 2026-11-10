@@ -37,8 +37,7 @@ A competitive simulation where AI trading agents (LLMs) race against each other,
 | Phase 8   | CI/CD & local deployment (Docker Compose)                     | ✅ Complete |
 | Phase 9   | Cloud deployment (Azure)                                      | ✅ Complete |
 | Phase 10  | Knowledge graph (GraphRAG-lite)                               | ✅ Complete |
-| Phase 10b | LangChain + Neo4j refactor                                    | 🔜 Planned  |
-| Phase 11  | Improve Monitoring & observability                                    | 🔜 Planned  |
+| Phase 11  | Improve monitoring & observability                            | 🔜 Planned  |
 
 ## 🏗️ Architecture
 
@@ -344,12 +343,12 @@ dotnet tool install --global dotnet-ef
 
 ## 📚 Documentation
 
-| Document                                             | Description                         |
-| ---------------------------------------------------- | ----------------------------------- |
-| [docs/DEPLOYMENT_PLAN.md](./docs/DEPLOYMENT_PLAN.md) | Full Azure deployment plan          |
-| [scripts/README.md](./scripts/README.md)             | Database & deployment scripts guide |
-| [.github/SUMMARY.md](./.github/SUMMARY.md)           | CI/CD pipeline summary              |
-| [.github/WORKFLOWS.md](./.github/WORKFLOWS.md)       | Workflow documentation              |
+| Document                                                                   | Description                          |
+| -------------------------------------------------------------------------- | ------------------------------------ |
+| [scripts/README.md](./scripts/README.md)                                   | Database & deployment scripts guide  |
+| [ai-trading-race-ml/README.md](./ai-trading-race-ml/README.md)             | ML service setup                     |
+| [ai-trading-race-ml/FASTAPI_SCHEMA.md](./ai-trading-race-ml/FASTAPI_SCHEMA.md) | ML service API & architecture    |
+| [ai-trading-race-ml/DEPLOYMENT.md](./ai-trading-race-ml/DEPLOYMENT.md)     | ML service & Redis deployment guide  |
 
 ## 🔒 Security
 

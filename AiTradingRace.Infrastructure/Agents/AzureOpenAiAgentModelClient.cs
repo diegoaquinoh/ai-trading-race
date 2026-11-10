@@ -103,7 +103,7 @@ public sealed class AzureOpenAiAgentModelClient : IAgentModelClient
         sb.AppendLine("5. Actively look for trading opportunities - place trades when technical indicators suggest a directional move");
         sb.AppendLine("6. Use the technical indicators provided to make data-driven decisions rather than defaulting to HOLD");
 
-        // Phase 10: Add knowledge graph rules if available
+        // Add knowledge graph rules if available
         if (context.KnowledgeGraph != null && context.DetectedRegime != null)
         {
             sb.AppendLine();
@@ -341,7 +341,7 @@ public sealed class AzureOpenAiAgentModelClient : IAgentModelClient
 
         _logger.LogInformation("Agent {AgentId} reasoning: {Reasoning}", agentId, reasoning);
 
-        // Phase 10: Extract cited rules if present
+        // Extract cited rules if present
         List<string>? citedRuleIds = null;
         if (root.TryGetProperty("cited_rules", out var citedRulesElement))
         {

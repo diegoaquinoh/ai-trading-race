@@ -165,4 +165,4 @@ echo
 echo "Next steps:"
 echo "  1. Verify: curl https://$API_URL/api/health"
 echo "  2. Verify: curl https://$FUNC_URL/api/health"
-echo "  3. Configure GitHub Secrets for CI/CD (see docs/DEPLOYMENT_PLAN.md)"
+echo "  3. Configure GitHub Secrets for CI/CD (see README.md → Required GitHub Secrets)"

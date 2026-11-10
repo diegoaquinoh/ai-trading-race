@@ -23,7 +23,7 @@ public sealed class TradingDbContext : DbContext
     public DbSet<User> Users => Set<User>();
     public DbSet<ApiKey> ApiKeys => Set<ApiKey>();
     
-    // Phase 10: Knowledge Graph & Decision Logs
+    // Knowledge Graph & Decision Logs
     public DbSet<RuleNode> RuleNodes => Set<RuleNode>();
     public DbSet<RegimeNode> RegimeNodes => Set<RegimeNode>();
     public DbSet<RuleEdge> RuleEdges => Set<RuleEdge>();
@@ -44,7 +44,7 @@ public sealed class TradingDbContext : DbContext
         ConfigureUsers(modelBuilder);
         ConfigureApiKeys(modelBuilder);
         
-        // Phase 10: Knowledge Graph
+        // Knowledge Graph
         ConfigureRuleNodes(modelBuilder);
         ConfigureRegimeNodes(modelBuilder);
         ConfigureRuleEdges(modelBuilder);
@@ -385,7 +385,7 @@ public sealed class TradingDbContext : DbContext
                     Volume = 8_500m
                 });
             
-            // Phase 10: Seed Knowledge Graph data
+            // Seed Knowledge Graph data
             var now = DateTime.UtcNow;
             
             modelBuilder.Entity<RuleNode>().HasData(
@@ -548,7 +548,7 @@ public sealed class TradingDbContext : DbContext
         }
     }
     
-    // Phase 10: Knowledge Graph configurations
+    // Knowledge Graph configurations
     private static void ConfigureRuleNodes(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<RuleNode>(builder =>

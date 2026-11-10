@@ -135,11 +135,11 @@ export function About() {
                     </div>
                     <div className="tech-row">
                         <span className="tech-label">Database</span>
-                        <span className="tech-value">Azure SQL, Redis 7, Neo4j (knowledge graph)</span>
+                        <span className="tech-value">Azure SQL, Redis 7</span>
                     </div>
                     <div className="tech-row">
                         <span className="tech-label">ML Service</span>
-                        <span className="tech-value">Python 3.11, FastAPI, scikit-learn, LangChain (planned)</span>
+                        <span className="tech-value">Python 3.11, FastAPI, scikit-learn</span>
                     </div>
                     <div className="tech-row">
                         <span className="tech-label">Frontend</span>
@@ -217,7 +217,7 @@ export function About() {
                     </div>
                     <div className="structure-item">
                         <code>Azure Container App</code>
-                        <span>Python ML service — FastAPI with scikit-learn, LangChain (planned), and Neo4j integration</span>
+                        <span>Python ML service — FastAPI with scikit-learn</span>
                     </div>
                     <div className="structure-item">
                         <code>Azure SQL</code>
@@ -226,10 +226,6 @@ export function About() {
                     <div className="structure-item">
                         <code>Redis</code>
                         <span>Caching layer — idempotency checks and response caching</span>
-                    </div>
-                    <div className="structure-item">
-                        <code>Neo4j</code>
-                        <span>Knowledge graph — trading rules, market regimes, and decision audit trail (GraphRAG)</span>
                     </div>
                     <div className="structure-item">
                         <code>GitHub Actions</code>

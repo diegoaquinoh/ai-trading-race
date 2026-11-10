@@ -13,7 +13,7 @@ namespace AiTradingRace.Tests.Decisions;
 
 /// <summary>
 /// Unit tests for DecisionLogService
-/// Sprint 10.5: Decision Audit Trail
+/// Decision Audit Trail
 /// </summary>
 public class DecisionLogServiceTests : IDisposable
 {
