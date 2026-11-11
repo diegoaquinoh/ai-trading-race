@@ -94,7 +94,7 @@
   "fills": [],
   "inputHashes": {
     "executionModel": "sha256:d3f9bd5e39ee45dc8e845e76f05c96cfd8a606e6c546d66b15c707b7eefc7887",
-    "marketSnapshot": "sha256:b2d12f2859f15c212cc8e9c5da222bca9b2e4cd4402fba826c9beb773d6b98aa",
+    "marketSnapshot": "sha256:09d5e91725bf11f805e89fdf10f83289bc41d7b2f3e06968caa46ffcf8973e1f",
     "portfolioState": "sha256:824d44ecc211a54ae0e5f0b23f09b51ecc7c9827eb8c05ef703cbeb48b7b5a47",
     "riskPolicy": "sha256:9fad814adb712358027210d8a4eb8b572da99cbf0ac74718e632f964726b5e23"
   },
@@ -285,18 +285,18 @@
     "bootstrapExemptionApplied": true,
     "breachMode": false,
     "calculationIds": [
-      "calc-0c3c21e65c6d26c4",
-      "calc-17b74b2aadbe9b00",
-      "calc-3a38c2f691cfd441",
-      "calc-3d67b47d3e5606f5",
-      "calc-729092b1ef971277",
-      "calc-9513013ad0e8aee6",
-      "calc-9a7e7e1826596784",
-      "calc-b245b99c76adee4f",
-      "calc-b767434771936cbc",
-      "calc-d0fe49fc32be81bb",
-      "calc-d7eac5f7af660942",
-      "calc-ee12bc71a392682c"
+      "calc-13035dc397ea5d88",
+      "calc-3aa4a639d1df3c00",
+      "calc-43e3481c85a12ec5",
+      "calc-65b137954c5ed504",
+      "calc-685098ab17cbb52b",
+      "calc-76694f84971f285b",
+      "calc-7e63b136a27caf2e",
+      "calc-8bd619fb5697015b",
+      "calc-a3f027023478de59",
+      "calc-b829d940325fa27d",
+      "calc-ce8ff78cef1393ae",
+      "calc-e9c22571578c4ebd"
     ],
     "checks": [
       {
@@ -494,8 +494,8 @@
     "turnoverRatio": "0.93799569"
   },
   "portfolioId": "pf:run-parity:static_ladder",
-  "proposalHash": "sha256:86dea4355099583cea1cf9d713c39dcec73058c11960ebbed72618319eca08aa",
-  "proposalId": "prop-fff354a1d207d945",
+  "proposalHash": "sha256:99cc82b40aa086704143cff5c1225511b71d4b4ab02fbaa1de24a083607af85c",
+  "proposalId": "prop-f77aa77ee76bd280",
   "reconciliation": {
     "bookEquityUsd": "1000000.00",
     "differenceUsd": null,
@@ -507,12 +507,12 @@
     "ok": true,
     "stateCashUsd": "1000000.00"
   },
-  "requestHash": "sha256:baaf002f8660ba50cca5c4608531c01ed23696dda6a67b1933b0db6b9c180fb2",
+  "requestHash": "sha256:245e3827a87aea84e09b6c32ca1878dae418afec90c8c736721f98f784a2aafb",
   "runId": "run-parity",
   "schemaVersion": "1.0",
   "settlementsCompleted": [],
   "settlementsCreated": [],
-  "signature": "hmac-sha256:04e7fa2060864ac884b729207a2883200355bd9bafc70a1e3471ab046b43655e",
+  "signature": "hmac-sha256:9e8420a965ea95b4bd0d88ee6e83f593405c3f603423bf53b061428f1430809f",
   "strategyId": "static_ladder",
   "valuation": null
 }

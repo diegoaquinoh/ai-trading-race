@@ -17,21 +17,21 @@
       "no_fallback_to_hybrid_rag_v1",
       "injected graph outage (F2-graph-outage)"
     ],
-    "resultHash": "sha256:9aa11235746cc674da7b1d1510afa5145b911ac7b6ebf7aeba18f548f71b5b89",
+    "resultHash": "sha256:534920af719c23e5766f2290831c86925f758dff5ba60a10318dffdf20aa7598",
     "specialistTasks": [],
     "strategyId": "llm_graph",
     "toolTraces": [
       {
         "agentRole": "single",
         "error": null,
-        "outputRef": "calc-86f8bd7787993d25",
+        "outputRef": "calc-2d114c1c9ae2446b",
         "status": "ok",
         "tool": "get_portfolio_risk"
       },
       {
         "agentRole": "single",
         "error": null,
-        "outputRef": "calc-2030a50ec1df4fd3",
+        "outputRef": "calc-92d7e2c4c68c3826",
         "status": "ok",
         "tool": "get_market_features"
       },

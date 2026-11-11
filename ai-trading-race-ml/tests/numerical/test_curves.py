@@ -10,13 +10,18 @@ from __future__ import annotations
 
 import math
 from datetime import date
-from decimal import Decimal
+from decimal import Decimal, localcontext
 
 import numpy as np
 import pytest
 
 from research_engine.contracts.market import CurveSnapshot, CurveStatus
-from research_engine.market.curves import DEFAULT_CURVE_SPEC, build_curve_snapshot
+from research_engine.market import curves
+from research_engine.market.curves import (
+    DEFAULT_CURVE_SPEC,
+    build_curve_snapshot,
+    compute_residuals,
+)
 from research_engine.pricing.curve_model import (
     CurveNotReadyError,
     DiscountCurveModel,
@@ -142,14 +147,63 @@ def test_solver_failure_is_not_ready():
     assert snap.failure_reasons[0].startswith("calibration_failed:")
 
 
-def test_residuals_out_of_tolerance_are_not_ready():
-    # A loose bootstrap converges, but the independent residual check rejects it.
+def test_loose_bootstrap_is_rejected_by_the_exact_root_cross_check():
+    # A loose QuantLib bootstrap converges, but the exact decimal root disagrees with it.
     snap = build_curve_snapshot(
         make_observation(SESSION, BASE), _spec_with(bootstrap_accuracy=Decimal("0.01"))
     )
     assert snap.status is CurveStatus.FAILED
-    assert any(r.startswith("residual_out_of_tolerance:") for r in snap.failure_reasons)
-    assert snap.residuals and not all(r.within_tolerance for r in snap.residuals)
+    assert any(
+        r.startswith("calibration_failed:exact_root_mismatch:") for r in snap.failure_reasons
+    )
+
+
+def test_residuals_out_of_tolerance_are_detected_from_published_nodes(market, snapshot_20230103):
+    # The residual check re-prices inputs from the published nodes only.
+    snap = snapshot_20230103
+    nodes = list(snap.nodes)
+    index = next(i for i, n in enumerate(nodes) if n.source_tenor == "5Y")
+    nodes[index] = nodes[index].model_copy(
+        update={"discount_factor": nodes[index].discount_factor + Decimal("0.0001")}
+    )
+    by_tenor = {i.tenor: i for i in snap.specification.instruments}
+    used = [
+        (by_tenor[p.tenor], p)
+        for p in market.observation(SESSION).points
+        if p.tenor in snap.used_tenors
+    ]
+    residuals = compute_residuals(snap.reference_date, nodes, used, DEFAULT_CURVE_SPEC)
+    failing = {r.tenor for r in residuals if not r.within_tolerance}
+    assert "5Y" in failing
+    assert "1M" not in failing
+
+
+def test_published_nodes_do_not_depend_on_solver_noise(market, monkeypatch):
+    # QuantLib's iterative bootstrap stops at a platform-dependent point (Apple arm64 and Linux
+    # x86-64 differed in the 14th digit). Published nodes are exact decimal roots, so any
+    # perturbation within the solver accuracy leaves the snapshot byte-identical.
+    obs = market.observation(SESSION)
+    baseline = build_curve_snapshot(obs)
+    original = curves._bootstrap
+
+    def noisy(reference, used, spec, sign):
+        return [
+            (d, df if d == reference else df * (1 + sign * 3e-13))
+            for d, df in original(reference, used, spec)
+        ]
+
+    for sign in (1, -1):
+        monkeypatch.setattr(curves, "_bootstrap", lambda r, u, s, k=sign: noisy(r, u, s, k))
+        assert build_curve_snapshot(obs).content_hash == baseline.content_hash
+
+
+def test_short_end_nodes_are_exact_decimal_roots(snapshot_20230103):
+    node = next(n for n in snapshot_20230103.nodes if n.source_tenor == "1M")
+    with localcontext(prec=50):
+        exact = 1 / (1 + Decimal("0.0417") * Decimal(31) / Decimal(365))
+    assert node.discount_factor == exact.quantize(Decimal("1e-14"))
+    residual = next(r for r in snapshot_20230103.residuals if r.tenor == "1M")
+    assert residual.rate_residual == 0
 
 
 def test_negative_rate_environment_builds_without_monotone_constraint():

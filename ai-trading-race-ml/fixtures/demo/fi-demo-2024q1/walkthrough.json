@@ -14,7 +14,7 @@
       "label": "SYNTHETIC instrument; curve-model price, not a market quote",
       "modelPrice": {
         "accruedPer100": "1.2045329670",
-        "calculationId": "calc-217223790617f526",
+        "calculationId": "calc-d460b90498861fcf",
         "cleanPricePer100": "100.0141003301",
         "curveSnapshotId": "curve-16b0f1bedf44d50c",
         "dirtyPricePer100": "101.2186332971",
@@ -24,12 +24,12 @@
       "riskFor1mmFace": {
         "accruedInterestUsd": "12045.329670",
         "accruedPer100": "1.2045329670",
-        "calculationId": "calc-6d8c09ff07b87e73",
+        "calculationId": "calc-c789669fcc2c236b",
         "cleanPricePer100": "100.0141003301",
         "cleanValueUsd": "1000141.003301",
         "dirtyPricePer100": "101.2186332971",
         "economicValueUsd": "1012033.097567",
-        "effectiveConvexity": "15.8078738108",
+        "effectiveConvexity": "15.8078737827",
         "effectiveDurationYears": "3.8686982402",
         "faceUsd": "1000000",
         "keyRateDv01": [
@@ -231,19 +231,19 @@
           "bootstrapExemptionApplied": false,
           "breachMode": false,
           "calculationIds": [
-            "calc-1314941069bee56b",
-            "calc-217223790617f526",
-            "calc-28997edd260ddcfb",
-            "calc-5012bb51e08a7c22",
-            "calc-54d1378f64052daa",
-            "calc-711c320f5298c169",
-            "calc-81a39908e3759fd3",
-            "calc-8401ece4522ba405",
-            "calc-9fe5a71b6dc76f53",
-            "calc-c126c27836b8a07f",
-            "calc-d81d1bcc0fc83238",
-            "calc-dac9c28194509541",
-            "calc-eed529e5daa1ae74"
+            "calc-01fad85a48f6e65e",
+            "calc-0676ebf25e2a4249",
+            "calc-31b09bef4792b299",
+            "calc-3589f130bf8f4420",
+            "calc-46fdbfda2ffdea9e",
+            "calc-bffc5240320b4606",
+            "calc-c08b9c45b13b0c73",
+            "calc-c193628ae828298c",
+            "calc-c5e58d3df3a9a64c",
+            "calc-d2b1c7e301a20849",
+            "calc-d460b90498861fcf",
+            "calc-d7da0520e4396fc2",
+            "calc-d881bd78d96dde5e"
           ],
           "checks": [
             {
@@ -429,7 +429,7 @@
             "outputTokens": 85,
             "provider": "reference",
             "purpose": "tool_selection",
-            "recordedResponseId": "rec-a88845ecd9dd35a59affa3ca",
+            "recordedResponseId": "rec-67dc7e4fee0dd8e2ef436b67",
             "startedAt": "2024-01-04T00:00:00Z",
             "status": "ok"
           },
@@ -444,7 +444,7 @@
             "outputTokens": 1308,
             "provider": "reference",
             "purpose": "tool_selection",
-            "recordedResponseId": "rec-b9421766c18c55d472116560",
+            "recordedResponseId": "rec-5d48c3c3d23000cbcc5e6697",
             "startedAt": "2024-01-04T00:00:00Z",
             "status": "ok"
           }
@@ -464,10 +464,10 @@
         "proposal": {
           "action": "REBALANCE",
           "supportingCalculationIds": [
-            "calc-854328519eb05527",
-            "calc-62a09909cb3656b5",
-            "calc-5daf904835e0e1a9",
-            "calc-3402b797ec0f84fb"
+            "calc-ccb8918f450d9b87",
+            "calc-436fa7412c3498eb",
+            "calc-d99d65123bb887af",
+            "calc-c9172dda0e73c964"
           ],
           "supportingClaimIds": [
             "c-clm-1",
@@ -504,21 +504,21 @@
         "reasons": [
           "validated_proposal"
         ],
-        "resultHash": "sha256:24d101e19040cde27dcba71f937014f7ff40e4117b012f7730640f9b195bfe88",
+        "resultHash": "sha256:a784d83002f161d8302b928b7496d7863922a585b2593e3f01b856339a57c36c",
         "specialistTasks": [],
         "strategyId": "llm_graph",
         "toolTraces": [
           {
             "agentRole": "single",
             "error": null,
-            "outputRef": "calc-854328519eb05527",
+            "outputRef": "calc-ccb8918f450d9b87",
             "status": "ok",
             "tool": "get_portfolio_risk"
           },
           {
             "agentRole": "single",
             "error": null,
-            "outputRef": "calc-62a09909cb3656b5",
+            "outputRef": "calc-436fa7412c3498eb",
             "status": "ok",
             "tool": "get_market_features"
           },
@@ -532,14 +532,14 @@
           {
             "agentRole": "single",
             "error": null,
-            "outputRef": "calc-5daf904835e0e1a9",
+            "outputRef": "calc-d99d65123bb887af",
             "status": "ok",
             "tool": "run_scenario"
           },
           {
             "agentRole": "single",
             "error": null,
-            "outputRef": "calc-3402b797ec0f84fb",
+            "outputRef": "calc-c9172dda0e73c964",
             "status": "ok",
             "tool": "run_scenario"
           },
@@ -630,18 +630,18 @@
           "bootstrapExemptionApplied": false,
           "breachMode": false,
           "calculationIds": [
-            "calc-1314941069bee56b",
-            "calc-217223790617f526",
-            "calc-28997edd260ddcfb",
-            "calc-54d1378f64052daa",
-            "calc-711c320f5298c169",
-            "calc-81a39908e3759fd3",
-            "calc-8401ece4522ba405",
-            "calc-9fe5a71b6dc76f53",
-            "calc-c126c27836b8a07f",
-            "calc-d81d1bcc0fc83238",
-            "calc-dac9c28194509541",
-            "calc-eed529e5daa1ae74"
+            "calc-01fad85a48f6e65e",
+            "calc-0676ebf25e2a4249",
+            "calc-31b09bef4792b299",
+            "calc-3589f130bf8f4420",
+            "calc-46fdbfda2ffdea9e",
+            "calc-bffc5240320b4606",
+            "calc-c193628ae828298c",
+            "calc-c5e58d3df3a9a64c",
+            "calc-d2b1c7e301a20849",
+            "calc-d460b90498861fcf",
+            "calc-d7da0520e4396fc2",
+            "calc-d881bd78d96dde5e"
           ],
           "checks": [],
           "decisionId": "dec:fi-demo-2024q1-r0:llm_market:2024-01-03:r0",
@@ -675,7 +675,7 @@
             "outputTokens": 51,
             "provider": "reference",
             "purpose": "tool_selection",
-            "recordedResponseId": "rec-45ca5ae4e7a1e1662c0617b6",
+            "recordedResponseId": "rec-d1022c7e3ec44e29249b0a77",
             "startedAt": "2024-01-04T00:00:00Z",
             "status": "ok"
           },
@@ -690,7 +690,7 @@
             "outputTokens": 466,
             "provider": "reference",
             "purpose": "tool_selection",
-            "recordedResponseId": "rec-28f49ccd5aff88f48db171d3",
+            "recordedResponseId": "rec-9be18eed70af57a634b4bd3b",
             "startedAt": "2024-01-04T00:00:00Z",
             "status": "ok"
           }
@@ -707,10 +707,10 @@
         "proposal": {
           "action": "HOLD",
           "supportingCalculationIds": [
-            "calc-ef987f9ffad5af3a",
-            "calc-62a09909cb3656b5",
-            "calc-5daf904835e0e1a9",
-            "calc-3402b797ec0f84fb"
+            "calc-f35a051273d10b6f",
+            "calc-436fa7412c3498eb",
+            "calc-d99d65123bb887af",
+            "calc-c9172dda0e73c964"
           ],
           "supportingClaimIds": [],
           "targetWeights": []
@@ -718,35 +718,35 @@
         "reasons": [
           "explicit_hold"
         ],
-        "resultHash": "sha256:4a695115467e93e39c6218bc6bd18bd948fd9d1d8e0082cd2c747fce2063ba5c",
+        "resultHash": "sha256:71ed5702d5116f31844afb60dcfc8cb6165b7fe8646ecb059179a9eeb8de71ca",
         "specialistTasks": [],
         "strategyId": "llm_market",
         "toolTraces": [
           {
             "agentRole": "single",
             "error": null,
-            "outputRef": "calc-ef987f9ffad5af3a",
+            "outputRef": "calc-f35a051273d10b6f",
             "status": "ok",
             "tool": "get_portfolio_risk"
           },
           {
             "agentRole": "single",
             "error": null,
-            "outputRef": "calc-62a09909cb3656b5",
+            "outputRef": "calc-436fa7412c3498eb",
             "status": "ok",
             "tool": "get_market_features"
           },
           {
             "agentRole": "single",
             "error": null,
-            "outputRef": "calc-5daf904835e0e1a9",
+            "outputRef": "calc-d99d65123bb887af",
             "status": "ok",
             "tool": "run_scenario"
           },
           {
             "agentRole": "single",
             "error": null,
-            "outputRef": "calc-3402b797ec0f84fb",
+            "outputRef": "calc-c9172dda0e73c964",
             "status": "ok",
             "tool": "run_scenario"
           }
@@ -830,19 +830,19 @@
           "bootstrapExemptionApplied": false,
           "breachMode": false,
           "calculationIds": [
-            "calc-1314941069bee56b",
-            "calc-217223790617f526",
-            "calc-28997edd260ddcfb",
-            "calc-5012bb51e08a7c22",
-            "calc-54d1378f64052daa",
-            "calc-711c320f5298c169",
-            "calc-81a39908e3759fd3",
-            "calc-8401ece4522ba405",
-            "calc-9fe5a71b6dc76f53",
-            "calc-c126c27836b8a07f",
-            "calc-d81d1bcc0fc83238",
-            "calc-dac9c28194509541",
-            "calc-eed529e5daa1ae74"
+            "calc-01fad85a48f6e65e",
+            "calc-0676ebf25e2a4249",
+            "calc-31b09bef4792b299",
+            "calc-3589f130bf8f4420",
+            "calc-46fdbfda2ffdea9e",
+            "calc-bffc5240320b4606",
+            "calc-c08b9c45b13b0c73",
+            "calc-c193628ae828298c",
+            "calc-c5e58d3df3a9a64c",
+            "calc-d2b1c7e301a20849",
+            "calc-d460b90498861fcf",
+            "calc-d7da0520e4396fc2",
+            "calc-d881bd78d96dde5e"
           ],
           "checks": [
             {
@@ -1028,7 +1028,7 @@
             "outputTokens": 51,
             "provider": "reference",
             "purpose": "tool_selection",
-            "recordedResponseId": "rec-3ffc1ff283ec34a961f120f6",
+            "recordedResponseId": "rec-952a6b2ee9f608a67a8fe546",
             "startedAt": "2024-01-04T00:00:00Z",
             "status": "ok"
           },
@@ -1043,7 +1043,7 @@
             "outputTokens": 1282,
             "provider": "reference",
             "purpose": "tool_selection",
-            "recordedResponseId": "rec-79235c9d1f90759da1cf468c",
+            "recordedResponseId": "rec-9be9f2fe7a97df61be1a4d4f",
             "startedAt": "2024-01-04T00:00:00Z",
             "status": "ok"
           }
@@ -1060,10 +1060,10 @@
         "proposal": {
           "action": "REBALANCE",
           "supportingCalculationIds": [
-            "calc-7122b51714f1a2c0",
-            "calc-62a09909cb3656b5",
-            "calc-5daf904835e0e1a9",
-            "calc-3402b797ec0f84fb"
+            "calc-a412c6981f519641",
+            "calc-436fa7412c3498eb",
+            "calc-d99d65123bb887af",
+            "calc-c9172dda0e73c964"
           ],
           "supportingClaimIds": [
             "c-clm-1",
@@ -1100,21 +1100,21 @@
         "reasons": [
           "validated_proposal"
         ],
-        "resultHash": "sha256:c3dcf593c628e7ebadd6ccc04ce9144041a8b32f6d02333959cf68c19a9c0e4b",
+        "resultHash": "sha256:43d4abbaec847e62d792e0d864f64bbf731fc94e99d41d88292cb0da02b03867",
         "specialistTasks": [],
         "strategyId": "llm_rag",
         "toolTraces": [
           {
             "agentRole": "single",
             "error": null,
-            "outputRef": "calc-7122b51714f1a2c0",
+            "outputRef": "calc-a412c6981f519641",
             "status": "ok",
             "tool": "get_portfolio_risk"
           },
           {
             "agentRole": "single",
             "error": null,
-            "outputRef": "calc-62a09909cb3656b5",
+            "outputRef": "calc-436fa7412c3498eb",
             "status": "ok",
             "tool": "get_market_features"
           },
@@ -1128,14 +1128,14 @@
           {
             "agentRole": "single",
             "error": null,
-            "outputRef": "calc-5daf904835e0e1a9",
+            "outputRef": "calc-d99d65123bb887af",
             "status": "ok",
             "tool": "run_scenario"
           },
           {
             "agentRole": "single",
             "error": null,
-            "outputRef": "calc-3402b797ec0f84fb",
+            "outputRef": "calc-c9172dda0e73c964",
             "status": "ok",
             "tool": "run_scenario"
           }
@@ -1219,19 +1219,19 @@
           "bootstrapExemptionApplied": false,
           "breachMode": false,
           "calculationIds": [
-            "calc-1314941069bee56b",
-            "calc-217223790617f526",
-            "calc-28997edd260ddcfb",
-            "calc-5012bb51e08a7c22",
-            "calc-54d1378f64052daa",
-            "calc-711c320f5298c169",
-            "calc-81a39908e3759fd3",
-            "calc-8401ece4522ba405",
-            "calc-9fe5a71b6dc76f53",
-            "calc-c126c27836b8a07f",
-            "calc-d81d1bcc0fc83238",
-            "calc-dac9c28194509541",
-            "calc-eed529e5daa1ae74"
+            "calc-01fad85a48f6e65e",
+            "calc-0676ebf25e2a4249",
+            "calc-31b09bef4792b299",
+            "calc-3589f130bf8f4420",
+            "calc-46fdbfda2ffdea9e",
+            "calc-bffc5240320b4606",
+            "calc-c08b9c45b13b0c73",
+            "calc-c193628ae828298c",
+            "calc-c5e58d3df3a9a64c",
+            "calc-d2b1c7e301a20849",
+            "calc-d460b90498861fcf",
+            "calc-d7da0520e4396fc2",
+            "calc-d881bd78d96dde5e"
           ],
           "checks": [
             {
@@ -1417,7 +1417,7 @@
             "outputTokens": 114,
             "provider": "reference",
             "purpose": "task_assignment",
-            "recordedResponseId": "rec-784cfac3ba11c1ca2eedd5a4",
+            "recordedResponseId": "rec-ebec4eb354112d96609af209",
             "startedAt": "2024-01-04T00:00:00Z",
             "status": "ok"
           },
@@ -1432,7 +1432,7 @@
             "outputTokens": 894,
             "provider": "reference",
             "purpose": "specialist",
-            "recordedResponseId": "rec-d68556b85f5bdac3b3fcfef0",
+            "recordedResponseId": "rec-7fe273b6945dc43f22e58817",
             "startedAt": "2024-01-04T00:00:00Z",
             "status": "ok"
           },
@@ -1447,7 +1447,7 @@
             "outputTokens": 60,
             "provider": "reference",
             "purpose": "specialist",
-            "recordedResponseId": "rec-ddc60551b12c9fad6b297660",
+            "recordedResponseId": "rec-11a96c9c66a01d5fb5fcffb9",
             "startedAt": "2024-01-04T00:00:00Z",
             "status": "ok"
           },
@@ -1462,7 +1462,7 @@
             "outputTokens": 162,
             "provider": "reference",
             "purpose": "specialist",
-            "recordedResponseId": "rec-8f5458b70e43f836574b1d24",
+            "recordedResponseId": "rec-f6c05f6f349f9c5675326477",
             "startedAt": "2024-01-04T00:00:00Z",
             "status": "ok"
           },
@@ -1477,7 +1477,7 @@
             "outputTokens": 1380,
             "provider": "reference",
             "purpose": "synthesis",
-            "recordedResponseId": "rec-f91293ef2fff17f25b36f347",
+            "recordedResponseId": "rec-15c088a50afd5bc803f153fb",
             "startedAt": "2024-01-04T00:00:00Z",
             "status": "ok"
           }
@@ -1496,10 +1496,10 @@
         "proposal": {
           "action": "REBALANCE",
           "supportingCalculationIds": [
-            "calc-6995be45bc82eaa6",
-            "calc-62a09909cb3656b5",
-            "calc-3402b797ec0f84fb",
-            "calc-afe14007c67e4ec9"
+            "calc-7d997cb9ee023daf",
+            "calc-436fa7412c3498eb",
+            "calc-c9172dda0e73c964",
+            "calc-870d46f290c8dca0"
           ],
           "supportingClaimIds": [
             "ld-clm-1",
@@ -1536,7 +1536,7 @@
         "reasons": [
           "validated_proposal"
         ],
-        "resultHash": "sha256:1b4b2589c88d004f2a8b496120016979438a9a6c956da72ff7fea86a1b82921a",
+        "resultHash": "sha256:e69a03265344eba4e531ae9621c0b8f4463c90ba464da6611f657563d9d45836",
         "specialistTasks": [
           {
             "budgetReserved": {
@@ -1610,14 +1610,14 @@
           {
             "agentRole": "lead",
             "error": null,
-            "outputRef": "calc-6995be45bc82eaa6",
+            "outputRef": "calc-7d997cb9ee023daf",
             "status": "ok",
             "tool": "get_portfolio_risk"
           },
           {
             "agentRole": "lead",
             "error": null,
-            "outputRef": "calc-62a09909cb3656b5",
+            "outputRef": "calc-436fa7412c3498eb",
             "status": "ok",
             "tool": "get_market_features"
           },
@@ -1631,14 +1631,14 @@
           {
             "agentRole": "critical_reviewer",
             "error": null,
-            "outputRef": "calc-3402b797ec0f84fb",
+            "outputRef": "calc-c9172dda0e73c964",
             "status": "ok",
             "tool": "run_scenario"
           },
           {
             "agentRole": "critical_reviewer",
             "error": null,
-            "outputRef": "calc-afe14007c67e4ec9",
+            "outputRef": "calc-870d46f290c8dca0",
             "status": "ok",
             "tool": "run_scenario"
           }
@@ -1729,11 +1729,11 @@
         "proposal": {
           "action": "REBALANCE",
           "supportingCalculationIds": [
-            "calc-28997edd260ddcfb",
-            "calc-81a39908e3759fd3",
-            "calc-9fe5a71b6dc76f53",
-            "calc-c126c27836b8a07f",
-            "calc-d81d1bcc0fc83238"
+            "calc-01fad85a48f6e65e",
+            "calc-31b09bef4792b299",
+            "calc-46fdbfda2ffdea9e",
+            "calc-c193628ae828298c",
+            "calc-d2b1c7e301a20849"
           ],
           "supportingClaimIds": [],
           "targetWeights": [
@@ -2256,19 +2256,19 @@
               "bootstrapExemptionApplied": false,
               "breachMode": false,
               "calculationIds": [
-                "calc-1314941069bee56b",
-                "calc-217223790617f526",
-                "calc-28997edd260ddcfb",
-                "calc-5012bb51e08a7c22",
-                "calc-54d1378f64052daa",
-                "calc-711c320f5298c169",
-                "calc-81a39908e3759fd3",
-                "calc-8401ece4522ba405",
-                "calc-9fe5a71b6dc76f53",
-                "calc-c126c27836b8a07f",
-                "calc-d81d1bcc0fc83238",
-                "calc-dac9c28194509541",
-                "calc-eed529e5daa1ae74"
+                "calc-01fad85a48f6e65e",
+                "calc-0676ebf25e2a4249",
+                "calc-31b09bef4792b299",
+                "calc-3589f130bf8f4420",
+                "calc-46fdbfda2ffdea9e",
+                "calc-bffc5240320b4606",
+                "calc-c08b9c45b13b0c73",
+                "calc-c193628ae828298c",
+                "calc-c5e58d3df3a9a64c",
+                "calc-d2b1c7e301a20849",
+                "calc-d460b90498861fcf",
+                "calc-d7da0520e4396fc2",
+                "calc-d881bd78d96dde5e"
               ],
               "checks": [
                 {
@@ -3345,19 +3345,19 @@
               "bootstrapExemptionApplied": false,
               "breachMode": false,
               "calculationIds": [
-                "calc-1314941069bee56b",
-                "calc-217223790617f526",
-                "calc-28997edd260ddcfb",
-                "calc-5012bb51e08a7c22",
-                "calc-54d1378f64052daa",
-                "calc-711c320f5298c169",
-                "calc-81a39908e3759fd3",
-                "calc-8401ece4522ba405",
-                "calc-9fe5a71b6dc76f53",
-                "calc-c126c27836b8a07f",
-                "calc-d81d1bcc0fc83238",
-                "calc-dac9c28194509541",
-                "calc-eed529e5daa1ae74"
+                "calc-01fad85a48f6e65e",
+                "calc-0676ebf25e2a4249",
+                "calc-31b09bef4792b299",
+                "calc-3589f130bf8f4420",
+                "calc-46fdbfda2ffdea9e",
+                "calc-bffc5240320b4606",
+                "calc-c08b9c45b13b0c73",
+                "calc-c193628ae828298c",
+                "calc-c5e58d3df3a9a64c",
+                "calc-d2b1c7e301a20849",
+                "calc-d460b90498861fcf",
+                "calc-d7da0520e4396fc2",
+                "calc-d881bd78d96dde5e"
               ],
               "checks": [
                 {
@@ -4032,19 +4032,19 @@
               "bootstrapExemptionApplied": false,
               "breachMode": false,
               "calculationIds": [
-                "calc-1314941069bee56b",
-                "calc-217223790617f526",
-                "calc-28997edd260ddcfb",
-                "calc-5012bb51e08a7c22",
-                "calc-54d1378f64052daa",
-                "calc-711c320f5298c169",
-                "calc-81a39908e3759fd3",
-                "calc-8401ece4522ba405",
-                "calc-9fe5a71b6dc76f53",
-                "calc-c126c27836b8a07f",
-                "calc-d81d1bcc0fc83238",
-                "calc-dac9c28194509541",
-                "calc-eed529e5daa1ae74"
+                "calc-01fad85a48f6e65e",
+                "calc-0676ebf25e2a4249",
+                "calc-31b09bef4792b299",
+                "calc-3589f130bf8f4420",
+                "calc-46fdbfda2ffdea9e",
+                "calc-bffc5240320b4606",
+                "calc-c08b9c45b13b0c73",
+                "calc-c193628ae828298c",
+                "calc-c5e58d3df3a9a64c",
+                "calc-d2b1c7e301a20849",
+                "calc-d460b90498861fcf",
+                "calc-d7da0520e4396fc2",
+                "calc-d881bd78d96dde5e"
               ],
               "checks": [
                 {
@@ -4719,19 +4719,19 @@
               "bootstrapExemptionApplied": false,
               "breachMode": false,
               "calculationIds": [
-                "calc-1314941069bee56b",
-                "calc-217223790617f526",
-                "calc-28997edd260ddcfb",
-                "calc-54d1378f64052daa",
-                "calc-711c320f5298c169",
-                "calc-81a39908e3759fd3",
-                "calc-8401ece4522ba405",
-                "calc-9fe5a71b6dc76f53",
-                "calc-c126c27836b8a07f",
-                "calc-cbc6cd0a646d4abe",
-                "calc-d81d1bcc0fc83238",
-                "calc-dac9c28194509541",
-                "calc-eed529e5daa1ae74"
+                "calc-01fad85a48f6e65e",
+                "calc-0676ebf25e2a4249",
+                "calc-31b09bef4792b299",
+                "calc-3589f130bf8f4420",
+                "calc-46d7b25e255b5f0f",
+                "calc-46fdbfda2ffdea9e",
+                "calc-bffc5240320b4606",
+                "calc-c193628ae828298c",
+                "calc-c5e58d3df3a9a64c",
+                "calc-d2b1c7e301a20849",
+                "calc-d460b90498861fcf",
+                "calc-d7da0520e4396fc2",
+                "calc-d881bd78d96dde5e"
               ],
               "checks": [
                 {
@@ -5581,19 +5581,19 @@
         "bootstrapExemptionApplied": false,
         "breachMode": false,
         "calculationIds": [
-          "calc-1314941069bee56b",
-          "calc-217223790617f526",
-          "calc-28997edd260ddcfb",
-          "calc-5012bb51e08a7c22",
-          "calc-54d1378f64052daa",
-          "calc-711c320f5298c169",
-          "calc-81a39908e3759fd3",
-          "calc-8401ece4522ba405",
-          "calc-9fe5a71b6dc76f53",
-          "calc-c126c27836b8a07f",
-          "calc-d81d1bcc0fc83238",
-          "calc-dac9c28194509541",
-          "calc-eed529e5daa1ae74"
+          "calc-01fad85a48f6e65e",
+          "calc-0676ebf25e2a4249",
+          "calc-31b09bef4792b299",
+          "calc-3589f130bf8f4420",
+          "calc-46fdbfda2ffdea9e",
+          "calc-bffc5240320b4606",
+          "calc-c08b9c45b13b0c73",
+          "calc-c193628ae828298c",
+          "calc-c5e58d3df3a9a64c",
+          "calc-d2b1c7e301a20849",
+          "calc-d460b90498861fcf",
+          "calc-d7da0520e4396fc2",
+          "calc-d881bd78d96dde5e"
         ],
         "checks": [
           {
@@ -5779,7 +5779,7 @@
           "outputTokens": 114,
           "provider": "reference",
           "purpose": "task_assignment",
-          "recordedResponseId": "rec-784cfac3ba11c1ca2eedd5a4",
+          "recordedResponseId": "rec-ebec4eb354112d96609af209",
           "startedAt": "2024-01-04T00:00:00Z",
           "status": "ok"
         },
@@ -5794,7 +5794,7 @@
           "outputTokens": 894,
           "provider": "reference",
           "purpose": "specialist",
-          "recordedResponseId": "rec-d68556b85f5bdac3b3fcfef0",
+          "recordedResponseId": "rec-7fe273b6945dc43f22e58817",
           "startedAt": "2024-01-04T00:00:00Z",
           "status": "ok"
         },
@@ -5809,7 +5809,7 @@
           "outputTokens": 60,
           "provider": "reference",
           "purpose": "specialist",
-          "recordedResponseId": "rec-ddc60551b12c9fad6b297660",
+          "recordedResponseId": "rec-11a96c9c66a01d5fb5fcffb9",
           "startedAt": "2024-01-04T00:00:00Z",
           "status": "ok"
         },
@@ -5824,7 +5824,7 @@
           "outputTokens": 162,
           "provider": "reference",
           "purpose": "specialist",
-          "recordedResponseId": "rec-8f5458b70e43f836574b1d24",
+          "recordedResponseId": "rec-f6c05f6f349f9c5675326477",
           "startedAt": "2024-01-04T00:00:00Z",
           "status": "ok"
         },
@@ -5839,7 +5839,7 @@
           "outputTokens": 1380,
           "provider": "reference",
           "purpose": "synthesis",
-          "recordedResponseId": "rec-f91293ef2fff17f25b36f347",
+          "recordedResponseId": "rec-15c088a50afd5bc803f153fb",
           "startedAt": "2024-01-04T00:00:00Z",
           "status": "ok"
         }
@@ -5858,10 +5858,10 @@
       "proposal": {
         "action": "REBALANCE",
         "supportingCalculationIds": [
-          "calc-6995be45bc82eaa6",
-          "calc-62a09909cb3656b5",
-          "calc-3402b797ec0f84fb",
-          "calc-afe14007c67e4ec9"
+          "calc-7d997cb9ee023daf",
+          "calc-436fa7412c3498eb",
+          "calc-c9172dda0e73c964",
+          "calc-870d46f290c8dca0"
         ],
         "supportingClaimIds": [
           "ld-clm-1",
@@ -5898,7 +5898,7 @@
       "reasons": [
         "validated_proposal"
       ],
-      "resultHash": "sha256:1b4b2589c88d004f2a8b496120016979438a9a6c956da72ff7fea86a1b82921a",
+      "resultHash": "sha256:e69a03265344eba4e531ae9621c0b8f4463c90ba464da6611f657563d9d45836",
       "specialistTasks": [
         {
           "budgetReserved": {
@@ -5972,14 +5972,14 @@
         {
           "agentRole": "lead",
           "error": null,
-          "outputRef": "calc-6995be45bc82eaa6",
+          "outputRef": "calc-7d997cb9ee023daf",
           "status": "ok",
           "tool": "get_portfolio_risk"
         },
         {
           "agentRole": "lead",
           "error": null,
-          "outputRef": "calc-62a09909cb3656b5",
+          "outputRef": "calc-436fa7412c3498eb",
           "status": "ok",
           "tool": "get_market_features"
         },
@@ -5993,14 +5993,14 @@
         {
           "agentRole": "critical_reviewer",
           "error": null,
-          "outputRef": "calc-3402b797ec0f84fb",
+          "outputRef": "calc-c9172dda0e73c964",
           "status": "ok",
           "tool": "run_scenario"
         },
         {
           "agentRole": "critical_reviewer",
           "error": null,
-          "outputRef": "calc-afe14007c67e4ec9",
+          "outputRef": "calc-870d46f290c8dca0",
           "status": "ok",
           "tool": "run_scenario"
         }

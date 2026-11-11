@@ -33,21 +33,21 @@
       "provider_error:lead:task_assignment",
       "injected provider outage (F1-provider-outage)"
     ],
-    "resultHash": "sha256:93e329c54badddbed743157478c3c39e457276113e21ba3d4f710f6255cceb48",
+    "resultHash": "sha256:2638d1ccdc3a95b7d21b1d5bb6b2ac9e4f600713383dc2672f6dc0a92c240740",
     "specialistTasks": [],
     "strategyId": "llm_team",
     "toolTraces": [
       {
         "agentRole": "lead",
         "error": null,
-        "outputRef": "calc-3d5511cca72242aa",
+        "outputRef": "calc-ad899ede0174190b",
         "status": "ok",
         "tool": "get_portfolio_risk"
       },
       {
         "agentRole": "lead",
         "error": null,
-        "outputRef": "calc-2030a50ec1df4fd3",
+        "outputRef": "calc-92d7e2c4c68c3826",
         "status": "ok",
         "tool": "get_market_features"
       },

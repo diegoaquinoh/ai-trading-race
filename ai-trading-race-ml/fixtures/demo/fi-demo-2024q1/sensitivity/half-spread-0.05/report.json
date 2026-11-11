@@ -15,7 +15,7 @@
     "Retrospective LLM runs may reflect pretrained knowledge of later events.",
     "Cash earns the configured cash return only (fixture: zero)."
   ],
-  "manifestHash": "sha256:9f5c78540c17092b2d7737732c574c2a93da3c26156a5327de12cab6f530ddca",
+  "manifestHash": "sha256:26618bf6b19b28fe32bd7cc172f7a0a0fa236c251324566f0992f1baeb21f189",
   "manifestVerified": true,
   "pairedComparisons": [
     {

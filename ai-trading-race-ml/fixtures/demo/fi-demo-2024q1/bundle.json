@@ -1,5 +1,5 @@
 {
-  "builtFromGitCommit": "ded71fcb06fd3a7b30d60190ba2db58b1b38eb48",
+  "builtFromGitCommit": "7f5ad6498c9738cb18376387763983084d9b7254",
   "bundleVersion": "demo-bundle-v1",
   "definitionHash": "sha256:f2960a1b53899311dac3b21a1e0ab8df1a0057e7bd56faf0b2e241cf72bc493d",
   "evidenceComparisons": {
@@ -18,7 +18,7 @@
     {
       "bytes": 28983,
       "path": "capture/manifest.json",
-      "sha256": "sha256:38d1bba903948081f1620321a2ab0e5f531dd982138ce4f59b6a8aba65f90319"
+      "sha256": "sha256:a632c1b4ee174bad27c70da08a9cf95334ca94f6bff4c3072baa9b7b3ce16535"
     },
     {
       "bytes": 10731,
@@ -68,27 +68,27 @@
     {
       "bytes": 7364,
       "path": "failure-injection/audit/F1-provider-outage.json",
-      "sha256": "sha256:3ea371f3e41da460a753de64d34e4d44e9149e57299b84e421e174815d47a45d"
+      "sha256": "sha256:376888fbec7f177ed928bad9070a007198eba2d8db3ff837b8abc757b0f6e4d6"
     },
     {
       "bytes": 6820,
       "path": "failure-injection/audit/F2-graph-outage.json",
-      "sha256": "sha256:4f3dff5f2681d412c9db6d2eeb4b705ab886e02dd83dd7a9867590db069f48bc"
+      "sha256": "sha256:5e3fda28a5c86574a9cc8c5c30491393bd65f34bb39288f58b5ed0dd3a5d4a62"
     },
     {
       "bytes": 3836,
       "path": "failure-injection/audit/F3-evidence-withheld.json",
-      "sha256": "sha256:8be7a96f2d0af95a6f4ce7fe00ea927870b834ff659ec7ff68e29143c9ee7cf8"
+      "sha256": "sha256:d1f9c5eea5d7eff86c19c28ce72dc290328f8455d86382891cee2b95982239d4"
     },
     {
       "bytes": 19142,
       "path": "failure-injection/audit/F4-policy-breach.json",
-      "sha256": "sha256:5093bb340940aaf6f543a9d6bfefd0301b836b06c6c5563e9df515b80d318a0e"
+      "sha256": "sha256:9fd3c3418526d985a8dee4ead4cc6167d7c296aba60b358bfadf000e13e082a7"
     },
     {
       "bytes": 12484,
       "path": "failure-injection/audit/F5-specialist-outage.json",
-      "sha256": "sha256:988ec7c807b891269c9005c60c6b39f9c7eb9db8cb8ff5fe7b52b1e4b000f2a6"
+      "sha256": "sha256:2503cd295f10cee17fccf5644c44e53df0b4187e2eb8da6663a6dc435411c5b3"
     },
     {
       "bytes": 7469,
@@ -98,7 +98,7 @@
     {
       "bytes": 19117,
       "path": "failure-injection/capture/manifest.json",
-      "sha256": "sha256:01fefb8f6ec87def0e0225172f3230df7a3af7160c003bdf91a1626583e5bdbf"
+      "sha256": "sha256:d7da27d6a332b93309e2209667eb81b18a62d47130b122fc6f268602a9a82d0c"
     },
     {
       "bytes": 1964,
@@ -108,12 +108,12 @@
     {
       "bytes": 71776,
       "path": "failure-injection/report/report.json",
-      "sha256": "sha256:5da498cbbad9ca93d5f667c6e9c9e8b44967177205e7c3fb42275142ccfbb59f"
+      "sha256": "sha256:11a539186190005201778c06ce91b1e457faa77fb6458a5dc9773fe9b82a1008"
     },
     {
       "bytes": 8514,
       "path": "failure-injection/report/report.md",
-      "sha256": "sha256:f7407c9fd769e2af19bfe2baa8ac3fecd19d5ac80215243256811d3eb84e53a4"
+      "sha256": "sha256:f0b21666e7394f83956a678b57c924e8ac8d93ff41e65f4ac816ad73b0704e80"
     },
     {
       "bytes": 318,
@@ -123,7 +123,7 @@
     {
       "bytes": 524734,
       "path": "failure-injection/responses/responses.jsonl",
-      "sha256": "sha256:c51b2579f5f71ec89e9f0c8b361009f5b735a2215708dd781f6e4e717fee449f"
+      "sha256": "sha256:7abd2705944825a058b0d5dea8717abe52e2b964de33f470e63bf52180fb6ee6"
     },
     {
       "bytes": 6012,
@@ -131,10 +131,10 @@
       "sha256": "sha256:8379c684099504bbc0786654d604febf2448ecd4f40a9dcda4585538e47f99ce"
     },
     {
-      "bytes": 151436,
-      "contentSha256": "sha256:fb4694876fa53a719117a0d2f72ca3741142fbea3c3ab6943074061b93d67549",
+      "bytes": 151410,
+      "contentSha256": "sha256:3e4ca417b4ca98ce8ad1078cf68c1add2d8d89ce505ef0c58d749731b738ad0c",
       "path": "failure-injection/run/commits.jsonl.gz",
-      "sha256": "sha256:613fea2bcfd73b352eaf51801069eb5cfbad0ee53c567f01e80c9c7094c4121b"
+      "sha256": "sha256:94b4934e0f2fd49b3d8f95280d71b110659b5f595624abc8746ee4b628f2134c"
     },
     {
       "bytes": 7509,
@@ -144,22 +144,22 @@
     {
       "bytes": 19108,
       "path": "failure-injection/run/manifest.json",
-      "sha256": "sha256:df4ecdf9ee5e4d945d88709128595c4dc18441fa66b9f92af1b9d7364bfc79c3"
+      "sha256": "sha256:41737e99f1248137d10fd41ca4d554217c473203537e7c29693a5863a2ca4207"
     },
     {
       "bytes": 1004701,
       "path": "failure-injection/run/outcomes.jsonl",
-      "sha256": "sha256:0d43379b4bdba93f5a8eac3b29c08ca8e76d6576b2ce6af70c4555da855b2acc"
+      "sha256": "sha256:ba165b35bd8ad9a66cb43e8e341f445b74901222fbd989bcb6e9294e30957c4c"
     },
     {
       "bytes": 148633,
       "path": "report/report.json",
-      "sha256": "sha256:1eebf5e4e5a3a6a7416f5fe97912a1949c18ecf6adb8de0a19dd78a1319988f6"
+      "sha256": "sha256:c382fb3fec8d57298329bcc21cb909d6b7019863fd08906e18e1a9b00f9baea3"
     },
     {
       "bytes": 8303,
       "path": "report/report.md",
-      "sha256": "sha256:97b153e3b0089c9e6769251c0c5cfb593e21bd5cab49581c0f3f12260dfb678d"
+      "sha256": "sha256:1b11c6f3515da42ef50c1d9e3e3eb5e3c7de745e8ca5f63f72b1739e42b5ff47"
     },
     {
       "bytes": 318,
@@ -169,7 +169,7 @@
     {
       "bytes": 1841774,
       "path": "responses/responses.jsonl",
-      "sha256": "sha256:ce390843fb7e1ca2df67040562e81f270fcb70a275f5ce3c29fae60f8df27cc2"
+      "sha256": "sha256:5a35ae7fba22215c51ed0f23c1e311863c29b929b2be4119929e595513da6893"
     },
     {
       "bytes": 5798,
@@ -177,10 +177,10 @@
       "sha256": "sha256:6900a580e24745fbe405d062de31a77bdbc7ad8000d31a3361bb83942c846441"
     },
     {
-      "bytes": 456327,
-      "contentSha256": "sha256:67544b2cd5ac9bb5009cffdea809c1e8fb7e3f6849c8543a14a5458c63bacfcc",
+      "bytes": 456422,
+      "contentSha256": "sha256:9fc4f7f7d809ac8489a5c140bf41e8484a635bc55b2a3050e4db4462464600ed",
       "path": "run/commits.jsonl.gz",
-      "sha256": "sha256:4c5fd7e1932529d3990e7f55112933208857e9208cf1b1678cc249f0d256cea6"
+      "sha256": "sha256:f26005b2e1a454b927adff07a883f4892a0109224fd3022684987a2962910d60"
     },
     {
       "bytes": 7495,
@@ -190,42 +190,42 @@
     {
       "bytes": 28974,
       "path": "run/manifest.json",
-      "sha256": "sha256:c27fba805bd711204d74659b412f51d310ae9c5bdf1e3e83f842f4f2de33831e"
+      "sha256": "sha256:fab87f3d578a9e8dbdec0ce01a7e4f5ba21c0934d7e7ded96d91e9131f2009df"
     },
     {
       "bytes": 3343390,
       "path": "run/outcomes.jsonl",
-      "sha256": "sha256:71375514d492d2bf5143a90fe14b2e30aca1db48a2c2c83bc23cd47e25260067"
+      "sha256": "sha256:2b3e778db5ecdc2de266dfc1289831ef99d6e3d1c0be65d06a28d4726de145c6"
     },
     {
       "bytes": 28911,
       "path": "sensitivity/half-spread-0.00/manifest.json",
-      "sha256": "sha256:fbf0c05e29e55c88f1e7acb634a2d94f0c6052b3463c3aa2dce203df0a05c541"
+      "sha256": "sha256:87310563a0316aed5bf2da4ad862d0cf205ea706b36f08fc8d73e5c14fdf43e1"
     },
     {
       "bytes": 22445,
       "path": "sensitivity/half-spread-0.00/report.json",
-      "sha256": "sha256:b141a0263b194bf5f5ed0ddfc973e0bfd1c6ee9e4efe3f65ebf6bb7a96e973da"
+      "sha256": "sha256:5ad92c0de937f139df843124e1fab050ba86702c2bbd410b07f3ef035022f391"
     },
     {
       "bytes": 28911,
       "path": "sensitivity/half-spread-0.02/manifest.json",
-      "sha256": "sha256:0a78bcfb3f8d5eff80964bd3d9b4fd3f22ce5491186e64ea5f400dc02d73948d"
+      "sha256": "sha256:fea5b88d8244f0c2742d61328c1eef7cbb812a8d1ac8fb29d856f12b068e2e05"
     },
     {
       "bytes": 22475,
       "path": "sensitivity/half-spread-0.02/report.json",
-      "sha256": "sha256:0ec27a8e19eb4042fa93006693ac941b3ceb14714e0b4b72396e0c9be60d374b"
+      "sha256": "sha256:da775926c65452e46aba2962d69b9eecbc97f657afcc0e12c0c261c6232d489d"
     },
     {
       "bytes": 28911,
       "path": "sensitivity/half-spread-0.05/manifest.json",
-      "sha256": "sha256:0823b08983193715e5fe000548a213700c9ce54f4b0464b69ee227465649cc51"
+      "sha256": "sha256:277951122223054304ca7e55873a6e19319b7e5b5f7bae6c70a46320010aa4ee"
     },
     {
       "bytes": 22466,
       "path": "sensitivity/half-spread-0.05/report.json",
-      "sha256": "sha256:8b282138f5697c490183c92406204fb96e885caae6a92bd7044a1c6ada71ca29"
+      "sha256": "sha256:152844d523ebefdfcf585c6971d5b3d1637776c0953afa8d4e83b23acb039558"
     },
     {
       "bytes": 6009,
@@ -235,13 +235,13 @@
     {
       "bytes": 230651,
       "path": "walkthrough.json",
-      "sha256": "sha256:24c214877c9fd71aebcbb0e7e7e81e66db3f414dc339d5af825526512470b5d8"
+      "sha256": "sha256:cab875222d35302d5cf1f6dc77632b332e83c2da9c8bb8775c8bdc857dbbea15"
     }
   ],
   "modelDisclosure": "AI strategies ran on provider reference / reference-heuristic-v1, a deterministic rule-based policy model. It is not a hosted LLM.",
   "runs": {
     "canonical": {
-      "captureManifestHash": "sha256:0394220dfc59b81224499a978cfef8a43535a729b72665078e697bbbb52c72c0",
+      "captureManifestHash": "sha256:3dc64ffa6dca254fc0a03b9d4bfbaf85cd4df318fcd3566e28fcf9c64f856274",
       "expected": {
         "decisions": 427,
         "finalStateHashes": {
@@ -253,13 +253,13 @@
           "pf:fi-demo-2024q1-r0:quant_duration": "sha256:a231fb5473d6e35fedad7693a6002710485a0c5d1b72159bb4f8be9d208d184d",
           "pf:fi-demo-2024q1-r0:static_ladder": "sha256:ac1010581b800ce3ceb7e2359fee165785f4b582d5f03c74a7098b48c2e40dad"
         },
-        "outcomeHashes": "sha256:9cc41ddd34b2b386d241f05f1f642a8dbf8404342d8179705553ac56c2b525b2",
+        "outcomeHashes": "sha256:ff7199f17a51aebc59b8866191f3c4844c7f567df4f48f30223ae12e8c751812",
         "reportMetricsHash": "sha256:bcad2066415e56a435015127441cce4c023d92bc117a725dd1b6f61e932d8a1e",
         "status": "completed",
         "transitions": 875,
-        "transitionsHash": "sha256:a88c1d8d6ff80438877aa72246ee885fe172891a14aa959192fb844e465f1ffb"
+        "transitionsHash": "sha256:b215f7fd393e89ed6d42d1c0eeffcd0310076105cb36f5bb6a3bdccbee14d458"
       },
-      "manifestHash": "sha256:b021fbe6e7094f2e880e2138b645c42ea4384a8a4c51dffe7cc3a48429d507da",
+      "manifestHash": "sha256:ace347a44774018261cca1c54b9a4c82e17cbb4272fc84dff1f9abb005964641",
       "responseMode": "recorded_replay",
       "responseSource": "recorded_provider_responses",
       "runId": "fi-demo-2024q1-r0"
@@ -276,14 +276,14 @@
           "pf:fi-demo-2024q1-faults-r0:quant_duration": "sha256:3de1a053d703c459ddc7e16739c1649d7bd008867f98e47e02259654be06c133",
           "pf:fi-demo-2024q1-faults-r0:static_ladder": "sha256:806e23b10b0e919315e3b9e43ff9ed85019220c6a54874d5e900d21d34892551"
         },
-        "outcomeHashes": "sha256:5b306cc9ed0300df7a5d4d15aab9dfbeca5377f39f78f96ede65139c91be2b71",
+        "outcomeHashes": "sha256:f89fe2cd43db83954f56dfc9150b03b67d5a9415ad253dadfe078ecea221b6f9",
         "reportMetricsHash": "sha256:6f0da1df63d946bf05cd3390f322124f0fd10378aaefdd2e0d15a2b9445277b7",
         "status": "completed",
         "transitions": 285,
-        "transitionsHash": "sha256:2e08d37f54f45b244d08f3375c04de5a756082793b450757a446aac3301938ad"
+        "transitionsHash": "sha256:e5ba6ad143e0e5f8a970197f382a0750898ea4d683049a343e1cac8ed2b9dc04"
       },
       "label": "FAILURE INJECTION (declared faults)",
-      "manifestHash": "sha256:1697731678077e63e3dd5dbcf486af285b256cb07605c67aa9574b4540e5429c",
+      "manifestHash": "sha256:955d32cec5e4e9f9c809e90c0738689bb54f9601d845e12043b8fec28e4c43e2",
       "responseMode": "recorded_replay",
       "responseSource": "recorded_provider_responses",
       "runId": "fi-demo-2024q1-faults-r0"

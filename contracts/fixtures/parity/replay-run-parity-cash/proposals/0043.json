@@ -23,7 +23,7 @@
   "fills": [],
   "inputHashes": {
     "executionModel": "sha256:d3f9bd5e39ee45dc8e845e76f05c96cfd8a606e6c546d66b15c707b7eefc7887",
-    "marketSnapshot": "sha256:c9b3cca33e79151bdd451e187101c830ad758fa673a2e8e4388cf29bebcde31c",
+    "marketSnapshot": "sha256:ce2ae36bcd5ec0b0169ae17176735e2fbdad83478635d4dbf74c645a3f172fb3",
     "portfolioState": "sha256:45ae077f0822113dcf8c239efdbd741be8fbe3654d4290d44ced9833f2ff8498",
     "riskPolicy": "sha256:9fad814adb712358027210d8a4eb8b572da99cbf0ac74718e632f964726b5e23"
   },
@@ -59,8 +59,8 @@
   "ordersCreated": [],
   "policyEvaluation": null,
   "portfolioId": "pf:run-parity:cash",
-  "proposalHash": "sha256:37451e3996f90ca415f135c824df75dbc48db16d1e3e25d2322764cca9d827d1",
-  "proposalId": "prop-e4615fd68683469e",
+  "proposalHash": "sha256:3d7570c76a0cd51c4d3eb15aed6357563751a9d805d1287ea52b68d37b2b08ec",
+  "proposalId": "prop-4e7a17b9c21a57ef",
   "reconciliation": {
     "bookEquityUsd": "1000000.00",
     "differenceUsd": "0.00",
@@ -72,12 +72,12 @@
     "ok": true,
     "stateCashUsd": "1000000.00"
   },
-  "requestHash": "sha256:26788912b51984fd030a8d3125873ab415e168f1938f157275f0168b0912e8b8",
+  "requestHash": "sha256:b55a3d1cf319c0350b8f2783eb1371be7085dc67f30bbba264fef1f9fbe87d4b",
   "runId": "run-parity",
   "schemaVersion": "1.0",
   "settlementsCompleted": [],
   "settlementsCreated": [],
-  "signature": "hmac-sha256:04bb4396f4bdc4cc3a31ebf684d557cdb0dece12fc28aeab599f89049a7b6a33",
+  "signature": "hmac-sha256:799df18fe7524cede4dd66a951078dcfd4c9908356bc149478db974a49eebb21",
   "strategyId": "cash",
   "valuation": {
     "bondValueUsd": "0",

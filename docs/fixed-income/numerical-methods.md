@@ -170,6 +170,16 @@ The 2023–2024 fixture dataset passes: 500 of 500 sessions, all READY.
   month end, so a 29 February session keeps regular coupon dates.
 * **Bootstrap**: QuantLib `PiecewiseLogLinearDiscount` with `IterativeBootstrap`, accuracy
   1e-12 and at most 100 evaluations.
+* **Exact node refinement**: the QuantLib root is only accurate to its 1e-12 tolerance, and
+  where the iterative solver stops depends on the platform's floating-point path (Apple arm64
+  and Linux x86-64 published different 14th digits on 5 of 103 sessions). Each node is
+  therefore refined to its exact root in 50-digit decimal arithmetic before rounding:
+  `D = 1/(1 + y*days/365)` for zero-coupon tenors, and Newton in ln D for par bonds, with
+  earlier nodes held at their exact values and flows interpolated log-linearly towards the
+  unknown node. Decimal `ln`/`exp` are correctly rounded, so the published discount factors
+  (half-even, 14 dp) and zero rates (from the same exact roots, 12 dp) are identical on every
+  platform. The exact root must agree with QuantLib's within 1e-10, or the curve fails with
+  `calibration_failed:exact_root_mismatch:<tenor>`.
 * **Interpolation**: linear in ln D over ACT/365F time between nodes. Before the first node,
   ln D is linear from 0 at v (flat continuous forward).
 * **Negative rates**: permitted. There is no monotone-discount constraint; QuantLib is built
@@ -187,20 +197,21 @@ The 2023–2024 fixture dataset passes: 500 of 500 sessions, all READY.
   * the full specification;
   * `status` READY or FAILED with `failure_reasons`.
 * **FAILED** is returned for a missing or excluded required tenor, a missing short end, too few
-  nodes, a QuantLib calibration error (`calibration_failed:`), a residual out of tolerance, or
-  an insufficient horizon. A FAILED curve can never be used for pricing (`CurveNotReadyError`).
+  nodes, a QuantLib calibration error or a disagreement between QuantLib and the exact root
+  (`calibration_failed:`), a residual out of tolerance, or an insufficient horizon. A FAILED curve can never be used for pricing (`CurveNotReadyError`).
 * **Identity**: `curve_snapshot_id` is a hash of the observation hash, the specification, the
   engine version, the required horizon and the data mode. `content_hash` covers the whole
   snapshot. There is no `generated_at`, so rebuilds are byte-identical.
 * **Pricing uses only the published nodes**: QuantLib `DiscountCurve` with `LogLinear`
   interpolation on the quantized nodes reproduces the bootstrap exactly between nodes.
 
-**Residual tolerances.** Each input is repriced from the *published, quantized* nodes,
-independently of the QuantLib helpers. The limits are 1e-6 per 100 for par-bond prices and
-1e-7 (0.001 bp) for rates. The bootstrap accuracy (1e-12) and discount-factor quantization
-(1e-14) imply residuals around 1e-10, so the limits leave four orders of magnitude of margin.
-They still catch real failures: a bootstrap at 1e-2 accuracy produces residuals around 0.2 per
-100 and is rejected. The worst residual across all 500 fixture sessions is below 1e-9 per 100.
+**Residual tolerances.** Each input is repriced from the *published, quantized* nodes in the
+same decimal arithmetic, independently of the QuantLib helpers. The limits are 1e-6 per 100
+for par-bond prices and 1e-7 (0.001 bp) for rates. With exact roots, only the 14-dp
+quantization of the nodes remains, so every residual across all 500 fixture sessions rounds
+to zero at the published precision (1e-10 per 100, 1e-12 in rate). A loose bootstrap (for
+example 1e-2 accuracy) is rejected by the exact-root cross-check; the residual check still
+rejects published nodes that do not reprice their inputs (a test shifts one node by 1e-4).
 
 This builder does **not** reproduce Treasury's proprietary curve methodology. Sparse par
 inputs do not determine intermediate discount factors uniquely; our assumptions (simple

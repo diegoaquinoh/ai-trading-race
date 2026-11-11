@@ -1,12 +1,12 @@
 {
   "artifacts": [
     {
-      "checksum": "sha256:50ac887190b0b6514f6c5aa16ef5b56ce175700e7dca9fce7259bf051630c092",
+      "checksum": "sha256:2d8395826f5b78a491c56ca3cd82ba0a02d80461a6c1d09b12a78f64e44c545b",
       "path": "commits.jsonl",
       "role": "ledger_log"
     },
     {
-      "checksum": "sha256:9eab9f9b4efb446a318f9187483d0492f2c3f1b128311ea14d10749b3b09ac1b",
+      "checksum": "sha256:9e9a0178ed14c1820dbb4c6962692b6c0ae3d48877733f0eb08f11b71080fe20",
       "path": "outcomes.jsonl",
       "role": "decision_outcomes"
     }
@@ -54,25 +54,25 @@
   ],
   "curveManifests": [
     {
-      "contentHash": "sha256:3a3a71b379755ac59df1533e409eb2c832747b8b3797e6ba3890f569c746fe06",
+      "contentHash": "sha256:f063861307b879f0e1e367d015cedc4bfe89dd3b3189ac2f9ff6796e89e0fd74",
       "curveSnapshotId": "curve-6de7647c990a0800",
       "sessionDate": "2023-06-13",
       "status": "READY"
     },
     {
-      "contentHash": "sha256:9cf0ac84cfb4611ee014c0fcf0d7002bf2f8fe42546a0f1740177d4db7546a8a",
+      "contentHash": "sha256:67cf8be1cc66089afee325a24aeb24ae95924227f8ea0d30f19b27085c6941bb",
       "curveSnapshotId": "curve-547978dfdaccbcec",
       "sessionDate": "2023-06-14",
       "status": "READY"
     },
     {
-      "contentHash": "sha256:63cb9922ea3053bb635a2067f611de6497accaf8a404b73576d6d3608da0dc8e",
+      "contentHash": "sha256:520d7f272aa74fb58dea3e4cb3656b2bf080bd6c99dced8e67e648d03c57e665",
       "curveSnapshotId": "curve-87993be7b6e0319f",
       "sessionDate": "2023-06-15",
       "status": "READY"
     },
     {
-      "contentHash": "sha256:d2feb9afe70cbd56c15da2c3d025d9eed17964cdab82be63dbf4cbb23be003d9",
+      "contentHash": "sha256:f1339a8151360e1e1e76134f62e418f70c812e94d1e30ec5ffef6a494cea6e4e",
       "curveSnapshotId": "curve-494ca7874c9c4802",
       "sessionDate": "2023-06-16",
       "status": "READY"
@@ -109,10 +109,10 @@
   "failures": [],
   "fittedArtifacts": [],
   "generatedAt": null,
-  "gitCommit": "ded71fcb06fd3a7b30d60190ba2db58b1b38eb48",
+  "gitCommit": "7f5ad6498c9738cb18376387763983084d9b7254",
   "informationPolicy": "reconstructed_publication_plus_lag_v1",
   "lotMethod": "fifo_v1",
-  "manifestHash": "sha256:6ecc2086cb2cd96b5d6fe7ebdec125be1c23f1aa6276692ecb1c98f418306c21",
+  "manifestHash": "sha256:121ae10ed84ee27a60880e9884f2513e4f76206a6975abec06432e729fd2636d",
   "manifestVersion": "experiment-manifest-v1",
   "postingTemplates": [
     "capital_flow_v1",

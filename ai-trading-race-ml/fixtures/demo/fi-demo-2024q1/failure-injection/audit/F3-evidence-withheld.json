@@ -18,21 +18,21 @@
     "reasons": [
       "mandatory_retrieval_empty"
     ],
-    "resultHash": "sha256:e1452db0ae0f039c0a73bbf000ac340851ef05ccd02d0ecdedbe89fff0d9f94c",
+    "resultHash": "sha256:7774a8bd5f9bfa818047ad739711de85a77b19826eb73a36528a84e628b78302",
     "specialistTasks": [],
     "strategyId": "llm_rag",
     "toolTraces": [
       {
         "agentRole": "single",
         "error": null,
-        "outputRef": "calc-6e6ef30f7cf2e048",
+        "outputRef": "calc-8cb1c66706d0f169",
         "status": "ok",
         "tool": "get_portfolio_risk"
       },
       {
         "agentRole": "single",
         "error": null,
-        "outputRef": "calc-9889bda8017c43e9",
+        "outputRef": "calc-fee917e6b8795d4c",
         "status": "ok",
         "tool": "get_market_features"
       },

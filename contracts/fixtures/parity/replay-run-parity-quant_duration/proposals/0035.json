@@ -14,7 +14,7 @@
       "marks": [
         {
           "accruedPer100": "2.0817934783",
-          "calculationId": "calc-b8b5a6ee8bb8ba76",
+          "calculationId": "calc-4ae8d3e443ba45e4",
           "cleanPricePer100": "100.3691658861",
           "economicFace": "146000",
           "markAgeBusinessDays": 0,
@@ -26,7 +26,7 @@
         },
         {
           "accruedPer100": "0.3065573770",
-          "calculationId": "calc-23028798aebc11e0",
+          "calculationId": "calc-2bcc5ac3739c3297",
           "cleanPricePer100": "92.0967413115",
           "economicFace": "162000",
           "markAgeBusinessDays": 0,
@@ -38,7 +38,7 @@
         },
         {
           "accruedPer100": "1.4324175824",
-          "calculationId": "calc-d9654cd774d8c4d5",
+          "calculationId": "calc-6f32c746477a96f7",
           "cleanPricePer100": "99.4435021022",
           "economicFace": "168000",
           "markAgeBusinessDays": 0,
@@ -50,7 +50,7 @@
         },
         {
           "accruedPer100": "0.0784153005",
-          "calculationId": "calc-96584ce2b4178ac7",
+          "calculationId": "calc-05d866dc36121763",
           "cleanPricePer100": "80.9708929170",
           "economicFace": "207000",
           "markAgeBusinessDays": 0,
@@ -62,7 +62,7 @@
         },
         {
           "accruedPer100": "0.8415760870",
-          "calculationId": "calc-b90afb70e83d1a4c",
+          "calculationId": "calc-99e0286c1ec9fd77",
           "cleanPricePer100": "84.6619886480",
           "economicFace": "251000",
           "markAgeBusinessDays": 0,
@@ -84,7 +84,7 @@
   "fills": [],
   "inputHashes": {
     "executionModel": "sha256:d3f9bd5e39ee45dc8e845e76f05c96cfd8a606e6c546d66b15c707b7eefc7887",
-    "marketSnapshot": "sha256:435a4a59707ec5198991c88be162ee3eaf3f7c411357e3a824b69661a32fe61d",
+    "marketSnapshot": "sha256:69ebf1607fb0daeec70186db80904061586903a308b6e07dc1f2b93ea4cabae7",
     "portfolioState": "sha256:5154b71badcff5119e0cffa5fd7725cec8857b77c579cf6daaeac329dee93c0b",
     "riskPolicy": "sha256:9fad814adb712358027210d8a4eb8b572da99cbf0ac74718e632f964726b5e23"
   },
@@ -232,8 +232,8 @@
   "ordersCreated": [],
   "policyEvaluation": null,
   "portfolioId": "pf:run-parity:quant_duration",
-  "proposalHash": "sha256:433676155a3578b3f685a8a561ec76443567f6de560e0ed1f8394065eaa1a563",
-  "proposalId": "prop-face7471e2cdef76",
+  "proposalHash": "sha256:b9e40a149dbb6a8585ab36a0ef68c34b095270a444ad2afb96ac38867885e3ca",
+  "proposalId": "prop-0281ad533752a66e",
   "reconciliation": {
     "bookEquityUsd": "993639.78",
     "differenceUsd": "0.00",
@@ -245,21 +245,21 @@
     "ok": true,
     "stateCashUsd": "142638.87"
   },
-  "requestHash": "sha256:a57e688ef823ab080d7cb4df874f4019b4d7516de5d3fea670bb5e1f4a149416",
+  "requestHash": "sha256:7b6ab53546b779b98ce08bb929e0b5087e64b9c406e0900108608b3a8cb6f52c",
   "runId": "run-parity",
   "schemaVersion": "1.0",
   "settlementsCompleted": [],
   "settlementsCreated": [],
-  "signature": "hmac-sha256:9d219ab4d76b027f70e6edb7433bd8501c47f787a2939d4e905572c5002838f2",
+  "signature": "hmac-sha256:5b65412ae9e6711aa4681ce015a69f6732fdc468ab82a594463896701f462bc6",
   "strategyId": "quant_duration",
   "valuation": {
     "bondValueUsd": "851000.91",
     "calculationIds": [
-      "calc-23028798aebc11e0",
-      "calc-96584ce2b4178ac7",
-      "calc-b8b5a6ee8bb8ba76",
-      "calc-b90afb70e83d1a4c",
-      "calc-d9654cd774d8c4d5"
+      "calc-05d866dc36121763",
+      "calc-2bcc5ac3739c3297",
+      "calc-4ae8d3e443ba45e4",
+      "calc-6f32c746477a96f7",
+      "calc-99e0286c1ec9fd77"
     ],
     "cashUsd": "142638.87",
     "complete": true,
@@ -272,7 +272,7 @@
     "marks": [
       {
         "accruedPer100": "2.0817934783",
-        "calculationId": "calc-b8b5a6ee8bb8ba76",
+        "calculationId": "calc-4ae8d3e443ba45e4",
         "cleanPricePer100": "100.3691658861",
         "economicFace": "146000",
         "markAgeBusinessDays": 0,
@@ -284,7 +284,7 @@
       },
       {
         "accruedPer100": "0.3065573770",
-        "calculationId": "calc-23028798aebc11e0",
+        "calculationId": "calc-2bcc5ac3739c3297",
         "cleanPricePer100": "92.0967413115",
         "economicFace": "162000",
         "markAgeBusinessDays": 0,
@@ -296,7 +296,7 @@
       },
       {
         "accruedPer100": "1.4324175824",
-        "calculationId": "calc-d9654cd774d8c4d5",
+        "calculationId": "calc-6f32c746477a96f7",
         "cleanPricePer100": "99.4435021022",
         "economicFace": "168000",
         "markAgeBusinessDays": 0,
@@ -308,7 +308,7 @@
       },
       {
         "accruedPer100": "0.0784153005",
-        "calculationId": "calc-96584ce2b4178ac7",
+        "calculationId": "calc-05d866dc36121763",
         "cleanPricePer100": "80.9708929170",
         "economicFace": "207000",
         "markAgeBusinessDays": 0,
@@ -320,7 +320,7 @@
       },
       {
         "accruedPer100": "0.8415760870",
-        "calculationId": "calc-b90afb70e83d1a4c",
+        "calculationId": "calc-99e0286c1ec9fd77",
         "cleanPricePer100": "84.6619886480",
         "economicFace": "251000",
         "markAgeBusinessDays": 0,

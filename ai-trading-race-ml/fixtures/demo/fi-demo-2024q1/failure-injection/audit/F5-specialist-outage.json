@@ -6,18 +6,18 @@
       "bootstrapExemptionApplied": false,
       "breachMode": false,
       "calculationIds": [
-        "calc-007a627d332c4ec8",
-        "calc-0e42902ddd129c5b",
-        "calc-27a149a0ec027756",
-        "calc-2bc5a259e3e0dab2",
-        "calc-407d995eecb88324",
-        "calc-464a47c788de9530",
-        "calc-5112e80961ba17c5",
-        "calc-9b9c25601708e379",
-        "calc-a65fcbf94ef4eceb",
-        "calc-ccb3d6d6a6e958a0",
-        "calc-ef7a7612feb0fdda",
-        "calc-f5870113a7983574"
+        "calc-348beaa76b3ed35c",
+        "calc-3dee264afb8d1810",
+        "calc-46ea6fda218e1063",
+        "calc-4910e84958badbfd",
+        "calc-637a76a3637b3d4c",
+        "calc-80669c352928b2d3",
+        "calc-b9114dbff3c1fc0b",
+        "calc-b981c09cd7d172dc",
+        "calc-d0bceca978811891",
+        "calc-dd069b963473e592",
+        "calc-dd0cabe46852a62f",
+        "calc-e28e0e88f855ddb1"
       ],
       "checks": [],
       "decisionId": "dec:fi-demo-2024q1-faults-r0:llm_team:2024-02-21:r0",
@@ -51,7 +51,7 @@
         "outputTokens": 114,
         "provider": "reference",
         "purpose": "task_assignment",
-        "recordedResponseId": "rec-12685bd93cd83342a88b4c59",
+        "recordedResponseId": "rec-4dc74714e0377c3880e0d484",
         "startedAt": "2024-02-22T00:00:00Z",
         "status": "ok"
       },
@@ -81,7 +81,7 @@
         "outputTokens": 60,
         "provider": "reference",
         "purpose": "specialist",
-        "recordedResponseId": "rec-7d7dbd8b66fbfd0eb230dc46",
+        "recordedResponseId": "rec-4a78544a9cfecfc78e76627e",
         "startedAt": "2024-02-22T00:00:00Z",
         "status": "ok"
       },
@@ -96,7 +96,7 @@
         "outputTokens": 162,
         "provider": "reference",
         "purpose": "specialist",
-        "recordedResponseId": "rec-70a403572e28fc1153fd4489",
+        "recordedResponseId": "rec-6864d46f3d19332c0bea7080",
         "startedAt": "2024-02-22T00:00:00Z",
         "status": "ok"
       },
@@ -111,7 +111,7 @@
         "outputTokens": 1306,
         "provider": "reference",
         "purpose": "synthesis",
-        "recordedResponseId": "rec-d30d97bbba640bdb9d47e979",
+        "recordedResponseId": "rec-f6702d7aefe8a43388e0aa62",
         "startedAt": "2024-02-22T00:00:00Z",
         "status": "ok"
       }
@@ -130,10 +130,10 @@
     "proposal": {
       "action": "HOLD",
       "supportingCalculationIds": [
-        "calc-10c420575008b46d",
-        "calc-9889bda8017c43e9",
-        "calc-e350804113b85f46",
-        "calc-89df89aa3eaea5c7"
+        "calc-d0fe90e52354e31c",
+        "calc-fee917e6b8795d4c",
+        "calc-385bbfb413406d1e",
+        "calc-8a9dc48741cfde24"
       ],
       "supportingClaimIds": [
         "ld-clm-1",
@@ -145,7 +145,7 @@
     "reasons": [
       "explicit_hold"
     ],
-    "resultHash": "sha256:f5e8e818ec458cb5958a8693cc0720a602ed46f3f658930dcaa9a3033a3427c8",
+    "resultHash": "sha256:ab56cd41719daff9ba6986da1d3cad330a1ba3f9fadc8ccec877d7d75273e243",
     "specialistTasks": [
       {
         "budgetReserved": {
@@ -212,14 +212,14 @@
       {
         "agentRole": "lead",
         "error": null,
-        "outputRef": "calc-10c420575008b46d",
+        "outputRef": "calc-d0fe90e52354e31c",
         "status": "ok",
         "tool": "get_portfolio_risk"
       },
       {
         "agentRole": "lead",
         "error": null,
-        "outputRef": "calc-9889bda8017c43e9",
+        "outputRef": "calc-fee917e6b8795d4c",
         "status": "ok",
         "tool": "get_market_features"
       },
@@ -233,14 +233,14 @@
       {
         "agentRole": "critical_reviewer",
         "error": null,
-        "outputRef": "calc-e350804113b85f46",
+        "outputRef": "calc-385bbfb413406d1e",
         "status": "ok",
         "tool": "run_scenario"
       },
       {
         "agentRole": "critical_reviewer",
         "error": null,
-        "outputRef": "calc-89df89aa3eaea5c7",
+        "outputRef": "calc-8a9dc48741cfde24",
         "status": "ok",
         "tool": "run_scenario"
       }

@@ -4,7 +4,7 @@
 **Status:** completed · **Response mode:** recorded_replay (recorded_provider_responses)  
 **Window:** 2024-01-02 → 2024-03-29 (61 sessions)  
 **Execution model:** synthetic-half-spread-0.02-v1 · **Risk policy:** treasury-long-only-v1  
-**Manifest:** `sha256:b021fbe6e7094f2e880e2138b645c42ea4384a8a4c51dffe7cc3a48429d507da` (verified: True)
+**Manifest:** `sha256:ace347a44774018261cca1c54b9a4c82e17cbb4272fc84dff1f9abb005964641` (verified: True)
 
 ## Results (ranked within this compatibility group only)
 

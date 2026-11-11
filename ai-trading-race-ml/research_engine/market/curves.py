@@ -13,15 +13,24 @@ Specification ``usd-tsy-par-bootstrap-v1`` (see docs/fixed-income/numerical-meth
   ``PiecewiseLogLinearDiscount``); no monotone-discount constraint, so negative
   rates are permitted.
 * Extrapolation beyond the last node is rejected.
+* Published nodes are platform-independent: QuantLib's bootstrap is the
+  solver, then every node is refined to its exact root in 50-digit decimal
+  arithmetic (closed form for the zero-coupon short end, Newton in ln D for par
+  bonds against the exact earlier nodes) and rounded half-even to 14 dp. The
+  QuantLib float alone is not stable to 14 dp: the iterative solver stops at a
+  platform-dependent point (Apple arm64 and Linux x86-64 differed in the last
+  digit on 5 of 103 sessions). Zero rates come from the same exact roots.
 * Residuals for every input are re-computed from the *published* (quantized)
-  nodes, independently of the QuantLib helpers, and must pass tolerances.
+  nodes in the same decimal arithmetic, independently of the QuantLib helpers,
+  and must pass tolerances.
 """
 
 from __future__ import annotations
 
+import bisect
 import math
 from datetime import date, timedelta
-from decimal import Decimal
+from decimal import ROUND_HALF_EVEN, Decimal, localcontext
 from typing import Any, Optional
 
 import QuantLib as ql
@@ -46,7 +55,6 @@ from research_engine.instruments.calendar import (
     CALENDAR_VERSION,
     us_government_bond_calendar,
 )
-from research_engine.pricing.curve_model import DiscountCurveModel, year_fraction
 from research_engine.pricing.quantlib_env import (
     ENGINE_VERSION,
     evaluation_date,
@@ -61,6 +69,15 @@ DF_PLACES = Decimal("1e-14")
 RATE_PLACES = Decimal("1e-12")
 TIME_PLACES = Decimal("1e-12")
 PRICE_PLACES = Decimal("1e-10")
+# Cash-flow amounts per 100: par coupons are 100 * y / 2 with y in whole basis points, so the
+# QuantLib float amount rounds to its exact decimal value well inside this quantum.
+FLOW_PLACES = Decimal("1e-10")
+EXACT_PRECISION = 50  # significant digits for the decimal node solve and residuals
+_NEWTON_STEP = Decimal("1e-40")
+_NEWTON_MAX_ITERATIONS = 100
+# The exact root must agree with QuantLib's bootstrap: a larger gap means the two disagree on
+# conventions, not on rounding.
+ROOT_CROSS_CHECK = Decimal("1e-10")
 
 _ZERO_TENORS = [
     ("4W", 4, TenorUnit.WEEKS),
@@ -204,8 +221,115 @@ class CurveBuildError(RuntimeError):
     pass
 
 
-def _to_dec(value: float, places: Decimal) -> Decimal:
-    return Decimal(repr(value)).quantize(places)
+def exact_context():
+    """Decimal context for node solving and residuals; same digits on every platform."""
+    return localcontext(prec=EXACT_PRECISION, rounding=ROUND_HALF_EVEN)
+
+
+def exact_par_bond_flows(
+    reference: date, years: int, coupon: Decimal
+) -> list[tuple[date, Decimal]]:
+    """``par_bond_flows`` with amounts as exact decimals (dates still from QuantLib)."""
+    return [
+        (pay, Decimal(repr(amount)).quantize(FLOW_PLACES))
+        for pay, amount in par_bond_flows(reference, years, float(coupon))
+    ]
+
+
+class ExactDiscountCurve:
+    """Log-linear ln D in ACT/365F time over decimal nodes, evaluated in decimal arithmetic.
+
+    Same interpolation as ``PiecewiseLogLinearDiscount`` / ``DiscountCurveModel``; the weight
+    between two nodes is a ratio of day counts, so only ``ln`` and ``exp`` round, and decimal
+    ``ln``/``exp`` are correctly rounded. Call inside :func:`exact_context`.
+    """
+
+    def __init__(self, reference: date, node_dates: list[date], discount_factors: list[Decimal]):
+        if not node_dates or node_dates[0] != reference:
+            raise CurveBuildError("exact curve nodes must start at the reference date")
+        self._days = [(d - reference).days for d in node_dates]
+        self._reference = reference
+        self._dfs = list(discount_factors)
+        self._lns = [df.ln() for df in self._dfs]
+
+    def discount(self, day: date) -> Decimal:
+        offset = (day - self._reference).days
+        if offset < 0 or offset > self._days[-1]:
+            raise CurveBuildError(f"exact curve extrapolation to {day.isoformat()}")
+        index = bisect.bisect_left(self._days, offset)
+        if self._days[index] == offset:
+            return self._dfs[index]
+        lo, hi = index - 1, index
+        weight = Decimal(offset - self._days[lo]) / Decimal(self._days[hi] - self._days[lo])
+        return (self._lns[lo] + weight * (self._lns[hi] - self._lns[lo])).exp()
+
+
+def _solve_par_node(
+    reference: date,
+    node_dates: list[date],
+    exact: list[Decimal],
+    definition: CurveInstrumentDefinition,
+    point: ParYieldPoint,
+    start: Decimal,
+) -> Decimal:
+    """Discount factor at ``node_dates[-1]`` that prices the par bond at exactly 100.
+
+    Flows up to the previous node use the exact earlier nodes; later flows interpolate
+    log-linearly towards the unknown node. Newton in ``y = ln D`` (price is increasing and
+    convex in y), started from QuantLib's root.
+    """
+    previous, node = node_dates[-2], node_dates[-1]
+    known_curve = ExactDiscountCurve(reference, node_dates[:-1], exact)
+    ln_previous = exact[-1].ln()
+    span = Decimal((node - previous).days)
+    known = Decimal(0)
+    dependent: list[tuple[Decimal, Decimal]] = []
+    for pay, amount in exact_par_bond_flows(reference, definition.period_count, point.par_yield):
+        if pay <= previous:
+            known += amount * known_curve.discount(pay)
+        elif pay <= node:
+            dependent.append((amount, Decimal((pay - previous).days) / span))
+        else:
+            raise CurveBuildError(f"par_flow_beyond_node:{definition.tenor}")
+    y = start.ln()
+    for _ in range(_NEWTON_MAX_ITERATIONS):
+        values = [(a, w, (ln_previous + w * (y - ln_previous)).exp()) for a, w in dependent]
+        price = known + sum(a * v for a, _, v in values)
+        slope = sum(a * w * v for a, w, v in values)
+        step = (price - 100) / slope
+        y -= step
+        if abs(step) < _NEWTON_STEP:
+            return y.exp()
+    raise CurveBuildError(f"exact_root_no_convergence:{definition.tenor}")
+
+
+def exact_discount_factors(
+    reference: date,
+    used: list[tuple[CurveInstrumentDefinition, ParYieldPoint]],
+    nodes_raw: list[tuple[date, float]],
+) -> list[Decimal]:
+    """Exact (unrounded) discount factors at QuantLib's node dates, reference node first."""
+    by_date = {zero_or_par_maturity(reference, d): (d, p) for d, p in used}
+    node_dates = [d for d, _ in nodes_raw]
+    if node_dates[0] != reference or sorted(by_date) != node_dates[1:]:
+        raise CurveBuildError("bootstrap nodes do not match the calibration instruments")
+    exact = [Decimal(1)]
+    with exact_context():
+        for index in range(1, len(node_dates)):
+            node = node_dates[index]
+            definition, point = by_date[node]
+            start = Decimal(repr(nodes_raw[index][1]))
+            if definition.kind is CalibrationInstrumentKind.ZERO_COUPON:
+                tau = Decimal((node - reference).days) / Decimal(365)
+                root = 1 / (1 + point.par_yield * tau)
+            else:
+                root = _solve_par_node(
+                    reference, node_dates[: index + 1], exact, definition, point, start
+                )
+            if abs(root - start) > ROOT_CROSS_CHECK:
+                raise CurveBuildError(f"exact_root_mismatch:{definition.tenor}")
+            exact.append(root)
+    return exact
 
 
 def _select_points(
@@ -299,31 +423,31 @@ def build_curve_snapshot(
         message = str(exc).splitlines()[0][:200]
         return failed([f"calibration_failed:{message}"], used_tenors=used_tenors)
 
-    nodes: list[CurveNode] = []
-    tenor_by_date = {zero_or_par_maturity(reference, d): d.tenor for d, _ in used}
     for node_date, df in nodes_raw:
         if not (df > 0.0 and math.isfinite(df)):
             return failed([f"non_positive_discount_factor:{node_date.isoformat()}"])
-        t = year_fraction(reference, node_date)
-        zero = 0.0 if t == 0 else -math.log(df) / t
-        nodes.append(
-            CurveNode(
-                node_date=node_date,
-                time_years=Decimal(node_date.toordinal() - reference.toordinal()) / Decimal(365),
-                discount_factor=_to_dec(df, DF_PLACES),
-                zero_rate=_to_dec(zero, RATE_PLACES),
-                source_tenor=tenor_by_date.get(node_date),
-            )
-        )
-    nodes = [n.model_copy(update={"time_years": n.time_years.quantize(TIME_PLACES)}) for n in nodes]
+    try:
+        exact = exact_discount_factors(reference, used, nodes_raw)
+    except CurveBuildError as exc:
+        return failed([f"calibration_failed:{exc}"], used_tenors=used_tenors)
 
-    model = DiscountCurveModel(
-        reference,
-        [n.node_date for n in nodes],
-        [float(n.discount_factor) for n in nodes],
-        curve_snapshot_id=snapshot_id,
-    )
-    residuals = compute_residuals(model, used, spec)
+    nodes: list[CurveNode] = []
+    tenor_by_date = {zero_or_par_maturity(reference, d): d.tenor for d, _ in used}
+    with exact_context():
+        for (node_date, _), root in zip(nodes_raw, exact):
+            days = (node_date - reference).days
+            zero = Decimal(0) if days == 0 else -root.ln() * 365 / days
+            nodes.append(
+                CurveNode(
+                    node_date=node_date,
+                    time_years=(Decimal(days) / Decimal(365)).quantize(TIME_PLACES),
+                    discount_factor=root.quantize(DF_PLACES),
+                    zero_rate=zero.quantize(RATE_PLACES),
+                    source_tenor=tenor_by_date.get(node_date),
+                )
+            )
+
+    residuals = compute_residuals(reference, nodes, used, spec)
     max_price = max(
         (abs(r.price_residual_per_100) for r in residuals if r.price_residual_per_100 is not None),
         default=Decimal(0),
@@ -404,52 +528,58 @@ def _bootstrap(
 
 
 def compute_residuals(
-    model: DiscountCurveModel,
+    reference: date,
+    nodes: list[CurveNode],
     used: list[tuple[CurveInstrumentDefinition, ParYieldPoint]],
     spec: CurveSpecification,
 ) -> list[CalibrationResidual]:
-    """Re-price each input from the published nodes (independent of QL helpers)."""
-    reference = model.reference_date
+    """Re-price each input from the published nodes (independent of QL helpers).
+
+    Decimal arithmetic throughout, so the quantized residuals are identical on every platform.
+    """
     price_tol = spec.tolerances.max_abs_price_residual_per_100
     rate_tol = spec.tolerances.max_abs_rate_residual
     out: list[CalibrationResidual] = []
-    for definition, point in used:
-        quote = float(point.par_yield)
-        if definition.kind is CalibrationInstrumentKind.ZERO_COUPON:
-            maturity = zero_tenor_maturity(
-                reference, definition.period_count, definition.period_unit
-            )
-            tau = (maturity - reference).days / 365.0
-            implied = (1.0 / model.discount(maturity) - 1.0) / tau
-            rate_res = implied - quote
-            out.append(
-                CalibrationResidual(
-                    tenor=definition.tenor,
-                    kind=definition.kind,
-                    input_quote=point.par_yield,
-                    model_quote=_to_dec(implied, RATE_PLACES),
-                    rate_residual=_to_dec(rate_res, RATE_PLACES),
-                    within_tolerance=abs(Decimal(repr(rate_res))) <= rate_tol,
+    with exact_context():
+        curve = ExactDiscountCurve(
+            reference, [n.node_date for n in nodes], [n.discount_factor for n in nodes]
+        )
+        for definition, point in used:
+            quote = point.par_yield
+            if definition.kind is CalibrationInstrumentKind.ZERO_COUPON:
+                maturity = zero_tenor_maturity(
+                    reference, definition.period_count, definition.period_unit
                 )
-            )
-        else:
-            flows = par_bond_flows(reference, definition.period_count, quote)
-            dfs = model.discounts([d for d, _ in flows])
-            price = sum(a * df for (_, a), df in zip(flows, dfs))
-            annuity = sum(50.0 * df for df in dfs)  # PV of 0.5 * 100 per period
-            implied = (100.0 - 100.0 * dfs[-1]) / annuity
-            price_res = price - 100.0
-            rate_res = implied - quote
-            out.append(
-                CalibrationResidual(
-                    tenor=definition.tenor,
-                    kind=definition.kind,
-                    input_quote=point.par_yield,
-                    model_quote=_to_dec(implied, RATE_PLACES),
-                    rate_residual=_to_dec(rate_res, RATE_PLACES),
-                    price_residual_per_100=_to_dec(price_res, PRICE_PLACES),
-                    within_tolerance=abs(Decimal(repr(price_res))) <= price_tol
-                    and abs(Decimal(repr(rate_res))) <= rate_tol,
+                tau = Decimal((maturity - reference).days) / Decimal(365)
+                implied = (1 / curve.discount(maturity) - 1) / tau
+                rate_res = implied - quote
+                out.append(
+                    CalibrationResidual(
+                        tenor=definition.tenor,
+                        kind=definition.kind,
+                        input_quote=point.par_yield,
+                        model_quote=implied.quantize(RATE_PLACES),
+                        rate_residual=rate_res.quantize(RATE_PLACES),
+                        within_tolerance=abs(rate_res) <= rate_tol,
+                    )
                 )
-            )
+            else:
+                flows = exact_par_bond_flows(reference, definition.period_count, quote)
+                dfs = [curve.discount(d) for d, _ in flows]
+                price = sum(a * df for (_, a), df in zip(flows, dfs))
+                annuity = sum(50 * df for df in dfs)  # PV of 0.5 * 100 per period
+                implied = (100 - 100 * dfs[-1]) / annuity
+                price_res = price - 100
+                rate_res = implied - quote
+                out.append(
+                    CalibrationResidual(
+                        tenor=definition.tenor,
+                        kind=definition.kind,
+                        input_quote=point.par_yield,
+                        model_quote=implied.quantize(RATE_PLACES),
+                        rate_residual=rate_res.quantize(RATE_PLACES),
+                        price_residual_per_100=price_res.quantize(PRICE_PLACES),
+                        within_tolerance=abs(price_res) <= price_tol and abs(rate_res) <= rate_tol,
+                    )
+                )
     return out

@@ -34,7 +34,7 @@
   "fills": [],
   "inputHashes": {
     "executionModel": "sha256:d3f9bd5e39ee45dc8e845e76f05c96cfd8a606e6c546d66b15c707b7eefc7887",
-    "marketSnapshot": "sha256:b6ee0dbc74a3e5567a82b7abba712210c7c005dd70da19b1db89c1768f6e5233",
+    "marketSnapshot": "sha256:99b6ab0ab547eb1c64081806cb09133ef6fc419fc7fe697f0d05cd5708368640",
     "portfolioState": "sha256:26a1600cfc151f5422b6507250d8599778b8395c9f1fff9273a12f02123ad8cb",
     "riskPolicy": "sha256:9fad814adb712358027210d8a4eb8b572da99cbf0ac74718e632f964726b5e23"
   },
@@ -237,19 +237,19 @@
     "bootstrapExemptionApplied": false,
     "breachMode": false,
     "calculationIds": [
-      "calc-1314941069bee56b",
-      "calc-217223790617f526",
-      "calc-28997edd260ddcfb",
-      "calc-54d1378f64052daa",
-      "calc-711c320f5298c169",
-      "calc-81a39908e3759fd3",
-      "calc-8401ece4522ba405",
-      "calc-9fe5a71b6dc76f53",
-      "calc-c126c27836b8a07f",
-      "calc-cbc6cd0a646d4abe",
-      "calc-d81d1bcc0fc83238",
-      "calc-dac9c28194509541",
-      "calc-eed529e5daa1ae74"
+      "calc-01fad85a48f6e65e",
+      "calc-0676ebf25e2a4249",
+      "calc-31b09bef4792b299",
+      "calc-3589f130bf8f4420",
+      "calc-46d7b25e255b5f0f",
+      "calc-46fdbfda2ffdea9e",
+      "calc-bffc5240320b4606",
+      "calc-c193628ae828298c",
+      "calc-c5e58d3df3a9a64c",
+      "calc-d2b1c7e301a20849",
+      "calc-d460b90498861fcf",
+      "calc-d7da0520e4396fc2",
+      "calc-d881bd78d96dde5e"
     ],
     "checks": [
       {
@@ -424,8 +424,8 @@
     "turnoverRatio": "0.08251416"
   },
   "portfolioId": "pf:run-parity:quant_duration",
-  "proposalHash": "sha256:7df8cb59cbed4a4e8c8482c4126b9080cc1d23e7624ead3bd8408b5847c62797",
-  "proposalId": "prop-c5a1401c8bfdcdba",
+  "proposalHash": "sha256:6ae791b45d0c2d616fff98af284f331ac01ed8a93c00d791e9cd5e2e0cdf352d",
+  "proposalId": "prop-615bbb7034295c69",
   "reconciliation": {
     "bookEquityUsd": "1000000.00",
     "differenceUsd": null,
@@ -437,12 +437,12 @@
     "ok": true,
     "stateCashUsd": "1000000.00"
   },
-  "requestHash": "sha256:54c5f67f591791335a769015bfc73d4c6c58c4c39c878a88cb8803270f2e9734",
+  "requestHash": "sha256:ca8f2675482be17ccb5cc813dde9525410c49e574c455524cf7e0362f2cda7e0",
   "runId": "run-parity",
   "schemaVersion": "1.0",
   "settlementsCompleted": [],
   "settlementsCreated": [],
-  "signature": "hmac-sha256:fffb1a750a0674ea109d5c54ad0bd35e24352be69736bd8539619bc121b4349e",
+  "signature": "hmac-sha256:e263b67921028784b0f2bb948ab8be2fb769fb4db6b1a94fc94d628c6380c93a",
   "strategyId": "quant_duration",
   "valuation": null
 }

@@ -1,12 +1,12 @@
 {
   "artifacts": [
     {
-      "checksum": "sha256:fb4694876fa53a719117a0d2f72ca3741142fbea3c3ab6943074061b93d67549",
+      "checksum": "sha256:3e4ca417b4ca98ce8ad1078cf68c1add2d8d89ce505ef0c58d749731b738ad0c",
       "path": "commits.jsonl",
       "role": "ledger_log"
     },
     {
-      "checksum": "sha256:e64c09b0794cafa265f77206df20a22eb1015f45cccabb10198ddc49528747a6",
+      "checksum": "sha256:946805659de8d13753c8afc482b2670ed0e28b3a1896c1b0605a8cf1c09c40f9",
       "path": "outcomes.jsonl",
       "role": "decision_outcomes"
     }
@@ -50,115 +50,115 @@
   ],
   "curveManifests": [
     {
-      "contentHash": "sha256:069c991ddd3082cb1cfc44b08b38e3ba9638b5b9371bb34d6dba0da4eac60357",
+      "contentHash": "sha256:3cc4e952a2474b6d7a4195f5d26c707d3ffca6f92a1cd26d32687abbb234bcb2",
       "curveSnapshotId": "curve-bb0bc9fa1226dbbd",
       "sessionDate": "2024-01-29",
       "status": "READY"
     },
     {
-      "contentHash": "sha256:7779384c3e430d2fe3f55c3212063508d57a747ec06914e09bd8dfcb1ac3e72f",
+      "contentHash": "sha256:748357398647325ed170fb213b82c4d98707efe83e2706e352235b86167ab75e",
       "curveSnapshotId": "curve-7e583294a4b2e508",
       "sessionDate": "2024-01-30",
       "status": "READY"
     },
     {
-      "contentHash": "sha256:a7404fd040c04ff1c754e97577e653b19e27895311018cb241b2a1b8fe1a7661",
+      "contentHash": "sha256:d2f35564fdb1e6d348771f848858ec398670aa8274473aed87d75bef9fd653b5",
       "curveSnapshotId": "curve-830eae84c6e24b31",
       "sessionDate": "2024-01-31",
       "status": "READY"
     },
     {
-      "contentHash": "sha256:c3440f56bbd0e8ebc30acfea070cdabdb1c2aeec4b1661299c81729e3a4222dd",
+      "contentHash": "sha256:86117d9c8d9f9491af33b496d87045afb65f2a9443b05baff90454750ed38418",
       "curveSnapshotId": "curve-84ce031a6af1eb0b",
       "sessionDate": "2024-02-01",
       "status": "READY"
     },
     {
-      "contentHash": "sha256:c1c006ef311aa50cbe9d5b25dcb7c71018ff7c20fe4cdcd5cc0ead88d35e64ed",
+      "contentHash": "sha256:7f9fc1f2905b0240eb8925a24f331fded71b992c59d733b2e6f7153060670f0b",
       "curveSnapshotId": "curve-9d046a37a8d833ea",
       "sessionDate": "2024-02-02",
       "status": "READY"
     },
     {
-      "contentHash": "sha256:7e1c18447e373f5c5191e2ff8848794a1da613b53bebd0bb220380791f6e6a6b",
+      "contentHash": "sha256:24883b1aa95fe90872abbc235a6b2e232555ca33b65bd3bf2c5c653858f86e2b",
       "curveSnapshotId": "curve-4e9de24849a6c7bc",
       "sessionDate": "2024-02-05",
       "status": "READY"
     },
     {
-      "contentHash": "sha256:d9c4c6eac686bf890c6070b5ff5ed279ac9c67ab1c678e5fd0d90d54fd3a6162",
+      "contentHash": "sha256:ec434aa17749876c584745bc9bb41bb47bb3c5ad0a73748074d676a86b326013",
       "curveSnapshotId": "curve-c37b5654f8a3bf34",
       "sessionDate": "2024-02-06",
       "status": "READY"
     },
     {
-      "contentHash": "sha256:a9d0c699296d046e37c8a532ad0ea5ded70a23c14566ad115a7909ff8628066d",
+      "contentHash": "sha256:70889babd9fb404b8ad5b0b7ebc339d9dcd70829832913a93c76ffe5f099ac57",
       "curveSnapshotId": "curve-aa7323a6258ac052",
       "sessionDate": "2024-02-07",
       "status": "READY"
     },
     {
-      "contentHash": "sha256:f8aa98efd345c0d42fcd58665139528db39e5a49b77bf92dcad8ce06b114b502",
+      "contentHash": "sha256:121499d2da025e04c4f5a17040bc5cf0d2cb1fd69563e63c1506216cf536ac5a",
       "curveSnapshotId": "curve-27ac5a7181020291",
       "sessionDate": "2024-02-08",
       "status": "READY"
     },
     {
-      "contentHash": "sha256:b6b5debbc85d43df17b147714fb71688803ac5f2a6dee1cf3e0a45c0deb359ab",
+      "contentHash": "sha256:b2abe5aa3c39fc5843d55fb0b864ea7b9578786a2eb362fb1b61517fec13c3af",
       "curveSnapshotId": "curve-bbad0d364d59840d",
       "sessionDate": "2024-02-09",
       "status": "READY"
     },
     {
-      "contentHash": "sha256:498fa3d27e71d40d4ae15f83b0bd5d3e494c63b933cffd837ffb56ef34229da8",
+      "contentHash": "sha256:0653d639c31a7dd09c234cb8bceff7a30f433cd80499ea6e9d58bb8b0e15b3e5",
       "curveSnapshotId": "curve-77f2759b631b5802",
       "sessionDate": "2024-02-12",
       "status": "READY"
     },
     {
-      "contentHash": "sha256:f847d764c5d6b4304e42e909539ed47b0a20a66f25ffed07ef4c567656c6bbb4",
+      "contentHash": "sha256:8a84ed3689699c8019565de865f492f9aa89ba36c2dd9321fc916f3d57adff02",
       "curveSnapshotId": "curve-5812556f8c6f033a",
       "sessionDate": "2024-02-13",
       "status": "READY"
     },
     {
-      "contentHash": "sha256:fa3a4d3cc51496c51d6eedfb035750a689e2a4e6542c4bdfbd3b601fe8cda3f4",
+      "contentHash": "sha256:40ecb76861c8cef454ba57537031e4f7ebac4baeca9f43f8b3057abeafc877dd",
       "curveSnapshotId": "curve-539bbfbd58634077",
       "sessionDate": "2024-02-14",
       "status": "READY"
     },
     {
-      "contentHash": "sha256:3628fcd3f1c8fbd0497112ea80566882f3f596d4ca150a98e0a09fbf13a16b65",
+      "contentHash": "sha256:085f4ddd3591b37541276b0e46e47a6744fca47367fe9950a0ac430f2ce8c40a",
       "curveSnapshotId": "curve-21138d533e65fa68",
       "sessionDate": "2024-02-15",
       "status": "READY"
     },
     {
-      "contentHash": "sha256:d6d272349c82b5505e6e390ad2f746b0c742284dd857be896bd59667bbb79fa6",
+      "contentHash": "sha256:9cd1956d757b06b5639a85015e878d34dcd9446ae231a2e5322de1df5c67f92e",
       "curveSnapshotId": "curve-39ae750d9f2b4b62",
       "sessionDate": "2024-02-16",
       "status": "READY"
     },
     {
-      "contentHash": "sha256:8af695ebaa841b0145ea9823b3670f6c7b6dc63225879290581ae8d532c13d68",
+      "contentHash": "sha256:1407eaae5ace2722a9a2f07380ab37f6b5d57b0ea10f7ae59b3aeb91c385217c",
       "curveSnapshotId": "curve-0b32c2b29f2dfde9",
       "sessionDate": "2024-02-20",
       "status": "READY"
     },
     {
-      "contentHash": "sha256:cf0ff5aeb70237c3939976bbaffbdd10542b2a8941967127a4929c0c6cdf4393",
+      "contentHash": "sha256:6f4ab3428f11a4a2c71404e67c39b98c681b4a84e7da744ff3bec0dc7e0bdfa0",
       "curveSnapshotId": "curve-51dcb57ce928940a",
       "sessionDate": "2024-02-21",
       "status": "READY"
     },
     {
-      "contentHash": "sha256:c01195ebb8803ef44d54218de2ac0d8f11dc983a5b0ebfb8e8d2993abe821dbb",
+      "contentHash": "sha256:9bbb605f023740c60dd2519560c4d88da3c4892100ac01827b4d7448e01da3f3",
       "curveSnapshotId": "curve-744b9d4fb34369b0",
       "sessionDate": "2024-02-22",
       "status": "READY"
     },
     {
-      "contentHash": "sha256:206f98d2231702d2916e577863adb4160088b635e369ec307ac30ef23e0e49a7",
+      "contentHash": "sha256:baedf8167044c909355475531492cd3242f8dbef88cd215e76aaae9101e47694",
       "curveSnapshotId": "curve-b69df7c59103856f",
       "sessionDate": "2024-02-23",
       "status": "READY"
@@ -210,10 +210,10 @@
   "failures": [],
   "fittedArtifacts": [],
   "generatedAt": null,
-  "gitCommit": "ded71fcb06fd3a7b30d60190ba2db58b1b38eb48",
+  "gitCommit": "7f5ad6498c9738cb18376387763983084d9b7254",
   "informationPolicy": "reconstructed_publication_plus_lag_v1",
   "lotMethod": "fifo_v1",
-  "manifestHash": "sha256:18d925955427530d6f3741a20c8a307cc49e802366c369463915752fae2e67cc",
+  "manifestHash": "sha256:d46cb4c877f72882d13baf115950a30ce0842025652583af263ef859ebfa96ff",
   "manifestVersion": "experiment-manifest-v1",
   "postingTemplates": [
     "capital_flow_v1",

@@ -6,18 +6,18 @@
       "bootstrapExemptionApplied": false,
       "breachMode": false,
       "calculationIds": [
-        "calc-007a627d332c4ec8",
-        "calc-0e42902ddd129c5b",
-        "calc-27a149a0ec027756",
-        "calc-2bc5a259e3e0dab2",
-        "calc-407d995eecb88324",
-        "calc-464a47c788de9530",
-        "calc-5112e80961ba17c5",
-        "calc-9b9c25601708e379",
-        "calc-a65fcbf94ef4eceb",
-        "calc-ccb3d6d6a6e958a0",
-        "calc-ef7a7612feb0fdda",
-        "calc-f5870113a7983574"
+        "calc-348beaa76b3ed35c",
+        "calc-3dee264afb8d1810",
+        "calc-46ea6fda218e1063",
+        "calc-4910e84958badbfd",
+        "calc-637a76a3637b3d4c",
+        "calc-80669c352928b2d3",
+        "calc-b9114dbff3c1fc0b",
+        "calc-b981c09cd7d172dc",
+        "calc-d0bceca978811891",
+        "calc-dd069b963473e592",
+        "calc-dd0cabe46852a62f",
+        "calc-e28e0e88f855ddb1"
       ],
       "checks": [],
       "decisionId": "dec:fi-demo-2024q1-faults-r0:llm_market:2024-02-21:r0",
@@ -51,7 +51,7 @@
         "outputTokens": 51,
         "provider": "reference",
         "purpose": "tool_selection",
-        "recordedResponseId": "rec-bb733d649a826a012a5bec6d",
+        "recordedResponseId": "rec-59e1209efe548703c744d909",
         "startedAt": "2024-02-22T00:00:00Z",
         "status": "ok"
       },
@@ -66,7 +66,7 @@
         "outputTokens": 477,
         "provider": "reference",
         "purpose": "tool_selection",
-        "recordedResponseId": "rec-a4771b8f02599dd11959db42",
+        "recordedResponseId": "rec-4c9006fbe0d568541c4352f8",
         "startedAt": "2024-02-22T00:00:00Z",
         "status": "ok"
       }
@@ -99,35 +99,35 @@
       "explicit_hold",
       "failure_injection:F4-policy-breach:proposal_overwritten"
     ],
-    "resultHash": "sha256:21980f6ff0425bd0837fc0d514ead5ff387f317fe8eea0a556509ff19873ca25",
+    "resultHash": "sha256:816f83d09869dc67f511c715835c24483cbb4b96a67b4849687eee0cc848053e",
     "specialistTasks": [],
     "strategyId": "llm_market",
     "toolTraces": [
       {
         "agentRole": "single",
         "error": null,
-        "outputRef": "calc-6e58734905722554",
+        "outputRef": "calc-717bcca3c9dc8706",
         "status": "ok",
         "tool": "get_portfolio_risk"
       },
       {
         "agentRole": "single",
         "error": null,
-        "outputRef": "calc-9889bda8017c43e9",
+        "outputRef": "calc-fee917e6b8795d4c",
         "status": "ok",
         "tool": "get_market_features"
       },
       {
         "agentRole": "single",
         "error": null,
-        "outputRef": "calc-ccb0afc3b2af0e3c",
+        "outputRef": "calc-b032241d2c315ed2",
         "status": "ok",
         "tool": "run_scenario"
       },
       {
         "agentRole": "single",
         "error": null,
-        "outputRef": "calc-e350804113b85f46",
+        "outputRef": "calc-385bbfb413406d1e",
         "status": "ok",
         "tool": "run_scenario"
       }
@@ -245,19 +245,19 @@
         "bootstrapExemptionApplied": false,
         "breachMode": false,
         "calculationIds": [
-          "calc-007a627d332c4ec8",
-          "calc-0e42902ddd129c5b",
-          "calc-27a149a0ec027756",
-          "calc-2bc5a259e3e0dab2",
-          "calc-407d995eecb88324",
-          "calc-464a47c788de9530",
-          "calc-5112e80961ba17c5",
-          "calc-53cab59685c239f1",
-          "calc-9b9c25601708e379",
-          "calc-a65fcbf94ef4eceb",
-          "calc-ccb3d6d6a6e958a0",
-          "calc-ef7a7612feb0fdda",
-          "calc-f5870113a7983574"
+          "calc-348beaa76b3ed35c",
+          "calc-3dee264afb8d1810",
+          "calc-46ea6fda218e1063",
+          "calc-4910e84958badbfd",
+          "calc-637a76a3637b3d4c",
+          "calc-80669c352928b2d3",
+          "calc-a8b2a083c704a02f",
+          "calc-b9114dbff3c1fc0b",
+          "calc-b981c09cd7d172dc",
+          "calc-d0bceca978811891",
+          "calc-dd069b963473e592",
+          "calc-dd0cabe46852a62f",
+          "calc-e28e0e88f855ddb1"
         ],
         "checks": [
           {
@@ -463,19 +463,19 @@
     "bootstrapExemptionApplied": false,
     "breachMode": false,
     "calculationIds": [
-      "calc-007a627d332c4ec8",
-      "calc-0e42902ddd129c5b",
-      "calc-27a149a0ec027756",
-      "calc-2bc5a259e3e0dab2",
-      "calc-407d995eecb88324",
-      "calc-464a47c788de9530",
-      "calc-5112e80961ba17c5",
-      "calc-53cab59685c239f1",
-      "calc-9b9c25601708e379",
-      "calc-a65fcbf94ef4eceb",
-      "calc-ccb3d6d6a6e958a0",
-      "calc-ef7a7612feb0fdda",
-      "calc-f5870113a7983574"
+      "calc-348beaa76b3ed35c",
+      "calc-3dee264afb8d1810",
+      "calc-46ea6fda218e1063",
+      "calc-4910e84958badbfd",
+      "calc-637a76a3637b3d4c",
+      "calc-80669c352928b2d3",
+      "calc-a8b2a083c704a02f",
+      "calc-b9114dbff3c1fc0b",
+      "calc-b981c09cd7d172dc",
+      "calc-d0bceca978811891",
+      "calc-dd069b963473e592",
+      "calc-dd0cabe46852a62f",
+      "calc-e28e0e88f855ddb1"
     ],
     "checks": [
       {

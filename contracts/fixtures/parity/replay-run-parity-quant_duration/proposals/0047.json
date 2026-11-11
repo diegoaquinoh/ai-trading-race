@@ -34,7 +34,7 @@
   "fills": [],
   "inputHashes": {
     "executionModel": "sha256:d3f9bd5e39ee45dc8e845e76f05c96cfd8a606e6c546d66b15c707b7eefc7887",
-    "marketSnapshot": "sha256:dbc593253b9a53c35b5e041a3616fff7031ce5cf538cd5ccc1f4741f2dee4b47",
+    "marketSnapshot": "sha256:189cb98dda2e5408ae0c925dd3d024904078087b51a21d9b1e86893b5d89b911",
     "portfolioState": "sha256:21ddde86db98acff7a3ab0b2cc7b848a875817baf8b5554e57a59065534322d5",
     "riskPolicy": "sha256:9fad814adb712358027210d8a4eb8b572da99cbf0ac74718e632f964726b5e23"
   },
@@ -191,19 +191,19 @@
     "bootstrapExemptionApplied": false,
     "breachMode": false,
     "calculationIds": [
-      "calc-116b9554c8b97e50",
-      "calc-25ac1fe977844f52",
-      "calc-3392aa92167fbef3",
-      "calc-46a4896b495b5ffe",
-      "calc-5f35fb09af090428",
-      "calc-6c47a6aeb1bbaa94",
-      "calc-92e3d65c231afdd2",
-      "calc-9b08356f70007e14",
-      "calc-aa93209f9ec5ac15",
-      "calc-bf8cc92202f7bfd9",
-      "calc-ce31f4ddd9e1ef97",
-      "calc-d6316175ce90bf7f",
-      "calc-dfd97f64553f000e"
+      "calc-0e0e5c9c1f28ab11",
+      "calc-3401cfd396bf6e24",
+      "calc-58e20ce1cdf30809",
+      "calc-678a5de01b0e94a2",
+      "calc-7870cf81c3a71f23",
+      "calc-a2e53a3988758aa8",
+      "calc-c0bbb7f5eb9bfe9d",
+      "calc-c52f3ecdeffec9be",
+      "calc-d6622cd682814cea",
+      "calc-e9d0e00799cc1c3c",
+      "calc-ee4528f3be6d21dc",
+      "calc-f0816ce9625b8ed5",
+      "calc-f2697bea513ce9f5"
     ],
     "checks": [
       {
@@ -378,8 +378,8 @@
     "turnoverRatio": "0.02313137"
   },
   "portfolioId": "pf:run-parity:quant_duration",
-  "proposalHash": "sha256:ef54f8c25827e3cd868f3a2bb379f52c4d8bc97def2a6166ed001fd98f4d2a58",
-  "proposalId": "prop-d30b4f8f78c7fb45",
+  "proposalHash": "sha256:6a093e4c73a6fcaf0233a90306c337ff4120f37f94073979e4beb151d88a816a",
+  "proposalId": "prop-e11592ba5c5e04e9",
   "reconciliation": {
     "bookEquityUsd": "1000778.62",
     "differenceUsd": null,
@@ -391,12 +391,12 @@
     "ok": true,
     "stateCashUsd": "142638.87"
   },
-  "requestHash": "sha256:32f303dd55668f2eb683be5a78bd7100d3fefc45ad85af92cf388b6ffe33c4a6",
+  "requestHash": "sha256:0b30c24234d8ffa542374d0009ed20778d63aea09b0afddb11bd3bbc73382e8e",
   "runId": "run-parity",
   "schemaVersion": "1.0",
   "settlementsCompleted": [],
   "settlementsCreated": [],
-  "signature": "hmac-sha256:ccecc336a544d42b0cae80c6d14dc8343de67ff2bc5c522466ed365573613b79",
+  "signature": "hmac-sha256:3e3d42b40bd2e2da40b0b8ec0ae23bc5bbc8df070939b95e3e794276104d7cd7",
   "strategyId": "quant_duration",
   "valuation": null
 }
