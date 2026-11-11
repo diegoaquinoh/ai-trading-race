@@ -1,0 +1,2261 @@
+{
+  "$defs": {
+    "AccountCode": {
+      "description": "Chart of accounts. Posting templates: docs/fixed-income/accounting.md.",
+      "enum": [
+        "CASH",
+        "BOND_PRINCIPAL",
+        "ACCRUED_INTEREST_PURCHASED",
+        "SETTLEMENT_RECEIVABLE",
+        "SETTLEMENT_PAYABLE",
+        "MARK_ADJUSTMENT",
+        "CAPITAL",
+        "INTEREST_INCOME",
+        "REALIZED_GAIN_LOSS",
+        "UNREALIZED_GAIN_LOSS",
+        "TRANSACTION_FEES"
+      ],
+      "title": "AccountCode",
+      "type": "string"
+    },
+    "CapitalFlowEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "amountUsd": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Amountusd",
+          "type": "string"
+        },
+        "effectiveAt": {
+          "format": "date-time",
+          "title": "Effectiveat",
+          "type": "string"
+        },
+        "eventId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Eventid",
+          "type": "string"
+        },
+        "priority": {
+          "title": "Priority",
+          "type": "integer"
+        },
+        "reason": {
+          "default": "initial_capital",
+          "title": "Reason",
+          "type": "string"
+        },
+        "type": {
+          "const": "capital_flow",
+          "default": "capital_flow",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "eventId",
+        "effectiveAt",
+        "priority",
+        "amountUsd"
+      ],
+      "title": "CapitalFlowEvent",
+      "type": "object"
+    },
+    "CashFlowRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "amountUsd": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Amountusd",
+          "type": "string"
+        },
+        "cashFlowId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Cashflowid",
+          "type": "string"
+        },
+        "entitledFace": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Entitledface",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "COUPON",
+            "REDEMPTION",
+            "CAPITAL",
+            "CASH_INTEREST"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "paymentDate": {
+          "format": "date",
+          "title": "Paymentdate",
+          "type": "string"
+        },
+        "securityId": {
+          "pattern": "^[A-Z0-9][A-Z0-9\\-\\.]{1,63}$",
+          "title": "Securityid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "cashFlowId",
+        "securityId",
+        "kind",
+        "paymentDate",
+        "entitledFace",
+        "amountUsd"
+      ],
+      "title": "CashFlowRecord",
+      "type": "object"
+    },
+    "CommandType": {
+      "enum": [
+        "process_events",
+        "submit_decision",
+        "value_portfolio",
+        "capital_flow"
+      ],
+      "title": "CommandType",
+      "type": "string"
+    },
+    "CouponPaymentEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "accrualEnd": {
+          "format": "date",
+          "title": "Accrualend",
+          "type": "string"
+        },
+        "accrualStart": {
+          "format": "date",
+          "title": "Accrualstart",
+          "type": "string"
+        },
+        "couponPer100": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Couponper100",
+          "type": "string"
+        },
+        "effectiveAt": {
+          "format": "date-time",
+          "title": "Effectiveat",
+          "type": "string"
+        },
+        "eventId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Eventid",
+          "type": "string"
+        },
+        "paymentDate": {
+          "format": "date",
+          "title": "Paymentdate",
+          "type": "string"
+        },
+        "priority": {
+          "title": "Priority",
+          "type": "integer"
+        },
+        "securityId": {
+          "pattern": "^[A-Z0-9][A-Z0-9\\-\\.]{1,63}$",
+          "title": "Securityid",
+          "type": "string"
+        },
+        "type": {
+          "const": "coupon_payment",
+          "default": "coupon_payment",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "eventId",
+        "effectiveAt",
+        "priority",
+        "securityId",
+        "paymentDate",
+        "accrualStart",
+        "accrualEnd",
+        "couponPer100"
+      ],
+      "title": "CouponPaymentEvent",
+      "type": "object"
+    },
+    "DataMode": {
+      "enum": [
+        "synthetic_curve",
+        "observed_security"
+      ],
+      "title": "DataMode",
+      "type": "string"
+    },
+    "DecisionAction": {
+      "enum": [
+        "HOLD",
+        "REBALANCE",
+        "BOOTSTRAP"
+      ],
+      "title": "DecisionAction",
+      "type": "string"
+    },
+    "EventType": {
+      "enum": [
+        "capital_flow",
+        "settlement_due",
+        "redemption",
+        "coupon_payment",
+        "execution_observation",
+        "order_expiry",
+        "valuation_mark",
+        "order_cancellation",
+        "orders_submitted"
+      ],
+      "title": "EventType",
+      "type": "string"
+    },
+    "ExecutionObservationEvent": {
+      "additionalProperties": false,
+      "description": "An eligible later market observation against which an order may fill.",
+      "properties": {
+        "accruedPer100": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Accruedper100",
+          "type": "string"
+        },
+        "askCleanPricePer100": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Askcleanpriceper100"
+        },
+        "bidCleanPricePer100": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bidcleanpriceper100"
+        },
+        "dataValid": {
+          "default": true,
+          "title": "Datavalid",
+          "type": "boolean"
+        },
+        "effectiveAt": {
+          "format": "date-time",
+          "title": "Effectiveat",
+          "type": "string"
+        },
+        "eventId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Eventid",
+          "type": "string"
+        },
+        "instrumentActive": {
+          "default": true,
+          "title": "Instrumentactive",
+          "type": "boolean"
+        },
+        "invalidReason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Invalidreason"
+        },
+        "observationId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Observationid",
+          "type": "string"
+        },
+        "observedAt": {
+          "format": "date-time",
+          "title": "Observedat",
+          "type": "string"
+        },
+        "orderId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Orderid",
+          "type": "string"
+        },
+        "priority": {
+          "title": "Priority",
+          "type": "integer"
+        },
+        "quoteKind": {
+          "$ref": "#/$defs/QuoteKind"
+        },
+        "recheckPassed": {
+          "default": true,
+          "title": "Recheckpassed",
+          "type": "boolean"
+        },
+        "recheckReasons": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Recheckreasons",
+          "type": "array"
+        },
+        "referenceCleanPricePer100": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Referencecleanpriceper100"
+        },
+        "sessionDate": {
+          "format": "date",
+          "title": "Sessiondate",
+          "type": "string"
+        },
+        "settlementDate": {
+          "format": "date",
+          "title": "Settlementdate",
+          "type": "string"
+        },
+        "type": {
+          "const": "execution_observation",
+          "default": "execution_observation",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "eventId",
+        "effectiveAt",
+        "priority",
+        "orderId",
+        "observationId",
+        "observedAt",
+        "sessionDate",
+        "quoteKind",
+        "accruedPer100",
+        "settlementDate"
+      ],
+      "title": "ExecutionObservationEvent",
+      "type": "object"
+    },
+    "Fill": {
+      "additionalProperties": false,
+      "properties": {
+        "accruedPer100": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Accruedper100",
+          "type": "string"
+        },
+        "considerationUsd": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Considerationusd",
+          "type": "string"
+        },
+        "dirtyPricePer100": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Dirtypriceper100",
+          "type": "string"
+        },
+        "executedAt": {
+          "format": "date-time",
+          "title": "Executedat",
+          "type": "string"
+        },
+        "executionCleanPricePer100": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Executioncleanpriceper100",
+          "type": "string"
+        },
+        "face": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Face",
+          "type": "string"
+        },
+        "feesUsd": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Feesusd",
+          "type": "string"
+        },
+        "fillId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Fillid",
+          "type": "string"
+        },
+        "halfSpreadPer100": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Halfspreadper100",
+          "type": "string"
+        },
+        "observationId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Observationid",
+          "type": "string"
+        },
+        "orderId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Orderid",
+          "type": "string"
+        },
+        "quoteKind": {
+          "$ref": "#/$defs/QuoteKind"
+        },
+        "referenceCleanPricePer100": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Referencecleanpriceper100",
+          "type": "string"
+        },
+        "securityId": {
+          "pattern": "^[A-Z0-9][A-Z0-9\\-\\.]{1,63}$",
+          "title": "Securityid",
+          "type": "string"
+        },
+        "settlementDate": {
+          "format": "date",
+          "title": "Settlementdate",
+          "type": "string"
+        },
+        "side": {
+          "$ref": "#/$defs/Side"
+        },
+        "spreadCostUsd": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Spreadcostusd",
+          "type": "string"
+        },
+        "timingLabel": {
+          "default": "next_session_close_daily",
+          "title": "Timinglabel",
+          "type": "string"
+        }
+      },
+      "required": [
+        "fillId",
+        "orderId",
+        "securityId",
+        "side",
+        "face",
+        "executedAt",
+        "observationId",
+        "quoteKind",
+        "referenceCleanPricePer100",
+        "executionCleanPricePer100",
+        "accruedPer100",
+        "dirtyPricePer100",
+        "halfSpreadPer100",
+        "settlementDate",
+        "considerationUsd",
+        "feesUsd",
+        "spreadCostUsd"
+      ],
+      "title": "Fill",
+      "type": "object"
+    },
+    "Journal": {
+      "additionalProperties": false,
+      "properties": {
+        "effectiveAt": {
+          "format": "date-time",
+          "title": "Effectiveat",
+          "type": "string"
+        },
+        "eventId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Eventid",
+          "type": "string"
+        },
+        "eventType": {
+          "$ref": "#/$defs/EventType"
+        },
+        "journalId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Journalid",
+          "type": "string"
+        },
+        "lines": {
+          "items": {
+            "$ref": "#/$defs/JournalLine"
+          },
+          "title": "Lines",
+          "type": "array"
+        },
+        "template": {
+          "title": "Template",
+          "type": "string"
+        }
+      },
+      "required": [
+        "journalId",
+        "eventId",
+        "eventType",
+        "effectiveAt",
+        "template",
+        "lines"
+      ],
+      "title": "Journal",
+      "type": "object"
+    },
+    "JournalLine": {
+      "additionalProperties": false,
+      "properties": {
+        "account": {
+          "$ref": "#/$defs/AccountCode"
+        },
+        "creditUsd": {
+          "default": "0",
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Creditusd",
+          "type": "string"
+        },
+        "debitUsd": {
+          "default": "0",
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Debitusd",
+          "type": "string"
+        },
+        "lineId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Lineid",
+          "type": "string"
+        },
+        "memo": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Memo"
+        },
+        "securityId": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Z0-9][A-Z0-9\\-\\.]{1,63}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Securityid"
+        }
+      },
+      "required": [
+        "lineId",
+        "account"
+      ],
+      "title": "JournalLine",
+      "type": "object"
+    },
+    "Lot": {
+      "additionalProperties": false,
+      "description": "FIFO tax lot. Remaining cost amounts shrink pro rata on partial sale.",
+      "properties": {
+        "accruedPurchasedUsd": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Accruedpurchasedusd",
+          "type": "string"
+        },
+        "cleanPricePer100": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Cleanpriceper100",
+          "type": "string"
+        },
+        "face": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Face",
+          "type": "string"
+        },
+        "lotId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Lotid",
+          "type": "string"
+        },
+        "principalCostUsd": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Principalcostusd",
+          "type": "string"
+        },
+        "securityId": {
+          "pattern": "^[A-Z0-9][A-Z0-9\\-\\.]{1,63}$",
+          "title": "Securityid",
+          "type": "string"
+        },
+        "settlementDate": {
+          "format": "date",
+          "title": "Settlementdate",
+          "type": "string"
+        },
+        "tradeDate": {
+          "format": "date",
+          "title": "Tradedate",
+          "type": "string"
+        }
+      },
+      "required": [
+        "lotId",
+        "securityId",
+        "face",
+        "tradeDate",
+        "settlementDate",
+        "cleanPricePer100",
+        "principalCostUsd",
+        "accruedPurchasedUsd"
+      ],
+      "title": "Lot",
+      "type": "object"
+    },
+    "MarkType": {
+      "enum": [
+        "curve_model",
+        "observed_mid",
+        "observed_bid",
+        "unavailable"
+      ],
+      "title": "MarkType",
+      "type": "string"
+    },
+    "OrderCancellationEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "effectiveAt": {
+          "format": "date-time",
+          "title": "Effectiveat",
+          "type": "string"
+        },
+        "eventId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Eventid",
+          "type": "string"
+        },
+        "orderId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Orderid",
+          "type": "string"
+        },
+        "priority": {
+          "title": "Priority",
+          "type": "integer"
+        },
+        "replacedByDecisionId": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Replacedbydecisionid"
+        },
+        "type": {
+          "const": "order_cancellation",
+          "default": "order_cancellation",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "eventId",
+        "effectiveAt",
+        "priority",
+        "orderId"
+      ],
+      "title": "OrderCancellationEvent",
+      "type": "object"
+    },
+    "OrderExpiryEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "effectiveAt": {
+          "format": "date-time",
+          "title": "Effectiveat",
+          "type": "string"
+        },
+        "eventId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Eventid",
+          "type": "string"
+        },
+        "orderId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Orderid",
+          "type": "string"
+        },
+        "priority": {
+          "title": "Priority",
+          "type": "integer"
+        },
+        "reason": {
+          "default": "time_in_force_elapsed",
+          "title": "Reason",
+          "type": "string"
+        },
+        "type": {
+          "const": "order_expiry",
+          "default": "order_expiry",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "eventId",
+        "effectiveAt",
+        "priority",
+        "orderId"
+      ],
+      "title": "OrderExpiryEvent",
+      "type": "object"
+    },
+    "OrderIntent": {
+      "additionalProperties": false,
+      "properties": {
+        "batchPriority": {
+          "default": 0,
+          "title": "Batchpriority",
+          "type": "integer"
+        },
+        "bootstrap": {
+          "default": false,
+          "title": "Bootstrap",
+          "type": "boolean"
+        },
+        "decisionId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Decisionid",
+          "type": "string"
+        },
+        "eligibleSessionDate": {
+          "format": "date",
+          "title": "Eligiblesessiondate",
+          "type": "string"
+        },
+        "expiresAt": {
+          "format": "date-time",
+          "title": "Expiresat",
+          "type": "string"
+        },
+        "face": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Face",
+          "type": "string"
+        },
+        "orderId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Orderid",
+          "type": "string"
+        },
+        "reservedCashUsd": {
+          "default": "0",
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Reservedcashusd",
+          "type": "string"
+        },
+        "securityId": {
+          "pattern": "^[A-Z0-9][A-Z0-9\\-\\.]{1,63}$",
+          "title": "Securityid",
+          "type": "string"
+        },
+        "side": {
+          "$ref": "#/$defs/Side"
+        },
+        "status": {
+          "$ref": "#/$defs/OrderStatus",
+          "default": "ACCEPTED"
+        },
+        "statusReason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Statusreason"
+        },
+        "submittedAt": {
+          "format": "date-time",
+          "title": "Submittedat",
+          "type": "string"
+        }
+      },
+      "required": [
+        "orderId",
+        "decisionId",
+        "securityId",
+        "side",
+        "face",
+        "submittedAt",
+        "eligibleSessionDate",
+        "expiresAt"
+      ],
+      "title": "OrderIntent",
+      "type": "object"
+    },
+    "OrderStatus": {
+      "enum": [
+        "ACCEPTED",
+        "FILLED",
+        "EXPIRED",
+        "CANCELLED",
+        "REJECTED"
+      ],
+      "title": "OrderStatus",
+      "type": "string"
+    },
+    "OrdersSubmittedEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "decisionId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Decisionid",
+          "type": "string"
+        },
+        "effectiveAt": {
+          "format": "date-time",
+          "title": "Effectiveat",
+          "type": "string"
+        },
+        "eventId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Eventid",
+          "type": "string"
+        },
+        "orders": {
+          "items": {
+            "$ref": "#/$defs/OrderIntent"
+          },
+          "title": "Orders",
+          "type": "array"
+        },
+        "priority": {
+          "title": "Priority",
+          "type": "integer"
+        },
+        "type": {
+          "const": "orders_submitted",
+          "default": "orders_submitted",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "eventId",
+        "effectiveAt",
+        "priority",
+        "decisionId",
+        "orders"
+      ],
+      "title": "OrdersSubmittedEvent",
+      "type": "object"
+    },
+    "PendingSettlement": {
+      "additionalProperties": false,
+      "properties": {
+        "cashUsd": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Cashusd",
+          "type": "string"
+        },
+        "face": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Face",
+          "type": "string"
+        },
+        "fillId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Fillid",
+          "type": "string"
+        },
+        "securityId": {
+          "pattern": "^[A-Z0-9][A-Z0-9\\-\\.]{1,63}$",
+          "title": "Securityid",
+          "type": "string"
+        },
+        "settlementDate": {
+          "format": "date",
+          "title": "Settlementdate",
+          "type": "string"
+        },
+        "settlementId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Settlementid",
+          "type": "string"
+        },
+        "side": {
+          "$ref": "#/$defs/Side"
+        }
+      },
+      "required": [
+        "settlementId",
+        "fillId",
+        "securityId",
+        "side",
+        "face",
+        "settlementDate",
+        "cashUsd"
+      ],
+      "title": "PendingSettlement",
+      "type": "object"
+    },
+    "PolicyCheck": {
+      "additionalProperties": false,
+      "properties": {
+        "checkId": {
+          "title": "Checkid",
+          "type": "string"
+        },
+        "limit": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Limit"
+        },
+        "observed": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Observed"
+        },
+        "passed": {
+          "title": "Passed",
+          "type": "boolean"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reason"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "checkId",
+        "unit",
+        "passed"
+      ],
+      "title": "PolicyCheck",
+      "type": "object"
+    },
+    "PolicyEvaluation": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "$ref": "#/$defs/DecisionAction"
+        },
+        "bootstrapExemptionApplied": {
+          "default": false,
+          "title": "Bootstrapexemptionapplied",
+          "type": "boolean"
+        },
+        "breachMode": {
+          "default": false,
+          "title": "Breachmode",
+          "type": "boolean"
+        },
+        "calculationIds": {
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+            "type": "string"
+          },
+          "title": "Calculationids",
+          "type": "array"
+        },
+        "checks": {
+          "items": {
+            "$ref": "#/$defs/PolicyCheck"
+          },
+          "title": "Checks",
+          "type": "array"
+        },
+        "decisionId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Decisionid",
+          "type": "string"
+        },
+        "normalizationNotes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Normalizationnotes",
+          "type": "array"
+        },
+        "normalizedTargets": {
+          "items": {
+            "$ref": "#/$defs/TargetWeight"
+          },
+          "title": "Normalizedtargets",
+          "type": "array"
+        },
+        "orderCount": {
+          "default": 0,
+          "title": "Ordercount",
+          "type": "integer"
+        },
+        "originalTargets": {
+          "items": {
+            "$ref": "#/$defs/TargetWeight"
+          },
+          "title": "Originaltargets",
+          "type": "array"
+        },
+        "passed": {
+          "title": "Passed",
+          "type": "boolean"
+        },
+        "policyId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Policyid",
+          "type": "string"
+        },
+        "postTradeCashRatio": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Posttradecashratio"
+        },
+        "postTradeMaxSecurityRatio": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Posttrademaxsecurityratio"
+        },
+        "postTradeNavUsd": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Posttradenavusd"
+        },
+        "postTradeParallelDv01Usd": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Posttradeparalleldv01Usd"
+        },
+        "preTradeCashRatio": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pretradecashratio"
+        },
+        "preTradeMaxSecurityRatio": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pretrademaxsecurityratio"
+        },
+        "preTradeNavUsd": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pretradenavusd"
+        },
+        "preTradeParallelDv01Usd": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pretradeparalleldv01Usd"
+        },
+        "rejectedReasons": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Rejectedreasons",
+          "type": "array"
+        },
+        "sizedOrders": {
+          "items": {
+            "$ref": "#/$defs/SizedOrder"
+          },
+          "title": "Sizedorders",
+          "type": "array"
+        },
+        "turnoverRatio": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Turnoverratio"
+        }
+      },
+      "required": [
+        "policyId",
+        "decisionId",
+        "action",
+        "passed"
+      ],
+      "title": "PolicyEvaluation",
+      "type": "object"
+    },
+    "PortfolioState": {
+      "additionalProperties": false,
+      "description": "Versioned authoritative portfolio state (application-owned once committed).",
+      "properties": {
+        "asOf": {
+          "format": "date-time",
+          "title": "Asof",
+          "type": "string"
+        },
+        "blockedReason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Blockedreason"
+        },
+        "bookedUnrealizedUsd": {
+          "default": "0",
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Bookedunrealizedusd",
+          "type": "string"
+        },
+        "cashFlowsProcessedThrough": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cashflowsprocessedthrough"
+        },
+        "cashUsd": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Cashusd",
+          "type": "string"
+        },
+        "currency": {
+          "const": "USD",
+          "default": "USD",
+          "title": "Currency",
+          "type": "string"
+        },
+        "externalCapitalUsd": {
+          "default": "0",
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Externalcapitalusd",
+          "type": "string"
+        },
+        "interestIncomeUsd": {
+          "default": "0",
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Interestincomeusd",
+          "type": "string"
+        },
+        "lastValuationId": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Lastvaluationid"
+        },
+        "openOrders": {
+          "items": {
+            "$ref": "#/$defs/OrderIntent"
+          },
+          "title": "Openorders",
+          "type": "array"
+        },
+        "pendingSettlements": {
+          "items": {
+            "$ref": "#/$defs/PendingSettlement"
+          },
+          "title": "Pendingsettlements",
+          "type": "array"
+        },
+        "portfolioId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Portfolioid",
+          "type": "string"
+        },
+        "positions": {
+          "items": {
+            "$ref": "#/$defs/Position"
+          },
+          "title": "Positions",
+          "type": "array"
+        },
+        "realizedGainLossUsd": {
+          "default": "0",
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Realizedgainlossusd",
+          "type": "string"
+        },
+        "reservedCashUsd": {
+          "default": "0",
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Reservedcashusd",
+          "type": "string"
+        },
+        "riskBreaches": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Riskbreaches",
+          "type": "array"
+        },
+        "runId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Runid",
+          "type": "string"
+        },
+        "schemaVersion": {
+          "default": "1.0",
+          "title": "Schemaversion",
+          "type": "string"
+        },
+        "spreadCostUsd": {
+          "default": "0",
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Spreadcostusd",
+          "type": "string"
+        },
+        "strategyId": {
+          "pattern": "^[a-z][a-z0-9_]{1,63}$",
+          "title": "Strategyid",
+          "type": "string"
+        },
+        "transactionFeesUsd": {
+          "default": "0",
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Transactionfeesusd",
+          "type": "string"
+        },
+        "version": {
+          "minimum": 0,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "portfolioId",
+        "strategyId",
+        "runId",
+        "version",
+        "asOf",
+        "cashUsd"
+      ],
+      "title": "PortfolioState",
+      "type": "object"
+    },
+    "Position": {
+      "additionalProperties": false,
+      "properties": {
+        "economicFace": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Economicface",
+          "type": "string"
+        },
+        "lots": {
+          "items": {
+            "$ref": "#/$defs/Lot"
+          },
+          "title": "Lots",
+          "type": "array"
+        },
+        "securityId": {
+          "pattern": "^[A-Z0-9][A-Z0-9\\-\\.]{1,63}$",
+          "title": "Securityid",
+          "type": "string"
+        },
+        "settledFace": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Settledface",
+          "type": "string"
+        }
+      },
+      "required": [
+        "securityId",
+        "economicFace",
+        "settledFace"
+      ],
+      "title": "Position",
+      "type": "object"
+    },
+    "PositionMark": {
+      "additionalProperties": false,
+      "properties": {
+        "accruedPer100": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Accruedper100"
+        },
+        "calculationId": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Calculationid"
+        },
+        "cleanPricePer100": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cleanpriceper100"
+        },
+        "economicFace": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Economicface",
+          "type": "string"
+        },
+        "markAgeBusinessDays": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Markagebusinessdays"
+        },
+        "markType": {
+          "$ref": "#/$defs/MarkType"
+        },
+        "observedAt": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Observedat"
+        },
+        "pvDirtyUsd": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pvdirtyusd"
+        },
+        "securityId": {
+          "pattern": "^[A-Z0-9][A-Z0-9\\-\\.]{1,63}$",
+          "title": "Securityid",
+          "type": "string"
+        },
+        "stale": {
+          "default": false,
+          "title": "Stale",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "securityId",
+        "economicFace",
+        "markType"
+      ],
+      "title": "PositionMark",
+      "type": "object"
+    },
+    "QuoteKind": {
+      "enum": [
+        "synthetic_model",
+        "observed_bid",
+        "observed_ask",
+        "observed_mid",
+        "observed_evaluated",
+        "observed_trade",
+        "observed_indicative"
+      ],
+      "title": "QuoteKind",
+      "type": "string"
+    },
+    "ReconciliationReport": {
+      "additionalProperties": false,
+      "properties": {
+        "bookEquityUsd": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Bookequityusd",
+          "type": "string"
+        },
+        "differenceUsd": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Differenceusd"
+        },
+        "economicEquityUsd": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Economicequityusd"
+        },
+        "journalsBalanced": {
+          "title": "Journalsbalanced",
+          "type": "boolean"
+        },
+        "ledgerCashUsd": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Ledgercashusd",
+          "type": "string"
+        },
+        "ledgerPrincipalFaceCheck": {
+          "title": "Ledgerprincipalfacecheck",
+          "type": "boolean"
+        },
+        "messages": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Messages",
+          "type": "array"
+        },
+        "ok": {
+          "title": "Ok",
+          "type": "boolean"
+        },
+        "stateCashUsd": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Statecashusd",
+          "type": "string"
+        }
+      },
+      "required": [
+        "ok",
+        "journalsBalanced",
+        "ledgerCashUsd",
+        "stateCashUsd",
+        "ledgerPrincipalFaceCheck",
+        "bookEquityUsd"
+      ],
+      "title": "ReconciliationReport",
+      "type": "object"
+    },
+    "RedemptionEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "effectiveAt": {
+          "format": "date-time",
+          "title": "Effectiveat",
+          "type": "string"
+        },
+        "eventId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Eventid",
+          "type": "string"
+        },
+        "paymentDate": {
+          "format": "date",
+          "title": "Paymentdate",
+          "type": "string"
+        },
+        "priority": {
+          "title": "Priority",
+          "type": "integer"
+        },
+        "redemptionPer100": {
+          "default": "100",
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Redemptionper100",
+          "type": "string"
+        },
+        "securityId": {
+          "pattern": "^[A-Z0-9][A-Z0-9\\-\\.]{1,63}$",
+          "title": "Securityid",
+          "type": "string"
+        },
+        "type": {
+          "const": "redemption",
+          "default": "redemption",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "eventId",
+        "effectiveAt",
+        "priority",
+        "securityId",
+        "paymentDate"
+      ],
+      "title": "RedemptionEvent",
+      "type": "object"
+    },
+    "SettlementDueEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "effectiveAt": {
+          "format": "date-time",
+          "title": "Effectiveat",
+          "type": "string"
+        },
+        "eventId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Eventid",
+          "type": "string"
+        },
+        "priority": {
+          "title": "Priority",
+          "type": "integer"
+        },
+        "settlementId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Settlementid",
+          "type": "string"
+        },
+        "type": {
+          "const": "settlement_due",
+          "default": "settlement_due",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "eventId",
+        "effectiveAt",
+        "priority",
+        "settlementId"
+      ],
+      "title": "SettlementDueEvent",
+      "type": "object"
+    },
+    "Side": {
+      "enum": [
+        "BUY",
+        "SELL"
+      ],
+      "title": "Side",
+      "type": "string"
+    },
+    "SizedOrder": {
+      "additionalProperties": false,
+      "properties": {
+        "estimatedConsiderationUsd": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Estimatedconsiderationusd",
+          "type": "string"
+        },
+        "estimatedDirtyPricePer100": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Estimateddirtypriceper100",
+          "type": "string"
+        },
+        "face": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Face",
+          "type": "string"
+        },
+        "securityId": {
+          "pattern": "^[A-Z0-9][A-Z0-9\\-\\.]{1,63}$",
+          "title": "Securityid",
+          "type": "string"
+        },
+        "side": {
+          "$ref": "#/$defs/Side"
+        }
+      },
+      "required": [
+        "securityId",
+        "side",
+        "face",
+        "estimatedDirtyPricePer100",
+        "estimatedConsiderationUsd"
+      ],
+      "title": "SizedOrder",
+      "type": "object"
+    },
+    "TargetWeight": {
+      "additionalProperties": false,
+      "properties": {
+        "securityId": {
+          "pattern": "^[A-Z0-9][A-Z0-9\\-\\.]{1,63}$",
+          "title": "Securityid",
+          "type": "string"
+        },
+        "weight": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Weight",
+          "type": "string"
+        }
+      },
+      "required": [
+        "securityId",
+        "weight"
+      ],
+      "title": "TargetWeight",
+      "type": "object"
+    },
+    "ValuationMarkEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "complete": {
+          "default": true,
+          "title": "Complete",
+          "type": "boolean"
+        },
+        "curveSnapshotId": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Curvesnapshotid"
+        },
+        "effectiveAt": {
+          "format": "date-time",
+          "title": "Effectiveat",
+          "type": "string"
+        },
+        "eventId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Eventid",
+          "type": "string"
+        },
+        "incompleteReasons": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Incompletereasons",
+          "type": "array"
+        },
+        "marks": {
+          "items": {
+            "$ref": "#/$defs/PositionMark"
+          },
+          "title": "Marks",
+          "type": "array"
+        },
+        "payablesPvUsd": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Payablespvusd"
+        },
+        "priority": {
+          "title": "Priority",
+          "type": "integer"
+        },
+        "receivablesPvUsd": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Receivablespvusd"
+        },
+        "type": {
+          "const": "valuation_mark",
+          "default": "valuation_mark",
+          "title": "Type",
+          "type": "string"
+        },
+        "valuationId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Valuationid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "eventId",
+        "effectiveAt",
+        "priority",
+        "valuationId"
+      ],
+      "title": "ValuationMarkEvent",
+      "type": "object"
+    },
+    "ValuationSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "bondValueUsd": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bondvalueusd"
+        },
+        "calculationIds": {
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+            "type": "string"
+          },
+          "title": "Calculationids",
+          "type": "array"
+        },
+        "cashUsd": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Cashusd",
+          "type": "string"
+        },
+        "complete": {
+          "title": "Complete",
+          "type": "boolean"
+        },
+        "curveSnapshotId": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Curvesnapshotid"
+        },
+        "dataMode": {
+          "$ref": "#/$defs/DataMode"
+        },
+        "effectiveDurationYears": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Effectivedurationyears"
+        },
+        "equityUsd": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Equityusd"
+        },
+        "incompleteReasons": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Incompletereasons",
+          "type": "array"
+        },
+        "markPolicy": {
+          "default": "synthetic_curve_model_v1",
+          "title": "Markpolicy",
+          "type": "string"
+        },
+        "marks": {
+          "items": {
+            "$ref": "#/$defs/PositionMark"
+          },
+          "title": "Marks",
+          "type": "array"
+        },
+        "parallelDv01Usd": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Paralleldv01Usd"
+        },
+        "payablesPvUsd": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Payablespvusd"
+        },
+        "portfolioId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Portfolioid",
+          "type": "string"
+        },
+        "receivablesPvUsd": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Receivablespvusd"
+        },
+        "stateVersion": {
+          "title": "Stateversion",
+          "type": "integer"
+        },
+        "valuationAt": {
+          "format": "date-time",
+          "title": "Valuationat",
+          "type": "string"
+        },
+        "valuationId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Valuationid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "valuationId",
+        "portfolioId",
+        "stateVersion",
+        "valuationAt",
+        "dataMode",
+        "complete",
+        "cashUsd"
+      ],
+      "title": "ValuationSnapshot",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Pure numerical proposal. Committed only by the application after checks.\n\n``proposal_hash`` = sha256 of canonical JSON of every field except\n``proposal_hash`` and ``signature``; ``signature`` = HMAC over that hash.",
+  "properties": {
+    "cashFlows": {
+      "items": {
+        "$ref": "#/$defs/CashFlowRecord"
+      },
+      "title": "Cashflows",
+      "type": "array"
+    },
+    "commandId": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+      "title": "Commandid",
+      "type": "string"
+    },
+    "commandType": {
+      "$ref": "#/$defs/CommandType"
+    },
+    "engineVersion": {
+      "title": "Engineversion",
+      "type": "string"
+    },
+    "eventPriorityTable": {
+      "default": "event-priority-v1",
+      "title": "Eventprioritytable",
+      "type": "string"
+    },
+    "events": {
+      "items": {
+        "discriminator": {
+          "mapping": {
+            "capital_flow": "#/$defs/CapitalFlowEvent",
+            "coupon_payment": "#/$defs/CouponPaymentEvent",
+            "execution_observation": "#/$defs/ExecutionObservationEvent",
+            "order_cancellation": "#/$defs/OrderCancellationEvent",
+            "order_expiry": "#/$defs/OrderExpiryEvent",
+            "orders_submitted": "#/$defs/OrdersSubmittedEvent",
+            "redemption": "#/$defs/RedemptionEvent",
+            "settlement_due": "#/$defs/SettlementDueEvent",
+            "valuation_mark": "#/$defs/ValuationMarkEvent"
+          },
+          "propertyName": "type"
+        },
+        "oneOf": [
+          {
+            "$ref": "#/$defs/CapitalFlowEvent"
+          },
+          {
+            "$ref": "#/$defs/SettlementDueEvent"
+          },
+          {
+            "$ref": "#/$defs/RedemptionEvent"
+          },
+          {
+            "$ref": "#/$defs/CouponPaymentEvent"
+          },
+          {
+            "$ref": "#/$defs/ExecutionObservationEvent"
+          },
+          {
+            "$ref": "#/$defs/OrderExpiryEvent"
+          },
+          {
+            "$ref": "#/$defs/ValuationMarkEvent"
+          },
+          {
+            "$ref": "#/$defs/OrderCancellationEvent"
+          },
+          {
+            "$ref": "#/$defs/OrdersSubmittedEvent"
+          }
+        ]
+      },
+      "title": "Events",
+      "type": "array"
+    },
+    "expectedVersion": {
+      "title": "Expectedversion",
+      "type": "integer"
+    },
+    "fills": {
+      "items": {
+        "$ref": "#/$defs/Fill"
+      },
+      "title": "Fills",
+      "type": "array"
+    },
+    "inputHashes": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Inputhashes",
+      "type": "object"
+    },
+    "journals": {
+      "items": {
+        "$ref": "#/$defs/Journal"
+      },
+      "title": "Journals",
+      "type": "array"
+    },
+    "newState": {
+      "$ref": "#/$defs/PortfolioState"
+    },
+    "newStateHash": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "title": "Newstatehash",
+      "type": "string"
+    },
+    "newVersion": {
+      "title": "Newversion",
+      "type": "integer"
+    },
+    "noOp": {
+      "default": false,
+      "title": "Noop",
+      "type": "boolean"
+    },
+    "orderStatusChanges": {
+      "items": {
+        "$ref": "#/$defs/OrderIntent"
+      },
+      "title": "Orderstatuschanges",
+      "type": "array"
+    },
+    "ordersCreated": {
+      "items": {
+        "$ref": "#/$defs/OrderIntent"
+      },
+      "title": "Orderscreated",
+      "type": "array"
+    },
+    "policyEvaluation": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/PolicyEvaluation"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "portfolioId": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+      "title": "Portfolioid",
+      "type": "string"
+    },
+    "proposalHash": {
+      "anyOf": [
+        {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Proposalhash"
+    },
+    "proposalId": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+      "title": "Proposalid",
+      "type": "string"
+    },
+    "reconciliation": {
+      "$ref": "#/$defs/ReconciliationReport"
+    },
+    "requestHash": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "title": "Requesthash",
+      "type": "string"
+    },
+    "runId": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+      "title": "Runid",
+      "type": "string"
+    },
+    "schemaVersion": {
+      "default": "1.0",
+      "title": "Schemaversion",
+      "type": "string"
+    },
+    "settlementsCompleted": {
+      "items": {
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+        "type": "string"
+      },
+      "title": "Settlementscompleted",
+      "type": "array"
+    },
+    "settlementsCreated": {
+      "items": {
+        "$ref": "#/$defs/PendingSettlement"
+      },
+      "title": "Settlementscreated",
+      "type": "array"
+    },
+    "signature": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Signature"
+    },
+    "strategyId": {
+      "pattern": "^[a-z][a-z0-9_]{1,63}$",
+      "title": "Strategyid",
+      "type": "string"
+    },
+    "valuation": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ValuationSnapshot"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    }
+  },
+  "required": [
+    "proposalId",
+    "commandId",
+    "commandType",
+    "portfolioId",
+    "strategyId",
+    "runId",
+    "expectedVersion",
+    "newVersion",
+    "engineVersion",
+    "requestHash",
+    "inputHashes",
+    "newState",
+    "newStateHash",
+    "reconciliation"
+  ],
+  "title": "TransitionProposal",
+  "type": "object"
+}

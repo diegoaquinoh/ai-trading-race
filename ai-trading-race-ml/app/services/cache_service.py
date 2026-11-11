@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 class CacheService:
     """
     Redis-based cache service for request idempotency.
-    
+
     Caches responses by idempotency key to prevent duplicate processing
     of the same request within the TTL window (default 1 hour).
     """
@@ -23,7 +23,7 @@ class CacheService:
     def __init__(self):
         """Initialize Redis connection if enabled."""
         self._redis_client: Optional[redis.Redis] = None
-        
+
         if settings.redis_enabled:
             try:
                 self._redis_client = redis.Redis(
@@ -37,9 +37,7 @@ class CacheService:
                 )
                 # Test connection
                 self._redis_client.ping()
-                logger.info(
-                    f"Redis cache connected: {settings.redis_host}:{settings.redis_port}"
-                )
+                logger.info(f"Redis cache connected: {settings.redis_host}:{settings.redis_port}")
             except RedisError as e:
                 logger.warning(f"Redis connection failed, cache disabled: {e}")
                 self._redis_client = None
@@ -52,10 +50,10 @@ class CacheService:
     def get(self, idempotency_key: str) -> Optional[dict]:
         """
         Get cached response by idempotency key.
-        
+
         Args:
             idempotency_key: Unique key for the request
-            
+
         Returns:
             Cached response dict or None if not found/expired
         """
@@ -76,11 +74,11 @@ class CacheService:
     def set(self, idempotency_key: str, response: dict) -> bool:
         """
         Cache a response with TTL.
-        
+
         Args:
             idempotency_key: Unique key for the request
             response: Response dict to cache
-            
+
         Returns:
             True if cached successfully, False otherwise
         """
@@ -106,10 +104,10 @@ class CacheService:
     def delete(self, idempotency_key: str) -> bool:
         """
         Delete a cached response.
-        
+
         Args:
             idempotency_key: Key to delete
-            
+
         Returns:
             True if deleted successfully
         """

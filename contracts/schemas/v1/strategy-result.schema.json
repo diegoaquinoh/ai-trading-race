@@ -1,0 +1,1388 @@
+{
+  "$defs": {
+    "Citation": {
+      "additionalProperties": false,
+      "properties": {
+        "bundleId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Bundleid",
+          "type": "string"
+        },
+        "chunkId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Chunkid",
+          "type": "string"
+        },
+        "citationId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Citationid",
+          "type": "string"
+        },
+        "documentVersionId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Documentversionid",
+          "type": "string"
+        },
+        "endOffset": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Endoffset"
+        },
+        "quote": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Quote"
+        },
+        "startOffset": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Startoffset"
+        }
+      },
+      "required": [
+        "citationId",
+        "bundleId",
+        "chunkId",
+        "documentVersionId"
+      ],
+      "title": "Citation",
+      "type": "object"
+    },
+    "DecisionAction": {
+      "enum": [
+        "HOLD",
+        "REBALANCE",
+        "BOOTSTRAP"
+      ],
+      "title": "DecisionAction",
+      "type": "string"
+    },
+    "DecisionAttempt": {
+      "additionalProperties": false,
+      "properties": {
+        "agentRole": {
+          "title": "Agentrole",
+          "type": "string"
+        },
+        "attemptId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Attemptid",
+          "type": "string"
+        },
+        "attemptNumber": {
+          "title": "Attemptnumber",
+          "type": "integer"
+        },
+        "durationMs": {
+          "title": "Durationms",
+          "type": "integer"
+        },
+        "error": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error"
+        },
+        "inputTokens": {
+          "title": "Inputtokens",
+          "type": "integer"
+        },
+        "model": {
+          "title": "Model",
+          "type": "string"
+        },
+        "outputTokens": {
+          "title": "Outputtokens",
+          "type": "integer"
+        },
+        "provider": {
+          "title": "Provider",
+          "type": "string"
+        },
+        "purpose": {
+          "enum": [
+            "task_assignment",
+            "tool_selection",
+            "specialist",
+            "synthesis",
+            "repair",
+            "single"
+          ],
+          "title": "Purpose",
+          "type": "string"
+        },
+        "recordedResponseId": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Recordedresponseid"
+        },
+        "startedAt": {
+          "format": "date-time",
+          "title": "Startedat",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "malformed",
+            "provider_error",
+            "timeout",
+            "denied_budget"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "attemptId",
+        "attemptNumber",
+        "agentRole",
+        "purpose",
+        "provider",
+        "model",
+        "inputTokens",
+        "outputTokens",
+        "startedAt",
+        "durationMs",
+        "status"
+      ],
+      "title": "DecisionAttempt",
+      "type": "object"
+    },
+    "DecisionOutcome": {
+      "enum": [
+        "completed_hold",
+        "completed_proposal",
+        "abstained_insufficient_evidence",
+        "review_required",
+        "failed_invalid_output",
+        "failed_dependency",
+        "failed_budget",
+        "skipped_stale_data",
+        "cancelled"
+      ],
+      "title": "DecisionOutcome",
+      "type": "string"
+    },
+    "DocumentaryClaim": {
+      "additionalProperties": false,
+      "properties": {
+        "citationIds": {
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+            "type": "string"
+          },
+          "title": "Citationids",
+          "type": "array"
+        },
+        "claimId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Claimid",
+          "type": "string"
+        },
+        "material": {
+          "default": true,
+          "title": "Material",
+          "type": "boolean"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        },
+        "validationNotes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Validationnotes",
+          "type": "array"
+        },
+        "validationStatus": {
+          "default": "unvalidated",
+          "enum": [
+            "unvalidated",
+            "valid",
+            "invalid",
+            "review_required"
+          ],
+          "title": "Validationstatus",
+          "type": "string"
+        }
+      },
+      "required": [
+        "claimId",
+        "text",
+        "citationIds"
+      ],
+      "title": "DocumentaryClaim",
+      "type": "object"
+    },
+    "Hypothesis": {
+      "additionalProperties": false,
+      "properties": {
+        "assumptions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Assumptions",
+          "type": "array"
+        },
+        "hypothesisId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Hypothesisid",
+          "type": "string"
+        },
+        "scenarioIds": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Scenarioids",
+          "type": "array"
+        },
+        "supportingCitationIds": {
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+            "type": "string"
+          },
+          "title": "Supportingcitationids",
+          "type": "array"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "hypothesisId",
+        "text",
+        "assumptions"
+      ],
+      "title": "Hypothesis",
+      "type": "object"
+    },
+    "NumericalFinding": {
+      "additionalProperties": false,
+      "properties": {
+        "calculationIds": {
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+            "type": "string"
+          },
+          "title": "Calculationids",
+          "type": "array"
+        },
+        "findingId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Findingid",
+          "type": "string"
+        },
+        "inputSnapshotIds": {
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+            "type": "string"
+          },
+          "title": "Inputsnapshotids",
+          "type": "array"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        },
+        "validationStatus": {
+          "default": "unvalidated",
+          "enum": [
+            "unvalidated",
+            "valid",
+            "invalid"
+          ],
+          "title": "Validationstatus",
+          "type": "string"
+        }
+      },
+      "required": [
+        "findingId",
+        "text",
+        "calculationIds"
+      ],
+      "title": "NumericalFinding",
+      "type": "object"
+    },
+    "PolicyCheck": {
+      "additionalProperties": false,
+      "properties": {
+        "checkId": {
+          "title": "Checkid",
+          "type": "string"
+        },
+        "limit": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Limit"
+        },
+        "observed": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Observed"
+        },
+        "passed": {
+          "title": "Passed",
+          "type": "boolean"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reason"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "checkId",
+        "unit",
+        "passed"
+      ],
+      "title": "PolicyCheck",
+      "type": "object"
+    },
+    "PolicyEvaluation": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "$ref": "#/$defs/DecisionAction"
+        },
+        "bootstrapExemptionApplied": {
+          "default": false,
+          "title": "Bootstrapexemptionapplied",
+          "type": "boolean"
+        },
+        "breachMode": {
+          "default": false,
+          "title": "Breachmode",
+          "type": "boolean"
+        },
+        "calculationIds": {
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+            "type": "string"
+          },
+          "title": "Calculationids",
+          "type": "array"
+        },
+        "checks": {
+          "items": {
+            "$ref": "#/$defs/PolicyCheck"
+          },
+          "title": "Checks",
+          "type": "array"
+        },
+        "decisionId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Decisionid",
+          "type": "string"
+        },
+        "normalizationNotes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Normalizationnotes",
+          "type": "array"
+        },
+        "normalizedTargets": {
+          "items": {
+            "$ref": "#/$defs/TargetWeight"
+          },
+          "title": "Normalizedtargets",
+          "type": "array"
+        },
+        "orderCount": {
+          "default": 0,
+          "title": "Ordercount",
+          "type": "integer"
+        },
+        "originalTargets": {
+          "items": {
+            "$ref": "#/$defs/TargetWeight"
+          },
+          "title": "Originaltargets",
+          "type": "array"
+        },
+        "passed": {
+          "title": "Passed",
+          "type": "boolean"
+        },
+        "policyId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Policyid",
+          "type": "string"
+        },
+        "postTradeCashRatio": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Posttradecashratio"
+        },
+        "postTradeMaxSecurityRatio": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Posttrademaxsecurityratio"
+        },
+        "postTradeNavUsd": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Posttradenavusd"
+        },
+        "postTradeParallelDv01Usd": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Posttradeparalleldv01Usd"
+        },
+        "preTradeCashRatio": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pretradecashratio"
+        },
+        "preTradeMaxSecurityRatio": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pretrademaxsecurityratio"
+        },
+        "preTradeNavUsd": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pretradenavusd"
+        },
+        "preTradeParallelDv01Usd": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pretradeparalleldv01Usd"
+        },
+        "rejectedReasons": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Rejectedreasons",
+          "type": "array"
+        },
+        "sizedOrders": {
+          "items": {
+            "$ref": "#/$defs/SizedOrder"
+          },
+          "title": "Sizedorders",
+          "type": "array"
+        },
+        "turnoverRatio": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Turnoverratio"
+        }
+      },
+      "required": [
+        "policyId",
+        "decisionId",
+        "action",
+        "passed"
+      ],
+      "title": "PolicyEvaluation",
+      "type": "object"
+    },
+    "Proposal": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "$ref": "#/$defs/DecisionAction"
+        },
+        "supportingCalculationIds": {
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+            "type": "string"
+          },
+          "title": "Supportingcalculationids",
+          "type": "array"
+        },
+        "supportingClaimIds": {
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+            "type": "string"
+          },
+          "title": "Supportingclaimids",
+          "type": "array"
+        },
+        "targetWeights": {
+          "items": {
+            "$ref": "#/$defs/TargetWeight"
+          },
+          "title": "Targetweights",
+          "type": "array"
+        }
+      },
+      "required": [
+        "action"
+      ],
+      "title": "Proposal",
+      "type": "object"
+    },
+    "ResearchNote": {
+      "additionalProperties": false,
+      "properties": {
+        "citations": {
+          "items": {
+            "$ref": "#/$defs/Citation"
+          },
+          "title": "Citations",
+          "type": "array"
+        },
+        "claims": {
+          "items": {
+            "$ref": "#/$defs/DocumentaryClaim"
+          },
+          "title": "Claims",
+          "type": "array"
+        },
+        "counterevidence": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Counterevidence",
+          "type": "array"
+        },
+        "coverageGaps": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Coveragegaps",
+          "type": "array"
+        },
+        "explanation": {
+          "default": "",
+          "title": "Explanation",
+          "type": "string"
+        },
+        "hypotheses": {
+          "items": {
+            "$ref": "#/$defs/Hypothesis"
+          },
+          "title": "Hypotheses",
+          "type": "array"
+        },
+        "numericalFindings": {
+          "items": {
+            "$ref": "#/$defs/NumericalFinding"
+          },
+          "title": "Numericalfindings",
+          "type": "array"
+        },
+        "retrievalRunIds": {
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+            "type": "string"
+          },
+          "title": "Retrievalrunids",
+          "type": "array"
+        },
+        "status": {
+          "$ref": "#/$defs/ResearchStatus"
+        }
+      },
+      "required": [
+        "status"
+      ],
+      "title": "ResearchNote",
+      "type": "object"
+    },
+    "ResearchStatus": {
+      "enum": [
+        "supported",
+        "insufficient_evidence",
+        "contradictory_evidence"
+      ],
+      "title": "ResearchStatus",
+      "type": "string"
+    },
+    "RetrievalMode": {
+      "enum": [
+        "none",
+        "hybrid_rag_v1",
+        "graph_rag_v1"
+      ],
+      "title": "RetrievalMode",
+      "type": "string"
+    },
+    "Side": {
+      "enum": [
+        "BUY",
+        "SELL"
+      ],
+      "title": "Side",
+      "type": "string"
+    },
+    "SizedOrder": {
+      "additionalProperties": false,
+      "properties": {
+        "estimatedConsiderationUsd": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Estimatedconsiderationusd",
+          "type": "string"
+        },
+        "estimatedDirtyPricePer100": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Estimateddirtypriceper100",
+          "type": "string"
+        },
+        "face": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Face",
+          "type": "string"
+        },
+        "securityId": {
+          "pattern": "^[A-Z0-9][A-Z0-9\\-\\.]{1,63}$",
+          "title": "Securityid",
+          "type": "string"
+        },
+        "side": {
+          "$ref": "#/$defs/Side"
+        }
+      },
+      "required": [
+        "securityId",
+        "side",
+        "face",
+        "estimatedDirtyPricePer100",
+        "estimatedConsiderationUsd"
+      ],
+      "title": "SizedOrder",
+      "type": "object"
+    },
+    "SpecialistTask": {
+      "additionalProperties": false,
+      "properties": {
+        "budgetReserved": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "title": "Budgetreserved",
+          "type": "object"
+        },
+        "claimIds": {
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+            "type": "string"
+          },
+          "title": "Claimids",
+          "type": "array"
+        },
+        "expectedOutputSchema": {
+          "title": "Expectedoutputschema",
+          "type": "string"
+        },
+        "findings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Findings",
+          "type": "array"
+        },
+        "inputSnapshotIds": {
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+            "type": "string"
+          },
+          "title": "Inputsnapshotids",
+          "type": "array"
+        },
+        "instruction": {
+          "title": "Instruction",
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "macro_researcher",
+            "critical_reviewer"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "completed",
+            "failed",
+            "denied_budget",
+            "skipped"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "taskId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Taskid",
+          "type": "string"
+        },
+        "usage": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "title": "Usage",
+          "type": "object"
+        }
+      },
+      "required": [
+        "taskId",
+        "role",
+        "instruction",
+        "inputSnapshotIds",
+        "expectedOutputSchema",
+        "budgetReserved",
+        "status"
+      ],
+      "title": "SpecialistTask",
+      "type": "object"
+    },
+    "StrategyKind": {
+      "enum": [
+        "cash_reference",
+        "quant_policy",
+        "single_agent",
+        "specialist_team"
+      ],
+      "title": "StrategyKind",
+      "type": "string"
+    },
+    "TargetWeight": {
+      "additionalProperties": false,
+      "properties": {
+        "securityId": {
+          "pattern": "^[A-Z0-9][A-Z0-9\\-\\.]{1,63}$",
+          "title": "Securityid",
+          "type": "string"
+        },
+        "weight": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Weight",
+          "type": "string"
+        }
+      },
+      "required": [
+        "securityId",
+        "weight"
+      ],
+      "title": "TargetWeight",
+      "type": "object"
+    },
+    "ToolTrace": {
+      "additionalProperties": false,
+      "properties": {
+        "agentRole": {
+          "title": "Agentrole",
+          "type": "string"
+        },
+        "durationMs": {
+          "title": "Durationms",
+          "type": "integer"
+        },
+        "error": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error"
+        },
+        "outputRef": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Outputref"
+        },
+        "request": {
+          "additionalProperties": true,
+          "title": "Request",
+          "type": "object"
+        },
+        "responseSummary": {
+          "additionalProperties": true,
+          "title": "Responsesummary",
+          "type": "object"
+        },
+        "startedAt": {
+          "format": "date-time",
+          "title": "Startedat",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "ok",
+            "error",
+            "denied_budget",
+            "denied_policy"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "toolName": {
+          "title": "Toolname",
+          "type": "string"
+        },
+        "traceId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Traceid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "traceId",
+        "agentRole",
+        "toolName",
+        "request",
+        "responseSummary",
+        "startedAt",
+        "durationMs",
+        "status"
+      ],
+      "title": "ToolTrace",
+      "type": "object"
+    },
+    "UsageSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "budgetExhausted": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Budgetexhausted"
+        },
+        "durationMs": {
+          "default": 0,
+          "title": "Durationms",
+          "type": "integer"
+        },
+        "estimatedCostUsd": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Estimatedcostusd"
+        },
+        "evidenceCalls": {
+          "default": 0,
+          "title": "Evidencecalls",
+          "type": "integer"
+        },
+        "evidenceTokens": {
+          "default": 0,
+          "title": "Evidencetokens",
+          "type": "integer"
+        },
+        "generationCalls": {
+          "default": 0,
+          "title": "Generationcalls",
+          "type": "integer"
+        },
+        "inputTokens": {
+          "default": 0,
+          "title": "Inputtokens",
+          "type": "integer"
+        },
+        "outputTokens": {
+          "default": 0,
+          "title": "Outputtokens",
+          "type": "integer"
+        },
+        "priceScheduleId": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pricescheduleid"
+        },
+        "toolCalls": {
+          "default": 0,
+          "title": "Toolcalls",
+          "type": "integer"
+        },
+        "uniqueEvidenceChunks": {
+          "default": 0,
+          "title": "Uniqueevidencechunks",
+          "type": "integer"
+        }
+      },
+      "title": "UsageSummary",
+      "type": "object"
+    },
+    "ValidationResult": {
+      "additionalProperties": false,
+      "properties": {
+        "details": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Details",
+          "type": "array"
+        },
+        "passed": {
+          "title": "Passed",
+          "type": "boolean"
+        },
+        "severity": {
+          "default": "blocking",
+          "enum": [
+            "info",
+            "warning",
+            "blocking"
+          ],
+          "title": "Severity",
+          "type": "string"
+        },
+        "step": {
+          "title": "Step",
+          "type": "string"
+        }
+      },
+      "required": [
+        "step",
+        "passed"
+      ],
+      "title": "ValidationResult",
+      "type": "object"
+    },
+    "VersionInfo": {
+      "additionalProperties": false,
+      "properties": {
+        "engineVersion": {
+          "title": "Engineversion",
+          "type": "string"
+        },
+        "evidenceSnapshotId": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Evidencesnapshotid"
+        },
+        "indexBuildId": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Indexbuildid"
+        },
+        "model": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Model"
+        },
+        "promptVersion": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Promptversion"
+        },
+        "provider": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Provider"
+        },
+        "retrievalMode": {
+          "$ref": "#/$defs/RetrievalMode",
+          "default": "none"
+        },
+        "strategyConfigHash": {
+          "anyOf": [
+            {
+              "pattern": "^sha256:[0-9a-f]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Strategyconfighash"
+        },
+        "toolSchemaVersion": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Toolschemaversion"
+        }
+      },
+      "required": [
+        "engineVersion"
+      ],
+      "title": "VersionInfo",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "attempts": {
+      "items": {
+        "$ref": "#/$defs/DecisionAttempt"
+      },
+      "title": "Attempts",
+      "type": "array"
+    },
+    "completedAt": {
+      "format": "date-time",
+      "title": "Completedat",
+      "type": "string"
+    },
+    "cycleId": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+      "title": "Cycleid",
+      "type": "string"
+    },
+    "decisionId": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+      "title": "Decisionid",
+      "type": "string"
+    },
+    "evidenceBundleIds": {
+      "items": {
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+        "type": "string"
+      },
+      "title": "Evidencebundleids",
+      "type": "array"
+    },
+    "inputHashes": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Inputhashes",
+      "type": "object"
+    },
+    "outcome": {
+      "$ref": "#/$defs/DecisionOutcome"
+    },
+    "policyEvaluation": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/PolicyEvaluation"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "proposal": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Proposal"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "reasons": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Reasons",
+      "type": "array"
+    },
+    "repetition": {
+      "default": 0,
+      "title": "Repetition",
+      "type": "integer"
+    },
+    "requestHash": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "title": "Requesthash",
+      "type": "string"
+    },
+    "researchNote": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ResearchNote"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "resultHash": {
+      "anyOf": [
+        {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Resulthash"
+    },
+    "runId": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+      "title": "Runid",
+      "type": "string"
+    },
+    "schemaVersion": {
+      "default": "1.0",
+      "title": "Schemaversion",
+      "type": "string"
+    },
+    "signature": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Signature"
+    },
+    "specialistTasks": {
+      "items": {
+        "$ref": "#/$defs/SpecialistTask"
+      },
+      "title": "Specialisttasks",
+      "type": "array"
+    },
+    "strategyId": {
+      "pattern": "^[a-z][a-z0-9_]{1,63}$",
+      "title": "Strategyid",
+      "type": "string"
+    },
+    "strategyKind": {
+      "$ref": "#/$defs/StrategyKind"
+    },
+    "toolTraces": {
+      "items": {
+        "$ref": "#/$defs/ToolTrace"
+      },
+      "title": "Tooltraces",
+      "type": "array"
+    },
+    "usage": {
+      "$ref": "#/$defs/UsageSummary"
+    },
+    "validation": {
+      "items": {
+        "$ref": "#/$defs/ValidationResult"
+      },
+      "title": "Validation",
+      "type": "array"
+    },
+    "versions": {
+      "$ref": "#/$defs/VersionInfo"
+    }
+  },
+  "required": [
+    "runId",
+    "cycleId",
+    "decisionId",
+    "strategyId",
+    "strategyKind",
+    "requestHash",
+    "inputHashes",
+    "outcome",
+    "completedAt",
+    "versions"
+  ],
+  "title": "StrategyResult",
+  "type": "object"
+}

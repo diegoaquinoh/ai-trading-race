@@ -1,5 +1,7 @@
 using AiTradingRace.Domain.Entities;
 using AiTradingRace.Domain.Entities.Knowledge;
+using AiTradingRace.Domain.Entities.FixedIncome;
+using AiTradingRace.Infrastructure.Database.FixedIncome;
 using Microsoft.EntityFrameworkCore;
 
 namespace AiTradingRace.Infrastructure.Database;
@@ -23,12 +25,34 @@ public sealed class TradingDbContext : DbContext
     public DbSet<User> Users => Set<User>();
     public DbSet<ApiKey> ApiKeys => Set<ApiKey>();
     
-    // Phase 10: Knowledge Graph & Decision Logs
+    // Knowledge Graph & Decision Logs
     public DbSet<RuleNode> RuleNodes => Set<RuleNode>();
     public DbSet<RegimeNode> RegimeNodes => Set<RegimeNode>();
     public DbSet<RuleEdge> RuleEdges => Set<RuleEdge>();
     public DbSet<DecisionLog> DecisionLogs => Set<DecisionLog>();
     public DbSet<DetectedRegime> DetectedRegimes => Set<DetectedRegime>();
+
+    // Fixed income (SQL schema "fi"; see FixedIncomeModelConfiguration)
+    public DbSet<ExperimentDefinition> FiExperimentDefinitions => Set<ExperimentDefinition>();
+    public DbSet<ExperimentRun> FiExperimentRuns => Set<ExperimentRun>();
+    public DbSet<StrategyInstance> FiStrategyInstances => Set<StrategyInstance>();
+    public DbSet<Cycle> FiCycles => Set<Cycle>();
+    public DbSet<FiPortfolio> FiPortfolios => Set<FiPortfolio>();
+    public DbSet<PortfolioStateVersion> FiPortfolioStateVersions => Set<PortfolioStateVersion>();
+    public DbSet<PortfolioEvent> FiPortfolioEvents => Set<PortfolioEvent>();
+    public DbSet<OrderIntent> FiOrderIntents => Set<OrderIntent>();
+    public DbSet<Fill> FiFills => Set<Fill>();
+    public DbSet<Settlement> FiSettlements => Set<Settlement>();
+    public DbSet<Journal> FiJournals => Set<Journal>();
+    public DbSet<JournalEntry> FiJournalEntries => Set<JournalEntry>();
+    public DbSet<CashFlowEvent> FiCashFlowEvents => Set<CashFlowEvent>();
+    public DbSet<ValuationSnapshot> FiValuationSnapshots => Set<ValuationSnapshot>();
+    public DbSet<Decision> FiDecisions => Set<Decision>();
+    public DbSet<DecisionAttempt> FiDecisionAttempts => Set<DecisionAttempt>();
+    public DbSet<PolicyEvaluation> FiPolicyEvaluations => Set<PolicyEvaluation>();
+    public DbSet<ToolTrace> FiToolTraces => Set<ToolTrace>();
+    public DbSet<UsageRecord> FiUsageRecords => Set<UsageRecord>();
+    public DbSet<CommandRecord> FiCommandRecords => Set<CommandRecord>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -44,13 +68,15 @@ public sealed class TradingDbContext : DbContext
         ConfigureUsers(modelBuilder);
         ConfigureApiKeys(modelBuilder);
         
-        // Phase 10: Knowledge Graph
+        // Knowledge Graph
         ConfigureRuleNodes(modelBuilder);
         ConfigureRegimeNodes(modelBuilder);
         ConfigureRuleEdges(modelBuilder);
         ConfigureDecisionLogs(modelBuilder);
         ConfigureDetectedRegimes(modelBuilder);
         
+        FixedIncomeModelConfiguration.Apply(modelBuilder);
+
         SeedData.Configure(modelBuilder);
     }
 
@@ -385,7 +411,7 @@ public sealed class TradingDbContext : DbContext
                     Volume = 8_500m
                 });
             
-            // Phase 10: Seed Knowledge Graph data
+            // Seed Knowledge Graph data
             var now = DateTime.UtcNow;
             
             modelBuilder.Entity<RuleNode>().HasData(
@@ -548,7 +574,7 @@ public sealed class TradingDbContext : DbContext
         }
     }
     
-    // Phase 10: Knowledge Graph configurations
+    // Knowledge Graph configurations
     private static void ConfigureRuleNodes(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<RuleNode>(builder =>

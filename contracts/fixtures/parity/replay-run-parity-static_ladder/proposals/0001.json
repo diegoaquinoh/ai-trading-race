@@ -1,0 +1,113 @@
+{
+  "cashFlows": [
+    {
+      "amountUsd": "1000000.00",
+      "cashFlowId": "cf:evt:capital:cmd:run-parity:static_ladder:init:capital",
+      "entitledFace": "0",
+      "kind": "CAPITAL",
+      "paymentDate": "2024-01-02",
+      "securityId": "CASH-USD"
+    }
+  ],
+  "commandId": "cmd:run-parity:static_ladder:init:capital",
+  "commandType": "capital_flow",
+  "engineVersion": "research-engine/0.1.0+simulation-v1+pricing:1.0.0+quantlib-1.44",
+  "eventPriorityTable": "event-priority-v1",
+  "events": [
+    {
+      "amountUsd": "1000000",
+      "effectiveAt": "2024-01-02T13:00:00Z",
+      "eventId": "evt:capital:cmd:run-parity:static_ladder:init:capital",
+      "priority": 0,
+      "reason": "initial_capital",
+      "type": "capital_flow"
+    }
+  ],
+  "expectedVersion": 0,
+  "fills": [],
+  "inputHashes": {
+    "executionModel": "sha256:d3f9bd5e39ee45dc8e845e76f05c96cfd8a606e6c546d66b15c707b7eefc7887",
+    "marketSnapshot": "sha256:74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "portfolioState": "sha256:61ad8aa969687d64cd3a58afdd3f568f046a07e9f2b0f4405453b06673457e13",
+    "riskPolicy": "sha256:9fad814adb712358027210d8a4eb8b572da99cbf0ac74718e632f964726b5e23"
+  },
+  "journals": [
+    {
+      "effectiveAt": "2024-01-02T13:00:00Z",
+      "eventId": "evt:capital:cmd:run-parity:static_ladder:init:capital",
+      "eventType": "capital_flow",
+      "journalId": "jnl:evt:capital:cmd:run-parity:static_ladder:init:capital",
+      "lines": [
+        {
+          "account": "CASH",
+          "creditUsd": "0",
+          "debitUsd": "1000000.00",
+          "lineId": "jnl:evt:capital:cmd:run-parity:static_ladder:init:capital:01",
+          "memo": "initial_capital",
+          "securityId": null
+        },
+        {
+          "account": "CAPITAL",
+          "creditUsd": "1000000.00",
+          "debitUsd": "0",
+          "lineId": "jnl:evt:capital:cmd:run-parity:static_ladder:init:capital:02",
+          "memo": "initial_capital",
+          "securityId": null
+        }
+      ],
+      "template": "capital_flow_v1"
+    }
+  ],
+  "newState": {
+    "asOf": "2024-01-02T13:00:00Z",
+    "blockedReason": null,
+    "bookedUnrealizedUsd": "0",
+    "cashFlowsProcessedThrough": null,
+    "cashUsd": "1000000.00",
+    "currency": "USD",
+    "externalCapitalUsd": "1000000.00",
+    "interestIncomeUsd": "0",
+    "lastValuationId": null,
+    "openOrders": [],
+    "pendingSettlements": [],
+    "portfolioId": "pf:run-parity:static_ladder",
+    "positions": [],
+    "realizedGainLossUsd": "0",
+    "reservedCashUsd": "0",
+    "riskBreaches": [],
+    "runId": "run-parity",
+    "schemaVersion": "1.0",
+    "spreadCostUsd": "0",
+    "strategyId": "static_ladder",
+    "transactionFeesUsd": "0",
+    "version": 1
+  },
+  "newStateHash": "sha256:824d44ecc211a54ae0e5f0b23f09b51ecc7c9827eb8c05ef703cbeb48b7b5a47",
+  "newVersion": 1,
+  "noOp": false,
+  "orderStatusChanges": [],
+  "ordersCreated": [],
+  "policyEvaluation": null,
+  "portfolioId": "pf:run-parity:static_ladder",
+  "proposalHash": "sha256:27b75f873aa0307b2502896b238b48f9680325004b31398bd1096062e7316578",
+  "proposalId": "prop-122cd1a4bee6f0d7",
+  "reconciliation": {
+    "bookEquityUsd": "1000000.00",
+    "differenceUsd": null,
+    "economicEquityUsd": null,
+    "journalsBalanced": true,
+    "ledgerCashUsd": "1000000.00",
+    "ledgerPrincipalFaceCheck": true,
+    "messages": [],
+    "ok": true,
+    "stateCashUsd": "1000000.00"
+  },
+  "requestHash": "sha256:fb19b896e8a5e5d10ac9dabb9addb8d66f631b6ad141d1e884413b98607ba88e",
+  "runId": "run-parity",
+  "schemaVersion": "1.0",
+  "settlementsCompleted": [],
+  "settlementsCreated": [],
+  "signature": "hmac-sha256:db3face2ec3c8e7dd8663ac021adf4186e30f5c0ecde803852e9b9ba1b277e7e",
+  "strategyId": "static_ladder",
+  "valuation": null
+}

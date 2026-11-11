@@ -1,7 +1,5 @@
 # ML Service Deployment Guide
 
-## 📦 Sprint 8.5 - ML Service & Redis Integration
-
 This guide covers the deployment of the Python ML service with Redis-backed idempotency caching.
 
 ## 🏗️ Architecture
@@ -453,25 +451,3 @@ docker exec ai-trading-redis redis-cli FLUSHDB
 # Monitor memory usage
 docker stats ai-trading-redis
 ```
-
-## ✅ Verification Checklist
-
-Sprint 8.5 complete when:
-
-- [ ] Redis runs in Docker container
-- [ ] ML service connects to Redis successfully
-- [ ] IdempotencyMiddleware caches responses
-- [ ] .NET client sends Idempotency-Key headers
-- [ ] Cache hit returns instant response (< 10ms)
-- [ ] Cache miss processes and caches result
-- [ ] TTL expires cached entries after 1 hour
-- [ ] Docker Compose starts all services
-- [ ] Health check passes for both services
-- [ ] Tests verify cache behavior
-
----
-
-**Created**: January 20, 2026  
-**Phase**: 8 - Deployment & CI/CD  
-**Sprint**: 8.5 - ML Service & Redis ✅  
-**Status**: Complete (Local/Docker deployment ready)

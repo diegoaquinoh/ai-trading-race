@@ -1,0 +1,244 @@
+{
+  "costAssumptions": {
+    "cashReturn": "zero_cash_interest_v1",
+    "executionModel": {
+      "batchPriority": "sells_first_then_security_id_v1",
+      "cashInterestRate": "0",
+      "commissionUsdPerMillionFace": "0",
+      "executionModelId": "synthetic-half-spread-0.02-v1",
+      "faceSizing": "fixed_at_submission_v1",
+      "fillTiming": "next_session_close_daily",
+      "fundingRule": "settled_cash_reserve_commitments_v1",
+      "halfSpreadPer100": "0.02",
+      "slippagePer100": "0",
+      "timeInForce": "next_session_only"
+    },
+    "sensitivityHalfSpreads": [
+      "0.00",
+      "0.02",
+      "0.05"
+    ]
+  },
+  "dataMode": "synthetic_curve",
+  "decisionBudget": {
+    "deadlineSeconds": 90,
+    "maxCostUsd": null,
+    "maxDelegationDepth": 1,
+    "maxEvidenceCalls": 3,
+    "maxEvidenceTokens": 8000,
+    "maxGenerationCalls": 6,
+    "maxInputTokens": 32000,
+    "maxOutputTokens": 12000,
+    "maxSpecialistInvocations": 2,
+    "maxToolCalls": 12,
+    "maxUniqueEvidenceChunks": 12,
+    "priceScheduleId": null
+  },
+  "definitionHash": "sha256:f2960a1b53899311dac3b21a1e0ab8df1a0057e7bd56faf0b2e241cf72bc493d",
+  "definitionVersion": "experiment-definition-v1",
+  "evaluationStatus": "demonstration: hypotheses are stated for registration; a 61-session window cannot test them statistically",
+  "evidence": {
+    "includesSynthetic": false,
+    "indexBuildId": "ib-c5ff36b8d6d057e4ab95",
+    "source": "fed-fomc (Federal Reserve FOMC statements and minutes, public domain)"
+  },
+  "exclusionRules": [
+    "a session without a READY curve available by 19:00 New York is skipped for all competitors (skipped_stale_data) and listed as an exclusion",
+    "no decision, session or competitor is excluded after inspecting results",
+    "failure-injection and sensitivity runs are reported separately and never ranked with the canonical run"
+  ],
+  "experimentId": "fi-demo-2024q1",
+  "faultInjection": {
+    "experimentId": "fi-demo-2024q1-faults",
+    "plan": [
+      {
+        "description": "The model provider fails (non-transient) for the team lead on the FOMC statement day.",
+        "expected": "failed_dependency; no order; the portfolio is still processed and valued",
+        "faultId": "F1-provider-outage",
+        "kind": "provider_outage",
+        "role": "lead",
+        "session": "2024-01-31",
+        "strategyId": "llm_team"
+      },
+      {
+        "description": "The evidence graph is unavailable for graph_rag_v1 retrieval.",
+        "expected": "failed_dependency with no fallback to hybrid_rag_v1 (spec 15.3)",
+        "faultId": "F2-graph-outage",
+        "kind": "graph_outage",
+        "session": "2024-01-31",
+        "strategyId": "llm_graph"
+      },
+      {
+        "description": "Retrieval returns an empty evidence bundle (simulated source gap).",
+        "expected": "abstained_insufficient_evidence (configured abstention outcome)",
+        "faultId": "F3-evidence-withheld",
+        "kind": "evidence_withheld",
+        "session": "2024-02-21",
+        "strategyId": "llm_rag"
+      },
+      {
+        "description": "After agent validation, the proposal is overwritten with 70% in one note and 30% cash, simulating a faulty strategy output that reaches the authoritative policy gate.",
+        "expected": "SUBMIT_DECISION policy evaluation rejects the order set; no order is created",
+        "faultId": "F4-policy-breach",
+        "kind": "policy_breach",
+        "session": "2024-02-21",
+        "strategyId": "llm_market"
+      },
+      {
+        "description": "The model provider fails (non-transient) for the macro researcher specialist only.",
+        "expected": "specialist task recorded as failed with the provider error; the lead still synthesizes a decision (non-graph specialist failures are contained by design)",
+        "faultId": "F5-specialist-outage",
+        "kind": "provider_outage",
+        "role": "macro_researcher",
+        "session": "2024-02-21",
+        "strategyId": "llm_team"
+      }
+    ],
+    "reason": "the natural run produced no failed, abstained or rejected decision",
+    "window": {
+      "end": "2024-02-23",
+      "start": "2024-01-29"
+    }
+  },
+  "hypotheses": [
+    {
+      "comparison": [
+        "llm_market",
+        "llm_rag",
+        "llm_graph"
+      ],
+      "id": "H1-retrieval",
+      "statement": "Document retrieval changes the decisions and exposures of the matched agent relative to market-only inputs."
+    },
+    {
+      "comparison": [
+        "llm_rag",
+        "llm_graph"
+      ],
+      "id": "H2-graph",
+      "statement": "Graph-assisted retrieval delivers additional, provenance-backed passages that change at least one decision."
+    },
+    {
+      "comparison": [
+        "llm_graph",
+        "llm_team"
+      ],
+      "id": "H3-delegation",
+      "statement": "A lead with two bounded specialists changes decisions relative to the single graph agent under the same budget."
+    }
+  ],
+  "informationPolicy": "reconstructed_publication_plus_lag_v1",
+  "limitations": [
+    "Synthetic-curve mode: SYN-USD-NOTE-* instruments are hypothetical; marks and fills are curve-model observations plus a declared half-spread, not market quotes. The run shows nothing about observed-security relative value or achievable execution.",
+    "Same curve for marks and fills: any rich/cheap signal is mechanically neutral.",
+    "Retrospective information policy: document availability is reconstructed (publication time + 120 minutes) and curve availability is 18:00 New York; this is a historical replay, not a forward paper-trading test.",
+    "Pretrained-model hindsight: not applicable to reference-heuristic-v1 (a rule-based model with no pretrained knowledge), but it applies to any hosted LLM run on this window; such runs must be labelled retrospective and repeated forward.",
+    "AI strategies ran on reference-heuristic-v1, a deterministic rule-based policy model, not a hosted LLM; the results say nothing about LLM decision quality.",
+    "Stochastic repetitions are not applicable to the deterministic reference model; hosted models need at least three repetitions when affordable (spec 16.2).",
+    "Short window (61 sessions, 60 daily returns): no statistical significance; paired block-bootstrap intervals are descriptive only; Sharpe ratios are unavailable because no risk-free series is declared.",
+    "Exposures differ: equal risk limits did not produce equal duration/DV01; compare the exposure section before reading return differences.",
+    "Cash earns zero (zero_cash_interest_v1); excess returns are not interpreted.",
+    "Half-spread assumptions (0.00/0.02/0.05 per 100 face) are illustrative, not measured Treasury transaction costs.",
+    "Evidence pages are 2026 web versions of the FOMC releases (flag current_web_version_not_archived_original), not archived originals."
+  ],
+  "marketDataset": "usd-treasury-par-2023-2024 (U.S. Treasury daily par yield curves)",
+  "model": {
+    "disclosure": "reference-heuristic-v1 is a deterministic rule-based policy model used for offline demos and tests. It is not a hosted LLM and its outputs are not model inferences.",
+    "isHostedLlm": false,
+    "modelId": "reference-heuristic-v1",
+    "provider": "reference"
+  },
+  "monetaryCeiling": "not applicable: provider reference uses the zero-cost price schedule; priced hosted runs require a versioned price schedule and maxCostUsd",
+  "policyEventsInWindow": [
+    "2024-01-03 minutes of the 12-13 Dec 2023 meeting",
+    "2024-01-31 statement",
+    "2024-02-21 minutes of the 30-31 Jan 2024 meeting",
+    "2024-03-20 statement"
+  ],
+  "primaryMetrics": [
+    "netReturn",
+    "maxDrawdown",
+    "averageDv01Usd",
+    "endEffectiveDurationYears",
+    "spreadCostUsd",
+    "decisionOutcomes"
+  ],
+  "purpose": "Demonstration bundle for milestone M7 and the spec 17.6 demo script. Not a held-out evaluation and not evidence of strategy skill.",
+  "redistribution": "Bundle contains only synthetic instruments, U.S. Treasury par curve values and Federal Reserve FOMC text excerpts (U.S. government works, public domain) plus outputs of the reference model.",
+  "registeredOn": "2026-11-09",
+  "repetitions": {
+    "ids": [
+      0
+    ],
+    "stochasticRepetitions": "not applicable: reference-heuristic-v1 is deterministic (identical output for identical input); hosted models need >= 3 repetitions"
+  },
+  "responseModes": {
+    "canonical": "recorded_replay with replay_source=recorded_responses",
+    "capture": "fresh_inference of reference-heuristic-v1 through a recording provider",
+    "verification": "recorded_replay with replay_source=recorded_responses and every provider disabled; plus recorded_replay with replay_source=stored_results"
+  },
+  "riskPolicy": {
+    "bootstrapTurnoverExemption": true,
+    "breachPolicy": "block_risk_increasing_v1",
+    "initialCapitalUsd": "1000000",
+    "leverageAllowed": false,
+    "longOnly": true,
+    "maxDailyTurnoverRatio": "0.20",
+    "maxMarkAgeBusinessDays": 1,
+    "maxOrdersPerDecision": 6,
+    "maxParallelDv01UsdPerMillionNav": "600",
+    "maxSingleSecurityRatio": "0.40",
+    "minCashRatio": "0.05",
+    "minWeightChange": "0.02",
+    "policyId": "treasury-long-only-v1",
+    "projectionMode": "disabled",
+    "weightSumTolerance": "0.000001"
+  },
+  "secondaryMetrics": [
+    "graph-added passages and RAG/Graph overlap per event",
+    "citation validity and temporal violations of delivered evidence",
+    "generation/tool/evidence calls and tokens per decision"
+  ],
+  "splits": {
+    "development": "2023 data used by the agent and evidence workstreams while building (demo-sample-2023-06, evidence benchmark development run)",
+    "heldOut": "none declared; prompts, lexicon and thresholds were not frozen against a held-out interval, so no result here is a held-out result",
+    "role": "demonstration window"
+  },
+  "title": "Recorded demo replay: FOMC Q1 2024, synthetic curve mode",
+  "track": "budget_matched",
+  "universeVersion": "synthetic_universe_v1.0",
+  "variants": [
+    {
+      "role": "uninvested reference (zero cash interest)",
+      "strategyId": "cash"
+    },
+    {
+      "role": "passive bootstrap, then hold",
+      "strategyId": "static_ladder"
+    },
+    {
+      "role": "deterministic 4.0y duration target",
+      "strategyId": "quant_duration"
+    },
+    {
+      "role": "AI baseline, numerical tools only",
+      "strategyId": "llm_market"
+    },
+    {
+      "role": "AI + hybrid_rag_v1 retrieval",
+      "strategyId": "llm_rag"
+    },
+    {
+      "role": "AI + graph_rag_v1 retrieval",
+      "strategyId": "llm_graph"
+    },
+    {
+      "role": "lead + macro researcher + critical reviewer",
+      "strategyId": "llm_team"
+    }
+  ],
+  "window": {
+    "end": "2024-03-29",
+    "start": "2024-01-02"
+  }
+}

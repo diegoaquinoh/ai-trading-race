@@ -1,0 +1,2311 @@
+{
+  "compatibilityKey": "synthetic_curve|synthetic-half-spread-0.02-v1|treasury-long-only-v1|2024-01-29|2024-02-23",
+  "dataMode": "synthetic_curve",
+  "dataModeLabel": "SYNTHETIC CURVE SIMULATION (model prices, not market quotes)",
+  "demo": {
+    "completeness": {
+      "dataGaps": [],
+      "decisionsExpected": 133,
+      "decisionsRecorded": 133,
+      "exclusions": [],
+      "incompleteValuations": 0,
+      "outcomes": {
+        "abstained_insufficient_evidence": 1,
+        "completed_hold": 118,
+        "completed_proposal": 12,
+        "failed_dependency": 2
+      },
+      "runFailures": [],
+      "sessions": 19
+    },
+    "demoReportVersion": "demo-report-v1",
+    "label": "FAILURE INJECTION run (declared faults; not comparable with the canonical run)",
+    "limitations": [
+      "Synthetic-curve mode: SYN-USD-NOTE-* instruments are hypothetical; marks and fills are curve-model observations plus a declared half-spread, not market quotes. The run shows nothing about observed-security relative value or achievable execution.",
+      "Same curve for marks and fills: any rich/cheap signal is mechanically neutral.",
+      "Retrospective information policy: document availability is reconstructed (publication time + 120 minutes) and curve availability is 18:00 New York; this is a historical replay, not a forward paper-trading test.",
+      "Pretrained-model hindsight: not applicable to reference-heuristic-v1 (a rule-based model with no pretrained knowledge), but it applies to any hosted LLM run on this window; such runs must be labelled retrospective and repeated forward.",
+      "AI strategies ran on reference-heuristic-v1, a deterministic rule-based policy model, not a hosted LLM; the results say nothing about LLM decision quality.",
+      "Stochastic repetitions are not applicable to the deterministic reference model; hosted models need at least three repetitions when affordable (spec 16.2).",
+      "Short window (61 sessions, 60 daily returns): no statistical significance; paired block-bootstrap intervals are descriptive only; Sharpe ratios are unavailable because no risk-free series is declared.",
+      "Exposures differ: equal risk limits did not produce equal duration/DV01; compare the exposure section before reading return differences.",
+      "Cash earns zero (zero_cash_interest_v1); excess returns are not interpreted.",
+      "Half-spread assumptions (0.00/0.02/0.05 per 100 face) are illustrative, not measured Treasury transaction costs.",
+      "Evidence pages are 2026 web versions of the FOMC releases (flag current_web_version_not_archived_original), not archived originals."
+    ],
+    "modelDisclosure": "AI strategies ran on provider reference / reference-heuristic-v1, a deterministic rule-based policy model. It is not a hosted LLM.",
+    "ragGraphOverlap": {
+      "meanJaccard": 0.1813,
+      "perSession": [
+        {
+          "common": 5,
+          "graph": 18,
+          "jaccard": 0.2632,
+          "rag": 6,
+          "session": "2024-01-30"
+        },
+        {
+          "common": 0,
+          "graph": 0,
+          "jaccard": 0.0,
+          "rag": 6,
+          "session": "2024-01-31"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-02-01"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-02-02"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-02-05"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-02-06"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-02-07"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-02-08"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-02-09"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-02-12"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-02-13"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-02-14"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-02-15"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-02-16"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-02-20"
+        },
+        {
+          "common": 0,
+          "graph": 18,
+          "jaccard": 0.0,
+          "rag": 0,
+          "session": "2024-02-21"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-02-22"
+        },
+        {
+          "common": 4,
+          "graph": 18,
+          "jaccard": 0.2,
+          "rag": 6,
+          "session": "2024-02-23"
+        }
+      ],
+      "sessionsCompared": 18,
+      "sessionsWithIdenticalPassages": 0
+    },
+    "strategies": {
+      "cash": {
+        "evidence": null,
+        "exposure": {
+          "daily": [
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-29"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-30"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-31"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-01"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-02"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-05"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-06"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-07"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-08"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-09"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-12"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-13"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-14"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-15"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-16"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-20"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-21"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-22"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-02-23"
+            }
+          ]
+        },
+        "proposalActions": {},
+        "responseSource": "deterministic_code",
+        "usage": {
+          "attemptStatuses": {},
+          "budgetExhausted": [],
+          "decisionsWithModelCalls": 0,
+          "estimatedModelCostUsd": null,
+          "evidenceCalls": 0,
+          "evidenceTokens": 0,
+          "generationCalls": 0,
+          "inputTokens": 0,
+          "maxGenerationCallsPerDecision": 0,
+          "maxToolCallsPerDecision": 0,
+          "outputTokens": 0,
+          "priceSchedules": [],
+          "providers": [],
+          "recordedResponseIds": 0,
+          "toolCalls": 0,
+          "uniqueEvidenceChunks": 0
+        }
+      },
+      "llm_graph": {
+        "evidence": {
+          "bundles": 34,
+          "citations": 51,
+          "claimValidation": {
+            "valid": 51
+          },
+          "claims": 51,
+          "decisionsWithEvidence": 17,
+          "deliveredPassages": 306,
+          "distinctDocuments": 10,
+          "graphAddedPassages": 0,
+          "noteStatuses": {
+            "supported": 17
+          },
+          "temporalViolations": 0,
+          "validationSteps": {
+            "calc_refs": {
+              "failed": 0,
+              "passed": 17
+            },
+            "citation_membership": {
+              "failed": 0,
+              "passed": 17
+            },
+            "policy": {
+              "failed": 0,
+              "passed": 17
+            },
+            "quote_offsets": {
+              "failed": 0,
+              "passed": 17
+            },
+            "schema": {
+              "failed": 0,
+              "passed": 17
+            },
+            "support": {
+              "failed": 0,
+              "passed": 17
+            },
+            "temporal": {
+              "failed": 0,
+              "passed": 17
+            }
+          }
+        },
+        "exposure": {
+          "daily": [
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-29"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 4.525923,
+              "dv01Usd": 452.5,
+              "equityUsd": 999794.24,
+              "session": "2024-01-30"
+            },
+            {
+              "cashUsd": 63022.22,
+              "complete": true,
+              "durationYears": 3.119805,
+              "dv01Usd": 313.0,
+              "equityUsd": 1003282.32,
+              "session": "2024-01-31"
+            },
+            {
+              "cashUsd": 254740.16,
+              "complete": true,
+              "durationYears": 3.126682,
+              "dv01Usd": 314.77,
+              "equityUsd": 1006722.18,
+              "session": "2024-02-01"
+            },
+            {
+              "cashUsd": 254740.16,
+              "complete": true,
+              "durationYears": 3.111521,
+              "dv01Usd": 311.53,
+              "equityUsd": 1001219.85,
+              "session": "2024-02-02"
+            },
+            {
+              "cashUsd": 254740.16,
+              "complete": true,
+              "durationYears": 3.095423,
+              "dv01Usd": 308.73,
+              "equityUsd": 997384.35,
+              "session": "2024-02-05"
+            },
+            {
+              "cashUsd": 254740.16,
+              "complete": true,
+              "durationYears": 3.099802,
+              "dv01Usd": 310.09,
+              "equityUsd": 1000361.35,
+              "session": "2024-02-06"
+            },
+            {
+              "cashUsd": 254740.16,
+              "complete": true,
+              "durationYears": 3.096644,
+              "dv01Usd": 309.62,
+              "equityUsd": 999859.89,
+              "session": "2024-02-07"
+            },
+            {
+              "cashUsd": 254740.16,
+              "complete": true,
+              "durationYears": 3.090506,
+              "dv01Usd": 308.49,
+              "equityUsd": 998197.67,
+              "session": "2024-02-08"
+            },
+            {
+              "cashUsd": 254740.16,
+              "complete": true,
+              "durationYears": 3.087124,
+              "dv01Usd": 307.97,
+              "equityUsd": 997595.89,
+              "session": "2024-02-09"
+            },
+            {
+              "cashUsd": 254740.16,
+              "complete": true,
+              "durationYears": 3.081747,
+              "dv01Usd": 307.57,
+              "equityUsd": 998052.28,
+              "session": "2024-02-12"
+            },
+            {
+              "cashUsd": 254740.16,
+              "complete": true,
+              "durationYears": 3.06826,
+              "dv01Usd": 304.7,
+              "equityUsd": 993062.92,
+              "session": "2024-02-13"
+            },
+            {
+              "cashUsd": 254740.16,
+              "complete": true,
+              "durationYears": 3.070056,
+              "dv01Usd": 305.45,
+              "equityUsd": 994921.21,
+              "session": "2024-02-14"
+            },
+            {
+              "cashUsd": 259368.16,
+              "complete": true,
+              "durationYears": 3.070126,
+              "dv01Usd": 305.69,
+              "equityUsd": 995678.98,
+              "session": "2024-02-15"
+            },
+            {
+              "cashUsd": 259368.16,
+              "complete": true,
+              "durationYears": 3.063914,
+              "dv01Usd": 304.49,
+              "equityUsd": 993786.31,
+              "session": "2024-02-16"
+            },
+            {
+              "cashUsd": 259368.16,
+              "complete": true,
+              "durationYears": 3.058185,
+              "dv01Usd": 304.34,
+              "equityUsd": 995177.26,
+              "session": "2024-02-20"
+            },
+            {
+              "cashUsd": 259368.16,
+              "complete": true,
+              "durationYears": 3.05265,
+              "dv01Usd": 303.38,
+              "equityUsd": 993809.82,
+              "session": "2024-02-21"
+            },
+            {
+              "cashUsd": 259368.16,
+              "complete": true,
+              "durationYears": 3.049758,
+              "dv01Usd": 302.85,
+              "equityUsd": 993026.48,
+              "session": "2024-02-22"
+            },
+            {
+              "cashUsd": 259368.16,
+              "complete": true,
+              "durationYears": 3.052738,
+              "dv01Usd": 303.67,
+              "equityUsd": 994750.04,
+              "session": "2024-02-23"
+            }
+          ]
+        },
+        "proposalActions": {
+          "BOOTSTRAP": 1,
+          "REBALANCE": 1
+        },
+        "responseSource": "recorded_responses:reference/reference-heuristic-v1",
+        "usage": {
+          "attemptStatuses": {
+            "ok": 34
+          },
+          "budgetExhausted": [],
+          "decisionsWithModelCalls": 17,
+          "estimatedModelCostUsd": "0.000000",
+          "evidenceCalls": 35,
+          "evidenceTokens": 111139,
+          "generationCalls": 34,
+          "inputTokens": 411912,
+          "maxGenerationCallsPerDecision": 2,
+          "maxToolCallsPerDecision": 6,
+          "outputTokens": 22486,
+          "priceSchedules": [
+            "reference-zero-cost-v1"
+          ],
+          "providers": [
+            "reference/reference-heuristic-v1"
+          ],
+          "recordedResponseIds": 34,
+          "toolCalls": 105,
+          "uniqueEvidenceChunks": 204
+        }
+      },
+      "llm_market": {
+        "evidence": null,
+        "exposure": {
+          "daily": [
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-29"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 4.525923,
+              "dv01Usd": 452.5,
+              "equityUsd": 999794.24,
+              "session": "2024-01-30"
+            },
+            {
+              "cashUsd": 63022.22,
+              "complete": true,
+              "durationYears": 4.529372,
+              "dv01Usd": 454.44,
+              "equityUsd": 1003326.51,
+              "session": "2024-01-31"
+            },
+            {
+              "cashUsd": 63022.22,
+              "complete": true,
+              "durationYears": 4.536764,
+              "dv01Usd": 457.52,
+              "equityUsd": 1008464.12,
+              "session": "2024-02-01"
+            },
+            {
+              "cashUsd": 63022.22,
+              "complete": true,
+              "durationYears": 4.520794,
+              "dv01Usd": 452.32,
+              "equityUsd": 1000524.86,
+              "session": "2024-02-02"
+            },
+            {
+              "cashUsd": 63022.22,
+              "complete": true,
+              "durationYears": 4.502251,
+              "dv01Usd": 447.9,
+              "equityUsd": 994824.85,
+              "session": "2024-02-05"
+            },
+            {
+              "cashUsd": 63022.22,
+              "complete": true,
+              "durationYears": 4.50576,
+              "dv01Usd": 450.11,
+              "equityUsd": 998973.57,
+              "session": "2024-02-06"
+            },
+            {
+              "cashUsd": 63022.22,
+              "complete": true,
+              "durationYears": 4.502398,
+              "dv01Usd": 449.5,
+              "equityUsd": 998349.58,
+              "session": "2024-02-07"
+            },
+            {
+              "cashUsd": 63022.22,
+              "complete": true,
+              "durationYears": 4.495474,
+              "dv01Usd": 447.71,
+              "equityUsd": 995911.93,
+              "session": "2024-02-08"
+            },
+            {
+              "cashUsd": 63022.22,
+              "complete": true,
+              "durationYears": 4.491546,
+              "dv01Usd": 446.93,
+              "equityUsd": 995050.47,
+              "session": "2024-02-09"
+            },
+            {
+              "cashUsd": 63022.22,
+              "complete": true,
+              "durationYears": 4.484357,
+              "dv01Usd": 446.48,
+              "equityUsd": 995640.12,
+              "session": "2024-02-12"
+            },
+            {
+              "cashUsd": 63022.22,
+              "complete": true,
+              "durationYears": 3.082364,
+              "dv01Usd": 304.7,
+              "equityUsd": 988519.11,
+              "session": "2024-02-13"
+            },
+            {
+              "cashUsd": 250224.39,
+              "complete": true,
+              "durationYears": 3.084054,
+              "dv01Usd": 305.45,
+              "equityUsd": 990405.44,
+              "session": "2024-02-14"
+            },
+            {
+              "cashUsd": 254852.39,
+              "complete": true,
+              "durationYears": 3.084113,
+              "dv01Usd": 305.69,
+              "equityUsd": 991163.21,
+              "session": "2024-02-15"
+            },
+            {
+              "cashUsd": 254852.39,
+              "complete": true,
+              "durationYears": 3.0779,
+              "dv01Usd": 304.49,
+              "equityUsd": 989270.54,
+              "session": "2024-02-16"
+            },
+            {
+              "cashUsd": 254852.39,
+              "complete": true,
+              "durationYears": 3.072126,
+              "dv01Usd": 304.34,
+              "equityUsd": 990661.49,
+              "session": "2024-02-20"
+            },
+            {
+              "cashUsd": 254852.39,
+              "complete": true,
+              "durationYears": 3.066585,
+              "dv01Usd": 303.38,
+              "equityUsd": 989294.05,
+              "session": "2024-02-21"
+            },
+            {
+              "cashUsd": 254852.39,
+              "complete": true,
+              "durationYears": 3.06369,
+              "dv01Usd": 302.85,
+              "equityUsd": 988510.71,
+              "session": "2024-02-22"
+            },
+            {
+              "cashUsd": 254852.39,
+              "complete": true,
+              "durationYears": 3.066659,
+              "dv01Usd": 303.67,
+              "equityUsd": 990234.27,
+              "session": "2024-02-23"
+            }
+          ]
+        },
+        "proposalActions": {
+          "BOOTSTRAP": 1,
+          "REBALANCE": 2
+        },
+        "responseSource": "recorded_responses:reference/reference-heuristic-v1",
+        "usage": {
+          "attemptStatuses": {
+            "ok": 36
+          },
+          "budgetExhausted": [],
+          "decisionsWithModelCalls": 18,
+          "estimatedModelCostUsd": "0.000000",
+          "evidenceCalls": 0,
+          "evidenceTokens": 0,
+          "generationCalls": 36,
+          "inputTokens": 103557,
+          "maxGenerationCallsPerDecision": 2,
+          "maxToolCallsPerDecision": 4,
+          "outputTokens": 8833,
+          "priceSchedules": [
+            "reference-zero-cost-v1"
+          ],
+          "providers": [
+            "reference/reference-heuristic-v1"
+          ],
+          "recordedResponseIds": 36,
+          "toolCalls": 72,
+          "uniqueEvidenceChunks": 0
+        }
+      },
+      "llm_rag": {
+        "evidence": {
+          "bundles": 18,
+          "citations": 51,
+          "claimValidation": {
+            "valid": 51
+          },
+          "claims": 51,
+          "decisionsWithEvidence": 18,
+          "deliveredPassages": 102,
+          "distinctDocuments": 7,
+          "graphAddedPassages": 0,
+          "noteStatuses": {
+            "insufficient_evidence": 1,
+            "supported": 17
+          },
+          "temporalViolations": 0,
+          "validationSteps": {
+            "calc_refs": {
+              "failed": 0,
+              "passed": 17
+            },
+            "citation_membership": {
+              "failed": 0,
+              "passed": 17
+            },
+            "policy": {
+              "failed": 0,
+              "passed": 17
+            },
+            "quote_offsets": {
+              "failed": 0,
+              "passed": 17
+            },
+            "schema": {
+              "failed": 0,
+              "passed": 17
+            },
+            "support": {
+              "failed": 0,
+              "passed": 17
+            },
+            "temporal": {
+              "failed": 0,
+              "passed": 17
+            }
+          }
+        },
+        "exposure": {
+          "daily": [
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-29"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 4.525923,
+              "dv01Usd": 452.5,
+              "equityUsd": 999794.24,
+              "session": "2024-01-30"
+            },
+            {
+              "cashUsd": 63022.22,
+              "complete": true,
+              "durationYears": 3.119805,
+              "dv01Usd": 313.0,
+              "equityUsd": 1003282.32,
+              "session": "2024-01-31"
+            },
+            {
+              "cashUsd": 254740.16,
+              "complete": true,
+              "durationYears": 3.126682,
+              "dv01Usd": 314.77,
+              "equityUsd": 1006722.18,
+              "session": "2024-02-01"
+            },
+            {
+              "cashUsd": 254740.16,
+              "complete": true,
+              "durationYears": 3.111521,
+              "dv01Usd": 311.53,
+              "equityUsd": 1001219.85,
+              "session": "2024-02-02"
+            },
+            {
+              "cashUsd": 254740.16,
+              "complete": true,
+              "durationYears": 3.095423,
+              "dv01Usd": 308.73,
+              "equityUsd": 997384.35,
+              "session": "2024-02-05"
+            },
+            {
+              "cashUsd": 254740.16,
+              "complete": true,
+              "durationYears": 3.099802,
+              "dv01Usd": 310.09,
+              "equityUsd": 1000361.35,
+              "session": "2024-02-06"
+            },
+            {
+              "cashUsd": 254740.16,
+              "complete": true,
+              "durationYears": 3.096644,
+              "dv01Usd": 309.62,
+              "equityUsd": 999859.89,
+              "session": "2024-02-07"
+            },
+            {
+              "cashUsd": 254740.16,
+              "complete": true,
+              "durationYears": 3.090506,
+              "dv01Usd": 308.49,
+              "equityUsd": 998197.67,
+              "session": "2024-02-08"
+            },
+            {
+              "cashUsd": 254740.16,
+              "complete": true,
+              "durationYears": 3.087124,
+              "dv01Usd": 307.97,
+              "equityUsd": 997595.89,
+              "session": "2024-02-09"
+            },
+            {
+              "cashUsd": 254740.16,
+              "complete": true,
+              "durationYears": 3.081747,
+              "dv01Usd": 307.57,
+              "equityUsd": 998052.28,
+              "session": "2024-02-12"
+            },
+            {
+              "cashUsd": 254740.16,
+              "complete": true,
+              "durationYears": 3.06826,
+              "dv01Usd": 304.7,
+              "equityUsd": 993062.92,
+              "session": "2024-02-13"
+            },
+            {
+              "cashUsd": 254740.16,
+              "complete": true,
+              "durationYears": 3.070056,
+              "dv01Usd": 305.45,
+              "equityUsd": 994921.21,
+              "session": "2024-02-14"
+            },
+            {
+              "cashUsd": 259368.16,
+              "complete": true,
+              "durationYears": 3.070126,
+              "dv01Usd": 305.69,
+              "equityUsd": 995678.98,
+              "session": "2024-02-15"
+            },
+            {
+              "cashUsd": 259368.16,
+              "complete": true,
+              "durationYears": 3.063914,
+              "dv01Usd": 304.49,
+              "equityUsd": 993786.31,
+              "session": "2024-02-16"
+            },
+            {
+              "cashUsd": 259368.16,
+              "complete": true,
+              "durationYears": 3.058185,
+              "dv01Usd": 304.34,
+              "equityUsd": 995177.26,
+              "session": "2024-02-20"
+            },
+            {
+              "cashUsd": 259368.16,
+              "complete": true,
+              "durationYears": 3.05265,
+              "dv01Usd": 303.38,
+              "equityUsd": 993809.82,
+              "session": "2024-02-21"
+            },
+            {
+              "cashUsd": 259368.16,
+              "complete": true,
+              "durationYears": 3.049758,
+              "dv01Usd": 302.85,
+              "equityUsd": 993026.48,
+              "session": "2024-02-22"
+            },
+            {
+              "cashUsd": 259368.16,
+              "complete": true,
+              "durationYears": 3.052738,
+              "dv01Usd": 303.67,
+              "equityUsd": 994750.04,
+              "session": "2024-02-23"
+            }
+          ]
+        },
+        "proposalActions": {
+          "BOOTSTRAP": 1,
+          "REBALANCE": 1
+        },
+        "responseSource": "recorded_responses:reference/reference-heuristic-v1",
+        "usage": {
+          "attemptStatuses": {
+            "ok": 34
+          },
+          "budgetExhausted": [],
+          "decisionsWithModelCalls": 17,
+          "estimatedModelCostUsd": "0.000000",
+          "evidenceCalls": 18,
+          "evidenceTokens": 58912,
+          "generationCalls": 34,
+          "inputTokens": 307281,
+          "maxGenerationCallsPerDecision": 2,
+          "maxToolCallsPerDecision": 5,
+          "outputTokens": 21418,
+          "priceSchedules": [
+            "reference-zero-cost-v1"
+          ],
+          "providers": [
+            "reference/reference-heuristic-v1"
+          ],
+          "recordedResponseIds": 34,
+          "toolCalls": 88,
+          "uniqueEvidenceChunks": 102
+        }
+      },
+      "llm_team": {
+        "evidence": {
+          "bundles": 18,
+          "citations": 51,
+          "claimValidation": {
+            "valid": 51
+          },
+          "claims": 51,
+          "decisionsWithEvidence": 18,
+          "deliveredPassages": 108,
+          "distinctDocuments": 5,
+          "graphAddedPassages": 0,
+          "noteStatuses": {
+            "supported": 17
+          },
+          "temporalViolations": 0,
+          "validationSteps": {
+            "calc_refs": {
+              "failed": 0,
+              "passed": 17
+            },
+            "citation_membership": {
+              "failed": 0,
+              "passed": 17
+            },
+            "policy": {
+              "failed": 0,
+              "passed": 17
+            },
+            "quote_offsets": {
+              "failed": 0,
+              "passed": 17
+            },
+            "schema": {
+              "failed": 0,
+              "passed": 17
+            },
+            "support": {
+              "failed": 0,
+              "passed": 17
+            },
+            "temporal": {
+              "failed": 0,
+              "passed": 17
+            }
+          }
+        },
+        "exposure": {
+          "daily": [
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-29"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 4.525923,
+              "dv01Usd": 452.5,
+              "equityUsd": 999794.24,
+              "session": "2024-01-30"
+            },
+            {
+              "cashUsd": 63022.22,
+              "complete": true,
+              "durationYears": 3.119805,
+              "dv01Usd": 313.0,
+              "equityUsd": 1003282.32,
+              "session": "2024-01-31"
+            },
+            {
+              "cashUsd": 254740.16,
+              "complete": true,
+              "durationYears": 3.126682,
+              "dv01Usd": 314.77,
+              "equityUsd": 1006722.18,
+              "session": "2024-02-01"
+            },
+            {
+              "cashUsd": 254740.16,
+              "complete": true,
+              "durationYears": 3.111521,
+              "dv01Usd": 311.53,
+              "equityUsd": 1001219.85,
+              "session": "2024-02-02"
+            },
+            {
+              "cashUsd": 254740.16,
+              "complete": true,
+              "durationYears": 3.095423,
+              "dv01Usd": 308.73,
+              "equityUsd": 997384.35,
+              "session": "2024-02-05"
+            },
+            {
+              "cashUsd": 254740.16,
+              "complete": true,
+              "durationYears": 3.099802,
+              "dv01Usd": 310.09,
+              "equityUsd": 1000361.35,
+              "session": "2024-02-06"
+            },
+            {
+              "cashUsd": 254740.16,
+              "complete": true,
+              "durationYears": 3.096644,
+              "dv01Usd": 309.62,
+              "equityUsd": 999859.89,
+              "session": "2024-02-07"
+            },
+            {
+              "cashUsd": 254740.16,
+              "complete": true,
+              "durationYears": 3.090506,
+              "dv01Usd": 308.49,
+              "equityUsd": 998197.67,
+              "session": "2024-02-08"
+            },
+            {
+              "cashUsd": 254740.16,
+              "complete": true,
+              "durationYears": 3.087124,
+              "dv01Usd": 307.97,
+              "equityUsd": 997595.89,
+              "session": "2024-02-09"
+            },
+            {
+              "cashUsd": 254740.16,
+              "complete": true,
+              "durationYears": 3.081747,
+              "dv01Usd": 307.57,
+              "equityUsd": 998052.28,
+              "session": "2024-02-12"
+            },
+            {
+              "cashUsd": 254740.16,
+              "complete": true,
+              "durationYears": 3.06826,
+              "dv01Usd": 304.7,
+              "equityUsd": 993062.92,
+              "session": "2024-02-13"
+            },
+            {
+              "cashUsd": 254740.16,
+              "complete": true,
+              "durationYears": 3.070056,
+              "dv01Usd": 305.45,
+              "equityUsd": 994921.21,
+              "session": "2024-02-14"
+            },
+            {
+              "cashUsd": 259368.16,
+              "complete": true,
+              "durationYears": 3.070126,
+              "dv01Usd": 305.69,
+              "equityUsd": 995678.98,
+              "session": "2024-02-15"
+            },
+            {
+              "cashUsd": 259368.16,
+              "complete": true,
+              "durationYears": 3.063914,
+              "dv01Usd": 304.49,
+              "equityUsd": 993786.31,
+              "session": "2024-02-16"
+            },
+            {
+              "cashUsd": 259368.16,
+              "complete": true,
+              "durationYears": 3.058185,
+              "dv01Usd": 304.34,
+              "equityUsd": 995177.26,
+              "session": "2024-02-20"
+            },
+            {
+              "cashUsd": 259368.16,
+              "complete": true,
+              "durationYears": 3.05265,
+              "dv01Usd": 303.38,
+              "equityUsd": 993809.82,
+              "session": "2024-02-21"
+            },
+            {
+              "cashUsd": 259368.16,
+              "complete": true,
+              "durationYears": 3.049758,
+              "dv01Usd": 302.85,
+              "equityUsd": 993026.48,
+              "session": "2024-02-22"
+            },
+            {
+              "cashUsd": 259368.16,
+              "complete": true,
+              "durationYears": 3.052738,
+              "dv01Usd": 303.67,
+              "equityUsd": 994750.04,
+              "session": "2024-02-23"
+            }
+          ]
+        },
+        "proposalActions": {
+          "BOOTSTRAP": 1,
+          "REBALANCE": 1
+        },
+        "responseSource": "recorded_responses:reference/reference-heuristic-v1",
+        "usage": {
+          "attemptStatuses": {
+            "ok": 84,
+            "provider_error": 2
+          },
+          "budgetExhausted": [],
+          "decisionsWithModelCalls": 18,
+          "estimatedModelCostUsd": "0.000000",
+          "evidenceCalls": 18,
+          "evidenceTokens": 62838,
+          "generationCalls": 86,
+          "inputTokens": 433875,
+          "maxGenerationCallsPerDecision": 5,
+          "maxToolCallsPerDecision": 5,
+          "outputTokens": 42296,
+          "priceSchedules": [
+            "reference-zero-cost-v1"
+          ],
+          "providers": [
+            "reference/reference-heuristic-v1"
+          ],
+          "recordedResponseIds": 84,
+          "toolCalls": 88,
+          "uniqueEvidenceChunks": 108
+        }
+      },
+      "quant_duration": {
+        "evidence": null,
+        "exposure": {
+          "daily": [
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-29"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 4.525923,
+              "dv01Usd": 452.5,
+              "equityUsd": 999794.24,
+              "session": "2024-01-30"
+            },
+            {
+              "cashUsd": 63022.22,
+              "complete": true,
+              "durationYears": 4.000002,
+              "dv01Usd": 401.32,
+              "equityUsd": 1003309.92,
+              "session": "2024-01-31"
+            },
+            {
+              "cashUsd": 135024.89,
+              "complete": true,
+              "durationYears": 4.007757,
+              "dv01Usd": 403.91,
+              "equityUsd": 1007809.91,
+              "session": "2024-02-01"
+            },
+            {
+              "cashUsd": 135024.89,
+              "complete": true,
+              "durationYears": 3.99129,
+              "dv01Usd": 399.44,
+              "equityUsd": 1000785.88,
+              "session": "2024-02-02"
+            },
+            {
+              "cashUsd": 135024.89,
+              "complete": true,
+              "durationYears": 3.973047,
+              "dv01Usd": 395.63,
+              "equityUsd": 995786.12,
+              "session": "2024-02-05"
+            },
+            {
+              "cashUsd": 135024.89,
+              "complete": true,
+              "durationYears": 3.977273,
+              "dv01Usd": 397.53,
+              "equityUsd": 999494.78,
+              "session": "2024-02-06"
+            },
+            {
+              "cashUsd": 135024.89,
+              "complete": true,
+              "durationYears": 3.973947,
+              "dv01Usd": 396.96,
+              "equityUsd": 998916.81,
+              "session": "2024-02-07"
+            },
+            {
+              "cashUsd": 135024.89,
+              "complete": true,
+              "durationYears": 3.967061,
+              "dv01Usd": 395.42,
+              "equityUsd": 996770.38,
+              "session": "2024-02-08"
+            },
+            {
+              "cashUsd": 135024.89,
+              "complete": true,
+              "durationYears": 3.963251,
+              "dv01Usd": 394.74,
+              "equityUsd": 996006.44,
+              "session": "2024-02-09"
+            },
+            {
+              "cashUsd": 135024.89,
+              "complete": true,
+              "durationYears": 3.956789,
+              "dv01Usd": 394.31,
+              "equityUsd": 996546.05,
+              "session": "2024-02-12"
+            },
+            {
+              "cashUsd": 135024.89,
+              "complete": true,
+              "durationYears": 3.942312,
+              "dv01Usd": 390.39,
+              "equityUsd": 990253.21,
+              "session": "2024-02-13"
+            },
+            {
+              "cashUsd": 135024.89,
+              "complete": true,
+              "durationYears": 3.943831,
+              "dv01Usd": 391.45,
+              "equityUsd": 992551.27,
+              "session": "2024-02-14"
+            },
+            {
+              "cashUsd": 140963.89,
+              "complete": true,
+              "durationYears": 3.943856,
+              "dv01Usd": 391.84,
+              "equityUsd": 993550.65,
+              "session": "2024-02-15"
+            },
+            {
+              "cashUsd": 140963.89,
+              "complete": true,
+              "durationYears": 3.937075,
+              "dv01Usd": 390.23,
+              "equityUsd": 991165.49,
+              "session": "2024-02-16"
+            },
+            {
+              "cashUsd": 140963.89,
+              "complete": true,
+              "durationYears": 3.929898,
+              "dv01Usd": 390.18,
+              "equityUsd": 992843.04,
+              "session": "2024-02-20"
+            },
+            {
+              "cashUsd": 140963.89,
+              "complete": true,
+              "durationYears": 3.923628,
+              "dv01Usd": 388.86,
+              "equityUsd": 991066.68,
+              "session": "2024-02-21"
+            },
+            {
+              "cashUsd": 140963.89,
+              "complete": true,
+              "durationYears": 3.920784,
+              "dv01Usd": 388.23,
+              "equityUsd": 990191.48,
+              "session": "2024-02-22"
+            },
+            {
+              "cashUsd": 140963.89,
+              "complete": true,
+              "durationYears": 3.924321,
+              "dv01Usd": 389.5,
+              "equityUsd": 992517.36,
+              "session": "2024-02-23"
+            }
+          ]
+        },
+        "proposalActions": {
+          "BOOTSTRAP": 1,
+          "REBALANCE": 1
+        },
+        "responseSource": "deterministic_code",
+        "usage": {
+          "attemptStatuses": {},
+          "budgetExhausted": [],
+          "decisionsWithModelCalls": 0,
+          "estimatedModelCostUsd": null,
+          "evidenceCalls": 0,
+          "evidenceTokens": 0,
+          "generationCalls": 0,
+          "inputTokens": 0,
+          "maxGenerationCallsPerDecision": 0,
+          "maxToolCallsPerDecision": 0,
+          "outputTokens": 0,
+          "priceSchedules": [],
+          "providers": [],
+          "recordedResponseIds": 0,
+          "toolCalls": 0,
+          "uniqueEvidenceChunks": 0
+        }
+      },
+      "static_ladder": {
+        "evidence": null,
+        "exposure": {
+          "daily": [
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 0.0,
+              "dv01Usd": 0.0,
+              "equityUsd": 1000000.0,
+              "session": "2024-01-29"
+            },
+            {
+              "cashUsd": 1000000.0,
+              "complete": true,
+              "durationYears": 4.525923,
+              "dv01Usd": 452.5,
+              "equityUsd": 999794.24,
+              "session": "2024-01-30"
+            },
+            {
+              "cashUsd": 63022.22,
+              "complete": true,
+              "durationYears": 4.529372,
+              "dv01Usd": 454.44,
+              "equityUsd": 1003326.51,
+              "session": "2024-01-31"
+            },
+            {
+              "cashUsd": 63022.22,
+              "complete": true,
+              "durationYears": 4.536764,
+              "dv01Usd": 457.52,
+              "equityUsd": 1008464.12,
+              "session": "2024-02-01"
+            },
+            {
+              "cashUsd": 63022.22,
+              "complete": true,
+              "durationYears": 4.520794,
+              "dv01Usd": 452.32,
+              "equityUsd": 1000524.86,
+              "session": "2024-02-02"
+            },
+            {
+              "cashUsd": 63022.22,
+              "complete": true,
+              "durationYears": 4.502251,
+              "dv01Usd": 447.9,
+              "equityUsd": 994824.85,
+              "session": "2024-02-05"
+            },
+            {
+              "cashUsd": 63022.22,
+              "complete": true,
+              "durationYears": 4.50576,
+              "dv01Usd": 450.11,
+              "equityUsd": 998973.57,
+              "session": "2024-02-06"
+            },
+            {
+              "cashUsd": 63022.22,
+              "complete": true,
+              "durationYears": 4.502398,
+              "dv01Usd": 449.5,
+              "equityUsd": 998349.58,
+              "session": "2024-02-07"
+            },
+            {
+              "cashUsd": 63022.22,
+              "complete": true,
+              "durationYears": 4.495474,
+              "dv01Usd": 447.71,
+              "equityUsd": 995911.93,
+              "session": "2024-02-08"
+            },
+            {
+              "cashUsd": 63022.22,
+              "complete": true,
+              "durationYears": 4.491546,
+              "dv01Usd": 446.93,
+              "equityUsd": 995050.47,
+              "session": "2024-02-09"
+            },
+            {
+              "cashUsd": 63022.22,
+              "complete": true,
+              "durationYears": 4.484357,
+              "dv01Usd": 446.48,
+              "equityUsd": 995640.12,
+              "session": "2024-02-12"
+            },
+            {
+              "cashUsd": 63022.22,
+              "complete": true,
+              "durationYears": 4.470403,
+              "dv01Usd": 441.93,
+              "equityUsd": 988563.3,
+              "session": "2024-02-13"
+            },
+            {
+              "cashUsd": 63022.22,
+              "complete": true,
+              "durationYears": 4.471375,
+              "dv01Usd": 443.17,
+              "equityUsd": 991125.86,
+              "session": "2024-02-14"
+            },
+            {
+              "cashUsd": 69749.72,
+              "complete": true,
+              "durationYears": 4.471165,
+              "dv01Usd": 443.66,
+              "equityUsd": 992270.56,
+              "session": "2024-02-15"
+            },
+            {
+              "cashUsd": 69749.72,
+              "complete": true,
+              "durationYears": 4.464465,
+              "dv01Usd": 441.8,
+              "equityUsd": 989589.19,
+              "session": "2024-02-16"
+            },
+            {
+              "cashUsd": 69749.72,
+              "complete": true,
+              "durationYears": 4.456165,
+              "dv01Usd": 441.8,
+              "equityUsd": 991439.12,
+              "session": "2024-02-20"
+            },
+            {
+              "cashUsd": 69749.72,
+              "complete": true,
+              "durationYears": 4.449803,
+              "dv01Usd": 440.27,
+              "equityUsd": 989416.81,
+              "session": "2024-02-21"
+            },
+            {
+              "cashUsd": 69749.72,
+              "complete": true,
+              "durationYears": 4.447068,
+              "dv01Usd": 439.59,
+              "equityUsd": 988486.37,
+              "session": "2024-02-22"
+            },
+            {
+              "cashUsd": 69749.72,
+              "complete": true,
+              "durationYears": 4.450425,
+              "dv01Usd": 441.11,
+              "equityUsd": 991174.52,
+              "session": "2024-02-23"
+            }
+          ]
+        },
+        "proposalActions": {
+          "BOOTSTRAP": 1
+        },
+        "responseSource": "deterministic_code",
+        "usage": {
+          "attemptStatuses": {},
+          "budgetExhausted": [],
+          "decisionsWithModelCalls": 0,
+          "estimatedModelCostUsd": null,
+          "evidenceCalls": 0,
+          "evidenceTokens": 0,
+          "generationCalls": 0,
+          "inputTokens": 0,
+          "maxGenerationCallsPerDecision": 0,
+          "maxToolCallsPerDecision": 0,
+          "outputTokens": 0,
+          "priceSchedules": [],
+          "providers": [],
+          "recordedResponseIds": 0,
+          "toolCalls": 0,
+          "uniqueEvidenceChunks": 0
+        }
+      }
+    }
+  },
+  "exclusions": [],
+  "executionModel": "synthetic-half-spread-0.02-v1",
+  "experimentId": "fi-demo-2024q1-faults",
+  "failures": [],
+  "limitations": [
+    "Synthetic instruments priced from curve inputs; execution prices are model observations plus declared half-spread, not market quotes.",
+    "Same-curve marks and fills: any rich/cheap signal is mechanically neutral.",
+    "Spread assumptions (0.00/0.02/0.05 per 100 face) are illustrative, not measured costs.",
+    "Daily-only data: fills are labelled next-session close observations.",
+    "Short replays do not support statistical significance claims.",
+    "Retrospective LLM runs may reflect pretrained knowledge of later events.",
+    "Cash earns the configured cash return only (fixture: zero)."
+  ],
+  "manifestHash": "sha256:955d32cec5e4e9f9c809e90c0738689bb54f9601d845e12043b8fec28e4c43e2",
+  "manifestVerified": true,
+  "pairedComparisons": [
+    {
+      "available": true,
+      "blockPolicy": {
+        "blockLength": 5,
+        "confidence": 0.95,
+        "method": "moving_block_bootstrap_v1",
+        "resamples": 1000,
+        "seed": 0
+      },
+      "ciHigh": 5.516606577028058e-05,
+      "ciLow": -0.0011799431769501198,
+      "meanDifference": -0.00028906222623019596,
+      "note": "uncertainty estimate; not a significance claim for short samples",
+      "observations": 18,
+      "strategyId": "llm_graph",
+      "versus": "cash"
+    },
+    {
+      "available": true,
+      "blockPolicy": {
+        "blockLength": 5,
+        "confidence": 0.95,
+        "method": "moving_block_bootstrap_v1",
+        "resamples": 1000,
+        "seed": 0
+      },
+      "ciHigh": 5.769067773136028e-06,
+      "ciLow": -0.001757729699972853,
+      "meanDifference": -0.0005389533541638866,
+      "note": "uncertainty estimate; not a significance claim for short samples",
+      "observations": 18,
+      "strategyId": "llm_market",
+      "versus": "cash"
+    },
+    {
+      "available": true,
+      "blockPolicy": {
+        "blockLength": 5,
+        "confidence": 0.95,
+        "method": "moving_block_bootstrap_v1",
+        "resamples": 1000,
+        "seed": 0
+      },
+      "ciHigh": 5.516606577028058e-05,
+      "ciLow": -0.0011799431769501198,
+      "meanDifference": -0.00028906222623019596,
+      "note": "uncertainty estimate; not a significance claim for short samples",
+      "observations": 18,
+      "strategyId": "llm_rag",
+      "versus": "cash"
+    },
+    {
+      "available": true,
+      "blockPolicy": {
+        "blockLength": 5,
+        "confidence": 0.95,
+        "method": "moving_block_bootstrap_v1",
+        "resamples": 1000,
+        "seed": 0
+      },
+      "ciHigh": 5.516606577028058e-05,
+      "ciLow": -0.0011799431769501198,
+      "meanDifference": -0.00028906222623019596,
+      "note": "uncertainty estimate; not a significance claim for short samples",
+      "observations": 18,
+      "strategyId": "llm_team",
+      "versus": "cash"
+    },
+    {
+      "available": true,
+      "blockPolicy": {
+        "blockLength": 5,
+        "confidence": 0.95,
+        "method": "moving_block_bootstrap_v1",
+        "resamples": 1000,
+        "seed": 0
+      },
+      "ciHigh": 1.25981638700142e-05,
+      "ciLow": -0.0015217302560021656,
+      "meanDifference": -0.00041197317488062094,
+      "note": "uncertainty estimate; not a significance claim for short samples",
+      "observations": 18,
+      "strategyId": "quant_duration",
+      "versus": "cash"
+    },
+    {
+      "available": true,
+      "blockPolicy": {
+        "blockLength": 5,
+        "confidence": 0.95,
+        "method": "moving_block_bootstrap_v1",
+        "resamples": 1000,
+        "seed": 0
+      },
+      "ciHigh": -9.50201692228957e-06,
+      "ciLow": -0.0017371717228956418,
+      "meanDifference": -0.00048580424343829806,
+      "note": "uncertainty estimate; not a significance claim for short samples",
+      "observations": 18,
+      "strategyId": "static_ladder",
+      "versus": "cash"
+    }
+  ],
+  "ranking": [
+    "cash",
+    "llm_graph",
+    "llm_rag",
+    "llm_team",
+    "quant_duration",
+    "static_ladder",
+    "llm_market"
+  ],
+  "reportVersion": "replay-report-v1",
+  "responseMode": "recorded_replay",
+  "responseSource": "recorded_provider_responses",
+  "riskPolicy": "treasury-long-only-v1",
+  "runId": "fi-demo-2024q1-faults-r0",
+  "status": "completed",
+  "strategies": [
+    {
+      "configHash": "sha256:e574780550641e1ff2151df48f9a701102f0817de5dbd08777c5b9ec67e83f6b",
+      "failedOrSkippedDecisions": [],
+      "invested": false,
+      "kind": "cash_reference",
+      "metrics": {
+        "annualizedReturn": null,
+        "annualizedUnavailableReason": "fewer_than_252_returns",
+        "attribution": {
+          "carryUsd": "0.00",
+          "costsUsd": "0",
+          "priceUsd": "0.00",
+          "reconciles": true,
+          "residualUsd": "0.00",
+          "totalUsd": "0.00"
+        },
+        "averageCashProportion": 1.0,
+        "averageDv01Usd": 0.0,
+        "averageEffectiveDurationYears": 0.0,
+        "cancelledOrderCount": 0,
+        "completeValuationCount": 19,
+        "couponIncomeUsd": "0",
+        "dailyVolatility": 0.0,
+        "decisionCount": 19,
+        "decisionOutcomes": {
+          "completed_hold": 19
+        },
+        "drawdown": {
+          "maxDrawdown": 0.0,
+          "peakIndex": 0,
+          "recovered": true,
+          "recoveryObservations": null,
+          "troughIndex": 0
+        },
+        "elapsedCalendarDays": 25,
+        "endEffectiveDurationYears": 0.0,
+        "endEquityUsd": "1000000.00",
+        "endValuationAt": "2024-02-24T01:00:00+00:00",
+        "expiryCount": 0,
+        "externalFlowsUsd": "0.00",
+        "feesUsd": "0",
+        "fillCount": 0,
+        "grossReturn": 0.0,
+        "incompleteValuationCount": 0,
+        "interestIncomeUsd": "0",
+        "maxDv01Usd": 0.0,
+        "metricsVersion": "metrics-v1",
+        "netReturn": 0.0,
+        "observationCount": 18,
+        "ordersCreated": 0,
+        "policyEvaluations": 0,
+        "policyRejections": 0,
+        "proposalCount": 0,
+        "realizedPnlUsd": "0",
+        "redemptionsUsd": "0",
+        "rejectedOrderCount": 0,
+        "sharpe": {
+          "unavailableReason": "missing_risk_free_series",
+          "value": null
+        },
+        "spreadCostUsd": "0",
+        "startEquityUsd": "1000000.00",
+        "startValuationAt": "2024-01-30T01:00:00+00:00",
+        "totalPnlUsd": "0.00",
+        "tradedConsiderationUsd": "0",
+        "turnoverRatio": 0.0,
+        "unrealizedPnlUsd": "0.00",
+        "valuationCount": 19
+      },
+      "missingDecisions": 0,
+      "rejectedProposals": [],
+      "strategyId": "cash"
+    },
+    {
+      "configHash": "sha256:28fafb2a477f96448cda47055108bcd60875211fb269371fc7c1b2c26e0e870d",
+      "failedOrSkippedDecisions": [
+        {
+          "decisionId": "dec:fi-demo-2024q1-faults-r0:llm_graph:2024-01-31:r0",
+          "outcome": "failed_dependency",
+          "reasons": [
+            "graph_retrieval_unavailable",
+            "retrieval_mode:graph_rag_v1",
+            "no_fallback_to_hybrid_rag_v1",
+            "injected graph outage (F2-graph-outage)"
+          ]
+        }
+      ],
+      "invested": true,
+      "kind": "single_agent",
+      "metrics": {
+        "annualizedReturn": null,
+        "annualizedUnavailableReason": "fewer_than_252_returns",
+        "attribution": {
+          "carryUsd": "1368.82",
+          "costsUsd": "-250.00",
+          "priceUsd": "-6368.78",
+          "reconciles": true,
+          "residualUsd": "0.00",
+          "totalUsd": "-5249.96"
+        },
+        "averageCashProportion": 0.325194405097776,
+        "averageDv01Usd": 298.88631578947366,
+        "averageEffectiveDurationYears": 2.995834947368421,
+        "cancelledOrderCount": 0,
+        "completeValuationCount": 19,
+        "couponIncomeUsd": "4628.00",
+        "dailyVolatility": 0.0026532674631688357,
+        "decisionCount": 19,
+        "decisionOutcomes": {
+          "completed_hold": 16,
+          "completed_proposal": 2,
+          "failed_dependency": 1
+        },
+        "drawdown": {
+          "maxDrawdown": -0.01360424978418581,
+          "peakIndex": 3,
+          "recovered": false,
+          "recoveryObservations": null,
+          "troughIndex": 17
+        },
+        "elapsedCalendarDays": 25,
+        "endEffectiveDurationYears": 3.052738,
+        "endEquityUsd": "994750.04",
+        "endValuationAt": "2024-02-24T01:00:00+00:00",
+        "expiryCount": 0,
+        "externalFlowsUsd": "0.00",
+        "feesUsd": "0.00",
+        "fillCount": 6,
+        "grossReturn": -0.00499996,
+        "incompleteValuationCount": 0,
+        "interestIncomeUsd": "388.68",
+        "maxDv01Usd": 452.5,
+        "metricsVersion": "metrics-v1",
+        "netReturn": -0.00524996,
+        "observationCount": 18,
+        "ordersCreated": 6,
+        "policyEvaluations": 2,
+        "policyRejections": 0,
+        "proposalCount": 2,
+        "realizedPnlUsd": "956.45",
+        "redemptionsUsd": "0",
+        "rejectedOrderCount": 0,
+        "sharpe": {
+          "unavailableReason": "missing_risk_free_series",
+          "value": null
+        },
+        "spreadCostUsd": "250.00",
+        "startEquityUsd": "1000000.00",
+        "startValuationAt": "2024-01-30T01:00:00+00:00",
+        "totalPnlUsd": "-5249.96",
+        "tradedConsiderationUsd": "1128695.72",
+        "turnoverRatio": 1.1312748456440933,
+        "unrealizedPnlUsd": "-6595.09",
+        "valuationCount": 19
+      },
+      "missingDecisions": 0,
+      "rejectedProposals": [],
+      "strategyId": "llm_graph"
+    },
+    {
+      "configHash": "sha256:a723453b066abc34c25c0e2d98bb999d527e07582335ebd2c4dad058b5f65e5a",
+      "failedOrSkippedDecisions": [],
+      "invested": true,
+      "kind": "single_agent",
+      "metrics": {
+        "annualizedReturn": null,
+        "annualizedUnavailableReason": "fewer_than_252_returns",
+        "attribution": {
+          "carryUsd": "1517.16",
+          "costsUsd": "-250.00",
+          "priceUsd": "-11032.89",
+          "reconciles": true,
+          "residualUsd": "0.00",
+          "totalUsd": "-9765.73"
+        },
+        "averageCashProportion": 0.23311414555294852,
+        "averageDv01Usd": 365.2621052631579,
+        "averageEffectiveDurationYears": 3.668006842105263,
+        "cancelledOrderCount": 0,
+        "completeValuationCount": 19,
+        "couponIncomeUsd": "4628.00",
+        "dailyVolatility": 0.003592226719850009,
+        "decisionCount": 19,
+        "decisionOutcomes": {
+          "completed_hold": 16,
+          "completed_proposal": 3
+        },
+        "drawdown": {
+          "maxDrawdown": -0.019785939434315256,
+          "peakIndex": 3,
+          "recovered": false,
+          "recoveryObservations": null,
+          "troughIndex": 17
+        },
+        "elapsedCalendarDays": 25,
+        "endEffectiveDurationYears": 3.066659,
+        "endEquityUsd": "990234.27",
+        "endValuationAt": "2024-02-24T01:00:00+00:00",
+        "expiryCount": 0,
+        "externalFlowsUsd": "0.00",
+        "feesUsd": "0.00",
+        "fillCount": 6,
+        "grossReturn": -0.00951573,
+        "incompleteValuationCount": 0,
+        "interestIncomeUsd": "537.02",
+        "maxDv01Usd": 457.52,
+        "metricsVersion": "metrics-v1",
+        "netReturn": -0.00976573,
+        "observationCount": 18,
+        "ordersCreated": 6,
+        "policyEvaluations": 3,
+        "policyRejections": 1,
+        "proposalCount": 3,
+        "realizedPnlUsd": "-3707.66",
+        "redemptionsUsd": "0",
+        "rejectedOrderCount": 0,
+        "sharpe": {
+          "unavailableReason": "missing_risk_free_series",
+          "value": null
+        },
+        "spreadCostUsd": "250.00",
+        "startEquityUsd": "1000000.00",
+        "startValuationAt": "2024-01-30T01:00:00+00:00",
+        "totalPnlUsd": "-9765.73",
+        "tradedConsiderationUsd": "1124179.95",
+        "turnoverRatio": 1.1295949266548952,
+        "unrealizedPnlUsd": "-6595.09",
+        "valuationCount": 19
+      },
+      "missingDecisions": 0,
+      "rejectedProposals": [
+        {
+          "decisionId": "dec:fi-demo-2024q1-faults-r0:llm_market:2024-02-21:r0",
+          "reasons": [
+            "funding_settled_cash:unfundable_purchases_receivables_do_not_fund",
+            "max_daily_turnover_ratio:turnover_cap_exceeded",
+            "max_single_security_ratio:SYN-USD-NOTE-009:limit_exceeded"
+          ]
+        }
+      ],
+      "strategyId": "llm_market"
+    },
+    {
+      "configHash": "sha256:fdc7ecf7d06d2e7f10933d50945b23d1e74024e42b6f13c52b61eda53abdad40",
+      "failedOrSkippedDecisions": [
+        {
+          "decisionId": "dec:fi-demo-2024q1-faults-r0:llm_rag:2024-02-21:r0",
+          "outcome": "abstained_insufficient_evidence",
+          "reasons": [
+            "mandatory_retrieval_empty"
+          ]
+        }
+      ],
+      "invested": true,
+      "kind": "single_agent",
+      "metrics": {
+        "annualizedReturn": null,
+        "annualizedUnavailableReason": "fewer_than_252_returns",
+        "attribution": {
+          "carryUsd": "1368.82",
+          "costsUsd": "-250.00",
+          "priceUsd": "-6368.78",
+          "reconciles": true,
+          "residualUsd": "0.00",
+          "totalUsd": "-5249.96"
+        },
+        "averageCashProportion": 0.325194405097776,
+        "averageDv01Usd": 298.88631578947366,
+        "averageEffectiveDurationYears": 2.995834947368421,
+        "cancelledOrderCount": 0,
+        "completeValuationCount": 19,
+        "couponIncomeUsd": "4628.00",
+        "dailyVolatility": 0.0026532674631688357,
+        "decisionCount": 19,
+        "decisionOutcomes": {
+          "abstained_insufficient_evidence": 1,
+          "completed_hold": 16,
+          "completed_proposal": 2
+        },
+        "drawdown": {
+          "maxDrawdown": -0.01360424978418581,
+          "peakIndex": 3,
+          "recovered": false,
+          "recoveryObservations": null,
+          "troughIndex": 17
+        },
+        "elapsedCalendarDays": 25,
+        "endEffectiveDurationYears": 3.052738,
+        "endEquityUsd": "994750.04",
+        "endValuationAt": "2024-02-24T01:00:00+00:00",
+        "expiryCount": 0,
+        "externalFlowsUsd": "0.00",
+        "feesUsd": "0.00",
+        "fillCount": 6,
+        "grossReturn": -0.00499996,
+        "incompleteValuationCount": 0,
+        "interestIncomeUsd": "388.68",
+        "maxDv01Usd": 452.5,
+        "metricsVersion": "metrics-v1",
+        "netReturn": -0.00524996,
+        "observationCount": 18,
+        "ordersCreated": 6,
+        "policyEvaluations": 2,
+        "policyRejections": 0,
+        "proposalCount": 2,
+        "realizedPnlUsd": "956.45",
+        "redemptionsUsd": "0",
+        "rejectedOrderCount": 0,
+        "sharpe": {
+          "unavailableReason": "missing_risk_free_series",
+          "value": null
+        },
+        "spreadCostUsd": "250.00",
+        "startEquityUsd": "1000000.00",
+        "startValuationAt": "2024-01-30T01:00:00+00:00",
+        "totalPnlUsd": "-5249.96",
+        "tradedConsiderationUsd": "1128695.72",
+        "turnoverRatio": 1.1312748456440933,
+        "unrealizedPnlUsd": "-6595.09",
+        "valuationCount": 19
+      },
+      "missingDecisions": 0,
+      "rejectedProposals": [],
+      "strategyId": "llm_rag"
+    },
+    {
+      "configHash": "sha256:1f19f96560ba4ad0ac55af714c0bd1ee044f72cfea335f1cd3eba8c8aaa68a23",
+      "failedOrSkippedDecisions": [
+        {
+          "decisionId": "dec:fi-demo-2024q1-faults-r0:llm_team:2024-01-31:r0",
+          "outcome": "failed_dependency",
+          "reasons": [
+            "provider_error:lead:task_assignment",
+            "injected provider outage (F1-provider-outage)"
+          ]
+        }
+      ],
+      "invested": true,
+      "kind": "specialist_team",
+      "metrics": {
+        "annualizedReturn": null,
+        "annualizedUnavailableReason": "fewer_than_252_returns",
+        "attribution": {
+          "carryUsd": "1368.82",
+          "costsUsd": "-250.00",
+          "priceUsd": "-6368.78",
+          "reconciles": true,
+          "residualUsd": "0.00",
+          "totalUsd": "-5249.96"
+        },
+        "averageCashProportion": 0.325194405097776,
+        "averageDv01Usd": 298.88631578947366,
+        "averageEffectiveDurationYears": 2.995834947368421,
+        "cancelledOrderCount": 0,
+        "completeValuationCount": 19,
+        "couponIncomeUsd": "4628.00",
+        "dailyVolatility": 0.0026532674631688357,
+        "decisionCount": 19,
+        "decisionOutcomes": {
+          "completed_hold": 16,
+          "completed_proposal": 2,
+          "failed_dependency": 1
+        },
+        "drawdown": {
+          "maxDrawdown": -0.01360424978418581,
+          "peakIndex": 3,
+          "recovered": false,
+          "recoveryObservations": null,
+          "troughIndex": 17
+        },
+        "elapsedCalendarDays": 25,
+        "endEffectiveDurationYears": 3.052738,
+        "endEquityUsd": "994750.04",
+        "endValuationAt": "2024-02-24T01:00:00+00:00",
+        "expiryCount": 0,
+        "externalFlowsUsd": "0.00",
+        "feesUsd": "0.00",
+        "fillCount": 6,
+        "grossReturn": -0.00499996,
+        "incompleteValuationCount": 0,
+        "interestIncomeUsd": "388.68",
+        "maxDv01Usd": 452.5,
+        "metricsVersion": "metrics-v1",
+        "netReturn": -0.00524996,
+        "observationCount": 18,
+        "ordersCreated": 6,
+        "policyEvaluations": 2,
+        "policyRejections": 0,
+        "proposalCount": 2,
+        "realizedPnlUsd": "956.45",
+        "redemptionsUsd": "0",
+        "rejectedOrderCount": 0,
+        "sharpe": {
+          "unavailableReason": "missing_risk_free_series",
+          "value": null
+        },
+        "spreadCostUsd": "250.00",
+        "startEquityUsd": "1000000.00",
+        "startValuationAt": "2024-01-30T01:00:00+00:00",
+        "totalPnlUsd": "-5249.96",
+        "tradedConsiderationUsd": "1128695.72",
+        "turnoverRatio": 1.1312748456440933,
+        "unrealizedPnlUsd": "-6595.09",
+        "valuationCount": 19
+      },
+      "missingDecisions": 0,
+      "rejectedProposals": [],
+      "strategyId": "llm_team"
+    },
+    {
+      "configHash": "sha256:218cbc1c100f3c2bc96b69484efc44b6707a2b8bddc30f7160f3f90c1193485e",
+      "failedOrSkippedDecisions": [],
+      "invested": true,
+      "kind": "quant_policy",
+      "metrics": {
+        "annualizedReturn": null,
+        "annualizedUnavailableReason": "fewer_than_252_returns",
+        "attribution": {
+          "carryUsd": "1547.81",
+          "costsUsd": "-222.40",
+          "priceUsd": "-8808.05",
+          "reconciles": true,
+          "residualUsd": "0.00",
+          "totalUsd": "-7482.64"
+        },
+        "averageCashProportion": 0.2247048701833408,
+        "averageDv01Usd": 376.44421052631577,
+        "averageEffectiveDurationYears": 3.779055,
+        "cancelledOrderCount": 0,
+        "completeValuationCount": 19,
+        "couponIncomeUsd": "5939.00",
+        "dailyVolatility": 0.0033175653732521993,
+        "decisionCount": 19,
+        "decisionOutcomes": {
+          "completed_hold": 17,
+          "completed_proposal": 2
+        },
+        "drawdown": {
+          "maxDrawdown": -0.01748189795037841,
+          "peakIndex": 3,
+          "recovered": false,
+          "recoveryObservations": null,
+          "troughIndex": 17
+        },
+        "elapsedCalendarDays": 25,
+        "endEffectiveDurationYears": 3.924321,
+        "endEquityUsd": "992517.36",
+        "endValuationAt": "2024-02-24T01:00:00+00:00",
+        "expiryCount": 0,
+        "externalFlowsUsd": "0.00",
+        "feesUsd": "0.00",
+        "fillCount": 6,
+        "grossReturn": -0.00726024,
+        "incompleteValuationCount": 0,
+        "interestIncomeUsd": "488.44",
+        "maxDv01Usd": 452.5,
+        "metricsVersion": "metrics-v1",
+        "netReturn": -0.00748264,
+        "observationCount": 18,
+        "ordersCreated": 6,
+        "policyEvaluations": 2,
+        "policyRejections": 0,
+        "proposalCount": 2,
+        "realizedPnlUsd": "359.21",
+        "redemptionsUsd": "0",
+        "rejectedOrderCount": 0,
+        "sharpe": {
+          "unavailableReason": "missing_risk_free_series",
+          "value": null
+        },
+        "spreadCostUsd": "222.40",
+        "startEquityUsd": "1000000.00",
+        "startValuationAt": "2024-01-30T01:00:00+00:00",
+        "totalPnlUsd": "-7482.64",
+        "tradedConsiderationUsd": "1008980.45",
+        "turnoverRatio": 1.0127457475422448,
+        "unrealizedPnlUsd": "-8330.29",
+        "valuationCount": 19
+      },
+      "missingDecisions": 0,
+      "rejectedProposals": [],
+      "strategyId": "quant_duration"
+    },
+    {
+      "configHash": "sha256:e814430d69352532975fe9afa96a306f16e426766a7f7b1815b55349475d0d01",
+      "failedOrSkippedDecisions": [],
+      "invested": true,
+      "kind": "quant_policy",
+      "metrics": {
+        "annualizedReturn": null,
+        "annualizedUnavailableReason": "fewer_than_252_returns",
+        "attribution": {
+          "carryUsd": "1655.46",
+          "costsUsd": "-205.80",
+          "priceUsd": "-10275.14",
+          "reconciles": true,
+          "residualUsd": "0.00",
+          "totalUsd": "-8825.48"
+        },
+        "averageCashProportion": 0.16409867596805075,
+        "averageDv01Usd": 423.0915789473684,
+        "averageEffectiveDurationYears": 4.251342526315789,
+        "cancelledOrderCount": 0,
+        "completeValuationCount": 19,
+        "couponIncomeUsd": "6727.50",
+        "dailyVolatility": 0.0037226280081426397,
+        "decisionCount": 19,
+        "decisionOutcomes": {
+          "completed_hold": 18,
+          "completed_proposal": 1
+        },
+        "drawdown": {
+          "maxDrawdown": -0.0198100751467489,
+          "peakIndex": 3,
+          "recovered": false,
+          "recoveryObservations": null,
+          "troughIndex": 17
+        },
+        "elapsedCalendarDays": 25,
+        "endEffectiveDurationYears": 4.450425,
+        "endEquityUsd": "991174.52",
+        "endValuationAt": "2024-02-24T01:00:00+00:00",
+        "expiryCount": 0,
+        "externalFlowsUsd": "0.00",
+        "feesUsd": "0.00",
+        "fillCount": 5,
+        "grossReturn": -0.00861968,
+        "incompleteValuationCount": 0,
+        "interestIncomeUsd": "548.43",
+        "maxDv01Usd": 457.52,
+        "metricsVersion": "metrics-v1",
+        "netReturn": -0.00882548,
+        "observationCount": 18,
+        "ordersCreated": 5,
+        "policyEvaluations": 1,
+        "policyRejections": 0,
+        "proposalCount": 1,
+        "realizedPnlUsd": "0",
+        "redemptionsUsd": "0",
+        "rejectedOrderCount": 0,
+        "sharpe": {
+          "unavailableReason": "missing_risk_free_series",
+          "value": null
+        },
+        "spreadCostUsd": "205.80",
+        "startEquityUsd": "1000000.00",
+        "startValuationAt": "2024-01-30T01:00:00+00:00",
+        "totalPnlUsd": "-8825.48",
+        "tradedConsiderationUsd": "936977.78",
+        "turnoverRatio": 0.9412915716386683,
+        "unrealizedPnlUsd": "-9373.91",
+        "valuationCount": 19
+      },
+      "missingDecisions": 0,
+      "rejectedProposals": [],
+      "strategyId": "static_ladder"
+    }
+  ],
+  "strategyResponseSources": {
+    "cash": "deterministic_code",
+    "llm_graph": "recorded_responses:reference/reference-heuristic-v1",
+    "llm_market": "recorded_responses:reference/reference-heuristic-v1",
+    "llm_rag": "recorded_responses:reference/reference-heuristic-v1",
+    "llm_team": "recorded_responses:reference/reference-heuristic-v1",
+    "quant_duration": "deterministic_code",
+    "static_ladder": "deterministic_code"
+  },
+  "window": {
+    "end": "2024-02-23",
+    "sessions": 19,
+    "start": "2024-01-29"
+  }
+}

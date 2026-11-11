@@ -1,0 +1,297 @@
+{
+  "builtFromGitCommit": "7f5ad6498c9738cb18376387763983084d9b7254",
+  "bundleVersion": "demo-bundle-v1",
+  "definitionHash": "sha256:f2960a1b53899311dac3b21a1e0ab8df1a0057e7bd56faf0b2e241cf72bc493d",
+  "evidenceComparisons": {
+    "2024-01-03-fomc_minutes": "sha256:963d16b5eb680d7fe0635e624c17c660d59925dcd408acf6ee85661c15cf1a5e",
+    "2024-01-31-fomc_statement": "sha256:407fe842232b70934eb69768681ab596abae4bfff814943b857f409df730f3c2",
+    "2024-02-21-fomc_minutes": "sha256:56e0d4bacc49073641c0805e859d23a6b1bb1077bd2c874a9e4964269b02edb8",
+    "2024-03-20-fomc_statement": "sha256:ed9329a64e2f39f1e9d137d67f9c6a523e8769320798df7127b5ab97fe89ac17"
+  },
+  "experimentId": "fi-demo-2024q1",
+  "files": [
+    {
+      "bytes": 7455,
+      "path": "capture/config.json",
+      "sha256": "sha256:5cd6458388d1f843b47593aa039f7bc400a1e1e879f8ef40b0208cf576199607"
+    },
+    {
+      "bytes": 28983,
+      "path": "capture/manifest.json",
+      "sha256": "sha256:a632c1b4ee174bad27c70da08a9cf95334ca94f6bff4c3072baa9b7b3ce16535"
+    },
+    {
+      "bytes": 10731,
+      "path": "definition.json",
+      "sha256": "sha256:b7d608b904090d8a57228e73abfa28ea248624ea22bd5d13551505ae092f46b0"
+    },
+    {
+      "bytes": 108080,
+      "path": "evidence/2024-01-03-fomc_minutes.json",
+      "sha256": "sha256:664ab86ae1abb582eb3f5b6272d2a0b7f05cd2e326bc3ceb5cba105f511094a6"
+    },
+    {
+      "bytes": 10094,
+      "path": "evidence/2024-01-03-fomc_minutes.md",
+      "sha256": "sha256:6725f9897d32edb4275f9a9ed9265d01e7b3dde003bfb7e4b335d39d3f05677d"
+    },
+    {
+      "bytes": 108081,
+      "path": "evidence/2024-01-31-fomc_statement.json",
+      "sha256": "sha256:eec38eb07ae08263541432402b91edb01e6a1397118affef070cfee9988f86e8"
+    },
+    {
+      "bytes": 10069,
+      "path": "evidence/2024-01-31-fomc_statement.md",
+      "sha256": "sha256:79328bf1b78badea7ca7bad4dce524cdeaf931b1cc36e516c61781b04729ff8d"
+    },
+    {
+      "bytes": 108593,
+      "path": "evidence/2024-02-21-fomc_minutes.json",
+      "sha256": "sha256:0fbba6bbfc3efda8a7ab62ffd10c721efd2f81b2ed17a0462aaf0ae27258c7f7"
+    },
+    {
+      "bytes": 10081,
+      "path": "evidence/2024-02-21-fomc_minutes.md",
+      "sha256": "sha256:5afce8fe0f2b978db2ba48d53fde1f095fca9fd40c4a328023206010d8057043"
+    },
+    {
+      "bytes": 108624,
+      "path": "evidence/2024-03-20-fomc_statement.json",
+      "sha256": "sha256:755fc73aa937cad2c9c71e8a6187c13902ea55df1f3cb3b4ca05fa7d96f82693"
+    },
+    {
+      "bytes": 10082,
+      "path": "evidence/2024-03-20-fomc_statement.md",
+      "sha256": "sha256:02941f5ab67594d584509ad2a8a718077089f1fc0db7d4cb014e234ab363c459"
+    },
+    {
+      "bytes": 7364,
+      "path": "failure-injection/audit/F1-provider-outage.json",
+      "sha256": "sha256:376888fbec7f177ed928bad9070a007198eba2d8db3ff837b8abc757b0f6e4d6"
+    },
+    {
+      "bytes": 6820,
+      "path": "failure-injection/audit/F2-graph-outage.json",
+      "sha256": "sha256:5e3fda28a5c86574a9cc8c5c30491393bd65f34bb39288f58b5ed0dd3a5d4a62"
+    },
+    {
+      "bytes": 3836,
+      "path": "failure-injection/audit/F3-evidence-withheld.json",
+      "sha256": "sha256:d1f9c5eea5d7eff86c19c28ce72dc290328f8455d86382891cee2b95982239d4"
+    },
+    {
+      "bytes": 19142,
+      "path": "failure-injection/audit/F4-policy-breach.json",
+      "sha256": "sha256:9fd3c3418526d985a8dee4ead4cc6167d7c296aba60b358bfadf000e13e082a7"
+    },
+    {
+      "bytes": 12484,
+      "path": "failure-injection/audit/F5-specialist-outage.json",
+      "sha256": "sha256:2503cd295f10cee17fccf5644c44e53df0b4187e2eb8da6663a6dc435411c5b3"
+    },
+    {
+      "bytes": 7469,
+      "path": "failure-injection/capture/config.json",
+      "sha256": "sha256:48b6233fe92d2c5ab6d6eeba18a11f2d5ffec8ab4ebfd1f33e6a2abb147f6c97"
+    },
+    {
+      "bytes": 19117,
+      "path": "failure-injection/capture/manifest.json",
+      "sha256": "sha256:d7da27d6a332b93309e2209667eb81b18a62d47130b122fc6f268602a9a82d0c"
+    },
+    {
+      "bytes": 1964,
+      "path": "failure-injection/fault-plan.json",
+      "sha256": "sha256:97ba8454cbafe6be056a4d8d2da75ff8517f5aa8cbad01f2dcf37da6b64822b0"
+    },
+    {
+      "bytes": 71776,
+      "path": "failure-injection/report/report.json",
+      "sha256": "sha256:11a539186190005201778c06ce91b1e457faa77fb6458a5dc9773fe9b82a1008"
+    },
+    {
+      "bytes": 8514,
+      "path": "failure-injection/report/report.md",
+      "sha256": "sha256:f0b21666e7394f83956a678b57c924e8ac8d93ff41e65f4ac816ad73b0704e80"
+    },
+    {
+      "bytes": 318,
+      "path": "failure-injection/responses/manifest.json",
+      "sha256": "sha256:8694c49c3e759b6c1b908c43fcc964a4c070b99277a15f8b862d96b46c213562"
+    },
+    {
+      "bytes": 524734,
+      "path": "failure-injection/responses/responses.jsonl",
+      "sha256": "sha256:7abd2705944825a058b0d5dea8717abe52e2b964de33f470e63bf52180fb6ee6"
+    },
+    {
+      "bytes": 6012,
+      "path": "failure-injection/run/checkpoint.json",
+      "sha256": "sha256:8379c684099504bbc0786654d604febf2448ecd4f40a9dcda4585538e47f99ce"
+    },
+    {
+      "bytes": 151410,
+      "contentSha256": "sha256:3e4ca417b4ca98ce8ad1078cf68c1add2d8d89ce505ef0c58d749731b738ad0c",
+      "path": "failure-injection/run/commits.jsonl.gz",
+      "sha256": "sha256:94b4934e0f2fd49b3d8f95280d71b110659b5f595624abc8746ee4b628f2134c"
+    },
+    {
+      "bytes": 7509,
+      "path": "failure-injection/run/config.json",
+      "sha256": "sha256:8d36c992205f986c8b14bd9a76070350d166b52d50e2e87b232e666a6a3f7d01"
+    },
+    {
+      "bytes": 19108,
+      "path": "failure-injection/run/manifest.json",
+      "sha256": "sha256:41737e99f1248137d10fd41ca4d554217c473203537e7c29693a5863a2ca4207"
+    },
+    {
+      "bytes": 1004701,
+      "path": "failure-injection/run/outcomes.jsonl",
+      "sha256": "sha256:ba165b35bd8ad9a66cb43e8e341f445b74901222fbd989bcb6e9294e30957c4c"
+    },
+    {
+      "bytes": 148633,
+      "path": "report/report.json",
+      "sha256": "sha256:c382fb3fec8d57298329bcc21cb909d6b7019863fd08906e18e1a9b00f9baea3"
+    },
+    {
+      "bytes": 8303,
+      "path": "report/report.md",
+      "sha256": "sha256:1b11c6f3515da42ef50c1d9e3e3eb5e3c7de745e8ca5f63f72b1739e42b5ff47"
+    },
+    {
+      "bytes": 318,
+      "path": "responses/manifest.json",
+      "sha256": "sha256:8694c49c3e759b6c1b908c43fcc964a4c070b99277a15f8b862d96b46c213562"
+    },
+    {
+      "bytes": 1841774,
+      "path": "responses/responses.jsonl",
+      "sha256": "sha256:5a35ae7fba22215c51ed0f23c1e311863c29b929b2be4119929e595513da6893"
+    },
+    {
+      "bytes": 5798,
+      "path": "run/checkpoint.json",
+      "sha256": "sha256:6900a580e24745fbe405d062de31a77bdbc7ad8000d31a3361bb83942c846441"
+    },
+    {
+      "bytes": 456422,
+      "contentSha256": "sha256:9fc4f7f7d809ac8489a5c140bf41e8484a635bc55b2a3050e4db4462464600ed",
+      "path": "run/commits.jsonl.gz",
+      "sha256": "sha256:f26005b2e1a454b927adff07a883f4892a0109224fd3022684987a2962910d60"
+    },
+    {
+      "bytes": 7495,
+      "path": "run/config.json",
+      "sha256": "sha256:dbba3c98a46294aa3e5b53d2e95a0bce51672e83df74d93204f18315338f5f40"
+    },
+    {
+      "bytes": 28974,
+      "path": "run/manifest.json",
+      "sha256": "sha256:fab87f3d578a9e8dbdec0ce01a7e4f5ba21c0934d7e7ded96d91e9131f2009df"
+    },
+    {
+      "bytes": 3343390,
+      "path": "run/outcomes.jsonl",
+      "sha256": "sha256:2b3e778db5ecdc2de266dfc1289831ef99d6e3d1c0be65d06a28d4726de145c6"
+    },
+    {
+      "bytes": 28911,
+      "path": "sensitivity/half-spread-0.00/manifest.json",
+      "sha256": "sha256:87310563a0316aed5bf2da4ad862d0cf205ea706b36f08fc8d73e5c14fdf43e1"
+    },
+    {
+      "bytes": 22445,
+      "path": "sensitivity/half-spread-0.00/report.json",
+      "sha256": "sha256:5ad92c0de937f139df843124e1fab050ba86702c2bbd410b07f3ef035022f391"
+    },
+    {
+      "bytes": 28911,
+      "path": "sensitivity/half-spread-0.02/manifest.json",
+      "sha256": "sha256:fea5b88d8244f0c2742d61328c1eef7cbb812a8d1ac8fb29d856f12b068e2e05"
+    },
+    {
+      "bytes": 22475,
+      "path": "sensitivity/half-spread-0.02/report.json",
+      "sha256": "sha256:da775926c65452e46aba2962d69b9eecbc97f657afcc0e12c0c261c6232d489d"
+    },
+    {
+      "bytes": 28911,
+      "path": "sensitivity/half-spread-0.05/manifest.json",
+      "sha256": "sha256:277951122223054304ca7e55873a6e19319b7e5b5f7bae6c70a46320010aa4ee"
+    },
+    {
+      "bytes": 22466,
+      "path": "sensitivity/half-spread-0.05/report.json",
+      "sha256": "sha256:152844d523ebefdfcf585c6971d5b3d1637776c0953afa8d4e83b23acb039558"
+    },
+    {
+      "bytes": 6009,
+      "path": "sensitivity/summary.json",
+      "sha256": "sha256:8bfbf7378be88dbfc9352e58d1447fb68c7d765f94245ae2bdb578fb7472f99d"
+    },
+    {
+      "bytes": 230651,
+      "path": "walkthrough.json",
+      "sha256": "sha256:cab875222d35302d5cf1f6dc77632b332e83c2da9c8bb8775c8bdc857dbbea15"
+    }
+  ],
+  "modelDisclosure": "AI strategies ran on provider reference / reference-heuristic-v1, a deterministic rule-based policy model. It is not a hosted LLM.",
+  "runs": {
+    "canonical": {
+      "captureManifestHash": "sha256:3dc64ffa6dca254fc0a03b9d4bfbaf85cd4df318fcd3566e28fcf9c64f856274",
+      "expected": {
+        "decisions": 427,
+        "finalStateHashes": {
+          "pf:fi-demo-2024q1-r0:cash": "sha256:645e9fb433c52430c09ac026b754a7a2f576baeab1ac8eda7d8b48563d8c77d6",
+          "pf:fi-demo-2024q1-r0:llm_graph": "sha256:5db1efe28d03169e4a7b2347651a00a14894b06b648caf249c61a98b6789d7a5",
+          "pf:fi-demo-2024q1-r0:llm_market": "sha256:01ccf2e5f87195b9a2df9fea9717c77f1e91c9f712b426d074c509581d41f06f",
+          "pf:fi-demo-2024q1-r0:llm_rag": "sha256:f12c22953cfbc53bd70ed1623922d460485d46b266dcc43509e6f758ed4a7188",
+          "pf:fi-demo-2024q1-r0:llm_team": "sha256:da132a70788d39d40db707cc2c9f72694d12ea36bc6732a0138423ce3284a91b",
+          "pf:fi-demo-2024q1-r0:quant_duration": "sha256:a231fb5473d6e35fedad7693a6002710485a0c5d1b72159bb4f8be9d208d184d",
+          "pf:fi-demo-2024q1-r0:static_ladder": "sha256:ac1010581b800ce3ceb7e2359fee165785f4b582d5f03c74a7098b48c2e40dad"
+        },
+        "outcomeHashes": "sha256:ff7199f17a51aebc59b8866191f3c4844c7f567df4f48f30223ae12e8c751812",
+        "reportMetricsHash": "sha256:bcad2066415e56a435015127441cce4c023d92bc117a725dd1b6f61e932d8a1e",
+        "status": "completed",
+        "transitions": 875,
+        "transitionsHash": "sha256:b215f7fd393e89ed6d42d1c0eeffcd0310076105cb36f5bb6a3bdccbee14d458"
+      },
+      "manifestHash": "sha256:ace347a44774018261cca1c54b9a4c82e17cbb4272fc84dff1f9abb005964641",
+      "responseMode": "recorded_replay",
+      "responseSource": "recorded_provider_responses",
+      "runId": "fi-demo-2024q1-r0"
+    },
+    "failureInjection": {
+      "expected": {
+        "decisions": 133,
+        "finalStateHashes": {
+          "pf:fi-demo-2024q1-faults-r0:cash": "sha256:aa74b5e2e5f54ae3c908aec0c170328d472d8b9ed79d07007e280b3209318ca0",
+          "pf:fi-demo-2024q1-faults-r0:llm_graph": "sha256:a9e14977529061344f2318cea11812073c4838c1cb74b62bbc9ae9b210a92485",
+          "pf:fi-demo-2024q1-faults-r0:llm_market": "sha256:5d821aca35095e7ecdb60b143dbd7e3dfe4cda9220d7639c96f86f26f8d13d59",
+          "pf:fi-demo-2024q1-faults-r0:llm_rag": "sha256:c871141e78c46164817b2e9f68ada2858e758295d8915c60b827d01373d683c0",
+          "pf:fi-demo-2024q1-faults-r0:llm_team": "sha256:26bb80758836b3e634b620ce7d272b6d29567d3e9299973aa3ba76f53aca04d4",
+          "pf:fi-demo-2024q1-faults-r0:quant_duration": "sha256:3de1a053d703c459ddc7e16739c1649d7bd008867f98e47e02259654be06c133",
+          "pf:fi-demo-2024q1-faults-r0:static_ladder": "sha256:806e23b10b0e919315e3b9e43ff9ed85019220c6a54874d5e900d21d34892551"
+        },
+        "outcomeHashes": "sha256:f89fe2cd43db83954f56dfc9150b03b67d5a9415ad253dadfe078ecea221b6f9",
+        "reportMetricsHash": "sha256:6f0da1df63d946bf05cd3390f322124f0fd10378aaefdd2e0d15a2b9445277b7",
+        "status": "completed",
+        "transitions": 285,
+        "transitionsHash": "sha256:e5ba6ad143e0e5f8a970197f382a0750898ea4d683049a343e1cac8ed2b9dc04"
+      },
+      "label": "FAILURE INJECTION (declared faults)",
+      "manifestHash": "sha256:955d32cec5e4e9f9c809e90c0738689bb54f9601d845e12043b8fec28e4c43e2",
+      "responseMode": "recorded_replay",
+      "responseSource": "recorded_provider_responses",
+      "runId": "fi-demo-2024q1-faults-r0"
+    }
+  },
+  "sensitivity": [
+    "synthetic-half-spread-0.00-v1",
+    "synthetic-half-spread-0.02-v1",
+    "synthetic-half-spread-0.05-v1"
+  ]
+}

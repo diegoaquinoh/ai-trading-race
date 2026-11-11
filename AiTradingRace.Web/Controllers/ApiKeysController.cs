@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using AiTradingRace.Domain.Entities;
+using AiTradingRace.Web.Authentication;
 using AiTradingRace.Infrastructure.Database;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -96,6 +97,12 @@ public class ApiKeysController : ControllerBase
             return Unauthorized(new { message = "Invalid user context." });
         }
 
+        var scopeError = ValidateScopes(request.Scopes ?? ApiKeyScopes.Read);
+        if (scopeError is not null)
+        {
+            return BadRequest(new { message = scopeError });
+        }
+
         // Generate a secure random key
         var keyBytes = new byte[32];
         using (var rng = RandomNumberGenerator.Create())
@@ -119,7 +126,7 @@ public class ApiKeysController : ControllerBase
             Name = request.Name.Trim(),
             KeyHash = keyHash,
             KeyPrefix = keyPrefix,
-            Scopes = request.Scopes ?? "read",
+            Scopes = ApiKeyScopes.Normalize(request.Scopes ?? ApiKeyScopes.Read),
             IsActive = true,
             CreatedAt = DateTimeOffset.UtcNow,
             ExpiresAt = request.ExpiresInDays.HasValue
@@ -167,7 +174,13 @@ public class ApiKeysController : ControllerBase
 
         if (!string.IsNullOrWhiteSpace(request.Scopes))
         {
-            key.Scopes = request.Scopes;
+            var scopeError = ValidateScopes(request.Scopes);
+            if (scopeError is not null)
+            {
+                return BadRequest(new { message = scopeError });
+            }
+
+            key.Scopes = ApiKeyScopes.Normalize(request.Scopes);
         }
 
         if (request.IsActive.HasValue)
@@ -236,6 +249,20 @@ public class ApiKeysController : ControllerBase
     /// <summary>
     /// Compute SHA256 hash of a string (for API key storage).
     /// </summary>
+    /// <summary>Null when every scope is recognised and at least one is present.</summary>
+    private static string? ValidateScopes(string scopes)
+    {
+        var unknown = ApiKeyScopes.Unknown(scopes);
+        if (unknown.Count > 0)
+        {
+            return $"Unknown scope(s): {string.Join(", ", unknown)}. Allowed: {string.Join(", ", ApiKeyScopes.All)}.";
+        }
+
+        return ApiKeyScopes.Parse(scopes).Count == 0
+            ? $"At least one scope is required. Allowed: {string.Join(", ", ApiKeyScopes.All)}."
+            : null;
+    }
+
     private static string ComputeSha256Hash(string input)
     {
         var bytes = SHA256.HashData(Encoding.UTF8.GetBytes(input));

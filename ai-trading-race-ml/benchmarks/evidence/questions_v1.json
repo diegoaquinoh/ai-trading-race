@@ -1,0 +1,1670 @@
+{
+  "benchmark": "evidence-benchmark-v1",
+  "description": "Evidence retrieval benchmark over Federal Reserve FOMC statements and minutes (2023-2024) plus one labelled synthetic correction. Expected evidence ids are content-addressed chunk/version ids from the ingested corpus.",
+  "categories": {
+    "direct_document": 20,
+    "multi_document": 20,
+    "relationship_temporal": 20
+  },
+  "split_rule": "within each category, alternate dev/heldout in id order (fixed before tuning)",
+  "corpus": {
+    "index_member_versions": 33,
+    "chunk_set_hash": "sha256:7072d758eff74169a11b0ce49727f7660819fd76094756d49ed9d488de0aea53",
+    "chunker": "section-v1",
+    "tokenizer": "ws-regex-v1",
+    "includes_synthetic": true
+  },
+  "manual_review": "Factual-support review of generated answers is offline/manual and not part of this file.",
+  "questions": [
+    {
+      "id": "A01",
+      "category": "direct_document",
+      "subtype": "statement_policy_rate",
+      "split": "dev",
+      "question": "What target range for the federal funds rate did the FOMC set at its February 2023 meeting?",
+      "decisionAsOf": "2023-02-01T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-fb023eb38de00c6f77cf"
+      ],
+      "expectedVersionIds": [
+        "dv-9110c85aa2cc9ec70bab"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20230201; regex=/target range for the federal funds rate/i"
+        ],
+        "note": "Answer is stated directly in the meeting statement."
+      }
+    },
+    {
+      "id": "A02",
+      "category": "direct_document",
+      "subtype": "statement_policy_rate",
+      "split": "heldout",
+      "question": "What target range for the federal funds rate did the FOMC set at its March 2023 meeting?",
+      "decisionAsOf": "2023-03-22T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-1c8d83fdc20fbfc4f1d0"
+      ],
+      "expectedVersionIds": [
+        "dv-15cacc07b055c7d5740d"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20230322; regex=/target range for the federal funds rate/i"
+        ],
+        "note": "Answer is stated directly in the meeting statement."
+      }
+    },
+    {
+      "id": "A03",
+      "category": "direct_document",
+      "subtype": "statement_policy_rate",
+      "split": "dev",
+      "question": "What target range for the federal funds rate did the FOMC set at its May 2023 meeting?",
+      "decisionAsOf": "2023-05-03T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-06d0ac940fc5c1fdec8f"
+      ],
+      "expectedVersionIds": [
+        "dv-e90fa9382967b2736964"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20230503; regex=/target range for the federal funds rate/i"
+        ],
+        "note": "Answer is stated directly in the meeting statement."
+      }
+    },
+    {
+      "id": "A04",
+      "category": "direct_document",
+      "subtype": "statement_policy_rate",
+      "split": "heldout",
+      "question": "What target range for the federal funds rate did the FOMC set at its June 2023 meeting?",
+      "decisionAsOf": "2023-06-14T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-f29ec703be9e992eb639"
+      ],
+      "expectedVersionIds": [
+        "dv-1218c0e097a24c484a5c"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20230614; regex=/target range for the federal funds rate/i"
+        ],
+        "note": "Answer is stated directly in the meeting statement."
+      }
+    },
+    {
+      "id": "A05",
+      "category": "direct_document",
+      "subtype": "statement_policy_rate",
+      "split": "dev",
+      "question": "What target range for the federal funds rate did the FOMC set at its July 2023 meeting?",
+      "decisionAsOf": "2023-07-26T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-815c892e5d53536c62b2"
+      ],
+      "expectedVersionIds": [
+        "dv-a5b3826b3e91c8f26861"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20230726; regex=/target range for the federal funds rate/i"
+        ],
+        "note": "Answer is stated directly in the meeting statement."
+      }
+    },
+    {
+      "id": "A06",
+      "category": "direct_document",
+      "subtype": "statement_policy_rate",
+      "split": "heldout",
+      "question": "What target range for the federal funds rate did the FOMC set at its September 2023 meeting?",
+      "decisionAsOf": "2023-09-20T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-6bdf36656881d03e3f92"
+      ],
+      "expectedVersionIds": [
+        "dv-8b4ee9ddb71a1ae507d1"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20230920; regex=/target range for the federal funds rate/i"
+        ],
+        "note": "Answer is stated directly in the meeting statement."
+      }
+    },
+    {
+      "id": "A07",
+      "category": "direct_document",
+      "subtype": "statement_policy_rate",
+      "split": "dev",
+      "question": "What target range for the federal funds rate did the FOMC set at its November 2023 meeting?",
+      "decisionAsOf": "2023-11-01T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-b8a4585d055c628cb27f"
+      ],
+      "expectedVersionIds": [
+        "dv-25df779393cb4ef90eca"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20231101; regex=/target range for the federal funds rate/i"
+        ],
+        "note": "Answer is stated directly in the meeting statement."
+      }
+    },
+    {
+      "id": "A08",
+      "category": "direct_document",
+      "subtype": "statement_policy_rate",
+      "split": "heldout",
+      "question": "What target range for the federal funds rate did the FOMC set at its December 2023 meeting?",
+      "decisionAsOf": "2023-12-13T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-9958a6138e37923b410c"
+      ],
+      "expectedVersionIds": [
+        "dv-f43de880842d0372c210"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20231213; regex=/target range for the federal funds rate/i"
+        ],
+        "note": "Answer is stated directly in the meeting statement."
+      }
+    },
+    {
+      "id": "A09",
+      "category": "direct_document",
+      "subtype": "statement_policy_rate",
+      "split": "dev",
+      "question": "What target range for the federal funds rate did the FOMC set at its January 2024 meeting?",
+      "decisionAsOf": "2024-01-31T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-a1f0d9fc49d6eecbd9c9"
+      ],
+      "expectedVersionIds": [
+        "dv-03b35cc7a883b0bed21e"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20240131; regex=/target range for the federal funds rate/i"
+        ],
+        "note": "Answer is stated directly in the meeting statement."
+      }
+    },
+    {
+      "id": "A10",
+      "category": "direct_document",
+      "subtype": "statement_policy_rate",
+      "split": "heldout",
+      "question": "What target range for the federal funds rate did the FOMC set at its March 2024 meeting?",
+      "decisionAsOf": "2024-03-20T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-7dbb73cd4c68983a5332"
+      ],
+      "expectedVersionIds": [
+        "dv-81a0ad6ceff0d2599c09"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20240320; regex=/target range for the federal funds rate/i"
+        ],
+        "note": "Answer is stated directly in the meeting statement."
+      }
+    },
+    {
+      "id": "A11",
+      "category": "direct_document",
+      "subtype": "statement_policy_rate",
+      "split": "dev",
+      "question": "What target range for the federal funds rate did the FOMC set at its May 2024 meeting?",
+      "decisionAsOf": "2024-05-01T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-43ffddff533a8224c90b"
+      ],
+      "expectedVersionIds": [
+        "dv-cb006396004c2bc90184"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20240501; regex=/target range for the federal funds rate/i"
+        ],
+        "note": "Answer is stated directly in the meeting statement."
+      }
+    },
+    {
+      "id": "A12",
+      "category": "direct_document",
+      "subtype": "statement_policy_rate",
+      "split": "heldout",
+      "question": "What target range for the federal funds rate did the FOMC set at its June 2024 meeting?",
+      "decisionAsOf": "2024-06-12T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-d1cfa65bb8f0f2c8c3cd"
+      ],
+      "expectedVersionIds": [
+        "dv-7386efc535c8b058e0cf"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20240612; regex=/target range for the federal funds rate/i"
+        ],
+        "note": "Answer is stated directly in the meeting statement."
+      }
+    },
+    {
+      "id": "A13",
+      "category": "direct_document",
+      "subtype": "statement_policy_rate",
+      "split": "dev",
+      "question": "What target range for the federal funds rate did the FOMC set at its July 2024 meeting?",
+      "decisionAsOf": "2024-07-31T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-4b03d65a0078363a4f46"
+      ],
+      "expectedVersionIds": [
+        "dv-dceda0beabff7b169d6f"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20240731; regex=/target range for the federal funds rate/i"
+        ],
+        "note": "Answer is stated directly in the meeting statement."
+      }
+    },
+    {
+      "id": "A14",
+      "category": "direct_document",
+      "subtype": "statement_policy_rate",
+      "split": "heldout",
+      "question": "What target range for the federal funds rate did the FOMC set at its September 2024 meeting?",
+      "decisionAsOf": "2024-09-18T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-27fe77cc057135a7ae89"
+      ],
+      "expectedVersionIds": [
+        "dv-fc6ea5ee8122c3e18db4"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20240918; regex=/target range for the federal funds rate/i"
+        ],
+        "note": "Answer is stated directly in the meeting statement."
+      }
+    },
+    {
+      "id": "A15",
+      "category": "direct_document",
+      "subtype": "statement_policy_rate",
+      "split": "dev",
+      "question": "What target range for the federal funds rate did the FOMC set at its November 2024 meeting?",
+      "decisionAsOf": "2024-11-07T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-3fc87adc8f37ecdbb904"
+      ],
+      "expectedVersionIds": [
+        "dv-3ffd402a6de1a6032ffe"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20241107; regex=/target range for the federal funds rate/i"
+        ],
+        "note": "Answer is stated directly in the meeting statement."
+      }
+    },
+    {
+      "id": "A16",
+      "category": "direct_document",
+      "subtype": "statement_policy_rate",
+      "split": "heldout",
+      "question": "What target range for the federal funds rate did the FOMC set at its December 2024 meeting?",
+      "decisionAsOf": "2024-12-18T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-28536fefd23cfa48dbb5"
+      ],
+      "expectedVersionIds": [
+        "dv-d522198d4bbfd8348da0"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20241218; regex=/target range for the federal funds rate/i"
+        ],
+        "note": "Answer is stated directly in the meeting statement."
+      }
+    },
+    {
+      "id": "A17",
+      "category": "direct_document",
+      "subtype": "minutes_section",
+      "split": "dev",
+      "question": "What did the minutes of the March 2023 meeting report about recent developments in the banking sector?",
+      "decisionAsOf": "2023-04-13T12:00:00Z",
+      "expectedChunkIds": [
+        "chk-0d1757492edc3e5fd5bc"
+      ],
+      "expectedVersionIds": [
+        "dv-cf5ae7fddfaba18e3b71"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-minutes-20230322; regex=/bank/i; heading contains 'Banking'"
+        ],
+        "note": "Answer is in one minutes section."
+      }
+    },
+    {
+      "id": "A18",
+      "category": "direct_document",
+      "subtype": "minutes_section",
+      "split": "heldout",
+      "question": "In the minutes of the May 2023 meeting, how did participants assess the banking system?",
+      "decisionAsOf": "2023-05-25T12:00:00Z",
+      "expectedChunkIds": [
+        "chk-ef295d501b96cd60536d",
+        "chk-e5ccde23d15385bc6777",
+        "chk-bb2b7b7d2252983128b4",
+        "chk-d6eda2a58ea3e966681a",
+        "chk-5fc6f689e22470021758"
+      ],
+      "expectedVersionIds": [
+        "dv-78c1fa0d23da61a23888"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-minutes-20230503; regex=/banking (?:system|sector)/i; heading contains 'Participants' Views'"
+        ],
+        "note": "Answer is in one minutes section."
+      }
+    },
+    {
+      "id": "A19",
+      "category": "direct_document",
+      "subtype": "minutes_section",
+      "split": "dev",
+      "question": "What considerations for slowing balance sheet runoff were discussed in the March 2024 minutes?",
+      "decisionAsOf": "2024-04-11T12:00:00Z",
+      "expectedChunkIds": [
+        "chk-04a5028945ecde1b3ed9",
+        "chk-b5dea32ecafbd18634b5"
+      ],
+      "expectedVersionIds": [
+        "dv-853603dcddacf751492c"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-minutes-20240320; regex=/runoff|balance sheet/i; heading contains 'Slowing'"
+        ],
+        "note": "Answer is in one minutes section."
+      }
+    },
+    {
+      "id": "A20",
+      "category": "direct_document",
+      "subtype": "minutes_section",
+      "split": "heldout",
+      "question": "What did participants say about balance sheet runoff in the minutes of the May 2024 meeting?",
+      "decisionAsOf": "2024-05-23T12:00:00Z",
+      "expectedChunkIds": [
+        "chk-4ac69a1fc310032e1c15"
+      ],
+      "expectedVersionIds": [
+        "dv-2986401b2fd6d7bfcbcd"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-minutes-20240501; regex=/runoff|redemption cap/i; heading contains 'Participants' Views'"
+        ],
+        "note": "Answer is in one minutes section."
+      }
+    },
+    {
+      "id": "B01",
+      "category": "multi_document",
+      "subtype": "statement_vs_minutes",
+      "split": "dev",
+      "question": "Compare what the FOMC statement and the minutes for the February 2023 meeting said about inflation.",
+      "decisionAsOf": "2023-02-23T12:00:00Z",
+      "expectedChunkIds": [
+        "chk-fb023eb38de00c6f77cf",
+        "chk-08debdb4b419df062e1d",
+        "chk-bbc944f49752fbd4d90f",
+        "chk-e0b90bb81ba02855ad16",
+        "chk-bb9aed90d2d82d7ddb0c",
+        "chk-5636264fe2b4ea1d165e"
+      ],
+      "expectedVersionIds": [
+        "dv-9110c85aa2cc9ec70bab",
+        "dv-5b8a342b189454448159"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20230201; regex=/inflation/i",
+          "document=doc-fed-fomc-minutes-20230201; regex=/inflation/i; heading contains 'Participants' Views'"
+        ],
+        "note": "Needs the statement and the participants' discussion in the minutes of the same meeting."
+      }
+    },
+    {
+      "id": "B02",
+      "category": "multi_document",
+      "subtype": "statement_vs_minutes",
+      "split": "heldout",
+      "question": "Compare what the FOMC statement and the minutes for the May 2023 meeting said about inflation.",
+      "decisionAsOf": "2023-05-25T12:00:00Z",
+      "expectedChunkIds": [
+        "chk-06d0ac940fc5c1fdec8f",
+        "chk-ef295d501b96cd60536d",
+        "chk-e5ccde23d15385bc6777",
+        "chk-bb2b7b7d2252983128b4",
+        "chk-d6eda2a58ea3e966681a",
+        "chk-5fc6f689e22470021758",
+        "chk-57a280aedff8c8995232"
+      ],
+      "expectedVersionIds": [
+        "dv-e90fa9382967b2736964",
+        "dv-78c1fa0d23da61a23888"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20230503; regex=/inflation/i",
+          "document=doc-fed-fomc-minutes-20230503; regex=/inflation/i; heading contains 'Participants' Views'"
+        ],
+        "note": "Needs the statement and the participants' discussion in the minutes of the same meeting."
+      }
+    },
+    {
+      "id": "B03",
+      "category": "multi_document",
+      "subtype": "statement_vs_minutes",
+      "split": "dev",
+      "question": "Compare what the FOMC statement and the minutes for the July 2023 meeting said about inflation.",
+      "decisionAsOf": "2023-08-17T12:00:00Z",
+      "expectedChunkIds": [
+        "chk-815c892e5d53536c62b2",
+        "chk-bfb69b4e2d4f4a2e4bdb",
+        "chk-8528ebeef3c377df1a06",
+        "chk-4bf84fcd768f429f0a63",
+        "chk-3148fdd917758c85c79f"
+      ],
+      "expectedVersionIds": [
+        "dv-a5b3826b3e91c8f26861",
+        "dv-89c13b5527b57789e6ff"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20230726; regex=/inflation/i",
+          "document=doc-fed-fomc-minutes-20230726; regex=/inflation/i; heading contains 'Participants' Views'"
+        ],
+        "note": "Needs the statement and the participants' discussion in the minutes of the same meeting."
+      }
+    },
+    {
+      "id": "B04",
+      "category": "multi_document",
+      "subtype": "statement_vs_minutes",
+      "split": "heldout",
+      "question": "Compare what the FOMC statement and the minutes for the November 2023 meeting said about inflation.",
+      "decisionAsOf": "2023-11-22T12:00:00Z",
+      "expectedChunkIds": [
+        "chk-b8a4585d055c628cb27f",
+        "chk-92d3279d9ddfba351f61",
+        "chk-e3a40739fc8d7487c322",
+        "chk-efee10e4498c43e1a185",
+        "chk-b93bd337a72d8dd30a7d"
+      ],
+      "expectedVersionIds": [
+        "dv-25df779393cb4ef90eca",
+        "dv-27bf1188bd97d8f9f7cb"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20231101; regex=/inflation/i",
+          "document=doc-fed-fomc-minutes-20231101; regex=/inflation/i; heading contains 'Participants' Views'"
+        ],
+        "note": "Needs the statement and the participants' discussion in the minutes of the same meeting."
+      }
+    },
+    {
+      "id": "B05",
+      "category": "multi_document",
+      "subtype": "statement_vs_minutes",
+      "split": "dev",
+      "question": "Compare what the FOMC statement and the minutes for the January 2024 meeting said about inflation.",
+      "decisionAsOf": "2024-02-22T12:00:00Z",
+      "expectedChunkIds": [
+        "chk-a1f0d9fc49d6eecbd9c9",
+        "chk-fe8bc187a199c8178cef",
+        "chk-3599f6caaa5f4092c128",
+        "chk-4ebb2e41fbc7c4d75fd0",
+        "chk-02af46afbaff108730d4",
+        "chk-ae4fa3334fcdf3fb5dda"
+      ],
+      "expectedVersionIds": [
+        "dv-03b35cc7a883b0bed21e",
+        "dv-129076f505495ed34378"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20240131; regex=/inflation/i",
+          "document=doc-fed-fomc-minutes-20240131; regex=/inflation/i; heading contains 'Participants' Views'"
+        ],
+        "note": "Needs the statement and the participants' discussion in the minutes of the same meeting."
+      }
+    },
+    {
+      "id": "B06",
+      "category": "multi_document",
+      "subtype": "statement_vs_minutes",
+      "split": "heldout",
+      "question": "Compare what the FOMC statement and the minutes for the May 2024 meeting said about inflation.",
+      "decisionAsOf": "2024-05-23T12:00:00Z",
+      "expectedChunkIds": [
+        "chk-43ffddff533a8224c90b",
+        "chk-95dad31e2a79c2ab626e",
+        "chk-10a9363ac084f5b30b41",
+        "chk-826e06817f9f7c7807e5",
+        "chk-4ac69a1fc310032e1c15",
+        "chk-0c7db828c0c0ae1d7af0"
+      ],
+      "expectedVersionIds": [
+        "dv-cb006396004c2bc90184",
+        "dv-2986401b2fd6d7bfcbcd"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20240501; regex=/inflation/i",
+          "document=doc-fed-fomc-minutes-20240501; regex=/inflation/i; heading contains 'Participants' Views'"
+        ],
+        "note": "Needs the statement and the participants' discussion in the minutes of the same meeting."
+      }
+    },
+    {
+      "id": "B07",
+      "category": "multi_document",
+      "subtype": "statement_vs_minutes",
+      "split": "dev",
+      "question": "Compare what the FOMC statement and the minutes for the July 2024 meeting said about inflation.",
+      "decisionAsOf": "2024-08-22T12:00:00Z",
+      "expectedChunkIds": [
+        "chk-4b03d65a0078363a4f46",
+        "chk-f57e17ed5798a19ac33d",
+        "chk-b6ea4f4696b76eee88be",
+        "chk-463494ca51ad4cfc1d25"
+      ],
+      "expectedVersionIds": [
+        "dv-dceda0beabff7b169d6f",
+        "dv-fd692388e4e8de0f5bd3"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20240731; regex=/inflation/i",
+          "document=doc-fed-fomc-minutes-20240731; regex=/inflation/i; heading contains 'Participants' Views'"
+        ],
+        "note": "Needs the statement and the participants' discussion in the minutes of the same meeting."
+      }
+    },
+    {
+      "id": "B08",
+      "category": "multi_document",
+      "subtype": "statement_vs_minutes",
+      "split": "heldout",
+      "question": "Compare what the FOMC statement and the minutes for the November 2024 meeting said about inflation.",
+      "decisionAsOf": "2024-11-27T12:00:00Z",
+      "expectedChunkIds": [
+        "chk-3fc87adc8f37ecdbb904",
+        "chk-a802f6759b9a71a0192e",
+        "chk-88e3c66ed4fff87ba833",
+        "chk-eaa54e5501a75bbb9a46",
+        "chk-b9c5a76c7f615346e177"
+      ],
+      "expectedVersionIds": [
+        "dv-3ffd402a6de1a6032ffe",
+        "dv-c4a03308a77ee6eb8413"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20241107; regex=/inflation/i",
+          "document=doc-fed-fomc-minutes-20241107; regex=/inflation/i; heading contains 'Participants' Views'"
+        ],
+        "note": "Needs the statement and the participants' discussion in the minutes of the same meeting."
+      }
+    },
+    {
+      "id": "B09",
+      "category": "multi_document",
+      "subtype": "decision_vs_previous",
+      "split": "dev",
+      "question": "How did the policy rate decision at the March 2023 meeting compare with the decision at the previous meeting?",
+      "decisionAsOf": "2023-03-22T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-1c8d83fdc20fbfc4f1d0",
+        "chk-fb023eb38de00c6f77cf"
+      ],
+      "expectedVersionIds": [
+        "dv-15cacc07b055c7d5740d",
+        "dv-9110c85aa2cc9ec70bab"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20230322; regex=/target range for the federal funds rate/i",
+          "document=doc-fed-fomc-statement-20230201; regex=/target range for the federal funds rate/i"
+        ],
+        "note": "Needs two consecutive statements."
+      }
+    },
+    {
+      "id": "B10",
+      "category": "multi_document",
+      "subtype": "decision_vs_previous",
+      "split": "heldout",
+      "question": "How did the policy rate decision at the June 2023 meeting compare with the decision at the previous meeting?",
+      "decisionAsOf": "2023-06-14T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-f29ec703be9e992eb639",
+        "chk-06d0ac940fc5c1fdec8f"
+      ],
+      "expectedVersionIds": [
+        "dv-1218c0e097a24c484a5c",
+        "dv-e90fa9382967b2736964"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20230614; regex=/target range for the federal funds rate/i",
+          "document=doc-fed-fomc-statement-20230503; regex=/target range for the federal funds rate/i"
+        ],
+        "note": "Needs two consecutive statements."
+      }
+    },
+    {
+      "id": "B11",
+      "category": "multi_document",
+      "subtype": "decision_vs_previous",
+      "split": "dev",
+      "question": "How did the policy rate decision at the September 2023 meeting compare with the decision at the previous meeting?",
+      "decisionAsOf": "2023-09-20T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-6bdf36656881d03e3f92",
+        "chk-815c892e5d53536c62b2"
+      ],
+      "expectedVersionIds": [
+        "dv-8b4ee9ddb71a1ae507d1",
+        "dv-a5b3826b3e91c8f26861"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20230920; regex=/target range for the federal funds rate/i",
+          "document=doc-fed-fomc-statement-20230726; regex=/target range for the federal funds rate/i"
+        ],
+        "note": "Needs two consecutive statements."
+      }
+    },
+    {
+      "id": "B12",
+      "category": "multi_document",
+      "subtype": "decision_vs_previous",
+      "split": "heldout",
+      "question": "How did the policy rate decision at the December 2023 meeting compare with the decision at the previous meeting?",
+      "decisionAsOf": "2023-12-13T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-9958a6138e37923b410c",
+        "chk-b8a4585d055c628cb27f"
+      ],
+      "expectedVersionIds": [
+        "dv-f43de880842d0372c210",
+        "dv-25df779393cb4ef90eca"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20231213; regex=/target range for the federal funds rate/i",
+          "document=doc-fed-fomc-statement-20231101; regex=/target range for the federal funds rate/i"
+        ],
+        "note": "Needs two consecutive statements."
+      }
+    },
+    {
+      "id": "B13",
+      "category": "multi_document",
+      "subtype": "decision_vs_previous",
+      "split": "dev",
+      "question": "How did the policy rate decision at the March 2024 meeting compare with the decision at the previous meeting?",
+      "decisionAsOf": "2024-03-20T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-7dbb73cd4c68983a5332",
+        "chk-a1f0d9fc49d6eecbd9c9"
+      ],
+      "expectedVersionIds": [
+        "dv-81a0ad6ceff0d2599c09",
+        "dv-03b35cc7a883b0bed21e"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20240320; regex=/target range for the federal funds rate/i",
+          "document=doc-fed-fomc-statement-20240131; regex=/target range for the federal funds rate/i"
+        ],
+        "note": "Needs two consecutive statements."
+      }
+    },
+    {
+      "id": "B14",
+      "category": "multi_document",
+      "subtype": "decision_vs_previous",
+      "split": "heldout",
+      "question": "How did the policy rate decision at the June 2024 meeting compare with the decision at the previous meeting?",
+      "decisionAsOf": "2024-06-12T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-d1cfa65bb8f0f2c8c3cd",
+        "chk-43ffddff533a8224c90b"
+      ],
+      "expectedVersionIds": [
+        "dv-7386efc535c8b058e0cf",
+        "dv-cb006396004c2bc90184"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20240612; regex=/target range for the federal funds rate/i",
+          "document=doc-fed-fomc-statement-20240501; regex=/target range for the federal funds rate/i"
+        ],
+        "note": "Needs two consecutive statements."
+      }
+    },
+    {
+      "id": "B15",
+      "category": "multi_document",
+      "subtype": "decision_vs_previous",
+      "split": "dev",
+      "question": "How did the policy rate decision at the September 2024 meeting compare with the decision at the previous meeting?",
+      "decisionAsOf": "2024-09-18T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-27fe77cc057135a7ae89",
+        "chk-4b03d65a0078363a4f46"
+      ],
+      "expectedVersionIds": [
+        "dv-fc6ea5ee8122c3e18db4",
+        "dv-dceda0beabff7b169d6f"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20240918; regex=/target range for the federal funds rate/i",
+          "document=doc-fed-fomc-statement-20240731; regex=/target range for the federal funds rate/i"
+        ],
+        "note": "Needs two consecutive statements."
+      }
+    },
+    {
+      "id": "B16",
+      "category": "multi_document",
+      "subtype": "decision_vs_previous",
+      "split": "heldout",
+      "question": "How did the policy rate decision at the December 2024 meeting compare with the decision at the previous meeting?",
+      "decisionAsOf": "2024-12-18T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-28536fefd23cfa48dbb5",
+        "chk-3fc87adc8f37ecdbb904"
+      ],
+      "expectedVersionIds": [
+        "dv-d522198d4bbfd8348da0",
+        "dv-3ffd402a6de1a6032ffe"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20241218; regex=/target range for the federal funds rate/i",
+          "document=doc-fed-fomc-statement-20241107; regex=/target range for the federal funds rate/i"
+        ],
+        "note": "Needs two consecutive statements."
+      }
+    },
+    {
+      "id": "B17",
+      "category": "multi_document",
+      "subtype": "statement_language_change",
+      "split": "dev",
+      "question": "How did the description of job gains and unemployment change between the February 2023 and July 2023 FOMC statements?",
+      "decisionAsOf": "2023-07-26T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-fb023eb38de00c6f77cf",
+        "chk-815c892e5d53536c62b2"
+      ],
+      "expectedVersionIds": [
+        "dv-9110c85aa2cc9ec70bab",
+        "dv-a5b3826b3e91c8f26861"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20230201; regex=/job gains|unemployment/i",
+          "document=doc-fed-fomc-statement-20230726; regex=/job gains|unemployment/i"
+        ],
+        "note": "Needs two statements several meetings apart."
+      }
+    },
+    {
+      "id": "B18",
+      "category": "multi_document",
+      "subtype": "statement_language_change",
+      "split": "heldout",
+      "question": "How did the description of job gains and unemployment change between the September 2023 and January 2024 FOMC statements?",
+      "decisionAsOf": "2024-01-31T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-6bdf36656881d03e3f92",
+        "chk-a1f0d9fc49d6eecbd9c9"
+      ],
+      "expectedVersionIds": [
+        "dv-8b4ee9ddb71a1ae507d1",
+        "dv-03b35cc7a883b0bed21e"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20230920; regex=/job gains|unemployment/i",
+          "document=doc-fed-fomc-statement-20240131; regex=/job gains|unemployment/i"
+        ],
+        "note": "Needs two statements several meetings apart."
+      }
+    },
+    {
+      "id": "B19",
+      "category": "multi_document",
+      "subtype": "statement_language_change",
+      "split": "dev",
+      "question": "How did the description of job gains and unemployment change between the March 2024 and July 2024 FOMC statements?",
+      "decisionAsOf": "2024-07-31T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-7dbb73cd4c68983a5332",
+        "chk-4b03d65a0078363a4f46"
+      ],
+      "expectedVersionIds": [
+        "dv-81a0ad6ceff0d2599c09",
+        "dv-dceda0beabff7b169d6f"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20240320; regex=/job gains|unemployment/i",
+          "document=doc-fed-fomc-statement-20240731; regex=/job gains|unemployment/i"
+        ],
+        "note": "Needs two statements several meetings apart."
+      }
+    },
+    {
+      "id": "B20",
+      "category": "multi_document",
+      "subtype": "statement_language_change",
+      "split": "heldout",
+      "question": "How did the description of job gains and unemployment change between the September 2024 and December 2024 FOMC statements?",
+      "decisionAsOf": "2024-12-18T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-27fe77cc057135a7ae89",
+        "chk-28536fefd23cfa48dbb5"
+      ],
+      "expectedVersionIds": [
+        "dv-fc6ea5ee8122c3e18db4",
+        "dv-d522198d4bbfd8348da0"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20240918; regex=/job gains|unemployment/i",
+          "document=doc-fed-fomc-statement-20241218; regex=/job gains|unemployment/i"
+        ],
+        "note": "Needs two statements several meetings apart."
+      }
+    },
+    {
+      "id": "C01",
+      "category": "relationship_temporal",
+      "subtype": "minutes_not_yet_available",
+      "split": "dev",
+      "question": "What did the minutes of the February 2023 meeting say about inflation?",
+      "decisionAsOf": "2023-02-01T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-fb023eb38de00c6f77cf"
+      ],
+      "expectedVersionIds": [
+        "dv-9110c85aa2cc9ec70bab"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [
+        "dv-5b8a342b189454448159"
+      ],
+      "acceptableAbstention": true,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20230201; regex=/inflation/i"
+        ],
+        "note": "Minutes are released about three weeks later; only the statement is eligible. Abstaining on the minutes is correct."
+      }
+    },
+    {
+      "id": "C02",
+      "category": "relationship_temporal",
+      "subtype": "minutes_not_yet_available",
+      "split": "heldout",
+      "question": "What did the minutes of the June 2023 meeting say about inflation?",
+      "decisionAsOf": "2023-06-14T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-f29ec703be9e992eb639"
+      ],
+      "expectedVersionIds": [
+        "dv-1218c0e097a24c484a5c"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [
+        "dv-809efb2658b2542dd4da"
+      ],
+      "acceptableAbstention": true,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20230614; regex=/inflation/i"
+        ],
+        "note": "Minutes are released about three weeks later; only the statement is eligible. Abstaining on the minutes is correct."
+      }
+    },
+    {
+      "id": "C03",
+      "category": "relationship_temporal",
+      "subtype": "minutes_not_yet_available",
+      "split": "dev",
+      "question": "What did the minutes of the November 2023 meeting say about inflation?",
+      "decisionAsOf": "2023-11-01T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-b8a4585d055c628cb27f"
+      ],
+      "expectedVersionIds": [
+        "dv-25df779393cb4ef90eca"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [
+        "dv-27bf1188bd97d8f9f7cb"
+      ],
+      "acceptableAbstention": true,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20231101; regex=/inflation/i"
+        ],
+        "note": "Minutes are released about three weeks later; only the statement is eligible. Abstaining on the minutes is correct."
+      }
+    },
+    {
+      "id": "C04",
+      "category": "relationship_temporal",
+      "subtype": "minutes_not_yet_available",
+      "split": "heldout",
+      "question": "What did the minutes of the June 2024 meeting say about inflation?",
+      "decisionAsOf": "2024-06-12T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-d1cfa65bb8f0f2c8c3cd"
+      ],
+      "expectedVersionIds": [
+        "dv-7386efc535c8b058e0cf"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [
+        "dv-159c5d27e8c10a7693b1"
+      ],
+      "acceptableAbstention": true,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20240612; regex=/inflation/i"
+        ],
+        "note": "Minutes are released about three weeks later; only the statement is eligible. Abstaining on the minutes is correct."
+      }
+    },
+    {
+      "id": "C05",
+      "category": "relationship_temporal",
+      "subtype": "minutes_not_yet_available",
+      "split": "dev",
+      "question": "What did the minutes of the November 2024 meeting say about inflation?",
+      "decisionAsOf": "2024-11-07T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-3fc87adc8f37ecdbb904"
+      ],
+      "expectedVersionIds": [
+        "dv-3ffd402a6de1a6032ffe"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [
+        "dv-c4a03308a77ee6eb8413"
+      ],
+      "acceptableAbstention": true,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20241107; regex=/inflation/i"
+        ],
+        "note": "Minutes are released about three weeks later; only the statement is eligible. Abstaining on the minutes is correct."
+      }
+    },
+    {
+      "id": "C06",
+      "category": "relationship_temporal",
+      "subtype": "previous_meeting_minutes",
+      "split": "heldout",
+      "question": "What did the minutes of the meeting before the May 2023 meeting say about the labor market?",
+      "decisionAsOf": "2023-05-03T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-626e034bdf57efc88c14",
+        "chk-cacd78f192d1d55c781f",
+        "chk-b4bee54a47564f53902d",
+        "chk-693a5bd52825dc7f9e4e"
+      ],
+      "expectedVersionIds": [
+        "dv-cf5ae7fddfaba18e3b71"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-minutes-20230322; regex=/labor market/i; heading contains 'Participants' Views'"
+        ],
+        "note": "Requires resolving PREVIOUS_EVENT, then that meeting's minutes (released before the cutoff)."
+      }
+    },
+    {
+      "id": "C07",
+      "category": "relationship_temporal",
+      "subtype": "previous_meeting_minutes",
+      "split": "dev",
+      "question": "What did the minutes of the meeting before the September 2023 meeting say about the labor market?",
+      "decisionAsOf": "2023-09-20T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-bfb69b4e2d4f4a2e4bdb",
+        "chk-8528ebeef3c377df1a06",
+        "chk-4bf84fcd768f429f0a63",
+        "chk-3148fdd917758c85c79f"
+      ],
+      "expectedVersionIds": [
+        "dv-89c13b5527b57789e6ff"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-minutes-20230726; regex=/labor market/i; heading contains 'Participants' Views'"
+        ],
+        "note": "Requires resolving PREVIOUS_EVENT, then that meeting's minutes (released before the cutoff)."
+      }
+    },
+    {
+      "id": "C08",
+      "category": "relationship_temporal",
+      "subtype": "previous_meeting_minutes",
+      "split": "heldout",
+      "question": "What did the minutes of the meeting before the March 2024 meeting say about the labor market?",
+      "decisionAsOf": "2024-03-20T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-fe8bc187a199c8178cef",
+        "chk-3599f6caaa5f4092c128",
+        "chk-4ebb2e41fbc7c4d75fd0",
+        "chk-02af46afbaff108730d4"
+      ],
+      "expectedVersionIds": [
+        "dv-129076f505495ed34378"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-minutes-20240131; regex=/labor market/i; heading contains 'Participants' Views'"
+        ],
+        "note": "Requires resolving PREVIOUS_EVENT, then that meeting's minutes (released before the cutoff)."
+      }
+    },
+    {
+      "id": "C09",
+      "category": "relationship_temporal",
+      "subtype": "previous_meeting_minutes",
+      "split": "dev",
+      "question": "What did the minutes of the meeting before the September 2024 meeting say about the labor market?",
+      "decisionAsOf": "2024-09-18T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-f57e17ed5798a19ac33d",
+        "chk-dd4eeaebbcdaddd9811f",
+        "chk-b6ea4f4696b76eee88be",
+        "chk-463494ca51ad4cfc1d25"
+      ],
+      "expectedVersionIds": [
+        "dv-fd692388e4e8de0f5bd3"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-minutes-20240731; regex=/labor market/i; heading contains 'Participants' Views'"
+        ],
+        "note": "Requires resolving PREVIOUS_EVENT, then that meeting's minutes (released before the cutoff)."
+      }
+    },
+    {
+      "id": "C10",
+      "category": "relationship_temporal",
+      "subtype": "series_release",
+      "split": "heldout",
+      "question": "Which CPI release was available before the June 2023 FOMC statement, and what did that statement say about inflation?",
+      "decisionAsOf": "2023-06-14T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-f29ec703be9e992eb639"
+      ],
+      "expectedVersionIds": [
+        "dv-1218c0e097a24c484a5c"
+      ],
+      "expectedReleaseFact": "release-cpi-20230613",
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20230614; regex=/inflation/i"
+        ],
+        "note": "Structured fact: latest CPI release available at the cutoff (RELEASE_OF); passage: the statement."
+      }
+    },
+    {
+      "id": "C11",
+      "category": "relationship_temporal",
+      "subtype": "series_release",
+      "split": "dev",
+      "question": "Which CPI release was available before the December 2023 FOMC statement, and what did that statement say about inflation?",
+      "decisionAsOf": "2023-12-13T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-9958a6138e37923b410c"
+      ],
+      "expectedVersionIds": [
+        "dv-f43de880842d0372c210"
+      ],
+      "expectedReleaseFact": "release-cpi-20231212",
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20231213; regex=/inflation/i"
+        ],
+        "note": "Structured fact: latest CPI release available at the cutoff (RELEASE_OF); passage: the statement."
+      }
+    },
+    {
+      "id": "C12",
+      "category": "relationship_temporal",
+      "subtype": "series_release",
+      "split": "heldout",
+      "question": "Which CPI release was available before the June 2024 FOMC statement, and what did that statement say about inflation?",
+      "decisionAsOf": "2024-06-12T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-d1cfa65bb8f0f2c8c3cd"
+      ],
+      "expectedVersionIds": [
+        "dv-7386efc535c8b058e0cf"
+      ],
+      "expectedReleaseFact": "release-cpi-20240612",
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20240612; regex=/inflation/i"
+        ],
+        "note": "Structured fact: latest CPI release available at the cutoff (RELEASE_OF); passage: the statement."
+      }
+    },
+    {
+      "id": "C13",
+      "category": "relationship_temporal",
+      "subtype": "revision_before_correction",
+      "split": "dev",
+      "question": "What did the March 2023 FOMC statement say about the extent of the effects of recent banking developments?",
+      "decisionAsOf": "2023-03-22T23:30:00Z",
+      "expectedChunkIds": [
+        "chk-1c8d83fdc20fbfc4f1d0"
+      ],
+      "expectedVersionIds": [
+        "dv-15cacc07b055c7d5740d"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20230322; regex=/extent of these effects/i; original version only"
+        ],
+        "note": "Before the synthetic correction exists: original text only."
+      }
+    },
+    {
+      "id": "C14",
+      "category": "relationship_temporal",
+      "subtype": "revision_boundary",
+      "split": "heldout",
+      "question": "What did the March 2023 FOMC statement say about the extent of the effects of recent banking developments?",
+      "decisionAsOf": "2023-03-29T19:00:00Z",
+      "expectedChunkIds": [
+        "chk-1c8d83fdc20fbfc4f1d0"
+      ],
+      "expectedVersionIds": [
+        "dv-15cacc07b055c7d5740d"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20230322; regex=/extent of these effects/i; original version only"
+        ],
+        "note": "Correction published 18:00Z but available 20:00Z: original still delivered."
+      }
+    },
+    {
+      "id": "C15",
+      "category": "relationship_temporal",
+      "subtype": "revision_after_correction",
+      "split": "dev",
+      "question": "What did the March 2023 FOMC statement say about the extent of the effects of recent banking developments?",
+      "decisionAsOf": "2023-04-05T12:00:00Z",
+      "expectedChunkIds": [
+        "chk-4f2e8fe8e623584b7534"
+      ],
+      "expectedVersionIds": [
+        "dv-ce2f114acfcf05a5e8ee"
+      ],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": false,
+      "requiresAbstention": false,
+      "supportAnnotation": "auto_rule",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [
+          "document=doc-fed-fomc-statement-20230322; regex=/synthetic correction/i; synthetic correction only"
+        ],
+        "note": "After the SYNTHETIC correction is available it supersedes the original (labelled synthetic)."
+      }
+    },
+    {
+      "id": "C16",
+      "category": "relationship_temporal",
+      "subtype": "insufficient_evidence",
+      "split": "heldout",
+      "question": "What did the FOMC decide at its January 2025 meeting?",
+      "decisionAsOf": "2024-12-31T12:00:00Z",
+      "expectedChunkIds": [],
+      "expectedVersionIds": [],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": true,
+      "requiresAbstention": true,
+      "supportAnnotation": "none_expected",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [],
+        "note": "Event after the corpus and the cutoff."
+      }
+    },
+    {
+      "id": "C17",
+      "category": "relationship_temporal",
+      "subtype": "insufficient_evidence",
+      "split": "dev",
+      "question": "What was the FOMC's decision on cryptocurrency regulation?",
+      "decisionAsOf": "2024-12-31T12:00:00Z",
+      "expectedChunkIds": [],
+      "expectedVersionIds": [],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": true,
+      "requiresAbstention": true,
+      "supportAnnotation": "none_expected",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [],
+        "note": "Out of the Committee's documented scope; no decision exists."
+      }
+    },
+    {
+      "id": "C18",
+      "category": "relationship_temporal",
+      "subtype": "insufficient_evidence",
+      "split": "heldout",
+      "question": "What federal funds rate target will the FOMC set in 2026?",
+      "decisionAsOf": "2024-12-31T12:00:00Z",
+      "expectedChunkIds": [],
+      "expectedVersionIds": [],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [],
+      "acceptableAbstention": true,
+      "requiresAbstention": true,
+      "supportAnnotation": "none_expected",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [],
+        "note": "Forecast; documents cannot establish it."
+      }
+    },
+    {
+      "id": "C19",
+      "category": "relationship_temporal",
+      "subtype": "insufficient_evidence",
+      "split": "dev",
+      "question": "What did the December 2024 minutes say about the labor market?",
+      "decisionAsOf": "2024-12-31T12:00:00Z",
+      "expectedChunkIds": [],
+      "expectedVersionIds": [],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [
+        "dv-a134ef40544060d6becf"
+      ],
+      "acceptableAbstention": true,
+      "requiresAbstention": true,
+      "supportAnnotation": "none_expected",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [],
+        "note": "Minutes released 2025-01-08, after the cutoff."
+      }
+    },
+    {
+      "id": "C20",
+      "category": "relationship_temporal",
+      "subtype": "insufficient_evidence",
+      "split": "heldout",
+      "question": "What did the March 2023 FOMC statement announce?",
+      "decisionAsOf": "2023-03-15T12:00:00Z",
+      "expectedChunkIds": [],
+      "expectedVersionIds": [],
+      "expectedReleaseFact": null,
+      "forbiddenVersionIds": [
+        "dv-15cacc07b055c7d5740d",
+        "dv-ce2f114acfcf05a5e8ee"
+      ],
+      "acceptableAbstention": true,
+      "requiresAbstention": true,
+      "supportAnnotation": "none_expected",
+      "adjudication": {
+        "status": "auto-annotated; manual adjudication pending (offline)",
+        "rules": [],
+        "note": "Asked before the meeting; the statement does not exist yet."
+      }
+    }
+  ]
+}

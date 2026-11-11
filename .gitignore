@@ -44,9 +44,12 @@ dist/
 # Node
 node_modules/
 
-# Environment variables
+# Environment variables (including timestamped backups such as .env.bak.<ts>
+# written by scripts/rotate-credentials.sh); only example files are tracked.
 .env
+.env.*
 *.env
+!.env.example
 !*.env.example
 
 # Backup files (prevent accidental secret commits)

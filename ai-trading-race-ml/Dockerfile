@@ -2,7 +2,7 @@
 # Stage 1: Builder - install dependencies
 # Stage 2: Runtime - minimal production image
 
-FROM python:3.11-slim as builder
+FROM python:3.13-slim AS builder
 
 WORKDIR /app
 
@@ -21,7 +21,7 @@ RUN pip install --no-cache-dir --user -r requirements.txt
 # ----------------------------------
 # Stage 2: Runtime
 # ----------------------------------
-FROM python:3.11-slim as runtime
+FROM python:3.13-slim AS runtime
 
 WORKDIR /app
 
@@ -41,13 +41,19 @@ ENV PATH=/home/appuser/.local/bin:$PATH
 
 # Copy application code and set ownership
 COPY --chown=appuser:appuser app/ ./app/
+COPY --chown=appuser:appuser research_engine/ ./research_engine/
+COPY --chown=appuser:appuser fixtures/ ./fixtures/
+COPY --chown=appuser:appuser benchmarks/ ./benchmarks/
 COPY --chown=appuser:appuser models/ ./models/
 
 # Switch to non-root user
 USER appuser
 
 # Environment variables (can be overridden at runtime)
-ENV ML_SERVICE_MODEL_PATH=models/trading_model.pkl \
+# ENVIRONMENT=production: docs are hidden and the public development signing keys
+# are refused. Development is an explicit opt-in.
+ENV ENVIRONMENT=production \
+    ML_SERVICE_MODEL_PATH=models/trading_model.pkl \
     ML_SERVICE_MODEL_VERSION=1.0.0 \
     ML_SERVICE_LOG_LEVEL=INFO \
     ML_SERVICE_API_KEY="" \

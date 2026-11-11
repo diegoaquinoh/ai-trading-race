@@ -1,0 +1,47 @@
+{
+  "faults": [
+    {
+      "description": "The model provider fails (non-transient) for the team lead on the FOMC statement day.",
+      "expected": "failed_dependency; no order; the portfolio is still processed and valued",
+      "faultId": "F1-provider-outage",
+      "kind": "provider_outage",
+      "role": "lead",
+      "session": "2024-01-31",
+      "strategyId": "llm_team"
+    },
+    {
+      "description": "The evidence graph is unavailable for graph_rag_v1 retrieval.",
+      "expected": "failed_dependency with no fallback to hybrid_rag_v1 (spec 15.3)",
+      "faultId": "F2-graph-outage",
+      "kind": "graph_outage",
+      "session": "2024-01-31",
+      "strategyId": "llm_graph"
+    },
+    {
+      "description": "Retrieval returns an empty evidence bundle (simulated source gap).",
+      "expected": "abstained_insufficient_evidence (configured abstention outcome)",
+      "faultId": "F3-evidence-withheld",
+      "kind": "evidence_withheld",
+      "session": "2024-02-21",
+      "strategyId": "llm_rag"
+    },
+    {
+      "description": "After agent validation, the proposal is overwritten with 70% in one note and 30% cash, simulating a faulty strategy output that reaches the authoritative policy gate.",
+      "expected": "SUBMIT_DECISION policy evaluation rejects the order set; no order is created",
+      "faultId": "F4-policy-breach",
+      "kind": "policy_breach",
+      "session": "2024-02-21",
+      "strategyId": "llm_market"
+    },
+    {
+      "description": "The model provider fails (non-transient) for the macro researcher specialist only.",
+      "expected": "specialist task recorded as failed with the provider error; the lead still synthesizes a decision (non-graph specialist failures are contained by design)",
+      "faultId": "F5-specialist-outage",
+      "kind": "provider_outage",
+      "role": "macro_researcher",
+      "session": "2024-02-21",
+      "strategyId": "llm_team"
+    }
+  ],
+  "label": "FAILURE INJECTION"
+}

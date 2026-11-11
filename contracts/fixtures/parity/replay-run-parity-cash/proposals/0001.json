@@ -1,0 +1,113 @@
+{
+  "cashFlows": [
+    {
+      "amountUsd": "1000000.00",
+      "cashFlowId": "cf:evt:capital:cmd:run-parity:cash:init:capital",
+      "entitledFace": "0",
+      "kind": "CAPITAL",
+      "paymentDate": "2024-01-02",
+      "securityId": "CASH-USD"
+    }
+  ],
+  "commandId": "cmd:run-parity:cash:init:capital",
+  "commandType": "capital_flow",
+  "engineVersion": "research-engine/0.1.0+simulation-v1+pricing:1.0.0+quantlib-1.44",
+  "eventPriorityTable": "event-priority-v1",
+  "events": [
+    {
+      "amountUsd": "1000000",
+      "effectiveAt": "2024-01-02T13:00:00Z",
+      "eventId": "evt:capital:cmd:run-parity:cash:init:capital",
+      "priority": 0,
+      "reason": "initial_capital",
+      "type": "capital_flow"
+    }
+  ],
+  "expectedVersion": 0,
+  "fills": [],
+  "inputHashes": {
+    "executionModel": "sha256:d3f9bd5e39ee45dc8e845e76f05c96cfd8a606e6c546d66b15c707b7eefc7887",
+    "marketSnapshot": "sha256:74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "portfolioState": "sha256:0c945488ad53853fc0fd959f85a58af187b44becfd18d9a15da75284412e1a02",
+    "riskPolicy": "sha256:9fad814adb712358027210d8a4eb8b572da99cbf0ac74718e632f964726b5e23"
+  },
+  "journals": [
+    {
+      "effectiveAt": "2024-01-02T13:00:00Z",
+      "eventId": "evt:capital:cmd:run-parity:cash:init:capital",
+      "eventType": "capital_flow",
+      "journalId": "jnl:evt:capital:cmd:run-parity:cash:init:capital",
+      "lines": [
+        {
+          "account": "CASH",
+          "creditUsd": "0",
+          "debitUsd": "1000000.00",
+          "lineId": "jnl:evt:capital:cmd:run-parity:cash:init:capital:01",
+          "memo": "initial_capital",
+          "securityId": null
+        },
+        {
+          "account": "CAPITAL",
+          "creditUsd": "1000000.00",
+          "debitUsd": "0",
+          "lineId": "jnl:evt:capital:cmd:run-parity:cash:init:capital:02",
+          "memo": "initial_capital",
+          "securityId": null
+        }
+      ],
+      "template": "capital_flow_v1"
+    }
+  ],
+  "newState": {
+    "asOf": "2024-01-02T13:00:00Z",
+    "blockedReason": null,
+    "bookedUnrealizedUsd": "0",
+    "cashFlowsProcessedThrough": null,
+    "cashUsd": "1000000.00",
+    "currency": "USD",
+    "externalCapitalUsd": "1000000.00",
+    "interestIncomeUsd": "0",
+    "lastValuationId": null,
+    "openOrders": [],
+    "pendingSettlements": [],
+    "portfolioId": "pf:run-parity:cash",
+    "positions": [],
+    "realizedGainLossUsd": "0",
+    "reservedCashUsd": "0",
+    "riskBreaches": [],
+    "runId": "run-parity",
+    "schemaVersion": "1.0",
+    "spreadCostUsd": "0",
+    "strategyId": "cash",
+    "transactionFeesUsd": "0",
+    "version": 1
+  },
+  "newStateHash": "sha256:b7f6bedd8bc1978606b42710ed8a32e3cdd8bd2b925abf488fa951dbab928d1f",
+  "newVersion": 1,
+  "noOp": false,
+  "orderStatusChanges": [],
+  "ordersCreated": [],
+  "policyEvaluation": null,
+  "portfolioId": "pf:run-parity:cash",
+  "proposalHash": "sha256:357b4a12eef0e5d159dd670bcf6000b9ab3145e2cfb7e6f9166102d252df600e",
+  "proposalId": "prop-da6f23c5dd4f5e3e",
+  "reconciliation": {
+    "bookEquityUsd": "1000000.00",
+    "differenceUsd": null,
+    "economicEquityUsd": null,
+    "journalsBalanced": true,
+    "ledgerCashUsd": "1000000.00",
+    "ledgerPrincipalFaceCheck": true,
+    "messages": [],
+    "ok": true,
+    "stateCashUsd": "1000000.00"
+  },
+  "requestHash": "sha256:a24b2b281fda985a5eaaeb3f440fedc4413bb7c960887099114d92e16de68570",
+  "runId": "run-parity",
+  "schemaVersion": "1.0",
+  "settlementsCompleted": [],
+  "settlementsCreated": [],
+  "signature": "hmac-sha256:ae7e8484177d115bbd168d1f616738fb4e26f73953eeded28b23433312bf5739",
+  "strategyId": "cash",
+  "valuation": null
+}

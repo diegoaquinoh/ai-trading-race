@@ -1,0 +1,358 @@
+{
+  "cashFlows": [],
+  "commandId": "cmd:run-parity:quant_duration:2024-02-01:value",
+  "commandType": "value_portfolio",
+  "engineVersion": "research-engine/0.1.0+simulation-v1+pricing:1.0.0+quantlib-1.44",
+  "eventPriorityTable": "event-priority-v1",
+  "events": [
+    {
+      "complete": true,
+      "curveSnapshotId": "curve-84ce031a6af1eb0b",
+      "effectiveAt": "2024-02-02T01:00:00Z",
+      "eventId": "evt:mark:val:pf:run-parity:quant_duration:20240202T010000Z",
+      "incompleteReasons": [],
+      "marks": [
+        {
+          "accruedPer100": "2.1839673913",
+          "calculationId": "calc-3401cfd396bf6e24",
+          "cleanPricePer100": "100.5550349436",
+          "economicFace": "146000",
+          "markAgeBusinessDays": 0,
+          "markType": "curve_model",
+          "observedAt": "2024-02-01T20:30:00Z",
+          "pvDirtyUsd": "149976.43",
+          "securityId": "SYN-USD-NOTE-003",
+          "stale": false
+        },
+        {
+          "accruedPer100": "0.3306010929",
+          "calculationId": "calc-678a5de01b0e94a2",
+          "cleanPricePer100": "92.6528923920",
+          "economicFace": "162000",
+          "markAgeBusinessDays": 0,
+          "markType": "curve_model",
+          "observedAt": "2024-02-01T20:30:00Z",
+          "pvDirtyUsd": "150610.65",
+          "securityId": "SYN-USD-NOTE-006",
+          "stale": false
+        },
+        {
+          "accruedPer100": "1.5192307692",
+          "calculationId": "calc-a2e53a3988758aa8",
+          "cleanPricePer100": "100.3761545328",
+          "economicFace": "168000",
+          "markAgeBusinessDays": 0,
+          "markType": "curve_model",
+          "observedAt": "2024-02-01T20:30:00Z",
+          "pvDirtyUsd": "171158.56",
+          "securityId": "SYN-USD-NOTE-007",
+          "stale": false
+        },
+        {
+          "accruedPer100": "0.0937158470",
+          "calculationId": "calc-e9d0e00799cc1c3c",
+          "cleanPricePer100": "82.5564163025",
+          "economicFace": "207000",
+          "markAgeBusinessDays": 0,
+          "markType": "curve_model",
+          "observedAt": "2024-02-01T20:30:00Z",
+          "pvDirtyUsd": "171060.10",
+          "securityId": "SYN-USD-NOTE-008",
+          "stale": false
+        },
+        {
+          "accruedPer100": "0.8828804348",
+          "calculationId": "calc-c0bbb7f5eb9bfe9d",
+          "cleanPricePer100": "86.6686651647",
+          "economicFace": "251000",
+          "markAgeBusinessDays": 0,
+          "markType": "curve_model",
+          "observedAt": "2024-02-01T20:30:00Z",
+          "pvDirtyUsd": "219721.40",
+          "securityId": "SYN-USD-NOTE-009",
+          "stale": false
+        }
+      ],
+      "payablesPvUsd": "0",
+      "priority": 50,
+      "receivablesPvUsd": "0",
+      "type": "valuation_mark",
+      "valuationId": "val:pf:run-parity:quant_duration:20240202T010000Z"
+    }
+  ],
+  "expectedVersion": 28,
+  "fills": [],
+  "inputHashes": {
+    "executionModel": "sha256:d3f9bd5e39ee45dc8e845e76f05c96cfd8a606e6c546d66b15c707b7eefc7887",
+    "marketSnapshot": "sha256:189cb98dda2e5408ae0c925dd3d024904078087b51a21d9b1e86893b5d89b911",
+    "portfolioState": "sha256:73827ad4b5c2d7b3c9556eeb7224aa27b8d26c6388c4b9a00eaec3295df599bd",
+    "riskPolicy": "sha256:9fad814adb712358027210d8a4eb8b572da99cbf0ac74718e632f964726b5e23"
+  },
+  "journals": [
+    {
+      "effectiveAt": "2024-02-02T01:00:00Z",
+      "eventId": "evt:mark:val:pf:run-parity:quant_duration:20240202T010000Z",
+      "eventType": "valuation_mark",
+      "journalId": "jnl:evt:mark:val:pf:run-parity:quant_duration:20240202T010000Z",
+      "lines": [
+        {
+          "account": "MARK_ADJUSTMENT",
+          "creditUsd": "0",
+          "debitUsd": "4387.39",
+          "lineId": "jnl:evt:mark:val:pf:run-parity:quant_duration:20240202T010000Z:01",
+          "memo": "valuation adjustment",
+          "securityId": null
+        },
+        {
+          "account": "UNREALIZED_GAIN_LOSS",
+          "creditUsd": "4387.39",
+          "debitUsd": "0",
+          "lineId": "jnl:evt:mark:val:pf:run-parity:quant_duration:20240202T010000Z:02",
+          "memo": "unrealized gain/loss",
+          "securityId": null
+        }
+      ],
+      "template": "mark_to_market_v1"
+    }
+  ],
+  "newState": {
+    "asOf": "2024-02-02T01:00:00Z",
+    "blockedReason": null,
+    "bookedUnrealizedUsd": "5634.85",
+    "cashFlowsProcessedThrough": "2024-02-01",
+    "cashUsd": "142638.87",
+    "currency": "USD",
+    "externalCapitalUsd": "1000000.00",
+    "interestIncomeUsd": "4.90",
+    "lastValuationId": "val:pf:run-parity:quant_duration:20240202T010000Z",
+    "openOrders": [
+      {
+        "batchPriority": 0,
+        "bootstrap": false,
+        "decisionId": "dec:run-parity:quant_duration:2024-02-01:r0",
+        "eligibleSessionDate": "2024-02-02",
+        "expiresAt": "2024-02-02T22:00:00Z",
+        "face": "25000",
+        "orderId": "ord:dec:run-parity:quant_duration:2024-02-01:r0:SYN-USD-NOTE-006",
+        "reservedCashUsd": "23313.37",
+        "securityId": "SYN-USD-NOTE-006",
+        "side": "BUY",
+        "status": "ACCEPTED",
+        "statusReason": null,
+        "submittedAt": "2024-02-02T00:00:00Z"
+      }
+    ],
+    "pendingSettlements": [],
+    "portfolioId": "pf:run-parity:quant_duration",
+    "positions": [
+      {
+        "economicFace": "146000",
+        "lots": [
+          {
+            "accruedPurchasedUsd": "2647.84",
+            "cleanPricePer100": "100.4487820071",
+            "face": "146000",
+            "lotId": "lot:fill:ord:dec:run-parity:quant_duration:2024-01-02:r0:SYN-USD-NOTE-003",
+            "principalCostUsd": "146655.22",
+            "securityId": "SYN-USD-NOTE-003",
+            "settlementDate": "2024-01-04",
+            "tradeDate": "2024-01-03"
+          }
+        ],
+        "securityId": "SYN-USD-NOTE-003",
+        "settledFace": "146000"
+      },
+      {
+        "economicFace": "162000",
+        "lots": [
+          {
+            "accruedPurchasedUsd": "394.38",
+            "cleanPricePer100": "92.2348839056",
+            "face": "162000",
+            "lotId": "lot:fill:ord:dec:run-parity:quant_duration:2024-01-02:r0:SYN-USD-NOTE-006",
+            "principalCostUsd": "149420.51",
+            "securityId": "SYN-USD-NOTE-006",
+            "settlementDate": "2024-01-04",
+            "tradeDate": "2024-01-03"
+          }
+        ],
+        "securityId": "SYN-USD-NOTE-006",
+        "settledFace": "162000"
+      },
+      {
+        "economicFace": "168000",
+        "lots": [
+          {
+            "accruedPurchasedUsd": "2023.61",
+            "cleanPricePer100": "100.0341003301",
+            "face": "168000",
+            "lotId": "lot:fill:ord:dec:run-parity:quant_duration:2024-01-02:r0:SYN-USD-NOTE-007",
+            "principalCostUsd": "168057.29",
+            "securityId": "SYN-USD-NOTE-007",
+            "settlementDate": "2024-01-04",
+            "tradeDate": "2024-01-03"
+          }
+        ],
+        "securityId": "SYN-USD-NOTE-007",
+        "settledFace": "168000"
+      },
+      {
+        "economicFace": "207000",
+        "lots": [
+          {
+            "accruedPurchasedUsd": "79.18",
+            "cleanPricePer100": "81.9070736709",
+            "face": "207000",
+            "lotId": "lot:fill:ord:dec:run-parity:quant_duration:2024-01-02:r0:SYN-USD-NOTE-008",
+            "principalCostUsd": "169547.64",
+            "securityId": "SYN-USD-NOTE-008",
+            "settlementDate": "2024-01-04",
+            "tradeDate": "2024-01-03"
+          }
+        ],
+        "securityId": "SYN-USD-NOTE-008",
+        "settledFace": "207000"
+      },
+      {
+        "economicFace": "251000",
+        "lots": [
+          {
+            "accruedPurchasedUsd": "1840.21",
+            "cleanPricePer100": "86.1459800385",
+            "face": "251000",
+            "lotId": "lot:fill:ord:dec:run-parity:quant_duration:2024-01-02:r0:SYN-USD-NOTE-009",
+            "principalCostUsd": "216226.41",
+            "securityId": "SYN-USD-NOTE-009",
+            "settlementDate": "2024-01-04",
+            "tradeDate": "2024-01-03"
+          }
+        ],
+        "securityId": "SYN-USD-NOTE-009",
+        "settledFace": "251000"
+      }
+    ],
+    "realizedGainLossUsd": "-473.74",
+    "reservedCashUsd": "23313.37",
+    "riskBreaches": [],
+    "runId": "run-parity",
+    "schemaVersion": "1.0",
+    "spreadCostUsd": "224.80",
+    "strategyId": "quant_duration",
+    "transactionFeesUsd": "0.00",
+    "version": 29
+  },
+  "newStateHash": "sha256:1673b9b22125b8d539b3703fd4714a6ccea32016e7351f1e3d2a5efeae3fb481",
+  "newVersion": 29,
+  "noOp": false,
+  "orderStatusChanges": [],
+  "ordersCreated": [],
+  "policyEvaluation": null,
+  "portfolioId": "pf:run-parity:quant_duration",
+  "proposalHash": "sha256:612e5bfeba05420f0aaec591d5e1ae9fbbd09ee59166d14fed1060f212b1e7da",
+  "proposalId": "prop-f194b1c5b6fc857b",
+  "reconciliation": {
+    "bookEquityUsd": "1005166.01",
+    "differenceUsd": "0.00",
+    "economicEquityUsd": "1005166.01",
+    "journalsBalanced": true,
+    "ledgerCashUsd": "142638.87",
+    "ledgerPrincipalFaceCheck": true,
+    "messages": [],
+    "ok": true,
+    "stateCashUsd": "142638.87"
+  },
+  "requestHash": "sha256:28a9627f94eb702bddb7a334e6091bf18d5aebe84d33e9514d5a6dadc68a988a",
+  "runId": "run-parity",
+  "schemaVersion": "1.0",
+  "settlementsCompleted": [],
+  "settlementsCreated": [],
+  "signature": "hmac-sha256:398a67de86c12cdc66be4dd1cf199db55277325f1db6b080a851bcd880368df2",
+  "strategyId": "quant_duration",
+  "valuation": {
+    "bondValueUsd": "862527.14",
+    "calculationIds": [
+      "calc-3401cfd396bf6e24",
+      "calc-678a5de01b0e94a2",
+      "calc-a2e53a3988758aa8",
+      "calc-c0bbb7f5eb9bfe9d",
+      "calc-e9d0e00799cc1c3c"
+    ],
+    "cashUsd": "142638.87",
+    "complete": true,
+    "curveSnapshotId": "curve-84ce031a6af1eb0b",
+    "dataMode": "synthetic_curve",
+    "effectiveDurationYears": "3.935946",
+    "equityUsd": "1005166.01",
+    "incompleteReasons": [],
+    "markPolicy": "synthetic_curve_model_v1",
+    "marks": [
+      {
+        "accruedPer100": "2.1839673913",
+        "calculationId": "calc-3401cfd396bf6e24",
+        "cleanPricePer100": "100.5550349436",
+        "economicFace": "146000",
+        "markAgeBusinessDays": 0,
+        "markType": "curve_model",
+        "observedAt": "2024-02-01T20:30:00Z",
+        "pvDirtyUsd": "149976.43",
+        "securityId": "SYN-USD-NOTE-003",
+        "stale": false
+      },
+      {
+        "accruedPer100": "0.3306010929",
+        "calculationId": "calc-678a5de01b0e94a2",
+        "cleanPricePer100": "92.6528923920",
+        "economicFace": "162000",
+        "markAgeBusinessDays": 0,
+        "markType": "curve_model",
+        "observedAt": "2024-02-01T20:30:00Z",
+        "pvDirtyUsd": "150610.65",
+        "securityId": "SYN-USD-NOTE-006",
+        "stale": false
+      },
+      {
+        "accruedPer100": "1.5192307692",
+        "calculationId": "calc-a2e53a3988758aa8",
+        "cleanPricePer100": "100.3761545328",
+        "economicFace": "168000",
+        "markAgeBusinessDays": 0,
+        "markType": "curve_model",
+        "observedAt": "2024-02-01T20:30:00Z",
+        "pvDirtyUsd": "171158.56",
+        "securityId": "SYN-USD-NOTE-007",
+        "stale": false
+      },
+      {
+        "accruedPer100": "0.0937158470",
+        "calculationId": "calc-e9d0e00799cc1c3c",
+        "cleanPricePer100": "82.5564163025",
+        "economicFace": "207000",
+        "markAgeBusinessDays": 0,
+        "markType": "curve_model",
+        "observedAt": "2024-02-01T20:30:00Z",
+        "pvDirtyUsd": "171060.10",
+        "securityId": "SYN-USD-NOTE-008",
+        "stale": false
+      },
+      {
+        "accruedPer100": "0.8828804348",
+        "calculationId": "calc-c0bbb7f5eb9bfe9d",
+        "cleanPricePer100": "86.6686651647",
+        "economicFace": "251000",
+        "markAgeBusinessDays": 0,
+        "markType": "curve_model",
+        "observedAt": "2024-02-01T20:30:00Z",
+        "pvDirtyUsd": "219721.40",
+        "securityId": "SYN-USD-NOTE-009",
+        "stale": false
+      }
+    ],
+    "parallelDv01Usd": "395.63",
+    "payablesPvUsd": "0",
+    "portfolioId": "pf:run-parity:quant_duration",
+    "receivablesPvUsd": "0",
+    "stateVersion": 29,
+    "valuationAt": "2024-02-02T01:00:00Z",
+    "valuationId": "val:pf:run-parity:quant_duration:20240202T010000Z"
+  }
+}

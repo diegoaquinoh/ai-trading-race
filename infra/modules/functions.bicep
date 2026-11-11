@@ -125,3 +125,5 @@ resource functionApp 'Microsoft.Web/sites@2023-12-01' = {
 }
 
 output defaultHostName string = functionApp.properties.defaultHostName
+// Every IP the Function App may use (for the SQL firewall).
+output possibleOutboundIpAddresses string = functionApp.properties.possibleOutboundIpAddresses

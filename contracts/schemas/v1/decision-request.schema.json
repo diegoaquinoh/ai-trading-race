@@ -1,0 +1,333 @@
+{
+  "$defs": {
+    "DataMode": {
+      "enum": [
+        "synthetic_curve",
+        "observed_security"
+      ],
+      "title": "DataMode",
+      "type": "string"
+    },
+    "DecisionBudget": {
+      "additionalProperties": false,
+      "description": "Decision-wide ceilings shared by a lead and all specialists (spec 10.4).",
+      "properties": {
+        "deadlineSeconds": {
+          "default": 90,
+          "title": "Deadlineseconds",
+          "type": "integer"
+        },
+        "maxCostUsd": {
+          "anyOf": [
+            {
+              "pattern": "^-?\\d+(\\.\\d+)?$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Maxcostusd"
+        },
+        "maxDelegationDepth": {
+          "default": 1,
+          "title": "Maxdelegationdepth",
+          "type": "integer"
+        },
+        "maxEvidenceCalls": {
+          "default": 3,
+          "title": "Maxevidencecalls",
+          "type": "integer"
+        },
+        "maxEvidenceTokens": {
+          "default": 8000,
+          "title": "Maxevidencetokens",
+          "type": "integer"
+        },
+        "maxGenerationCalls": {
+          "default": 6,
+          "title": "Maxgenerationcalls",
+          "type": "integer"
+        },
+        "maxInputTokens": {
+          "default": 32000,
+          "title": "Maxinputtokens",
+          "type": "integer"
+        },
+        "maxOutputTokens": {
+          "default": 12000,
+          "title": "Maxoutputtokens",
+          "type": "integer"
+        },
+        "maxSpecialistInvocations": {
+          "default": 2,
+          "title": "Maxspecialistinvocations",
+          "type": "integer"
+        },
+        "maxToolCalls": {
+          "default": 12,
+          "title": "Maxtoolcalls",
+          "type": "integer"
+        },
+        "maxUniqueEvidenceChunks": {
+          "default": 12,
+          "title": "Maxuniqueevidencechunks",
+          "type": "integer"
+        },
+        "priceScheduleId": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pricescheduleid"
+        }
+      },
+      "title": "DecisionBudget",
+      "type": "object"
+    },
+    "DecisionSessionContext": {
+      "additionalProperties": false,
+      "description": "Run calendar context supplied by the platform with a decision request.\n\nWhen present it is authoritative: ``previous_session_date`` is the run's\nprevious decision session (``None`` for the run's first session), exactly the\nvalue offline replay takes from its session list. When the whole object is\nabsent (older callers) the engine derives the previous session from the\nmarket calendar.",
+      "properties": {
+        "previousSessionDate": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Previoussessiondate"
+        }
+      },
+      "title": "DecisionSessionContext",
+      "type": "object"
+    },
+    "MarketSnapshotPointer": {
+      "additionalProperties": false,
+      "properties": {
+        "contentHash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "title": "Contenthash",
+          "type": "string"
+        },
+        "curveSnapshotId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Curvesnapshotid",
+          "type": "string"
+        },
+        "id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "contentHash",
+        "curveSnapshotId"
+      ],
+      "title": "MarketSnapshotPointer",
+      "type": "object"
+    },
+    "SnapshotRef": {
+      "additionalProperties": false,
+      "properties": {
+        "contentHash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "title": "Contenthash",
+          "type": "string"
+        },
+        "id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Version"
+        }
+      },
+      "required": [
+        "id",
+        "contentHash"
+      ],
+      "title": "SnapshotRef",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "availabilityPolicy": {
+      "title": "Availabilitypolicy",
+      "type": "string"
+    },
+    "budget": {
+      "$ref": "#/$defs/DecisionBudget"
+    },
+    "cycleId": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+      "title": "Cycleid",
+      "type": "string"
+    },
+    "dataMode": {
+      "$ref": "#/$defs/DataMode"
+    },
+    "decisionAsOf": {
+      "format": "date-time",
+      "title": "Decisionasof",
+      "type": "string"
+    },
+    "decisionId": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+      "title": "Decisionid",
+      "type": "string"
+    },
+    "evidenceSnapshotId": {
+      "anyOf": [
+        {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Evidencesnapshotid"
+    },
+    "experimentId": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+      "title": "Experimentid",
+      "type": "string"
+    },
+    "indexBuildId": {
+      "anyOf": [
+        {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Indexbuildid"
+    },
+    "instrumentUniverseVersion": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+      "title": "Instrumentuniverseversion",
+      "type": "string"
+    },
+    "marketSessionDate": {
+      "format": "date",
+      "title": "Marketsessiondate",
+      "type": "string"
+    },
+    "marketSnapshot": {
+      "$ref": "#/$defs/MarketSnapshotPointer"
+    },
+    "portfolioSnapshot": {
+      "$ref": "#/$defs/SnapshotRef"
+    },
+    "portfolioState": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Portfoliostate"
+    },
+    "repetition": {
+      "default": 0,
+      "title": "Repetition",
+      "type": "integer"
+    },
+    "responseMode": {
+      "default": "recorded_replay",
+      "enum": [
+        "fresh_inference",
+        "recorded_replay"
+      ],
+      "title": "Responsemode",
+      "type": "string"
+    },
+    "riskPolicyId": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+      "title": "Riskpolicyid",
+      "type": "string"
+    },
+    "runId": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+      "title": "Runid",
+      "type": "string"
+    },
+    "schemaVersion": {
+      "default": "1.0",
+      "title": "Schemaversion",
+      "type": "string"
+    },
+    "sessionContext": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/DecisionSessionContext"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "strategyConfigId": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+      "title": "Strategyconfigid",
+      "type": "string"
+    },
+    "strategyId": {
+      "pattern": "^[a-z][a-z0-9_]{1,63}$",
+      "title": "Strategyid",
+      "type": "string"
+    }
+  },
+  "required": [
+    "experimentId",
+    "runId",
+    "cycleId",
+    "decisionId",
+    "strategyId",
+    "decisionAsOf",
+    "marketSessionDate",
+    "availabilityPolicy",
+    "dataMode",
+    "portfolioSnapshot",
+    "marketSnapshot",
+    "instrumentUniverseVersion",
+    "strategyConfigId",
+    "riskPolicyId"
+  ],
+  "title": "DecisionRequest",
+  "type": "object"
+}

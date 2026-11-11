@@ -14,7 +14,7 @@ public enum ModelProvider
     /// <summary>Llama API via Groq, Together.ai, or compatible providers (free tier)</summary>
     Llama,
     
-    /// <summary>Custom ML model via Python FastAPI (Phase 5b)</summary>
+    /// <summary>Custom ML model via Python FastAPI</summary>
     CustomML,
     
     /// <summary>Mock provider for testing</summary>

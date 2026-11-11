@@ -59,7 +59,7 @@ public sealed class AgentRunner : IAgentRunner
             var context = await _contextBuilder.BuildContextAsync(
                 agentId,
                 candleCount: 50, // ML model needs ≥35 per asset for technical indicators (SMA-21, MACD-26, etc.)
-                includeKnowledgeGraph: true, // Phase 10.4: Enable knowledge graph for explainability
+                includeKnowledgeGraph: true, // Enable knowledge graph for explainability
                 cancellationToken);
 
             // Step 2: Generate decision from AI model (using provider-specific client)
@@ -119,7 +119,7 @@ public sealed class AgentRunner : IAgentRunner
                 portfolio = context.Portfolio;
             }
 
-            // Phase 10.4: Log decision with citations and knowledge graph context
+            // Log decision with citations and knowledge graph context
             if (context.KnowledgeGraph != null && context.DetectedRegime != null)
             {
                 try

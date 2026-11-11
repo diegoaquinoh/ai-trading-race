@@ -1,0 +1,25 @@
+{
+  "artifacts": [
+    {
+      "artifactId": "tsy-csv-2023-edb7f3904e11",
+      "localPath": "daily_treasury_par_yield_curve_2023.csv",
+      "retrievedAt": "2026-11-05T17:58:11Z",
+      "sha256": "sha256:edb7f3904e11dcaa502cdcc03ad9b1b16c893802d166ce9bc5fa1118251249d4",
+      "sizeBytes": 19098,
+      "uri": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/2023/all?type=daily_treasury_yield_curve&field_tdr_date_value=2023&page&_format=csv",
+      "year": 2023
+    },
+    {
+      "artifactId": "tsy-csv-2024-6775840b76cd",
+      "localPath": "daily_treasury_par_yield_curve_2024.csv",
+      "retrievedAt": "2026-11-05T17:58:12Z",
+      "sha256": "sha256:6775840b76cd7fd41121f61d6f6c60184eca6b2ba49954ec7372c463cbeef34d",
+      "sizeBytes": 19098,
+      "uri": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/2024/all?type=daily_treasury_yield_curve&field_tdr_date_value=2024&page&_format=csv",
+      "year": 2024
+    }
+  ],
+  "licenseNote": "U.S. Department of the Treasury daily par yield curve rates; work of the U.S. government, public domain in the United States (17 U.S.C. 105).",
+  "sourceId": "us-treasury-daily-par-yield-curve",
+  "urlTemplate": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/{year}/all?type=daily_treasury_yield_curve&field_tdr_date_value={year}&page&_format=csv"
+}

@@ -99,6 +99,16 @@ module functions 'modules/functions.bicep' = {
   }
 }
 
+// 6. SQL firewall (depends on app-service + functions): only their outbound IPs
+module sqlFirewall 'modules/sql-firewall.bicep' = {
+  name: 'sqlFirewall'
+  params: {
+    sqlServerName: sql.outputs.serverName
+    appServiceOutboundIps: appService.outputs.possibleOutboundIpAddresses
+    functionsOutboundIps: functions.outputs.possibleOutboundIpAddresses
+  }
+}
+
 // ── Outputs ─────────────────────────────────────────────────────────────────
 output sqlServerFqdn string = sql.outputs.serverFqdn
 output sqlDatabaseName string = sql.outputs.databaseName

@@ -308,6 +308,87 @@ public class ApiKeyAuthHandlerTests : IDisposable
         Assert.True((DateTimeOffset.UtcNow - updatedKey.LastUsedAt.Value).TotalSeconds < 5);
     }
 
+    [Theory]
+    [InlineData(UserRole.Admin, "read", "User")] // an admin's read-only key is not an admin
+    [InlineData(UserRole.Admin, "read,write", "Operator")]
+    [InlineData(UserRole.Admin, "admin", "Admin")]
+    [InlineData(UserRole.User, "admin", "User")] // scopes never exceed the owner's role
+    [InlineData(UserRole.Operator, "write,admin", "Operator")]
+    public async Task HandleAuthenticateAsync_RoleIsCappedByScopesAndOwner(UserRole ownerRole, string scopes, string expectedRole)
+    {
+        var rawKey = await SeedKeyAsync(ownerRole, scopes);
+        _httpContext.Request.Headers["X-API-Key"] = rawKey;
+
+        var result = await _handler.AuthenticateAsync();
+
+        Assert.True(result.Succeeded);
+        var roles = result.Principal!.FindAll(ClaimTypes.Role).Select(c => c.Value).ToList();
+        Assert.Equal(new[] { expectedRole }, roles);
+    }
+
+    [Fact]
+    public async Task HandleAuthenticateAsync_KeyWithoutRecognisedScope_GetsNoRole()
+    {
+        var rawKey = await SeedKeyAsync(UserRole.Admin, "legacy-scope");
+        _httpContext.Request.Headers["X-API-Key"] = rawKey;
+
+        var result = await _handler.AuthenticateAsync();
+
+        Assert.True(result.Succeeded);
+        Assert.Null(result.Principal!.FindFirst(ClaimTypes.Role));
+    }
+
+    [Theory]
+    [InlineData("read", null)]
+    [InlineData(" READ , write ", null)]
+    [InlineData("read,superuser", "superuser")]
+    public void ApiKeyScopes_Unknown_ReportsUnrecognisedScopes(string scopes, string? unknown)
+    {
+        var result = ApiKeyScopes.Unknown(scopes);
+
+        if (unknown is null)
+        {
+            Assert.Empty(result);
+        }
+        else
+        {
+            Assert.Equal(new[] { unknown }, result);
+        }
+    }
+
+    [Fact]
+    public void ApiKeyScopes_Normalize_LowercasesAndDeduplicates()
+    {
+        Assert.Equal("read,write", ApiKeyScopes.Normalize(" Read, write ,READ"));
+    }
+
+    private async Task<string> SeedKeyAsync(UserRole ownerRole, string scopes)
+    {
+        var user = new User
+        {
+            Id = Guid.NewGuid(),
+            Email = $"{Guid.NewGuid():N}@example.com",
+            Name = "Scoped Key Owner",
+            Role = ownerRole
+        };
+        var rawKey = GenerateRandomKey();
+        _dbContext.Users.Add(user);
+        _dbContext.ApiKeys.Add(new ApiKey
+        {
+            Id = Guid.NewGuid(),
+            KeyHash = ComputeSha256Hash(rawKey),
+            KeyPrefix = rawKey[..8],
+            Name = "Scoped Key",
+            UserId = user.Id,
+            User = user,
+            Scopes = scopes,
+            IsActive = true,
+            CreatedAt = DateTimeOffset.UtcNow
+        });
+        await _dbContext.SaveChangesAsync();
+        return rawKey;
+    }
+
     [Fact]
     public void ComputeSha256Hash_SameInput_ProducesSameHash()
     {

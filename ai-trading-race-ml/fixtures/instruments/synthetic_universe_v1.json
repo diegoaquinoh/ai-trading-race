@@ -1,0 +1,590 @@
+{
+  "schemaVersion": "1.0",
+  "universeId": "synthetic_universe_v1",
+  "version": "synthetic_universe_v1.0",
+  "classification": "synthetic",
+  "description": "Ten hypothetical USD fixed-rate semiannual notes (2y/5y/10y original maturity) with staggered 2020-2024 issue dates so instruments age, mature and are issued during a 2023-01-01..2024-12-31 dataset. 1,000 USD minimum face and increment, T+1 settlement on the U.S. government-bond calendar.",
+  "hypotheticalNotice": "HYPOTHETICAL INSTRUMENTS. These notes are synthetic fixtures for synthetic-curve simulation. They do not represent, and must not be presented as, any actual U.S. Treasury security. Identifiers are internal (SYN-USD-NOTE-NNN); no CUSIP/ISIN is assigned. Coupons, dates and announcement times are illustrative assumptions.",
+  "securities": [
+    {
+      "schemaVersion": "1.0",
+      "termsVersion": "SYN-USD-NOTE-001-terms-v1",
+      "termsEffectiveFrom": "2021-07-08",
+      "termsEffectiveTo": null,
+      "identity": {
+        "securityId": "SYN-USD-NOTE-001",
+        "classification": "synthetic",
+        "issuerId": "US-TREASURY-HYPOTHETICAL",
+        "externalIdentifiers": [],
+        "displayName": "Hypothetical 2Y note 0.3% 2023-07-15 (SYN-USD-NOTE-001)"
+      },
+      "economics": {
+        "currency": "USD",
+        "instrumentType": "fixed_rate_note",
+        "couponRate": "0.00300",
+        "couponFrequency": 2,
+        "redemptionPer100": "100",
+        "callable": false
+      },
+      "dates": {
+        "originalIssueDate": "2021-07-15",
+        "datedDate": "2021-07-15",
+        "maturityDate": "2023-07-15",
+        "firstCouponDate": null
+      },
+      "schedule": {
+        "generation": "backward_from_maturity",
+        "accrualDates": "unadjusted",
+        "paymentAdjustment": "FOLLOWING",
+        "endOfMonth": false,
+        "stub": "short_first_if_irregular",
+        "entitlementRule": "settlement_strictly_before_payment_v1",
+        "exCouponDays": 0
+      },
+      "conventions": {
+        "dayCount": "ACT/ACT-ICMA",
+        "businessDayAdjustment": "FOLLOWING",
+        "calendarId": "US-GovernmentBond",
+        "calendarVersion": "quantlib-1.44",
+        "settlementLagBusinessDays": 1,
+        "priceQuoteBasis": "clean_per_100",
+        "yieldConvention": "street_semiannual_act_act_icma_v1"
+      },
+      "tradingUnits": {
+        "minFaceUsd": "1000",
+        "faceIncrementUsd": "1000"
+      },
+      "provenance": {
+        "sourceId": "synthetic-universe-fixture",
+        "sourceArtifact": "fixtures/instruments/synthetic_universe_v1.json",
+        "sourceRow": "SYN-USD-NOTE-001",
+        "checksum": null,
+        "availableAt": "2021-07-08T04:00:00Z",
+        "validationStatus": "hypothetical",
+        "notes": "Hypothetical 2Y original-maturity note; terms assumed announced 7 calendar days before issue. Not an actual security."
+      }
+    },
+    {
+      "schemaVersion": "1.0",
+      "termsVersion": "SYN-USD-NOTE-002-terms-v1",
+      "termsEffectiveFrom": "2022-11-08",
+      "termsEffectiveTo": null,
+      "identity": {
+        "securityId": "SYN-USD-NOTE-002",
+        "classification": "synthetic",
+        "issuerId": "US-TREASURY-HYPOTHETICAL",
+        "externalIdentifiers": [],
+        "displayName": "Hypothetical 2Y note 4.45% 2024-11-15 (SYN-USD-NOTE-002)"
+      },
+      "economics": {
+        "currency": "USD",
+        "instrumentType": "fixed_rate_note",
+        "couponRate": "0.04450",
+        "couponFrequency": 2,
+        "redemptionPer100": "100",
+        "callable": false
+      },
+      "dates": {
+        "originalIssueDate": "2022-11-15",
+        "datedDate": "2022-11-15",
+        "maturityDate": "2024-11-15",
+        "firstCouponDate": null
+      },
+      "schedule": {
+        "generation": "backward_from_maturity",
+        "accrualDates": "unadjusted",
+        "paymentAdjustment": "FOLLOWING",
+        "endOfMonth": false,
+        "stub": "short_first_if_irregular",
+        "entitlementRule": "settlement_strictly_before_payment_v1",
+        "exCouponDays": 0
+      },
+      "conventions": {
+        "dayCount": "ACT/ACT-ICMA",
+        "businessDayAdjustment": "FOLLOWING",
+        "calendarId": "US-GovernmentBond",
+        "calendarVersion": "quantlib-1.44",
+        "settlementLagBusinessDays": 1,
+        "priceQuoteBasis": "clean_per_100",
+        "yieldConvention": "street_semiannual_act_act_icma_v1"
+      },
+      "tradingUnits": {
+        "minFaceUsd": "1000",
+        "faceIncrementUsd": "1000"
+      },
+      "provenance": {
+        "sourceId": "synthetic-universe-fixture",
+        "sourceArtifact": "fixtures/instruments/synthetic_universe_v1.json",
+        "sourceRow": "SYN-USD-NOTE-002",
+        "checksum": null,
+        "availableAt": "2022-11-08T05:00:00Z",
+        "validationStatus": "hypothetical",
+        "notes": "Hypothetical 2Y original-maturity note; terms assumed announced 7 calendar days before issue. Not an actual security."
+      }
+    },
+    {
+      "schemaVersion": "1.0",
+      "termsVersion": "SYN-USD-NOTE-003-terms-v1",
+      "termsEffectiveFrom": "2023-08-08",
+      "termsEffectiveTo": null,
+      "identity": {
+        "securityId": "SYN-USD-NOTE-003",
+        "classification": "synthetic",
+        "issuerId": "US-TREASURY-HYPOTHETICAL",
+        "externalIdentifiers": [],
+        "displayName": "Hypothetical 2Y note 4.7% 2025-08-15 (SYN-USD-NOTE-003)"
+      },
+      "economics": {
+        "currency": "USD",
+        "instrumentType": "fixed_rate_note",
+        "couponRate": "0.04700",
+        "couponFrequency": 2,
+        "redemptionPer100": "100",
+        "callable": false
+      },
+      "dates": {
+        "originalIssueDate": "2023-08-15",
+        "datedDate": "2023-08-15",
+        "maturityDate": "2025-08-15",
+        "firstCouponDate": null
+      },
+      "schedule": {
+        "generation": "backward_from_maturity",
+        "accrualDates": "unadjusted",
+        "paymentAdjustment": "FOLLOWING",
+        "endOfMonth": false,
+        "stub": "short_first_if_irregular",
+        "entitlementRule": "settlement_strictly_before_payment_v1",
+        "exCouponDays": 0
+      },
+      "conventions": {
+        "dayCount": "ACT/ACT-ICMA",
+        "businessDayAdjustment": "FOLLOWING",
+        "calendarId": "US-GovernmentBond",
+        "calendarVersion": "quantlib-1.44",
+        "settlementLagBusinessDays": 1,
+        "priceQuoteBasis": "clean_per_100",
+        "yieldConvention": "street_semiannual_act_act_icma_v1"
+      },
+      "tradingUnits": {
+        "minFaceUsd": "1000",
+        "faceIncrementUsd": "1000"
+      },
+      "provenance": {
+        "sourceId": "synthetic-universe-fixture",
+        "sourceArtifact": "fixtures/instruments/synthetic_universe_v1.json",
+        "sourceRow": "SYN-USD-NOTE-003",
+        "checksum": null,
+        "availableAt": "2023-08-08T04:00:00Z",
+        "validationStatus": "hypothetical",
+        "notes": "Hypothetical 2Y original-maturity note; terms assumed announced 7 calendar days before issue. Not an actual security."
+      }
+    },
+    {
+      "schemaVersion": "1.0",
+      "termsVersion": "SYN-USD-NOTE-004-terms-v1",
+      "termsEffectiveFrom": "2024-04-08",
+      "termsEffectiveTo": null,
+      "identity": {
+        "securityId": "SYN-USD-NOTE-004",
+        "classification": "synthetic",
+        "issuerId": "US-TREASURY-HYPOTHETICAL",
+        "externalIdentifiers": [],
+        "displayName": "Hypothetical 2Y note 4.8% 2026-04-15 (SYN-USD-NOTE-004)"
+      },
+      "economics": {
+        "currency": "USD",
+        "instrumentType": "fixed_rate_note",
+        "couponRate": "0.04800",
+        "couponFrequency": 2,
+        "redemptionPer100": "100",
+        "callable": false
+      },
+      "dates": {
+        "originalIssueDate": "2024-04-15",
+        "datedDate": "2024-04-15",
+        "maturityDate": "2026-04-15",
+        "firstCouponDate": null
+      },
+      "schedule": {
+        "generation": "backward_from_maturity",
+        "accrualDates": "unadjusted",
+        "paymentAdjustment": "FOLLOWING",
+        "endOfMonth": false,
+        "stub": "short_first_if_irregular",
+        "entitlementRule": "settlement_strictly_before_payment_v1",
+        "exCouponDays": 0
+      },
+      "conventions": {
+        "dayCount": "ACT/ACT-ICMA",
+        "businessDayAdjustment": "FOLLOWING",
+        "calendarId": "US-GovernmentBond",
+        "calendarVersion": "quantlib-1.44",
+        "settlementLagBusinessDays": 1,
+        "priceQuoteBasis": "clean_per_100",
+        "yieldConvention": "street_semiannual_act_act_icma_v1"
+      },
+      "tradingUnits": {
+        "minFaceUsd": "1000",
+        "faceIncrementUsd": "1000"
+      },
+      "provenance": {
+        "sourceId": "synthetic-universe-fixture",
+        "sourceArtifact": "fixtures/instruments/synthetic_universe_v1.json",
+        "sourceRow": "SYN-USD-NOTE-004",
+        "checksum": null,
+        "availableAt": "2024-04-08T04:00:00Z",
+        "validationStatus": "hypothetical",
+        "notes": "Hypothetical 2Y original-maturity note; terms assumed announced 7 calendar days before issue. Not an actual security."
+      }
+    },
+    {
+      "schemaVersion": "1.0",
+      "termsVersion": "SYN-USD-NOTE-005-terms-v1",
+      "termsEffectiveFrom": "2020-01-08",
+      "termsEffectiveTo": null,
+      "identity": {
+        "securityId": "SYN-USD-NOTE-005",
+        "classification": "synthetic",
+        "issuerId": "US-TREASURY-HYPOTHETICAL",
+        "externalIdentifiers": [],
+        "displayName": "Hypothetical 5Y note 1.45% 2025-01-15 (SYN-USD-NOTE-005)"
+      },
+      "economics": {
+        "currency": "USD",
+        "instrumentType": "fixed_rate_note",
+        "couponRate": "0.01450",
+        "couponFrequency": 2,
+        "redemptionPer100": "100",
+        "callable": false
+      },
+      "dates": {
+        "originalIssueDate": "2020-01-15",
+        "datedDate": "2020-01-15",
+        "maturityDate": "2025-01-15",
+        "firstCouponDate": null
+      },
+      "schedule": {
+        "generation": "backward_from_maturity",
+        "accrualDates": "unadjusted",
+        "paymentAdjustment": "FOLLOWING",
+        "endOfMonth": false,
+        "stub": "short_first_if_irregular",
+        "entitlementRule": "settlement_strictly_before_payment_v1",
+        "exCouponDays": 0
+      },
+      "conventions": {
+        "dayCount": "ACT/ACT-ICMA",
+        "businessDayAdjustment": "FOLLOWING",
+        "calendarId": "US-GovernmentBond",
+        "calendarVersion": "quantlib-1.44",
+        "settlementLagBusinessDays": 1,
+        "priceQuoteBasis": "clean_per_100",
+        "yieldConvention": "street_semiannual_act_act_icma_v1"
+      },
+      "tradingUnits": {
+        "minFaceUsd": "1000",
+        "faceIncrementUsd": "1000"
+      },
+      "provenance": {
+        "sourceId": "synthetic-universe-fixture",
+        "sourceArtifact": "fixtures/instruments/synthetic_universe_v1.json",
+        "sourceRow": "SYN-USD-NOTE-005",
+        "checksum": null,
+        "availableAt": "2020-01-08T05:00:00Z",
+        "validationStatus": "hypothetical",
+        "notes": "Hypothetical 5Y original-maturity note; terms assumed announced 7 calendar days before issue. Not an actual security."
+      }
+    },
+    {
+      "schemaVersion": "1.0",
+      "termsVersion": "SYN-USD-NOTE-006-terms-v1",
+      "termsEffectiveFrom": "2021-10-08",
+      "termsEffectiveTo": null,
+      "identity": {
+        "securityId": "SYN-USD-NOTE-006",
+        "classification": "synthetic",
+        "issuerId": "US-TREASURY-HYPOTHETICAL",
+        "externalIdentifiers": [],
+        "displayName": "Hypothetical 5Y note 1.1% 2026-10-15 (SYN-USD-NOTE-006)"
+      },
+      "economics": {
+        "currency": "USD",
+        "instrumentType": "fixed_rate_note",
+        "couponRate": "0.01100",
+        "couponFrequency": 2,
+        "redemptionPer100": "100",
+        "callable": false
+      },
+      "dates": {
+        "originalIssueDate": "2021-10-15",
+        "datedDate": "2021-10-15",
+        "maturityDate": "2026-10-15",
+        "firstCouponDate": null
+      },
+      "schedule": {
+        "generation": "backward_from_maturity",
+        "accrualDates": "unadjusted",
+        "paymentAdjustment": "FOLLOWING",
+        "endOfMonth": false,
+        "stub": "short_first_if_irregular",
+        "entitlementRule": "settlement_strictly_before_payment_v1",
+        "exCouponDays": 0
+      },
+      "conventions": {
+        "dayCount": "ACT/ACT-ICMA",
+        "businessDayAdjustment": "FOLLOWING",
+        "calendarId": "US-GovernmentBond",
+        "calendarVersion": "quantlib-1.44",
+        "settlementLagBusinessDays": 1,
+        "priceQuoteBasis": "clean_per_100",
+        "yieldConvention": "street_semiannual_act_act_icma_v1"
+      },
+      "tradingUnits": {
+        "minFaceUsd": "1000",
+        "faceIncrementUsd": "1000"
+      },
+      "provenance": {
+        "sourceId": "synthetic-universe-fixture",
+        "sourceArtifact": "fixtures/instruments/synthetic_universe_v1.json",
+        "sourceRow": "SYN-USD-NOTE-006",
+        "checksum": null,
+        "availableAt": "2021-10-08T04:00:00Z",
+        "validationStatus": "hypothetical",
+        "notes": "Hypothetical 5Y original-maturity note; terms assumed announced 7 calendar days before issue. Not an actual security."
+      }
+    },
+    {
+      "schemaVersion": "1.0",
+      "termsVersion": "SYN-USD-NOTE-007-terms-v1",
+      "termsEffectiveFrom": "2023-03-08",
+      "termsEffectiveTo": null,
+      "identity": {
+        "securityId": "SYN-USD-NOTE-007",
+        "classification": "synthetic",
+        "issuerId": "US-TREASURY-HYPOTHETICAL",
+        "externalIdentifiers": [],
+        "displayName": "Hypothetical 5Y note 3.95% 2028-03-15 (SYN-USD-NOTE-007)"
+      },
+      "economics": {
+        "currency": "USD",
+        "instrumentType": "fixed_rate_note",
+        "couponRate": "0.03950",
+        "couponFrequency": 2,
+        "redemptionPer100": "100",
+        "callable": false
+      },
+      "dates": {
+        "originalIssueDate": "2023-03-15",
+        "datedDate": "2023-03-15",
+        "maturityDate": "2028-03-15",
+        "firstCouponDate": null
+      },
+      "schedule": {
+        "generation": "backward_from_maturity",
+        "accrualDates": "unadjusted",
+        "paymentAdjustment": "FOLLOWING",
+        "endOfMonth": false,
+        "stub": "short_first_if_irregular",
+        "entitlementRule": "settlement_strictly_before_payment_v1",
+        "exCouponDays": 0
+      },
+      "conventions": {
+        "dayCount": "ACT/ACT-ICMA",
+        "businessDayAdjustment": "FOLLOWING",
+        "calendarId": "US-GovernmentBond",
+        "calendarVersion": "quantlib-1.44",
+        "settlementLagBusinessDays": 1,
+        "priceQuoteBasis": "clean_per_100",
+        "yieldConvention": "street_semiannual_act_act_icma_v1"
+      },
+      "tradingUnits": {
+        "minFaceUsd": "1000",
+        "faceIncrementUsd": "1000"
+      },
+      "provenance": {
+        "sourceId": "synthetic-universe-fixture",
+        "sourceArtifact": "fixtures/instruments/synthetic_universe_v1.json",
+        "sourceRow": "SYN-USD-NOTE-007",
+        "checksum": null,
+        "availableAt": "2023-03-08T05:00:00Z",
+        "validationStatus": "hypothetical",
+        "notes": "Hypothetical 5Y original-maturity note; terms assumed announced 7 calendar days before issue. Not an actual security."
+      }
+    },
+    {
+      "schemaVersion": "1.0",
+      "termsVersion": "SYN-USD-NOTE-008-terms-v1",
+      "termsEffectiveFrom": "2020-06-08",
+      "termsEffectiveTo": null,
+      "identity": {
+        "securityId": "SYN-USD-NOTE-008",
+        "classification": "synthetic",
+        "issuerId": "US-TREASURY-HYPOTHETICAL",
+        "externalIdentifiers": [],
+        "displayName": "Hypothetical 10Y note 0.7% 2030-06-15 (SYN-USD-NOTE-008)"
+      },
+      "economics": {
+        "currency": "USD",
+        "instrumentType": "fixed_rate_note",
+        "couponRate": "0.00700",
+        "couponFrequency": 2,
+        "redemptionPer100": "100",
+        "callable": false
+      },
+      "dates": {
+        "originalIssueDate": "2020-06-15",
+        "datedDate": "2020-06-15",
+        "maturityDate": "2030-06-15",
+        "firstCouponDate": null
+      },
+      "schedule": {
+        "generation": "backward_from_maturity",
+        "accrualDates": "unadjusted",
+        "paymentAdjustment": "FOLLOWING",
+        "endOfMonth": false,
+        "stub": "short_first_if_irregular",
+        "entitlementRule": "settlement_strictly_before_payment_v1",
+        "exCouponDays": 0
+      },
+      "conventions": {
+        "dayCount": "ACT/ACT-ICMA",
+        "businessDayAdjustment": "FOLLOWING",
+        "calendarId": "US-GovernmentBond",
+        "calendarVersion": "quantlib-1.44",
+        "settlementLagBusinessDays": 1,
+        "priceQuoteBasis": "clean_per_100",
+        "yieldConvention": "street_semiannual_act_act_icma_v1"
+      },
+      "tradingUnits": {
+        "minFaceUsd": "1000",
+        "faceIncrementUsd": "1000"
+      },
+      "provenance": {
+        "sourceId": "synthetic-universe-fixture",
+        "sourceArtifact": "fixtures/instruments/synthetic_universe_v1.json",
+        "sourceRow": "SYN-USD-NOTE-008",
+        "checksum": null,
+        "availableAt": "2020-06-08T04:00:00Z",
+        "validationStatus": "hypothetical",
+        "notes": "Hypothetical 10Y original-maturity note; terms assumed announced 7 calendar days before issue. Not an actual security."
+      }
+    },
+    {
+      "schemaVersion": "1.0",
+      "termsVersion": "SYN-USD-NOTE-009-terms-v1",
+      "termsEffectiveFrom": "2022-02-08",
+      "termsEffectiveTo": null,
+      "identity": {
+        "securityId": "SYN-USD-NOTE-009",
+        "classification": "synthetic",
+        "issuerId": "US-TREASURY-HYPOTHETICAL",
+        "externalIdentifiers": [],
+        "displayName": "Hypothetical 10Y note 1.9% 2032-02-15 (SYN-USD-NOTE-009)"
+      },
+      "economics": {
+        "currency": "USD",
+        "instrumentType": "fixed_rate_note",
+        "couponRate": "0.01900",
+        "couponFrequency": 2,
+        "redemptionPer100": "100",
+        "callable": false
+      },
+      "dates": {
+        "originalIssueDate": "2022-02-15",
+        "datedDate": "2022-02-15",
+        "maturityDate": "2032-02-15",
+        "firstCouponDate": null
+      },
+      "schedule": {
+        "generation": "backward_from_maturity",
+        "accrualDates": "unadjusted",
+        "paymentAdjustment": "FOLLOWING",
+        "endOfMonth": false,
+        "stub": "short_first_if_irregular",
+        "entitlementRule": "settlement_strictly_before_payment_v1",
+        "exCouponDays": 0
+      },
+      "conventions": {
+        "dayCount": "ACT/ACT-ICMA",
+        "businessDayAdjustment": "FOLLOWING",
+        "calendarId": "US-GovernmentBond",
+        "calendarVersion": "quantlib-1.44",
+        "settlementLagBusinessDays": 1,
+        "priceQuoteBasis": "clean_per_100",
+        "yieldConvention": "street_semiannual_act_act_icma_v1"
+      },
+      "tradingUnits": {
+        "minFaceUsd": "1000",
+        "faceIncrementUsd": "1000"
+      },
+      "provenance": {
+        "sourceId": "synthetic-universe-fixture",
+        "sourceArtifact": "fixtures/instruments/synthetic_universe_v1.json",
+        "sourceRow": "SYN-USD-NOTE-009",
+        "checksum": null,
+        "availableAt": "2022-02-08T05:00:00Z",
+        "validationStatus": "hypothetical",
+        "notes": "Hypothetical 10Y original-maturity note; terms assumed announced 7 calendar days before issue. Not an actual security."
+      }
+    },
+    {
+      "schemaVersion": "1.0",
+      "termsVersion": "SYN-USD-NOTE-010-terms-v1",
+      "termsEffectiveFrom": "2024-05-08",
+      "termsEffectiveTo": null,
+      "identity": {
+        "securityId": "SYN-USD-NOTE-010",
+        "classification": "synthetic",
+        "issuerId": "US-TREASURY-HYPOTHETICAL",
+        "externalIdentifiers": [],
+        "displayName": "Hypothetical 10Y note 4.4% 2034-05-15 (SYN-USD-NOTE-010)"
+      },
+      "economics": {
+        "currency": "USD",
+        "instrumentType": "fixed_rate_note",
+        "couponRate": "0.04400",
+        "couponFrequency": 2,
+        "redemptionPer100": "100",
+        "callable": false
+      },
+      "dates": {
+        "originalIssueDate": "2024-05-15",
+        "datedDate": "2024-05-15",
+        "maturityDate": "2034-05-15",
+        "firstCouponDate": null
+      },
+      "schedule": {
+        "generation": "backward_from_maturity",
+        "accrualDates": "unadjusted",
+        "paymentAdjustment": "FOLLOWING",
+        "endOfMonth": false,
+        "stub": "short_first_if_irregular",
+        "entitlementRule": "settlement_strictly_before_payment_v1",
+        "exCouponDays": 0
+      },
+      "conventions": {
+        "dayCount": "ACT/ACT-ICMA",
+        "businessDayAdjustment": "FOLLOWING",
+        "calendarId": "US-GovernmentBond",
+        "calendarVersion": "quantlib-1.44",
+        "settlementLagBusinessDays": 1,
+        "priceQuoteBasis": "clean_per_100",
+        "yieldConvention": "street_semiannual_act_act_icma_v1"
+      },
+      "tradingUnits": {
+        "minFaceUsd": "1000",
+        "faceIncrementUsd": "1000"
+      },
+      "provenance": {
+        "sourceId": "synthetic-universe-fixture",
+        "sourceArtifact": "fixtures/instruments/synthetic_universe_v1.json",
+        "sourceRow": "SYN-USD-NOTE-010",
+        "checksum": null,
+        "availableAt": "2024-05-08T04:00:00Z",
+        "validationStatus": "hypothetical",
+        "notes": "Hypothetical 10Y original-maturity note; terms assumed announced 7 calendar days before issue. Not an actual security."
+      }
+    }
+  ]
+}

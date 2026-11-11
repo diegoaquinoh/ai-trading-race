@@ -1,0 +1,2722 @@
+{
+  "comparison": {
+    "common": [
+      "chk-74ba21b0dd1bc613140e",
+      "chk-b4f73f0cfcea8d65133d",
+      "chk-e3a40739fc8d7487c322",
+      "chk-e3c4c00720b1199f0ada",
+      "chk-f29ec703be9e992eb639"
+    ],
+    "eventDocumentDelivered": {
+      "llm_graph": true,
+      "llm_rag": true,
+      "llm_team": true
+    },
+    "graphAddedByTraversal": [],
+    "graphChunks": 18,
+    "graphOnly": [
+      "chk-073b31d71abd9650b8c4",
+      "chk-49ddecef6cd30ac269f3",
+      "chk-57a280aedff8c8995232",
+      "chk-5e70f3ee1d6971231c31",
+      "chk-5e7b8d7a70a7ca8c5786",
+      "chk-720f5b175a704e61a6c3",
+      "chk-846fb11cb51a74b8b0fc",
+      "chk-92d3279d9ddfba351f61",
+      "chk-9fa276947b732022300f",
+      "chk-b1719567f24170aa2c52",
+      "chk-b3d2acec621329379677",
+      "chk-d7227563709e6ea41427",
+      "chk-ffda6de1f8d3647dfb62"
+    ],
+    "ragChunks": 6,
+    "ragOnly": [
+      "chk-0f0f74b2792d006a221c"
+    ],
+    "sameDecision": true
+  },
+  "event": {
+    "availableAt": "2024-01-03T21:00:00+00:00",
+    "documentId": "doc-fed-fomc-minutes-20231213",
+    "documentType": "fomc_minutes",
+    "publishedAt": "2024-01-03T19:00:00+00:00",
+    "session": "2024-01-03",
+    "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20231213.htm",
+    "title": "Minutes of the Federal Open Market Committee (December 12\u201313, 2023)",
+    "versionId": "dv-c3d3b4a053e5018e2235"
+  },
+  "strategies": {
+    "llm_graph": {
+      "action": "REBALANCE",
+      "bundles": [
+        {
+          "bundleId": "eb-2e106418dbd315eb6d5b2295",
+          "chunkCount": 12,
+          "decisionAsOf": "2024-01-04T00:00:00+00:00",
+          "mode": "graph_rag_v1",
+          "structuredFacts": [],
+          "totalTokens": 6418
+        },
+        {
+          "bundleId": "eb-3cfb3493e9be2ae5a551b765",
+          "chunkCount": 6,
+          "decisionAsOf": "2024-01-04T00:00:00+00:00",
+          "mode": "graph_rag_v1",
+          "structuredFacts": [],
+          "totalTokens": 3491
+        }
+      ],
+      "citedClaims": [
+        {
+          "chunkId": "chk-74ba21b0dd1bc613140e",
+          "citationId": "c-cit-1",
+          "claim": "Minutes of the Federal Open Market Committee (December 12\u201313, 2023) states: In determining the extent of any additional policy firming that may be appropriate to return inflation to 2 percent over time, members concurred that they would take into account the cumulative tightening",
+          "claimId": "c-clm-1",
+          "quote": "In determining the extent of any additional policy firming that may be appropriate to return inflation to 2 percent over time, members concurred that they would take into account the cumulative tightening of monetary policy, the lags with which monetary policy affects economic ac",
+          "validationStatus": "valid"
+        },
+        {
+          "chunkId": "chk-5e70f3ee1d6971231c31",
+          "citationId": "c-cit-2",
+          "claim": "Minutes of the Federal Open Market Committee (October 31\u2013November 1, 2023) states: In determining the extent of additional policy firming that may be appropriate to return inflation to 2 percent over time, members concurred that they would take into account the cumulative tighten",
+          "claimId": "c-clm-2",
+          "quote": "In determining the extent of additional policy firming that may be appropriate to return inflation to 2 percent over time, members concurred that they would take into account the cumulative tightening of monetary policy, the lags with which monetary policy affects economic activi",
+          "validationStatus": "valid"
+        },
+        {
+          "chunkId": "chk-846fb11cb51a74b8b0fc",
+          "citationId": "c-cit-3",
+          "claim": "Minutes of the Federal Open Market Committee (September 19-20, 2023) states: This information would be valuable in determining the extent of additional policy firming that may be appropriate to return inflation to 2 percent over time.",
+          "claimId": "c-clm-3",
+          "quote": "This information would be valuable in determining the extent of additional policy firming that may be appropriate to return inflation to 2 percent over time.",
+          "validationStatus": "valid"
+        }
+      ],
+      "decisionId": "dec:fi-demo-2024q1-r0:llm_graph:2024-01-03:r0",
+      "deliveredChunks": [
+        {
+          "availableAt": "2023-07-05T20:00:00+00:00",
+          "bundleId": "eb-2e106418dbd315eb6d5b2295",
+          "channels": [
+            "lexical",
+            "vector",
+            "graph"
+          ],
+          "chunkId": "chk-d7227563709e6ea41427",
+          "documentId": "doc-fed-fomc-minutes-20230614",
+          "documentType": "fomc_minutes",
+          "excerpt": "Staff Review of the Financial Situation\n\nOver the intermeeting period, market participants appeared to interpret incoming data as signaling, on balance, more resilience in economic activity than previously assumed and viewed communications from FOMC participants overall as pointi...",
+          "finalRank": 1,
+          "graph": {
+            "addedByGraph": false,
+            "graphScore": "0.8884490783",
+            "pathAssertionIds": [
+              "as-85e509e0b0c90e3f3ad6"
+            ],
+            "pathLength": 1,
+            "seedId": "topic-inflation",
+            "supportSpans": [
+              {
+                "chunkId": "chk-d7227563709e6ea41427",
+                "endOffset": 1281,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 1272,
+                "versionId": "dv-809efb2658b2542dd4da"
+              },
+              {
+                "chunkId": "chk-d7227563709e6ea41427",
+                "endOffset": 1361,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 1352,
+                "versionId": "dv-809efb2658b2542dd4da"
+              },
+              {
+                "chunkId": "chk-d7227563709e6ea41427",
+                "endOffset": 2139,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 2130,
+                "versionId": "dv-809efb2658b2542dd4da"
+              }
+            ]
+          },
+          "graphRank": 1,
+          "headingPath": [
+            "Minutes of the Federal Open Market Committee",
+            "Staff Review of the Financial Situation"
+          ],
+          "lexicalRank": 4,
+          "offsets": [
+            14957,
+            18236
+          ],
+          "publishedAt": "2023-07-05T18:00:00+00:00",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20230614.htm",
+          "temporalViolation": false,
+          "title": "Minutes of the Federal Open Market Committee (June 13\u201314, 2023)",
+          "vectorRank": 7,
+          "versionId": "dv-809efb2658b2542dd4da"
+        },
+        {
+          "availableAt": "2023-10-11T20:00:00+00:00",
+          "bundleId": "eb-2e106418dbd315eb6d5b2295",
+          "channels": [
+            "lexical",
+            "vector",
+            "graph"
+          ],
+          "chunkId": "chk-846fb11cb51a74b8b0fc",
+          "documentId": "doc-fed-fomc-minutes-20230920",
+          "documentType": "fomc_minutes",
+          "excerpt": "Participants judged that maintaining this restrictive stance of policy would support further progress toward the Committee's goals while allowing the Committee time to gather additional data to evaluate this progress. All participants agreed that it was appropriate to continue th...",
+          "finalRank": 2,
+          "graph": {
+            "addedByGraph": false,
+            "graphScore": "0.8859377402",
+            "pathAssertionIds": [
+              "as-5865e8c3c76b723c4a4f"
+            ],
+            "pathLength": 1,
+            "seedId": "topic-inflation",
+            "supportSpans": [
+              {
+                "chunkId": "chk-846fb11cb51a74b8b0fc",
+                "endOffset": 629,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 620,
+                "versionId": "dv-ffc96b5a663f3dc4adda"
+              },
+              {
+                "chunkId": "chk-846fb11cb51a74b8b0fc",
+                "endOffset": 1281,
+                "kind": "chunk_span",
+                "quote": "disinflation",
+                "sourceRef": null,
+                "startOffset": 1269,
+                "versionId": "dv-ffc96b5a663f3dc4adda"
+              },
+              {
+                "chunkId": "chk-846fb11cb51a74b8b0fc",
+                "endOffset": 1514,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 1505,
+                "versionId": "dv-ffc96b5a663f3dc4adda"
+              }
+            ]
+          },
+          "graphRank": 2,
+          "headingPath": [
+            "Minutes of the Federal Open Market Committee",
+            "Participants' Views on Current Conditions and the Economic Outlook"
+          ],
+          "lexicalRank": 2,
+          "offsets": [
+            31591,
+            35076
+          ],
+          "publishedAt": "2023-10-11T18:00:00+00:00",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20230920.htm",
+          "temporalViolation": false,
+          "title": "Minutes of the Federal Open Market Committee (September 19-20, 2023)",
+          "vectorRank": 11,
+          "versionId": "dv-ffc96b5a663f3dc4adda"
+        },
+        {
+          "availableAt": "2023-02-22T21:00:00+00:00",
+          "bundleId": "eb-2e106418dbd315eb6d5b2295",
+          "channels": [
+            "lexical",
+            "vector",
+            "graph"
+          ],
+          "chunkId": "chk-b3d2acec621329379677",
+          "documentId": "doc-fed-fomc-minutes-20230201",
+          "documentType": "fomc_minutes",
+          "excerpt": "Developments in Financial Markets and Open Market Operations\n\nThe manager pro tem turned first to a review of U.S. financial market developments. Market participants generally expected U.S. economic growth to moderate this year, al\u00adthough there was a wide dispersion in views abou...",
+          "finalRank": 3,
+          "graph": {
+            "addedByGraph": false,
+            "graphScore": "0.8402936610",
+            "pathAssertionIds": [
+              "as-de211845132d4d5aedbc"
+            ],
+            "pathLength": 1,
+            "seedId": "topic-inflation",
+            "supportSpans": [
+              {
+                "chunkId": "chk-b3d2acec621329379677",
+                "endOffset": 399,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 390,
+                "versionId": "dv-5b8a342b189454448159"
+              },
+              {
+                "chunkId": "chk-b3d2acec621329379677",
+                "endOffset": 1175,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 1166,
+                "versionId": "dv-5b8a342b189454448159"
+              },
+              {
+                "chunkId": "chk-b3d2acec621329379677",
+                "endOffset": 1502,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 1493,
+                "versionId": "dv-5b8a342b189454448159"
+              }
+            ]
+          },
+          "graphRank": 4,
+          "headingPath": [
+            "Minutes of the Federal Open Market Committee",
+            "Developments in Financial Markets and Open Market Operations"
+          ],
+          "lexicalRank": 11,
+          "offsets": [
+            10777,
+            15062
+          ],
+          "publishedAt": "2023-02-22T19:00:00+00:00",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20230201.htm",
+          "temporalViolation": false,
+          "title": "Minutes of the Federal Open Market Committee (January 31\u2013February 1, 2023)",
+          "vectorRank": 6,
+          "versionId": "dv-5b8a342b189454448159"
+        },
+        {
+          "availableAt": "2023-05-24T20:00:00+00:00",
+          "bundleId": "eb-2e106418dbd315eb6d5b2295",
+          "channels": [
+            "lexical",
+            "vector",
+            "graph"
+          ],
+          "chunkId": "chk-57a280aedff8c8995232",
+          "documentId": "doc-fed-fomc-minutes-20230503",
+          "documentType": "fomc_minutes",
+          "excerpt": "Several participants noted that if the economy evolved along the lines of their current outlooks, then further policy firming after this meeting may not be necessary. In light of the prominent risks to the Committee's objectives with respect to both maximum employment and price s...",
+          "finalRank": 4,
+          "graph": {
+            "addedByGraph": false,
+            "graphScore": "0.8510183592",
+            "pathAssertionIds": [
+              "as-d02d72d32bf7eabae63e"
+            ],
+            "pathLength": 1,
+            "seedId": "topic-inflation",
+            "supportSpans": [
+              {
+                "chunkId": "chk-57a280aedff8c8995232",
+                "endOffset": 617,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 608,
+                "versionId": "dv-78c1fa0d23da61a23888"
+              },
+              {
+                "chunkId": "chk-57a280aedff8c8995232",
+                "endOffset": 709,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 700,
+                "versionId": "dv-78c1fa0d23da61a23888"
+              }
+            ]
+          },
+          "graphRank": 3,
+          "headingPath": [
+            "Minutes of the Federal Open Market Committee",
+            "Participants' Views on Current Conditions and the Economic Outlook"
+          ],
+          "lexicalRank": 3,
+          "offsets": [
+            45572,
+            47024
+          ],
+          "publishedAt": "2023-05-24T18:00:00+00:00",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20230503.htm",
+          "temporalViolation": false,
+          "title": "Minutes of the Federal Open Market Committee (May 2-3, 2023)",
+          "vectorRank": 20,
+          "versionId": "dv-78c1fa0d23da61a23888"
+        },
+        {
+          "availableAt": "2023-04-12T20:00:00+00:00",
+          "bundleId": "eb-2e106418dbd315eb6d5b2295",
+          "channels": [
+            "lexical",
+            "vector",
+            "graph"
+          ],
+          "chunkId": "chk-720f5b175a704e61a6c3",
+          "documentId": "doc-fed-fomc-minutes-20230322",
+          "documentType": "fomc_minutes",
+          "excerpt": "Staff Review of the Financial Situation\n\nOver the first several weeks of the intermeeting period, incoming economic data and FOMC communications appeared to refocus market participants on upside risks to inflation and policy rates, with the market-implied policy rate path steepen...",
+          "finalRank": 5,
+          "graph": {
+            "addedByGraph": false,
+            "graphScore": "0.8050582469",
+            "pathAssertionIds": [
+              "as-7ef05119fd9d39eaf710"
+            ],
+            "pathLength": 1,
+            "seedId": "topic-inflation",
+            "supportSpans": [
+              {
+                "chunkId": "chk-720f5b175a704e61a6c3",
+                "endOffset": 213,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 204,
+                "versionId": "dv-cf5ae7fddfaba18e3b71"
+              },
+              {
+                "chunkId": "chk-720f5b175a704e61a6c3",
+                "endOffset": 336,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 327,
+                "versionId": "dv-cf5ae7fddfaba18e3b71"
+              },
+              {
+                "chunkId": "chk-720f5b175a704e61a6c3",
+                "endOffset": 1826,
+                "kind": "chunk_span",
+                "quote": "Inflation",
+                "sourceRef": null,
+                "startOffset": 1817,
+                "versionId": "dv-cf5ae7fddfaba18e3b71"
+              }
+            ]
+          },
+          "graphRank": 8,
+          "headingPath": [
+            "Minutes of the Federal Open Market Committee",
+            "Staff Review of the Financial Situation"
+          ],
+          "lexicalRank": 8,
+          "offsets": [
+            15032,
+            19162
+          ],
+          "publishedAt": "2023-04-12T18:00:00+00:00",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20230322.htm",
+          "temporalViolation": false,
+          "title": "Minutes of the Federal Open Market Committee (March 21\u201322, 2023)",
+          "vectorRank": 16,
+          "versionId": "dv-cf5ae7fddfaba18e3b71"
+        },
+        {
+          "availableAt": "2023-07-05T20:00:00+00:00",
+          "bundleId": "eb-2e106418dbd315eb6d5b2295",
+          "channels": [
+            "lexical",
+            "vector",
+            "graph"
+          ],
+          "chunkId": "chk-ffda6de1f8d3647dfb62",
+          "documentId": "doc-fed-fomc-minutes-20230614",
+          "documentType": "fomc_minutes",
+          "excerpt": "They also emphasized the importance of communicating to the public their data-dependent approach. Most participants observed that postmeeting communications, including the SEP, would help clarify their assessment regarding the stance of monetary policy that is likely to be approp...",
+          "finalRank": 6,
+          "graph": {
+            "addedByGraph": false,
+            "graphScore": "0.8214520330",
+            "pathAssertionIds": [
+              "as-f421e71596e7e0b5477a"
+            ],
+            "pathLength": 1,
+            "seedId": "topic-inflation",
+            "supportSpans": [
+              {
+                "chunkId": "chk-ffda6de1f8d3647dfb62",
+                "endOffset": 304,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 295,
+                "versionId": "dv-809efb2658b2542dd4da"
+              },
+              {
+                "chunkId": "chk-ffda6de1f8d3647dfb62",
+                "endOffset": 497,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 488,
+                "versionId": "dv-809efb2658b2542dd4da"
+              },
+              {
+                "chunkId": "chk-ffda6de1f8d3647dfb62",
+                "endOffset": 614,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 605,
+                "versionId": "dv-809efb2658b2542dd4da"
+              }
+            ]
+          },
+          "graphRank": 6,
+          "headingPath": [
+            "Minutes of the Federal Open Market Committee",
+            "Participants' Views on Current Conditions and the Economic Outlook"
+          ],
+          "lexicalRank": 5,
+          "offsets": [
+            37737,
+            39668
+          ],
+          "publishedAt": "2023-07-05T18:00:00+00:00",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20230614.htm",
+          "temporalViolation": false,
+          "title": "Minutes of the Federal Open Market Committee (June 13\u201314, 2023)",
+          "vectorRank": 28,
+          "versionId": "dv-809efb2658b2542dd4da"
+        },
+        {
+          "availableAt": "2023-04-12T20:00:00+00:00",
+          "bundleId": "eb-2e106418dbd315eb6d5b2295",
+          "channels": [
+            "lexical",
+            "vector",
+            "graph"
+          ],
+          "chunkId": "chk-b1719567f24170aa2c52",
+          "documentId": "doc-fed-fomc-minutes-20230322",
+          "documentType": "fomc_minutes",
+          "excerpt": "Developments in Financial Markets and Open Market Operations\n\nThe manager turned first to a review of U.S. financial market developments over the intermeeting period. Early in the period, firmer-than-expected data and policy communications pushed interest rates higher and equity ...",
+          "finalRank": 7,
+          "graph": {
+            "addedByGraph": false,
+            "graphScore": "0.7307736554",
+            "pathAssertionIds": [
+              "as-5ca74edf1c0edb32b865",
+              "as-f41d8d60168cdf354148",
+              "as-b6e6297900a555f47b46"
+            ],
+            "pathLength": 1,
+            "seedId": "event-fomc-20230322",
+            "supportSpans": [
+              {
+                "chunkId": null,
+                "endOffset": null,
+                "kind": "metadata",
+                "quote": null,
+                "sourceRef": "document_version:dv-cf5ae7fddfaba18e3b71",
+                "startOffset": null,
+                "versionId": "dv-cf5ae7fddfaba18e3b71"
+              },
+              {
+                "chunkId": "chk-b1719567f24170aa2c52",
+                "endOffset": null,
+                "kind": "metadata",
+                "quote": null,
+                "sourceRef": "chunk:chk-b1719567f24170aa2c52",
+                "startOffset": null,
+                "versionId": "dv-cf5ae7fddfaba18e3b71"
+              },
+              {
+                "chunkId": "chk-b1719567f24170aa2c52",
+                "endOffset": 1187,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 1178,
+                "versionId": "dv-cf5ae7fddfaba18e3b71"
+              },
+              {
+                "chunkId": "chk-b1719567f24170aa2c52",
+                "endOffset": 1244,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 1235,
+                "versionId": "dv-cf5ae7fddfaba18e3b71"
+              },
+              {
+                "chunkId": "chk-b1719567f24170aa2c52",
+                "endOffset": 1464,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 1455,
+                "versionId": "dv-cf5ae7fddfaba18e3b71"
+              }
+            ]
+          },
+          "graphRank": 10,
+          "headingPath": [
+            "Minutes of the Federal Open Market Committee",
+            "Developments in Financial Markets and Open Market Operations"
+          ],
+          "lexicalRank": 9,
+          "offsets": [
+            6118,
+            10032
+          ],
+          "publishedAt": "2023-04-12T18:00:00+00:00",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20230322.htm",
+          "temporalViolation": false,
+          "title": "Minutes of the Federal Open Market Committee (March 21\u201322, 2023)",
+          "vectorRank": 18,
+          "versionId": "dv-cf5ae7fddfaba18e3b71"
+        },
+        {
+          "availableAt": "2024-01-03T21:00:00+00:00",
+          "bundleId": "eb-2e106418dbd315eb6d5b2295",
+          "channels": [
+            "lexical",
+            "vector",
+            "graph"
+          ],
+          "chunkId": "chk-49ddecef6cd30ac269f3",
+          "documentId": "doc-fed-fomc-minutes-20231213",
+          "documentType": "fomc_minutes",
+          "excerpt": "Staff Review of the Financial Situation\n\nOver the intermeeting period, some softer-than-expected data releases appeared to lessen the perception among investors that policy may need to tighten further in order to bring inflation down to 2 percent over time. Market participants al...",
+          "finalRank": 8,
+          "graph": {
+            "addedByGraph": false,
+            "graphScore": "0.7135015180",
+            "pathAssertionIds": [
+              "as-39c5a13040d7d4c8b6fa",
+              "as-774e3b48d5972ce35dc1",
+              "as-9aab3c86b339c54f5855"
+            ],
+            "pathLength": 1,
+            "seedId": "event-fomc-20231213",
+            "supportSpans": [
+              {
+                "chunkId": null,
+                "endOffset": null,
+                "kind": "metadata",
+                "quote": null,
+                "sourceRef": "document_version:dv-c3d3b4a053e5018e2235",
+                "startOffset": null,
+                "versionId": "dv-c3d3b4a053e5018e2235"
+              },
+              {
+                "chunkId": "chk-49ddecef6cd30ac269f3",
+                "endOffset": null,
+                "kind": "metadata",
+                "quote": null,
+                "sourceRef": "chunk:chk-49ddecef6cd30ac269f3",
+                "startOffset": null,
+                "versionId": "dv-c3d3b4a053e5018e2235"
+              },
+              {
+                "chunkId": "chk-49ddecef6cd30ac269f3",
+                "endOffset": 228,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 219,
+                "versionId": "dv-c3d3b4a053e5018e2235"
+              },
+              {
+                "chunkId": "chk-49ddecef6cd30ac269f3",
+                "endOffset": 1565,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 1556,
+                "versionId": "dv-c3d3b4a053e5018e2235"
+              },
+              {
+                "chunkId": "chk-49ddecef6cd30ac269f3",
+                "endOffset": 1784,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 1775,
+                "versionId": "dv-c3d3b4a053e5018e2235"
+              }
+            ]
+          },
+          "graphRank": 11,
+          "headingPath": [
+            "Minutes of the Federal Open Market Committee",
+            "Staff Review of the Financial Situation"
+          ],
+          "lexicalRank": 12,
+          "offsets": [
+            14119,
+            18076
+          ],
+          "publishedAt": "2024-01-03T19:00:00+00:00",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20231213.htm",
+          "temporalViolation": false,
+          "title": "Minutes of the Federal Open Market Committee (December 12\u201313, 2023)",
+          "vectorRank": 15,
+          "versionId": "dv-c3d3b4a053e5018e2235"
+        },
+        {
+          "availableAt": "2023-02-22T21:00:00+00:00",
+          "bundleId": "eb-2e106418dbd315eb6d5b2295",
+          "channels": [
+            "lexical",
+            "vector",
+            "graph"
+          ],
+          "chunkId": "chk-9fa276947b732022300f",
+          "documentId": "doc-fed-fomc-minutes-20230201",
+          "documentType": "fomc_minutes",
+          "excerpt": "Staff Review of the Financial Situation\n\nOver the intermeeting period, the market-implied federal funds rate path was little changed for 2023 but moderately moved down further out. Nominal Treasury yields were little changed, while swaps-based inflation compensation measures fell...",
+          "finalRank": 9,
+          "graph": {
+            "addedByGraph": false,
+            "graphScore": "0.7385382932",
+            "pathAssertionIds": [
+              "as-da7ea4c538e33308e740",
+              "as-8a36e6c6d8cd70b953d3",
+              "as-1f8c58bf5c8c4e4ba385"
+            ],
+            "pathLength": 1,
+            "seedId": "event-fomc-20230201",
+            "supportSpans": [
+              {
+                "chunkId": null,
+                "endOffset": null,
+                "kind": "metadata",
+                "quote": null,
+                "sourceRef": "document_version:dv-5b8a342b189454448159",
+                "startOffset": null,
+                "versionId": "dv-5b8a342b189454448159"
+              },
+              {
+                "chunkId": "chk-9fa276947b732022300f",
+                "endOffset": null,
+                "kind": "metadata",
+                "quote": null,
+                "sourceRef": "chunk:chk-9fa276947b732022300f",
+                "startOffset": null,
+                "versionId": "dv-5b8a342b189454448159"
+              },
+              {
+                "chunkId": "chk-9fa276947b732022300f",
+                "endOffset": 253,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 244,
+                "versionId": "dv-5b8a342b189454448159"
+              },
+              {
+                "chunkId": "chk-9fa276947b732022300f",
+                "endOffset": 814,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 805,
+                "versionId": "dv-5b8a342b189454448159"
+              }
+            ]
+          },
+          "graphRank": 9,
+          "headingPath": [
+            "Minutes of the Federal Open Market Committee",
+            "Staff Review of the Financial Situation"
+          ],
+          "lexicalRank": 14,
+          "offsets": [
+            19200,
+            22675
+          ],
+          "publishedAt": "2023-02-22T19:00:00+00:00",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20230201.htm",
+          "temporalViolation": false,
+          "title": "Minutes of the Federal Open Market Committee (January 31\u2013February 1, 2023)",
+          "vectorRank": 24,
+          "versionId": "dv-5b8a342b189454448159"
+        },
+        {
+          "availableAt": "2023-08-16T20:00:00+00:00",
+          "bundleId": "eb-2e106418dbd315eb6d5b2295",
+          "channels": [
+            "lexical",
+            "vector",
+            "graph"
+          ],
+          "chunkId": "chk-5e7b8d7a70a7ca8c5786",
+          "documentId": "doc-fed-fomc-minutes-20230726",
+          "documentType": "fomc_minutes",
+          "excerpt": "Staff Review of the Financial Situation\n\nOver the intermeeting period, market participants interpreted domestic economic data releases as indicating continued resilience of economic activity and some easing of inflationary pressures, and they viewed monetary policy communications...",
+          "finalRank": 10,
+          "graph": {
+            "addedByGraph": false,
+            "graphScore": "0.6616788118",
+            "pathAssertionIds": [
+              "as-6addf0ea5fc14daf7335",
+              "as-77e4376a603a982d4904",
+              "as-fd9b141dd66269eb351b"
+            ],
+            "pathLength": 1,
+            "seedId": "event-fomc-20230726",
+            "supportSpans": [
+              {
+                "chunkId": null,
+                "endOffset": null,
+                "kind": "metadata",
+                "quote": null,
+                "sourceRef": "document_version:dv-89c13b5527b57789e6ff",
+                "startOffset": null,
+                "versionId": "dv-89c13b5527b57789e6ff"
+              },
+              {
+                "chunkId": "chk-5e7b8d7a70a7ca8c5786",
+                "endOffset": null,
+                "kind": "metadata",
+                "quote": null,
+                "sourceRef": "chunk:chk-5e7b8d7a70a7ca8c5786",
+                "startOffset": null,
+                "versionId": "dv-89c13b5527b57789e6ff"
+              },
+              {
+                "chunkId": "chk-5e7b8d7a70a7ca8c5786",
+                "endOffset": 1161,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 1152,
+                "versionId": "dv-89c13b5527b57789e6ff"
+              },
+              {
+                "chunkId": "chk-5e7b8d7a70a7ca8c5786",
+                "endOffset": 2239,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 2230,
+                "versionId": "dv-89c13b5527b57789e6ff"
+              },
+              {
+                "chunkId": "chk-5e7b8d7a70a7ca8c5786",
+                "endOffset": 2637,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 2628,
+                "versionId": "dv-89c13b5527b57789e6ff"
+              }
+            ]
+          },
+          "graphRank": 13,
+          "headingPath": [
+            "Minutes of the Federal Open Market Committee",
+            "Staff Review of the Financial Situation"
+          ],
+          "lexicalRank": 10,
+          "offsets": [
+            13598,
+            17462
+          ],
+          "publishedAt": "2023-08-16T18:00:00+00:00",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20230726.htm",
+          "temporalViolation": false,
+          "title": "Minutes of the Federal Open Market Committee (July 25-26, 2023)",
+          "vectorRank": 26,
+          "versionId": "dv-89c13b5527b57789e6ff"
+        },
+        {
+          "availableAt": "2023-10-11T20:00:00+00:00",
+          "bundleId": "eb-2e106418dbd315eb6d5b2295",
+          "channels": [
+            "vector",
+            "graph"
+          ],
+          "chunkId": "chk-073b31d71abd9650b8c4",
+          "documentId": "doc-fed-fomc-minutes-20230920",
+          "documentType": "fomc_minutes",
+          "excerpt": "Staff Economic Outlook\n\nThe economic forecast prepared by the staff for the September FOMC meeting was stronger than the July projection, as consumer and business spending appeared to be more resilient to tight financial conditions than previously expected. The staff assumed that...",
+          "finalRank": 11,
+          "graph": {
+            "addedByGraph": false,
+            "graphScore": "0.8257930055",
+            "pathAssertionIds": [
+              "as-8829447688331eb2712e"
+            ],
+            "pathLength": 1,
+            "seedId": "topic-inflation",
+            "supportSpans": [
+              {
+                "chunkId": "chk-073b31d71abd9650b8c4",
+                "endOffset": 1020,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 1011,
+                "versionId": "dv-ffc96b5a663f3dc4adda"
+              },
+              {
+                "chunkId": "chk-073b31d71abd9650b8c4",
+                "endOffset": 1098,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 1089,
+                "versionId": "dv-ffc96b5a663f3dc4adda"
+              },
+              {
+                "chunkId": "chk-073b31d71abd9650b8c4",
+                "endOffset": 1269,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 1260,
+                "versionId": "dv-ffc96b5a663f3dc4adda"
+              }
+            ]
+          },
+          "graphRank": 5,
+          "headingPath": [
+            "Minutes of the Federal Open Market Committee",
+            "Staff Economic Outlook"
+          ],
+          "lexicalRank": null,
+          "offsets": [
+            19726,
+            21577
+          ],
+          "publishedAt": "2023-10-11T18:00:00+00:00",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20230920.htm",
+          "temporalViolation": false,
+          "title": "Minutes of the Federal Open Market Committee (September 19-20, 2023)",
+          "vectorRank": 1,
+          "versionId": "dv-ffc96b5a663f3dc4adda"
+        },
+        {
+          "availableAt": "2023-11-21T21:00:00+00:00",
+          "bundleId": "eb-2e106418dbd315eb6d5b2295",
+          "channels": [
+            "vector",
+            "graph"
+          ],
+          "chunkId": "chk-92d3279d9ddfba351f61",
+          "documentId": "doc-fed-fomc-minutes-20231101",
+          "documentType": "fomc_minutes",
+          "excerpt": "Participants' Views on Current Conditions and the Economic Outlook\n\nParticipants noted that real GDP had expanded at an unexpectedly strong pace in the third quarter, boosted by a surge in consumer spending. Nevertheless, participants judged that aggregate demand and aggregate su...",
+          "finalRank": 12,
+          "graph": {
+            "addedByGraph": false,
+            "graphScore": "0.8083000109",
+            "pathAssertionIds": [
+              "as-5b18eed79beefbb18b8e"
+            ],
+            "pathLength": 1,
+            "seedId": "topic-inflation",
+            "supportSpans": [
+              {
+                "chunkId": "chk-92d3279d9ddfba351f61",
+                "endOffset": 771,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 762,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              },
+              {
+                "chunkId": "chk-92d3279d9ddfba351f61",
+                "endOffset": 902,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 893,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              },
+              {
+                "chunkId": "chk-92d3279d9ddfba351f61",
+                "endOffset": 971,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 962,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              }
+            ]
+          },
+          "graphRank": 7,
+          "headingPath": [
+            "Minutes of the Federal Open Market Committee",
+            "Participants' Views on Current Conditions and the Economic Outlook"
+          ],
+          "lexicalRank": null,
+          "offsets": [
+            23771,
+            28006
+          ],
+          "publishedAt": "2023-11-21T19:00:00+00:00",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20231101.htm",
+          "temporalViolation": false,
+          "title": "Minutes of the Federal Open Market Committee (October 31\u2013November 1, 2023)",
+          "vectorRank": 2,
+          "versionId": "dv-27bf1188bd97d8f9f7cb"
+        },
+        {
+          "availableAt": "2023-11-21T21:00:00+00:00",
+          "bundleId": "eb-3cfb3493e9be2ae5a551b765",
+          "channels": [
+            "lexical",
+            "vector",
+            "graph"
+          ],
+          "chunkId": "chk-e3a40739fc8d7487c322",
+          "documentId": "doc-fed-fomc-minutes-20231101",
+          "documentType": "fomc_minutes",
+          "excerpt": "A few participants observed that higher interest rates were also affecting the agricultural sector, with their contacts noting that high financing costs were likely weighing on purchases of heavy agricultural equipment. Regarding the energy sector, a few participants observed tha...",
+          "finalRank": 1,
+          "graph": {
+            "addedByGraph": false,
+            "graphScore": "3.0000000000",
+            "pathAssertionIds": [
+              "as-963711486e951bfe8edb",
+              "as-f1507bf651b22de4d43d",
+              "as-c9931b71fef0a2eaa9f4"
+            ],
+            "pathLength": 1,
+            "seedId": "topic-inflation",
+            "supportSpans": [
+              {
+                "chunkId": "chk-e3a40739fc8d7487c322",
+                "endOffset": 1698,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 1689,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              },
+              {
+                "chunkId": "chk-e3a40739fc8d7487c322",
+                "endOffset": 1801,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 1792,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              },
+              {
+                "chunkId": "chk-e3a40739fc8d7487c322",
+                "endOffset": 1927,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 1918,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              },
+              {
+                "chunkId": "chk-e3a40739fc8d7487c322",
+                "endOffset": 450,
+                "kind": "chunk_span",
+                "quote": "labor market",
+                "sourceRef": null,
+                "startOffset": 438,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              },
+              {
+                "chunkId": "chk-e3a40739fc8d7487c322",
+                "endOffset": 474,
+                "kind": "chunk_span",
+                "quote": "Payroll",
+                "sourceRef": null,
+                "startOffset": 467,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              },
+              {
+                "chunkId": "chk-e3a40739fc8d7487c322",
+                "endOffset": 545,
+                "kind": "chunk_span",
+                "quote": "unemployment rate",
+                "sourceRef": null,
+                "startOffset": 528,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              },
+              {
+                "chunkId": "chk-e3a40739fc8d7487c322",
+                "endOffset": 3805,
+                "kind": "chunk_span",
+                "quote": "federal funds rate",
+                "sourceRef": null,
+                "startOffset": 3787,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              },
+              {
+                "chunkId": "chk-e3a40739fc8d7487c322",
+                "endOffset": 3904,
+                "kind": "chunk_span",
+                "quote": "policy rate",
+                "sourceRef": null,
+                "startOffset": 3893,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              }
+            ]
+          },
+          "graphRank": 1,
+          "headingPath": [
+            "Minutes of the Federal Open Market Committee",
+            "Participants' Views on Current Conditions and the Economic Outlook"
+          ],
+          "lexicalRank": 1,
+          "offsets": [
+            27601,
+            31946
+          ],
+          "publishedAt": "2023-11-21T19:00:00+00:00",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20231101.htm",
+          "temporalViolation": false,
+          "title": "Minutes of the Federal Open Market Committee (October 31\u2013November 1, 2023)",
+          "vectorRank": 1,
+          "versionId": "dv-27bf1188bd97d8f9f7cb"
+        },
+        {
+          "availableAt": "2023-07-05T20:00:00+00:00",
+          "bundleId": "eb-3cfb3493e9be2ae5a551b765",
+          "channels": [
+            "lexical",
+            "vector",
+            "graph"
+          ],
+          "chunkId": "chk-e3c4c00720b1199f0ada",
+          "documentId": "doc-fed-fomc-minutes-20230614",
+          "documentType": "fomc_minutes",
+          "excerpt": "Committee Policy Actions\n\nIn their discussion of monetary policy for this meeting, members agreed that economic activity had continued to expand at a modest pace. They also concurred that job gains had been robust in recent months, and the unemployment rate had remained low. Infl...",
+          "finalRank": 2,
+          "graph": {
+            "addedByGraph": false,
+            "graphScore": "2.9086769544",
+            "pathAssertionIds": [
+              "as-2a53f9e13b412082a42a",
+              "as-0fe24653d594551fcbfe",
+              "as-abad341a5397fb3a2bee"
+            ],
+            "pathLength": 1,
+            "seedId": "topic-inflation",
+            "supportSpans": [
+              {
+                "chunkId": "chk-e3c4c00720b1199f0ada",
+                "endOffset": 285,
+                "kind": "chunk_span",
+                "quote": "Inflation",
+                "sourceRef": null,
+                "startOffset": 276,
+                "versionId": "dv-809efb2658b2542dd4da"
+              },
+              {
+                "chunkId": "chk-e3c4c00720b1199f0ada",
+                "endOffset": 524,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 515,
+                "versionId": "dv-809efb2658b2542dd4da"
+              },
+              {
+                "chunkId": "chk-e3c4c00720b1199f0ada",
+                "endOffset": 649,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 640,
+                "versionId": "dv-809efb2658b2542dd4da"
+              },
+              {
+                "chunkId": "chk-e3c4c00720b1199f0ada",
+                "endOffset": 197,
+                "kind": "chunk_span",
+                "quote": "job gains",
+                "sourceRef": null,
+                "startOffset": 188,
+                "versionId": "dv-809efb2658b2542dd4da"
+              },
+              {
+                "chunkId": "chk-e3c4c00720b1199f0ada",
+                "endOffset": 257,
+                "kind": "chunk_span",
+                "quote": "unemployment rate",
+                "sourceRef": null,
+                "startOffset": 240,
+                "versionId": "dv-809efb2658b2542dd4da"
+              },
+              {
+                "chunkId": "chk-e3c4c00720b1199f0ada",
+                "endOffset": 2209,
+                "kind": "chunk_span",
+                "quote": "labor market",
+                "sourceRef": null,
+                "startOffset": 2197,
+                "versionId": "dv-809efb2658b2542dd4da"
+              },
+              {
+                "chunkId": "chk-e3c4c00720b1199f0ada",
+                "endOffset": 862,
+                "kind": "chunk_span",
+                "quote": "target range",
+                "sourceRef": null,
+                "startOffset": 850,
+                "versionId": "dv-809efb2658b2542dd4da"
+              },
+              {
+                "chunkId": "chk-e3c4c00720b1199f0ada",
+                "endOffset": 889,
+                "kind": "chunk_span",
+                "quote": "federal funds rate",
+                "sourceRef": null,
+                "startOffset": 871,
+                "versionId": "dv-809efb2658b2542dd4da"
+              },
+              {
+                "chunkId": "chk-e3c4c00720b1199f0ada",
+                "endOffset": 957,
+                "kind": "chunk_span",
+                "quote": "target range",
+                "sourceRef": null,
+                "startOffset": 945,
+                "versionId": "dv-809efb2658b2542dd4da"
+              }
+            ]
+          },
+          "graphRank": 2,
+          "headingPath": [
+            "Minutes of the Federal Open Market Committee",
+            "Committee Policy Actions"
+          ],
+          "lexicalRank": 3,
+          "offsets": [
+            39670,
+            43129
+          ],
+          "publishedAt": "2023-07-05T18:00:00+00:00",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20230614.htm",
+          "temporalViolation": false,
+          "title": "Minutes of the Federal Open Market Committee (June 13\u201314, 2023)",
+          "vectorRank": 8,
+          "versionId": "dv-809efb2658b2542dd4da"
+        },
+        {
+          "availableAt": "2023-10-11T20:00:00+00:00",
+          "bundleId": "eb-3cfb3493e9be2ae5a551b765",
+          "channels": [
+            "lexical",
+            "vector",
+            "graph"
+          ],
+          "chunkId": "chk-b4f73f0cfcea8d65133d",
+          "documentId": "doc-fed-fomc-minutes-20230920",
+          "documentType": "fomc_minutes",
+          "excerpt": "Committee Policy Actions\n\nIn their discussion of monetary policy for this meeting, members agreed that economic activity had been expanding at a solid pace, and, accordingly, that the corresponding language in the postmeeting statement should be changed from \"moderate\" to \"solid....",
+          "finalRank": 3,
+          "graph": {
+            "addedByGraph": false,
+            "graphScore": "2.9018821563",
+            "pathAssertionIds": [
+              "as-4af29416b59a3fbaeb99",
+              "as-4b98411770ff5bca0b16",
+              "as-8304793646920321b760"
+            ],
+            "pathLength": 1,
+            "seedId": "topic-inflation",
+            "supportSpans": [
+              {
+                "chunkId": "chk-b4f73f0cfcea8d65133d",
+                "endOffset": 419,
+                "kind": "chunk_span",
+                "quote": "Inflation",
+                "sourceRef": null,
+                "startOffset": 410,
+                "versionId": "dv-ffc96b5a663f3dc4adda"
+              },
+              {
+                "chunkId": "chk-b4f73f0cfcea8d65133d",
+                "endOffset": 658,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 649,
+                "versionId": "dv-ffc96b5a663f3dc4adda"
+              },
+              {
+                "chunkId": "chk-b4f73f0cfcea8d65133d",
+                "endOffset": 782,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 773,
+                "versionId": "dv-ffc96b5a663f3dc4adda"
+              },
+              {
+                "chunkId": "chk-b4f73f0cfcea8d65133d",
+                "endOffset": 316,
+                "kind": "chunk_span",
+                "quote": "job gains",
+                "sourceRef": null,
+                "startOffset": 307,
+                "versionId": "dv-ffc96b5a663f3dc4adda"
+              },
+              {
+                "chunkId": "chk-b4f73f0cfcea8d65133d",
+                "endOffset": 391,
+                "kind": "chunk_span",
+                "quote": "unemployment rate",
+                "sourceRef": null,
+                "startOffset": 374,
+                "versionId": "dv-ffc96b5a663f3dc4adda"
+              },
+              {
+                "chunkId": "chk-b4f73f0cfcea8d65133d",
+                "endOffset": 2241,
+                "kind": "chunk_span",
+                "quote": "labor market",
+                "sourceRef": null,
+                "startOffset": 2229,
+                "versionId": "dv-ffc96b5a663f3dc4adda"
+              },
+              {
+                "chunkId": "chk-b4f73f0cfcea8d65133d",
+                "endOffset": 965,
+                "kind": "chunk_span",
+                "quote": "target range",
+                "sourceRef": null,
+                "startOffset": 953,
+                "versionId": "dv-ffc96b5a663f3dc4adda"
+              },
+              {
+                "chunkId": "chk-b4f73f0cfcea8d65133d",
+                "endOffset": 992,
+                "kind": "chunk_span",
+                "quote": "federal funds rate",
+                "sourceRef": null,
+                "startOffset": 974,
+                "versionId": "dv-ffc96b5a663f3dc4adda"
+              },
+              {
+                "chunkId": "chk-b4f73f0cfcea8d65133d",
+                "endOffset": 2794,
+                "kind": "chunk_span",
+                "quote": "federal funds rate",
+                "sourceRef": null,
+                "startOffset": 2776,
+                "versionId": "dv-ffc96b5a663f3dc4adda"
+              }
+            ]
+          },
+          "graphRank": 3,
+          "headingPath": [
+            "Minutes of the Federal Open Market Committee",
+            "Committee Policy Actions"
+          ],
+          "lexicalRank": 8,
+          "offsets": [
+            36425,
+            39923
+          ],
+          "publishedAt": "2023-10-11T18:00:00+00:00",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20230920.htm",
+          "temporalViolation": false,
+          "title": "Minutes of the Federal Open Market Committee (September 19-20, 2023)",
+          "vectorRank": 4,
+          "versionId": "dv-ffc96b5a663f3dc4adda"
+        },
+        {
+          "availableAt": "2023-06-14T20:00:00+00:00",
+          "bundleId": "eb-3cfb3493e9be2ae5a551b765",
+          "channels": [
+            "lexical",
+            "vector",
+            "graph"
+          ],
+          "chunkId": "chk-f29ec703be9e992eb639",
+          "documentId": "doc-fed-fomc-statement-20230614",
+          "documentType": "fomc_statement",
+          "excerpt": "Federal Reserve issues FOMC statement\n\nRecent indicators suggest that economic activity has continued to expand at a modest pace. Job gains have been robust in recent months, and the unemployment rate has remained low. Inflation remains elevated.\n\nThe U.S. banking system is sound...",
+          "finalRank": 4,
+          "graph": {
+            "addedByGraph": false,
+            "graphScore": "2.8944301669",
+            "pathAssertionIds": [
+              "as-b8b6a805fcf6be0e1130",
+              "as-1c7714e899145109251e",
+              "as-5f6c9a0923fff6da48e9"
+            ],
+            "pathLength": 1,
+            "seedId": "topic-inflation",
+            "supportSpans": [
+              {
+                "chunkId": "chk-f29ec703be9e992eb639",
+                "endOffset": 228,
+                "kind": "chunk_span",
+                "quote": "Inflation",
+                "sourceRef": null,
+                "startOffset": 219,
+                "versionId": "dv-1218c0e097a24c484a5c"
+              },
+              {
+                "chunkId": "chk-f29ec703be9e992eb639",
+                "endOffset": 415,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 406,
+                "versionId": "dv-1218c0e097a24c484a5c"
+              },
+              {
+                "chunkId": "chk-f29ec703be9e992eb639",
+                "endOffset": 515,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 506,
+                "versionId": "dv-1218c0e097a24c484a5c"
+              },
+              {
+                "chunkId": "chk-f29ec703be9e992eb639",
+                "endOffset": 139,
+                "kind": "chunk_span",
+                "quote": "Job gains",
+                "sourceRef": null,
+                "startOffset": 130,
+                "versionId": "dv-1218c0e097a24c484a5c"
+              },
+              {
+                "chunkId": "chk-f29ec703be9e992eb639",
+                "endOffset": 200,
+                "kind": "chunk_span",
+                "quote": "unemployment rate",
+                "sourceRef": null,
+                "startOffset": 183,
+                "versionId": "dv-1218c0e097a24c484a5c"
+              },
+              {
+                "chunkId": "chk-f29ec703be9e992eb639",
+                "endOffset": 1945,
+                "kind": "chunk_span",
+                "quote": "labor market",
+                "sourceRef": null,
+                "startOffset": 1933,
+                "versionId": "dv-1218c0e097a24c484a5c"
+              },
+              {
+                "chunkId": "chk-f29ec703be9e992eb639",
+                "endOffset": 711,
+                "kind": "chunk_span",
+                "quote": "target range",
+                "sourceRef": null,
+                "startOffset": 699,
+                "versionId": "dv-1218c0e097a24c484a5c"
+              },
+              {
+                "chunkId": "chk-f29ec703be9e992eb639",
+                "endOffset": 738,
+                "kind": "chunk_span",
+                "quote": "federal funds rate",
+                "sourceRef": null,
+                "startOffset": 720,
+                "versionId": "dv-1218c0e097a24c484a5c"
+              },
+              {
+                "chunkId": "chk-f29ec703be9e992eb639",
+                "endOffset": 786,
+                "kind": "chunk_span",
+                "quote": "target range",
+                "sourceRef": null,
+                "startOffset": 774,
+                "versionId": "dv-1218c0e097a24c484a5c"
+              }
+            ]
+          },
+          "graphRank": 4,
+          "headingPath": [
+            "Federal Reserve issues FOMC statement"
+          ],
+          "lexicalRank": 9,
+          "offsets": [
+            0,
+            2433
+          ],
+          "publishedAt": "2023-06-14T18:00:00+00:00",
+          "sourceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20230614a.htm",
+          "temporalViolation": false,
+          "title": "Federal Reserve issues FOMC statement (June 14, 2023)",
+          "vectorRank": 5,
+          "versionId": "dv-1218c0e097a24c484a5c"
+        },
+        {
+          "availableAt": "2024-01-03T21:00:00+00:00",
+          "bundleId": "eb-3cfb3493e9be2ae5a551b765",
+          "channels": [
+            "lexical",
+            "vector",
+            "graph"
+          ],
+          "chunkId": "chk-74ba21b0dd1bc613140e",
+          "documentId": "doc-fed-fomc-minutes-20231213",
+          "documentType": "fomc_minutes",
+          "excerpt": "Committee Policy Actions\n\nIn their discussions of monetary policy for this meeting, members agreed that recent indicators suggested that growth of economic activity had slowed from its strong pace in the third quarter. Job gains had moderated since earlier in the year but remaine...",
+          "finalRank": 5,
+          "graph": {
+            "addedByGraph": false,
+            "graphScore": "2.8888600492",
+            "pathAssertionIds": [
+              "as-d8652f8274374e8f9e01",
+              "as-51bd94f99bfe81700a87",
+              "as-e76550e949a07dd5c213"
+            ],
+            "pathLength": 1,
+            "seedId": "topic-inflation",
+            "supportSpans": [
+              {
+                "chunkId": "chk-74ba21b0dd1bc613140e",
+                "endOffset": 343,
+                "kind": "chunk_span",
+                "quote": "Inflation",
+                "sourceRef": null,
+                "startOffset": 334,
+                "versionId": "dv-c3d3b4a053e5018e2235"
+              },
+              {
+                "chunkId": "chk-74ba21b0dd1bc613140e",
+                "endOffset": 625,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 616,
+                "versionId": "dv-c3d3b4a053e5018e2235"
+              },
+              {
+                "chunkId": "chk-74ba21b0dd1bc613140e",
+                "endOffset": 741,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 732,
+                "versionId": "dv-c3d3b4a053e5018e2235"
+              },
+              {
+                "chunkId": "chk-74ba21b0dd1bc613140e",
+                "endOffset": 228,
+                "kind": "chunk_span",
+                "quote": "Job gains",
+                "sourceRef": null,
+                "startOffset": 219,
+                "versionId": "dv-c3d3b4a053e5018e2235"
+              },
+              {
+                "chunkId": "chk-74ba21b0dd1bc613140e",
+                "endOffset": 315,
+                "kind": "chunk_span",
+                "quote": "unemployment rate",
+                "sourceRef": null,
+                "startOffset": 298,
+                "versionId": "dv-c3d3b4a053e5018e2235"
+              },
+              {
+                "chunkId": "chk-74ba21b0dd1bc613140e",
+                "endOffset": 2202,
+                "kind": "chunk_span",
+                "quote": "labor market",
+                "sourceRef": null,
+                "startOffset": 2190,
+                "versionId": "dv-c3d3b4a053e5018e2235"
+              },
+              {
+                "chunkId": "chk-74ba21b0dd1bc613140e",
+                "endOffset": 923,
+                "kind": "chunk_span",
+                "quote": "target range",
+                "sourceRef": null,
+                "startOffset": 911,
+                "versionId": "dv-c3d3b4a053e5018e2235"
+              },
+              {
+                "chunkId": "chk-74ba21b0dd1bc613140e",
+                "endOffset": 950,
+                "kind": "chunk_span",
+                "quote": "federal funds rate",
+                "sourceRef": null,
+                "startOffset": 932,
+                "versionId": "dv-c3d3b4a053e5018e2235"
+              },
+              {
+                "chunkId": "chk-74ba21b0dd1bc613140e",
+                "endOffset": 2974,
+                "kind": "chunk_span",
+                "quote": "target range",
+                "sourceRef": null,
+                "startOffset": 2962,
+                "versionId": "dv-c3d3b4a053e5018e2235"
+              }
+            ]
+          },
+          "graphRank": 5,
+          "headingPath": [
+            "Minutes of the Federal Open Market Committee",
+            "Committee Policy Actions"
+          ],
+          "lexicalRank": 16,
+          "offsets": [
+            37534,
+            41153
+          ],
+          "publishedAt": "2024-01-03T19:00:00+00:00",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20231213.htm",
+          "temporalViolation": false,
+          "title": "Minutes of the Federal Open Market Committee (December 12\u201313, 2023)",
+          "vectorRank": 3,
+          "versionId": "dv-c3d3b4a053e5018e2235"
+        },
+        {
+          "availableAt": "2023-11-21T21:00:00+00:00",
+          "bundleId": "eb-3cfb3493e9be2ae5a551b765",
+          "channels": [
+            "lexical",
+            "vector",
+            "graph"
+          ],
+          "chunkId": "chk-5e70f3ee1d6971231c31",
+          "documentId": "doc-fed-fomc-minutes-20231101",
+          "documentType": "fomc_minutes",
+          "excerpt": "Committee Policy Actions\n\nIn their discussion of monetary policy for this meeting, members agreed that economic activity had expanded at a strong pace in the third quarter, job gains had moderated since earlier in the year but remained strong, and the unemployment rate had remain...",
+          "finalRank": 6,
+          "graph": {
+            "addedByGraph": false,
+            "graphScore": "2.8870562843",
+            "pathAssertionIds": [
+              "as-e3bd9b355248e8701dea",
+              "as-056946cf52eee442dc92",
+              "as-0509a175c3975d20421a"
+            ],
+            "pathLength": 1,
+            "seedId": "topic-inflation",
+            "supportSpans": [
+              {
+                "chunkId": "chk-5e70f3ee1d6971231c31",
+                "endOffset": 297,
+                "kind": "chunk_span",
+                "quote": "Inflation",
+                "sourceRef": null,
+                "startOffset": 288,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              },
+              {
+                "chunkId": "chk-5e70f3ee1d6971231c31",
+                "endOffset": 550,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 541,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              },
+              {
+                "chunkId": "chk-5e70f3ee1d6971231c31",
+                "endOffset": 666,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 657,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              },
+              {
+                "chunkId": "chk-5e70f3ee1d6971231c31",
+                "endOffset": 182,
+                "kind": "chunk_span",
+                "quote": "job gains",
+                "sourceRef": null,
+                "startOffset": 173,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              },
+              {
+                "chunkId": "chk-5e70f3ee1d6971231c31",
+                "endOffset": 269,
+                "kind": "chunk_span",
+                "quote": "unemployment rate",
+                "sourceRef": null,
+                "startOffset": 252,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              },
+              {
+                "chunkId": "chk-5e70f3ee1d6971231c31",
+                "endOffset": 2120,
+                "kind": "chunk_span",
+                "quote": "labor market",
+                "sourceRef": null,
+                "startOffset": 2108,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              },
+              {
+                "chunkId": "chk-5e70f3ee1d6971231c31",
+                "endOffset": 849,
+                "kind": "chunk_span",
+                "quote": "target range",
+                "sourceRef": null,
+                "startOffset": 837,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              },
+              {
+                "chunkId": "chk-5e70f3ee1d6971231c31",
+                "endOffset": 876,
+                "kind": "chunk_span",
+                "quote": "federal funds rate",
+                "sourceRef": null,
+                "startOffset": 858,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              },
+              {
+                "chunkId": "chk-5e70f3ee1d6971231c31",
+                "endOffset": 2671,
+                "kind": "chunk_span",
+                "quote": "federal funds rate",
+                "sourceRef": null,
+                "startOffset": 2653,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              }
+            ]
+          },
+          "graphRank": 6,
+          "headingPath": [
+            "Minutes of the Federal Open Market Committee",
+            "Committee Policy Actions"
+          ],
+          "lexicalRank": 13,
+          "offsets": [
+            39137,
+            42743
+          ],
+          "publishedAt": "2023-11-21T19:00:00+00:00",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20231101.htm",
+          "temporalViolation": false,
+          "title": "Minutes of the Federal Open Market Committee (October 31\u2013November 1, 2023)",
+          "vectorRank": 6,
+          "versionId": "dv-27bf1188bd97d8f9f7cb"
+        }
+      ],
+      "noteStatus": "supported",
+      "outcome": "completed_proposal",
+      "reasons": [
+        "validated_proposal"
+      ]
+    },
+    "llm_rag": {
+      "action": "REBALANCE",
+      "bundles": [
+        {
+          "bundleId": "eb-946201af28a2bf52195a9c71",
+          "chunkCount": 6,
+          "decisionAsOf": "2024-01-04T00:00:00+00:00",
+          "mode": "hybrid_rag_v1",
+          "structuredFacts": [],
+          "totalTokens": 3488
+        }
+      ],
+      "citedClaims": [
+        {
+          "chunkId": "chk-74ba21b0dd1bc613140e",
+          "citationId": "c-cit-1",
+          "claim": "Minutes of the Federal Open Market Committee (December 12\u201313, 2023) states: In determining the extent of any additional policy firming that may be appropriate to return inflation to 2 percent over time, members concurred that they would take into account the cumulative tightening",
+          "claimId": "c-clm-1",
+          "quote": "In determining the extent of any additional policy firming that may be appropriate to return inflation to 2 percent over time, members concurred that they would take into account the cumulative tightening of monetary policy, the lags with which monetary policy affects economic ac",
+          "validationStatus": "valid"
+        },
+        {
+          "chunkId": "chk-b4f73f0cfcea8d65133d",
+          "citationId": "c-cit-2",
+          "claim": "Minutes of the Federal Open Market Committee (September 19-20, 2023) states: In determining the extent of additional policy firming that may be appropriate to return inflation to 2 percent over time, members concurred that they would take into account the cumulative tightening of",
+          "claimId": "c-clm-2",
+          "quote": "In determining the extent of additional policy firming that may be appropriate to return inflation to 2 percent over time, members concurred that they would take into account the cumulative tightening of monetary policy, the lags with which monetary policy affects economic activi",
+          "validationStatus": "valid"
+        },
+        {
+          "chunkId": "chk-0f0f74b2792d006a221c",
+          "citationId": "c-cit-3",
+          "claim": "Minutes of the Federal Open Market Committee (July 25-26, 2023) states: In support of the Committee's objectives to achieve maximum employment and inflation at the rate of 2 percent over the longer run, members agreed to raise the target range for the federal funds rate to 5-1/4 ",
+          "claimId": "c-clm-3",
+          "quote": "In support of the Committee's objectives to achieve maximum employment and inflation at the rate of 2 percent over the longer run, members agreed to raise the target range for the federal funds rate to 5-1/4 to 5-1/2 percent.",
+          "validationStatus": "valid"
+        }
+      ],
+      "decisionId": "dec:fi-demo-2024q1-r0:llm_rag:2024-01-03:r0",
+      "deliveredChunks": [
+        {
+          "availableAt": "2023-11-21T21:00:00+00:00",
+          "bundleId": "eb-946201af28a2bf52195a9c71",
+          "channels": [
+            "lexical",
+            "vector"
+          ],
+          "chunkId": "chk-e3a40739fc8d7487c322",
+          "documentId": "doc-fed-fomc-minutes-20231101",
+          "documentType": "fomc_minutes",
+          "excerpt": "A few participants observed that higher interest rates were also affecting the agricultural sector, with their contacts noting that high financing costs were likely weighing on purchases of heavy agricultural equipment. Regarding the energy sector, a few participants observed tha...",
+          "finalRank": 1,
+          "graph": null,
+          "graphRank": null,
+          "headingPath": [
+            "Minutes of the Federal Open Market Committee",
+            "Participants' Views on Current Conditions and the Economic Outlook"
+          ],
+          "lexicalRank": 1,
+          "offsets": [
+            27601,
+            31946
+          ],
+          "publishedAt": "2023-11-21T19:00:00+00:00",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20231101.htm",
+          "temporalViolation": false,
+          "title": "Minutes of the Federal Open Market Committee (October 31\u2013November 1, 2023)",
+          "vectorRank": 1,
+          "versionId": "dv-27bf1188bd97d8f9f7cb"
+        },
+        {
+          "availableAt": "2023-07-05T20:00:00+00:00",
+          "bundleId": "eb-946201af28a2bf52195a9c71",
+          "channels": [
+            "lexical",
+            "vector"
+          ],
+          "chunkId": "chk-e3c4c00720b1199f0ada",
+          "documentId": "doc-fed-fomc-minutes-20230614",
+          "documentType": "fomc_minutes",
+          "excerpt": "Committee Policy Actions\n\nIn their discussion of monetary policy for this meeting, members agreed that economic activity had continued to expand at a modest pace. They also concurred that job gains had been robust in recent months, and the unemployment rate had remained low. Infl...",
+          "finalRank": 2,
+          "graph": null,
+          "graphRank": null,
+          "headingPath": [
+            "Minutes of the Federal Open Market Committee",
+            "Committee Policy Actions"
+          ],
+          "lexicalRank": 3,
+          "offsets": [
+            39670,
+            43129
+          ],
+          "publishedAt": "2023-07-05T18:00:00+00:00",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20230614.htm",
+          "temporalViolation": false,
+          "title": "Minutes of the Federal Open Market Committee (June 13\u201314, 2023)",
+          "vectorRank": 8,
+          "versionId": "dv-809efb2658b2542dd4da"
+        },
+        {
+          "availableAt": "2023-10-11T20:00:00+00:00",
+          "bundleId": "eb-946201af28a2bf52195a9c71",
+          "channels": [
+            "lexical",
+            "vector"
+          ],
+          "chunkId": "chk-b4f73f0cfcea8d65133d",
+          "documentId": "doc-fed-fomc-minutes-20230920",
+          "documentType": "fomc_minutes",
+          "excerpt": "Committee Policy Actions\n\nIn their discussion of monetary policy for this meeting, members agreed that economic activity had been expanding at a solid pace, and, accordingly, that the corresponding language in the postmeeting statement should be changed from \"moderate\" to \"solid....",
+          "finalRank": 3,
+          "graph": null,
+          "graphRank": null,
+          "headingPath": [
+            "Minutes of the Federal Open Market Committee",
+            "Committee Policy Actions"
+          ],
+          "lexicalRank": 8,
+          "offsets": [
+            36425,
+            39923
+          ],
+          "publishedAt": "2023-10-11T18:00:00+00:00",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20230920.htm",
+          "temporalViolation": false,
+          "title": "Minutes of the Federal Open Market Committee (September 19-20, 2023)",
+          "vectorRank": 4,
+          "versionId": "dv-ffc96b5a663f3dc4adda"
+        },
+        {
+          "availableAt": "2023-06-14T20:00:00+00:00",
+          "bundleId": "eb-946201af28a2bf52195a9c71",
+          "channels": [
+            "lexical",
+            "vector"
+          ],
+          "chunkId": "chk-f29ec703be9e992eb639",
+          "documentId": "doc-fed-fomc-statement-20230614",
+          "documentType": "fomc_statement",
+          "excerpt": "Federal Reserve issues FOMC statement\n\nRecent indicators suggest that economic activity has continued to expand at a modest pace. Job gains have been robust in recent months, and the unemployment rate has remained low. Inflation remains elevated.\n\nThe U.S. banking system is sound...",
+          "finalRank": 4,
+          "graph": null,
+          "graphRank": null,
+          "headingPath": [
+            "Federal Reserve issues FOMC statement"
+          ],
+          "lexicalRank": 9,
+          "offsets": [
+            0,
+            2433
+          ],
+          "publishedAt": "2023-06-14T18:00:00+00:00",
+          "sourceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20230614a.htm",
+          "temporalViolation": false,
+          "title": "Federal Reserve issues FOMC statement (June 14, 2023)",
+          "vectorRank": 5,
+          "versionId": "dv-1218c0e097a24c484a5c"
+        },
+        {
+          "availableAt": "2024-01-03T21:00:00+00:00",
+          "bundleId": "eb-946201af28a2bf52195a9c71",
+          "channels": [
+            "lexical",
+            "vector"
+          ],
+          "chunkId": "chk-74ba21b0dd1bc613140e",
+          "documentId": "doc-fed-fomc-minutes-20231213",
+          "documentType": "fomc_minutes",
+          "excerpt": "Committee Policy Actions\n\nIn their discussions of monetary policy for this meeting, members agreed that recent indicators suggested that growth of economic activity had slowed from its strong pace in the third quarter. Job gains had moderated since earlier in the year but remaine...",
+          "finalRank": 5,
+          "graph": null,
+          "graphRank": null,
+          "headingPath": [
+            "Minutes of the Federal Open Market Committee",
+            "Committee Policy Actions"
+          ],
+          "lexicalRank": 16,
+          "offsets": [
+            37534,
+            41153
+          ],
+          "publishedAt": "2024-01-03T19:00:00+00:00",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20231213.htm",
+          "temporalViolation": false,
+          "title": "Minutes of the Federal Open Market Committee (December 12\u201313, 2023)",
+          "vectorRank": 3,
+          "versionId": "dv-c3d3b4a053e5018e2235"
+        },
+        {
+          "availableAt": "2023-08-16T20:00:00+00:00",
+          "bundleId": "eb-946201af28a2bf52195a9c71",
+          "channels": [
+            "lexical",
+            "vector"
+          ],
+          "chunkId": "chk-0f0f74b2792d006a221c",
+          "documentId": "doc-fed-fomc-minutes-20230726",
+          "documentType": "fomc_minutes",
+          "excerpt": "Committee Policy Actions\n\nIn their discussion of monetary policy for this meeting, members agreed that economic activity had been expanding at a moderate pace. They also concurred that job gains had been robust in recent months, and the unemployment rate had remained low. Inflati...",
+          "finalRank": 6,
+          "graph": null,
+          "graphRank": null,
+          "headingPath": [
+            "Minutes of the Federal Open Market Committee",
+            "Committee Policy Actions"
+          ],
+          "lexicalRank": 11,
+          "offsets": [
+            38109,
+            41699
+          ],
+          "publishedAt": "2023-08-16T18:00:00+00:00",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20230726.htm",
+          "temporalViolation": false,
+          "title": "Minutes of the Federal Open Market Committee (July 25-26, 2023)",
+          "vectorRank": 7,
+          "versionId": "dv-89c13b5527b57789e6ff"
+        }
+      ],
+      "noteStatus": "supported",
+      "outcome": "completed_proposal",
+      "reasons": [
+        "validated_proposal"
+      ]
+    },
+    "llm_team": {
+      "action": "REBALANCE",
+      "bundles": [
+        {
+          "bundleId": "eb-3cfb3493e9be2ae5a551b765",
+          "chunkCount": 6,
+          "decisionAsOf": "2024-01-04T00:00:00+00:00",
+          "mode": "graph_rag_v1",
+          "structuredFacts": [],
+          "totalTokens": 3491
+        }
+      ],
+      "citedClaims": [
+        {
+          "chunkId": "chk-74ba21b0dd1bc613140e",
+          "citationId": "ld-cit-1",
+          "claim": "Minutes of the Federal Open Market Committee (December 12\u201313, 2023) states: In determining the extent of any additional policy firming that may be appropriate to return inflation to 2 percent over time, members concurred that they would take into account the cumulative tightening",
+          "claimId": "ld-clm-1",
+          "quote": "In determining the extent of any additional policy firming that may be appropriate to return inflation to 2 percent over time, members concurred that they would take into account the cumulative tightening of monetary policy, the lags with which monetary policy affects economic ac",
+          "validationStatus": "valid"
+        },
+        {
+          "chunkId": "chk-5e70f3ee1d6971231c31",
+          "citationId": "ld-cit-2",
+          "claim": "Minutes of the Federal Open Market Committee (October 31\u2013November 1, 2023) states: In determining the extent of additional policy firming that may be appropriate to return inflation to 2 percent over time, members concurred that they would take into account the cumulative tighten",
+          "claimId": "ld-clm-2",
+          "quote": "In determining the extent of additional policy firming that may be appropriate to return inflation to 2 percent over time, members concurred that they would take into account the cumulative tightening of monetary policy, the lags with which monetary policy affects economic activi",
+          "validationStatus": "valid"
+        },
+        {
+          "chunkId": "chk-b4f73f0cfcea8d65133d",
+          "citationId": "ld-cit-3",
+          "claim": "Minutes of the Federal Open Market Committee (September 19-20, 2023) states: In determining the extent of additional policy firming that may be appropriate to return inflation to 2 percent over time, members concurred that they would take into account the cumulative tightening of",
+          "claimId": "ld-clm-3",
+          "quote": "In determining the extent of additional policy firming that may be appropriate to return inflation to 2 percent over time, members concurred that they would take into account the cumulative tightening of monetary policy, the lags with which monetary policy affects economic activi",
+          "validationStatus": "valid"
+        }
+      ],
+      "decisionId": "dec:fi-demo-2024q1-r0:llm_team:2024-01-03:r0",
+      "deliveredChunks": [
+        {
+          "availableAt": "2023-11-21T21:00:00+00:00",
+          "bundleId": "eb-3cfb3493e9be2ae5a551b765",
+          "channels": [
+            "lexical",
+            "vector",
+            "graph"
+          ],
+          "chunkId": "chk-e3a40739fc8d7487c322",
+          "documentId": "doc-fed-fomc-minutes-20231101",
+          "documentType": "fomc_minutes",
+          "excerpt": "A few participants observed that higher interest rates were also affecting the agricultural sector, with their contacts noting that high financing costs were likely weighing on purchases of heavy agricultural equipment. Regarding the energy sector, a few participants observed tha...",
+          "finalRank": 1,
+          "graph": {
+            "addedByGraph": false,
+            "graphScore": "3.0000000000",
+            "pathAssertionIds": [
+              "as-963711486e951bfe8edb",
+              "as-f1507bf651b22de4d43d",
+              "as-c9931b71fef0a2eaa9f4"
+            ],
+            "pathLength": 1,
+            "seedId": "topic-inflation",
+            "supportSpans": [
+              {
+                "chunkId": "chk-e3a40739fc8d7487c322",
+                "endOffset": 1698,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 1689,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              },
+              {
+                "chunkId": "chk-e3a40739fc8d7487c322",
+                "endOffset": 1801,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 1792,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              },
+              {
+                "chunkId": "chk-e3a40739fc8d7487c322",
+                "endOffset": 1927,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 1918,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              },
+              {
+                "chunkId": "chk-e3a40739fc8d7487c322",
+                "endOffset": 450,
+                "kind": "chunk_span",
+                "quote": "labor market",
+                "sourceRef": null,
+                "startOffset": 438,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              },
+              {
+                "chunkId": "chk-e3a40739fc8d7487c322",
+                "endOffset": 474,
+                "kind": "chunk_span",
+                "quote": "Payroll",
+                "sourceRef": null,
+                "startOffset": 467,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              },
+              {
+                "chunkId": "chk-e3a40739fc8d7487c322",
+                "endOffset": 545,
+                "kind": "chunk_span",
+                "quote": "unemployment rate",
+                "sourceRef": null,
+                "startOffset": 528,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              },
+              {
+                "chunkId": "chk-e3a40739fc8d7487c322",
+                "endOffset": 3805,
+                "kind": "chunk_span",
+                "quote": "federal funds rate",
+                "sourceRef": null,
+                "startOffset": 3787,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              },
+              {
+                "chunkId": "chk-e3a40739fc8d7487c322",
+                "endOffset": 3904,
+                "kind": "chunk_span",
+                "quote": "policy rate",
+                "sourceRef": null,
+                "startOffset": 3893,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              }
+            ]
+          },
+          "graphRank": 1,
+          "headingPath": [
+            "Minutes of the Federal Open Market Committee",
+            "Participants' Views on Current Conditions and the Economic Outlook"
+          ],
+          "lexicalRank": 1,
+          "offsets": [
+            27601,
+            31946
+          ],
+          "publishedAt": "2023-11-21T19:00:00+00:00",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20231101.htm",
+          "temporalViolation": false,
+          "title": "Minutes of the Federal Open Market Committee (October 31\u2013November 1, 2023)",
+          "vectorRank": 1,
+          "versionId": "dv-27bf1188bd97d8f9f7cb"
+        },
+        {
+          "availableAt": "2023-07-05T20:00:00+00:00",
+          "bundleId": "eb-3cfb3493e9be2ae5a551b765",
+          "channels": [
+            "lexical",
+            "vector",
+            "graph"
+          ],
+          "chunkId": "chk-e3c4c00720b1199f0ada",
+          "documentId": "doc-fed-fomc-minutes-20230614",
+          "documentType": "fomc_minutes",
+          "excerpt": "Committee Policy Actions\n\nIn their discussion of monetary policy for this meeting, members agreed that economic activity had continued to expand at a modest pace. They also concurred that job gains had been robust in recent months, and the unemployment rate had remained low. Infl...",
+          "finalRank": 2,
+          "graph": {
+            "addedByGraph": false,
+            "graphScore": "2.9086769544",
+            "pathAssertionIds": [
+              "as-2a53f9e13b412082a42a",
+              "as-0fe24653d594551fcbfe",
+              "as-abad341a5397fb3a2bee"
+            ],
+            "pathLength": 1,
+            "seedId": "topic-inflation",
+            "supportSpans": [
+              {
+                "chunkId": "chk-e3c4c00720b1199f0ada",
+                "endOffset": 285,
+                "kind": "chunk_span",
+                "quote": "Inflation",
+                "sourceRef": null,
+                "startOffset": 276,
+                "versionId": "dv-809efb2658b2542dd4da"
+              },
+              {
+                "chunkId": "chk-e3c4c00720b1199f0ada",
+                "endOffset": 524,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 515,
+                "versionId": "dv-809efb2658b2542dd4da"
+              },
+              {
+                "chunkId": "chk-e3c4c00720b1199f0ada",
+                "endOffset": 649,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 640,
+                "versionId": "dv-809efb2658b2542dd4da"
+              },
+              {
+                "chunkId": "chk-e3c4c00720b1199f0ada",
+                "endOffset": 197,
+                "kind": "chunk_span",
+                "quote": "job gains",
+                "sourceRef": null,
+                "startOffset": 188,
+                "versionId": "dv-809efb2658b2542dd4da"
+              },
+              {
+                "chunkId": "chk-e3c4c00720b1199f0ada",
+                "endOffset": 257,
+                "kind": "chunk_span",
+                "quote": "unemployment rate",
+                "sourceRef": null,
+                "startOffset": 240,
+                "versionId": "dv-809efb2658b2542dd4da"
+              },
+              {
+                "chunkId": "chk-e3c4c00720b1199f0ada",
+                "endOffset": 2209,
+                "kind": "chunk_span",
+                "quote": "labor market",
+                "sourceRef": null,
+                "startOffset": 2197,
+                "versionId": "dv-809efb2658b2542dd4da"
+              },
+              {
+                "chunkId": "chk-e3c4c00720b1199f0ada",
+                "endOffset": 862,
+                "kind": "chunk_span",
+                "quote": "target range",
+                "sourceRef": null,
+                "startOffset": 850,
+                "versionId": "dv-809efb2658b2542dd4da"
+              },
+              {
+                "chunkId": "chk-e3c4c00720b1199f0ada",
+                "endOffset": 889,
+                "kind": "chunk_span",
+                "quote": "federal funds rate",
+                "sourceRef": null,
+                "startOffset": 871,
+                "versionId": "dv-809efb2658b2542dd4da"
+              },
+              {
+                "chunkId": "chk-e3c4c00720b1199f0ada",
+                "endOffset": 957,
+                "kind": "chunk_span",
+                "quote": "target range",
+                "sourceRef": null,
+                "startOffset": 945,
+                "versionId": "dv-809efb2658b2542dd4da"
+              }
+            ]
+          },
+          "graphRank": 2,
+          "headingPath": [
+            "Minutes of the Federal Open Market Committee",
+            "Committee Policy Actions"
+          ],
+          "lexicalRank": 3,
+          "offsets": [
+            39670,
+            43129
+          ],
+          "publishedAt": "2023-07-05T18:00:00+00:00",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20230614.htm",
+          "temporalViolation": false,
+          "title": "Minutes of the Federal Open Market Committee (June 13\u201314, 2023)",
+          "vectorRank": 8,
+          "versionId": "dv-809efb2658b2542dd4da"
+        },
+        {
+          "availableAt": "2023-10-11T20:00:00+00:00",
+          "bundleId": "eb-3cfb3493e9be2ae5a551b765",
+          "channels": [
+            "lexical",
+            "vector",
+            "graph"
+          ],
+          "chunkId": "chk-b4f73f0cfcea8d65133d",
+          "documentId": "doc-fed-fomc-minutes-20230920",
+          "documentType": "fomc_minutes",
+          "excerpt": "Committee Policy Actions\n\nIn their discussion of monetary policy for this meeting, members agreed that economic activity had been expanding at a solid pace, and, accordingly, that the corresponding language in the postmeeting statement should be changed from \"moderate\" to \"solid....",
+          "finalRank": 3,
+          "graph": {
+            "addedByGraph": false,
+            "graphScore": "2.9018821563",
+            "pathAssertionIds": [
+              "as-4af29416b59a3fbaeb99",
+              "as-4b98411770ff5bca0b16",
+              "as-8304793646920321b760"
+            ],
+            "pathLength": 1,
+            "seedId": "topic-inflation",
+            "supportSpans": [
+              {
+                "chunkId": "chk-b4f73f0cfcea8d65133d",
+                "endOffset": 419,
+                "kind": "chunk_span",
+                "quote": "Inflation",
+                "sourceRef": null,
+                "startOffset": 410,
+                "versionId": "dv-ffc96b5a663f3dc4adda"
+              },
+              {
+                "chunkId": "chk-b4f73f0cfcea8d65133d",
+                "endOffset": 658,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 649,
+                "versionId": "dv-ffc96b5a663f3dc4adda"
+              },
+              {
+                "chunkId": "chk-b4f73f0cfcea8d65133d",
+                "endOffset": 782,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 773,
+                "versionId": "dv-ffc96b5a663f3dc4adda"
+              },
+              {
+                "chunkId": "chk-b4f73f0cfcea8d65133d",
+                "endOffset": 316,
+                "kind": "chunk_span",
+                "quote": "job gains",
+                "sourceRef": null,
+                "startOffset": 307,
+                "versionId": "dv-ffc96b5a663f3dc4adda"
+              },
+              {
+                "chunkId": "chk-b4f73f0cfcea8d65133d",
+                "endOffset": 391,
+                "kind": "chunk_span",
+                "quote": "unemployment rate",
+                "sourceRef": null,
+                "startOffset": 374,
+                "versionId": "dv-ffc96b5a663f3dc4adda"
+              },
+              {
+                "chunkId": "chk-b4f73f0cfcea8d65133d",
+                "endOffset": 2241,
+                "kind": "chunk_span",
+                "quote": "labor market",
+                "sourceRef": null,
+                "startOffset": 2229,
+                "versionId": "dv-ffc96b5a663f3dc4adda"
+              },
+              {
+                "chunkId": "chk-b4f73f0cfcea8d65133d",
+                "endOffset": 965,
+                "kind": "chunk_span",
+                "quote": "target range",
+                "sourceRef": null,
+                "startOffset": 953,
+                "versionId": "dv-ffc96b5a663f3dc4adda"
+              },
+              {
+                "chunkId": "chk-b4f73f0cfcea8d65133d",
+                "endOffset": 992,
+                "kind": "chunk_span",
+                "quote": "federal funds rate",
+                "sourceRef": null,
+                "startOffset": 974,
+                "versionId": "dv-ffc96b5a663f3dc4adda"
+              },
+              {
+                "chunkId": "chk-b4f73f0cfcea8d65133d",
+                "endOffset": 2794,
+                "kind": "chunk_span",
+                "quote": "federal funds rate",
+                "sourceRef": null,
+                "startOffset": 2776,
+                "versionId": "dv-ffc96b5a663f3dc4adda"
+              }
+            ]
+          },
+          "graphRank": 3,
+          "headingPath": [
+            "Minutes of the Federal Open Market Committee",
+            "Committee Policy Actions"
+          ],
+          "lexicalRank": 8,
+          "offsets": [
+            36425,
+            39923
+          ],
+          "publishedAt": "2023-10-11T18:00:00+00:00",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20230920.htm",
+          "temporalViolation": false,
+          "title": "Minutes of the Federal Open Market Committee (September 19-20, 2023)",
+          "vectorRank": 4,
+          "versionId": "dv-ffc96b5a663f3dc4adda"
+        },
+        {
+          "availableAt": "2023-06-14T20:00:00+00:00",
+          "bundleId": "eb-3cfb3493e9be2ae5a551b765",
+          "channels": [
+            "lexical",
+            "vector",
+            "graph"
+          ],
+          "chunkId": "chk-f29ec703be9e992eb639",
+          "documentId": "doc-fed-fomc-statement-20230614",
+          "documentType": "fomc_statement",
+          "excerpt": "Federal Reserve issues FOMC statement\n\nRecent indicators suggest that economic activity has continued to expand at a modest pace. Job gains have been robust in recent months, and the unemployment rate has remained low. Inflation remains elevated.\n\nThe U.S. banking system is sound...",
+          "finalRank": 4,
+          "graph": {
+            "addedByGraph": false,
+            "graphScore": "2.8944301669",
+            "pathAssertionIds": [
+              "as-b8b6a805fcf6be0e1130",
+              "as-1c7714e899145109251e",
+              "as-5f6c9a0923fff6da48e9"
+            ],
+            "pathLength": 1,
+            "seedId": "topic-inflation",
+            "supportSpans": [
+              {
+                "chunkId": "chk-f29ec703be9e992eb639",
+                "endOffset": 228,
+                "kind": "chunk_span",
+                "quote": "Inflation",
+                "sourceRef": null,
+                "startOffset": 219,
+                "versionId": "dv-1218c0e097a24c484a5c"
+              },
+              {
+                "chunkId": "chk-f29ec703be9e992eb639",
+                "endOffset": 415,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 406,
+                "versionId": "dv-1218c0e097a24c484a5c"
+              },
+              {
+                "chunkId": "chk-f29ec703be9e992eb639",
+                "endOffset": 515,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 506,
+                "versionId": "dv-1218c0e097a24c484a5c"
+              },
+              {
+                "chunkId": "chk-f29ec703be9e992eb639",
+                "endOffset": 139,
+                "kind": "chunk_span",
+                "quote": "Job gains",
+                "sourceRef": null,
+                "startOffset": 130,
+                "versionId": "dv-1218c0e097a24c484a5c"
+              },
+              {
+                "chunkId": "chk-f29ec703be9e992eb639",
+                "endOffset": 200,
+                "kind": "chunk_span",
+                "quote": "unemployment rate",
+                "sourceRef": null,
+                "startOffset": 183,
+                "versionId": "dv-1218c0e097a24c484a5c"
+              },
+              {
+                "chunkId": "chk-f29ec703be9e992eb639",
+                "endOffset": 1945,
+                "kind": "chunk_span",
+                "quote": "labor market",
+                "sourceRef": null,
+                "startOffset": 1933,
+                "versionId": "dv-1218c0e097a24c484a5c"
+              },
+              {
+                "chunkId": "chk-f29ec703be9e992eb639",
+                "endOffset": 711,
+                "kind": "chunk_span",
+                "quote": "target range",
+                "sourceRef": null,
+                "startOffset": 699,
+                "versionId": "dv-1218c0e097a24c484a5c"
+              },
+              {
+                "chunkId": "chk-f29ec703be9e992eb639",
+                "endOffset": 738,
+                "kind": "chunk_span",
+                "quote": "federal funds rate",
+                "sourceRef": null,
+                "startOffset": 720,
+                "versionId": "dv-1218c0e097a24c484a5c"
+              },
+              {
+                "chunkId": "chk-f29ec703be9e992eb639",
+                "endOffset": 786,
+                "kind": "chunk_span",
+                "quote": "target range",
+                "sourceRef": null,
+                "startOffset": 774,
+                "versionId": "dv-1218c0e097a24c484a5c"
+              }
+            ]
+          },
+          "graphRank": 4,
+          "headingPath": [
+            "Federal Reserve issues FOMC statement"
+          ],
+          "lexicalRank": 9,
+          "offsets": [
+            0,
+            2433
+          ],
+          "publishedAt": "2023-06-14T18:00:00+00:00",
+          "sourceUrl": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20230614a.htm",
+          "temporalViolation": false,
+          "title": "Federal Reserve issues FOMC statement (June 14, 2023)",
+          "vectorRank": 5,
+          "versionId": "dv-1218c0e097a24c484a5c"
+        },
+        {
+          "availableAt": "2024-01-03T21:00:00+00:00",
+          "bundleId": "eb-3cfb3493e9be2ae5a551b765",
+          "channels": [
+            "lexical",
+            "vector",
+            "graph"
+          ],
+          "chunkId": "chk-74ba21b0dd1bc613140e",
+          "documentId": "doc-fed-fomc-minutes-20231213",
+          "documentType": "fomc_minutes",
+          "excerpt": "Committee Policy Actions\n\nIn their discussions of monetary policy for this meeting, members agreed that recent indicators suggested that growth of economic activity had slowed from its strong pace in the third quarter. Job gains had moderated since earlier in the year but remaine...",
+          "finalRank": 5,
+          "graph": {
+            "addedByGraph": false,
+            "graphScore": "2.8888600492",
+            "pathAssertionIds": [
+              "as-d8652f8274374e8f9e01",
+              "as-51bd94f99bfe81700a87",
+              "as-e76550e949a07dd5c213"
+            ],
+            "pathLength": 1,
+            "seedId": "topic-inflation",
+            "supportSpans": [
+              {
+                "chunkId": "chk-74ba21b0dd1bc613140e",
+                "endOffset": 343,
+                "kind": "chunk_span",
+                "quote": "Inflation",
+                "sourceRef": null,
+                "startOffset": 334,
+                "versionId": "dv-c3d3b4a053e5018e2235"
+              },
+              {
+                "chunkId": "chk-74ba21b0dd1bc613140e",
+                "endOffset": 625,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 616,
+                "versionId": "dv-c3d3b4a053e5018e2235"
+              },
+              {
+                "chunkId": "chk-74ba21b0dd1bc613140e",
+                "endOffset": 741,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 732,
+                "versionId": "dv-c3d3b4a053e5018e2235"
+              },
+              {
+                "chunkId": "chk-74ba21b0dd1bc613140e",
+                "endOffset": 228,
+                "kind": "chunk_span",
+                "quote": "Job gains",
+                "sourceRef": null,
+                "startOffset": 219,
+                "versionId": "dv-c3d3b4a053e5018e2235"
+              },
+              {
+                "chunkId": "chk-74ba21b0dd1bc613140e",
+                "endOffset": 315,
+                "kind": "chunk_span",
+                "quote": "unemployment rate",
+                "sourceRef": null,
+                "startOffset": 298,
+                "versionId": "dv-c3d3b4a053e5018e2235"
+              },
+              {
+                "chunkId": "chk-74ba21b0dd1bc613140e",
+                "endOffset": 2202,
+                "kind": "chunk_span",
+                "quote": "labor market",
+                "sourceRef": null,
+                "startOffset": 2190,
+                "versionId": "dv-c3d3b4a053e5018e2235"
+              },
+              {
+                "chunkId": "chk-74ba21b0dd1bc613140e",
+                "endOffset": 923,
+                "kind": "chunk_span",
+                "quote": "target range",
+                "sourceRef": null,
+                "startOffset": 911,
+                "versionId": "dv-c3d3b4a053e5018e2235"
+              },
+              {
+                "chunkId": "chk-74ba21b0dd1bc613140e",
+                "endOffset": 950,
+                "kind": "chunk_span",
+                "quote": "federal funds rate",
+                "sourceRef": null,
+                "startOffset": 932,
+                "versionId": "dv-c3d3b4a053e5018e2235"
+              },
+              {
+                "chunkId": "chk-74ba21b0dd1bc613140e",
+                "endOffset": 2974,
+                "kind": "chunk_span",
+                "quote": "target range",
+                "sourceRef": null,
+                "startOffset": 2962,
+                "versionId": "dv-c3d3b4a053e5018e2235"
+              }
+            ]
+          },
+          "graphRank": 5,
+          "headingPath": [
+            "Minutes of the Federal Open Market Committee",
+            "Committee Policy Actions"
+          ],
+          "lexicalRank": 16,
+          "offsets": [
+            37534,
+            41153
+          ],
+          "publishedAt": "2024-01-03T19:00:00+00:00",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20231213.htm",
+          "temporalViolation": false,
+          "title": "Minutes of the Federal Open Market Committee (December 12\u201313, 2023)",
+          "vectorRank": 3,
+          "versionId": "dv-c3d3b4a053e5018e2235"
+        },
+        {
+          "availableAt": "2023-11-21T21:00:00+00:00",
+          "bundleId": "eb-3cfb3493e9be2ae5a551b765",
+          "channels": [
+            "lexical",
+            "vector",
+            "graph"
+          ],
+          "chunkId": "chk-5e70f3ee1d6971231c31",
+          "documentId": "doc-fed-fomc-minutes-20231101",
+          "documentType": "fomc_minutes",
+          "excerpt": "Committee Policy Actions\n\nIn their discussion of monetary policy for this meeting, members agreed that economic activity had expanded at a strong pace in the third quarter, job gains had moderated since earlier in the year but remained strong, and the unemployment rate had remain...",
+          "finalRank": 6,
+          "graph": {
+            "addedByGraph": false,
+            "graphScore": "2.8870562843",
+            "pathAssertionIds": [
+              "as-e3bd9b355248e8701dea",
+              "as-056946cf52eee442dc92",
+              "as-0509a175c3975d20421a"
+            ],
+            "pathLength": 1,
+            "seedId": "topic-inflation",
+            "supportSpans": [
+              {
+                "chunkId": "chk-5e70f3ee1d6971231c31",
+                "endOffset": 297,
+                "kind": "chunk_span",
+                "quote": "Inflation",
+                "sourceRef": null,
+                "startOffset": 288,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              },
+              {
+                "chunkId": "chk-5e70f3ee1d6971231c31",
+                "endOffset": 550,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 541,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              },
+              {
+                "chunkId": "chk-5e70f3ee1d6971231c31",
+                "endOffset": 666,
+                "kind": "chunk_span",
+                "quote": "inflation",
+                "sourceRef": null,
+                "startOffset": 657,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              },
+              {
+                "chunkId": "chk-5e70f3ee1d6971231c31",
+                "endOffset": 182,
+                "kind": "chunk_span",
+                "quote": "job gains",
+                "sourceRef": null,
+                "startOffset": 173,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              },
+              {
+                "chunkId": "chk-5e70f3ee1d6971231c31",
+                "endOffset": 269,
+                "kind": "chunk_span",
+                "quote": "unemployment rate",
+                "sourceRef": null,
+                "startOffset": 252,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              },
+              {
+                "chunkId": "chk-5e70f3ee1d6971231c31",
+                "endOffset": 2120,
+                "kind": "chunk_span",
+                "quote": "labor market",
+                "sourceRef": null,
+                "startOffset": 2108,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              },
+              {
+                "chunkId": "chk-5e70f3ee1d6971231c31",
+                "endOffset": 849,
+                "kind": "chunk_span",
+                "quote": "target range",
+                "sourceRef": null,
+                "startOffset": 837,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              },
+              {
+                "chunkId": "chk-5e70f3ee1d6971231c31",
+                "endOffset": 876,
+                "kind": "chunk_span",
+                "quote": "federal funds rate",
+                "sourceRef": null,
+                "startOffset": 858,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              },
+              {
+                "chunkId": "chk-5e70f3ee1d6971231c31",
+                "endOffset": 2671,
+                "kind": "chunk_span",
+                "quote": "federal funds rate",
+                "sourceRef": null,
+                "startOffset": 2653,
+                "versionId": "dv-27bf1188bd97d8f9f7cb"
+              }
+            ]
+          },
+          "graphRank": 6,
+          "headingPath": [
+            "Minutes of the Federal Open Market Committee",
+            "Committee Policy Actions"
+          ],
+          "lexicalRank": 13,
+          "offsets": [
+            39137,
+            42743
+          ],
+          "publishedAt": "2023-11-21T19:00:00+00:00",
+          "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20231101.htm",
+          "temporalViolation": false,
+          "title": "Minutes of the Federal Open Market Committee (October 31\u2013November 1, 2023)",
+          "vectorRank": 6,
+          "versionId": "dv-27bf1188bd97d8f9f7cb"
+        }
+      ],
+      "noteStatus": "supported",
+      "outcome": "completed_proposal",
+      "reasons": [
+        "validated_proposal"
+      ]
+    }
+  }
+}

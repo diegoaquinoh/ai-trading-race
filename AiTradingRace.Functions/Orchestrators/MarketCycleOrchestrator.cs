@@ -89,12 +89,13 @@ public sealed class MarketCycleOrchestrator
                 "Agent decisions completed. Success: {Success}, Failed: {Failed}",
                 successful, failed);
 
-            // Execute trades (post-processing)
+            // Report trades already executed by AgentRunner inside RunAgentDecisionActivity
+            // (reporting only - no second execution path).
             tradesExecuted = await context.CallActivityAsync<int>(
-                nameof(ExecuteTradesActivity),
-                new ExecuteTradesRequest(decisions.ToList(), timestamp));
+                nameof(ReportExecutedTradesActivity),
+                new ReportExecutedTradesRequest(decisions.ToList(), timestamp));
 
-            logger.LogInformation("Executed {Count} trades", tradesExecuted);
+            logger.LogInformation("Reported {Count} trades executed by AgentRunner", tradesExecuted);
 
             // Capture post-trade equity snapshots
             await context.CallActivityAsync<int>(

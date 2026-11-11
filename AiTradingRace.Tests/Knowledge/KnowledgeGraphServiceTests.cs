@@ -9,7 +9,7 @@ namespace AiTradingRace.Tests.Knowledge;
 
 /// <summary>
 /// Unit tests for InMemoryKnowledgeGraphService
-/// Sprint 10.3: Knowledge Graph Service
+/// Knowledge Graph Service
 /// </summary>
 public class KnowledgeGraphServiceTests
 {

@@ -65,8 +65,9 @@ public sealed class HealthCheckFunction
         }
         catch (Exception ex)
         {
+            // Details stay in the log: this endpoint is anonymous.
             _logger.LogError(ex, "Database health check failed");
-            return $"Error: {ex.Message}";
+            return "Error";
         }
     }
 

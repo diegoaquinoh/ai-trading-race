@@ -1,5 +1,6 @@
 param location string = 'westeurope' // Static Web Apps only available in limited regions
 param githubRepoUrl string
+@secure()
 param githubToken string
 
 resource staticWebApp 'Microsoft.Web/staticSites@2023-12-01' = {
