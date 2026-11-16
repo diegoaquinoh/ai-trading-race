@@ -45,6 +45,12 @@ export function Header({ onToggleSidebar, sidebarOpen }: HeaderProps) {
                     Agents
                 </Link>
                 <Link
+                    to="/fi"
+                    className={`nav-link ${location.pathname === '/fi' || location.pathname.startsWith('/fi/') ? 'active' : ''}`}
+                >
+                    Fixed Income
+                </Link>
+                <Link
                     to="/about"
                     className={`nav-link ${location.pathname === '/about' ? 'active' : ''}`}
                 >

@@ -9,7 +9,6 @@ from ta.momentum import RSIIndicator
 from ta.trend import MACD, SMAIndicator
 from ta.volatility import BollingerBands
 
-
 # Feature columns used by the model
 FEATURE_COLUMNS = [
     "sma_7",

@@ -57,7 +57,7 @@ public sealed class CustomMlAgentModelClient : IAgentModelClient
             httpRequest.Headers.Add("X-API-Key", _options.ApiKey);
         }
         
-        // Add idempotency key for Redis caching (Sprint 8.5)
+        // Add idempotency key for Redis caching
         // Key format: agentId-timestamp to allow retries within same time window
         var idempotencyKey = GenerateIdempotencyKey(context);
         httpRequest.Headers.Add("Idempotency-Key", idempotencyKey);

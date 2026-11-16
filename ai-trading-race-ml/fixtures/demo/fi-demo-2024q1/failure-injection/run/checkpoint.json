@@ -1,0 +1,160 @@
+{
+  "bootstrap": {
+    "buckets": {
+      "intermediate": [
+        "SYN-USD-NOTE-007",
+        "SYN-USD-NOTE-008"
+      ],
+      "longer": [
+        "SYN-USD-NOTE-009"
+      ],
+      "short": [
+        "SYN-USD-NOTE-003",
+        "SYN-USD-NOTE-006"
+      ]
+    },
+    "checked": true,
+    "session": "2024-01-29",
+    "submitted": {
+      "llm_graph": [
+        "ord:dec:fi-demo-2024q1-faults-r0:llm_graph:2024-01-29:r0:SYN-USD-NOTE-003",
+        "ord:dec:fi-demo-2024q1-faults-r0:llm_graph:2024-01-29:r0:SYN-USD-NOTE-006",
+        "ord:dec:fi-demo-2024q1-faults-r0:llm_graph:2024-01-29:r0:SYN-USD-NOTE-007",
+        "ord:dec:fi-demo-2024q1-faults-r0:llm_graph:2024-01-29:r0:SYN-USD-NOTE-008",
+        "ord:dec:fi-demo-2024q1-faults-r0:llm_graph:2024-01-29:r0:SYN-USD-NOTE-009"
+      ],
+      "llm_market": [
+        "ord:dec:fi-demo-2024q1-faults-r0:llm_market:2024-01-29:r0:SYN-USD-NOTE-003",
+        "ord:dec:fi-demo-2024q1-faults-r0:llm_market:2024-01-29:r0:SYN-USD-NOTE-006",
+        "ord:dec:fi-demo-2024q1-faults-r0:llm_market:2024-01-29:r0:SYN-USD-NOTE-007",
+        "ord:dec:fi-demo-2024q1-faults-r0:llm_market:2024-01-29:r0:SYN-USD-NOTE-008",
+        "ord:dec:fi-demo-2024q1-faults-r0:llm_market:2024-01-29:r0:SYN-USD-NOTE-009"
+      ],
+      "llm_rag": [
+        "ord:dec:fi-demo-2024q1-faults-r0:llm_rag:2024-01-29:r0:SYN-USD-NOTE-003",
+        "ord:dec:fi-demo-2024q1-faults-r0:llm_rag:2024-01-29:r0:SYN-USD-NOTE-006",
+        "ord:dec:fi-demo-2024q1-faults-r0:llm_rag:2024-01-29:r0:SYN-USD-NOTE-007",
+        "ord:dec:fi-demo-2024q1-faults-r0:llm_rag:2024-01-29:r0:SYN-USD-NOTE-008",
+        "ord:dec:fi-demo-2024q1-faults-r0:llm_rag:2024-01-29:r0:SYN-USD-NOTE-009"
+      ],
+      "llm_team": [
+        "ord:dec:fi-demo-2024q1-faults-r0:llm_team:2024-01-29:r0:SYN-USD-NOTE-003",
+        "ord:dec:fi-demo-2024q1-faults-r0:llm_team:2024-01-29:r0:SYN-USD-NOTE-006",
+        "ord:dec:fi-demo-2024q1-faults-r0:llm_team:2024-01-29:r0:SYN-USD-NOTE-007",
+        "ord:dec:fi-demo-2024q1-faults-r0:llm_team:2024-01-29:r0:SYN-USD-NOTE-008",
+        "ord:dec:fi-demo-2024q1-faults-r0:llm_team:2024-01-29:r0:SYN-USD-NOTE-009"
+      ],
+      "quant_duration": [
+        "ord:dec:fi-demo-2024q1-faults-r0:quant_duration:2024-01-29:r0:SYN-USD-NOTE-003",
+        "ord:dec:fi-demo-2024q1-faults-r0:quant_duration:2024-01-29:r0:SYN-USD-NOTE-006",
+        "ord:dec:fi-demo-2024q1-faults-r0:quant_duration:2024-01-29:r0:SYN-USD-NOTE-007",
+        "ord:dec:fi-demo-2024q1-faults-r0:quant_duration:2024-01-29:r0:SYN-USD-NOTE-008",
+        "ord:dec:fi-demo-2024q1-faults-r0:quant_duration:2024-01-29:r0:SYN-USD-NOTE-009"
+      ],
+      "static_ladder": [
+        "ord:dec:fi-demo-2024q1-faults-r0:static_ladder:2024-01-29:r0:SYN-USD-NOTE-003",
+        "ord:dec:fi-demo-2024q1-faults-r0:static_ladder:2024-01-29:r0:SYN-USD-NOTE-006",
+        "ord:dec:fi-demo-2024q1-faults-r0:static_ladder:2024-01-29:r0:SYN-USD-NOTE-007",
+        "ord:dec:fi-demo-2024q1-faults-r0:static_ladder:2024-01-29:r0:SYN-USD-NOTE-008",
+        "ord:dec:fi-demo-2024q1-faults-r0:static_ladder:2024-01-29:r0:SYN-USD-NOTE-009"
+      ]
+    },
+    "targets": [
+      {
+        "securityId": "SYN-USD-NOTE-003",
+        "weight": "0.150000"
+      },
+      {
+        "securityId": "SYN-USD-NOTE-006",
+        "weight": "0.150000"
+      },
+      {
+        "securityId": "SYN-USD-NOTE-007",
+        "weight": "0.170000"
+      },
+      {
+        "securityId": "SYN-USD-NOTE-008",
+        "weight": "0.170000"
+      },
+      {
+        "securityId": "SYN-USD-NOTE-009",
+        "weight": "0.300000"
+      },
+      {
+        "securityId": "CASH-USD",
+        "weight": "0.060000"
+      }
+    ],
+    "version": "bootstrap-30-34-30-6-v2"
+  },
+  "checkpointVersion": "checkpoint-v1",
+  "configHash": "sha256:26ee69e9d89adf49d8ad9e18c29bbb6b7b503ec0187bafccdea12be25a089714",
+  "cycleIndex": 18,
+  "eventPosition": 285,
+  "exclusions": [],
+  "failures": [],
+  "manifestRef": "manifest.json",
+  "outcomeCount": 133,
+  "pendingEvents": {
+    "pf:fi-demo-2024q1-faults-r0:cash": {
+      "openOrders": [],
+      "pendingSettlements": []
+    },
+    "pf:fi-demo-2024q1-faults-r0:llm_graph": {
+      "openOrders": [],
+      "pendingSettlements": []
+    },
+    "pf:fi-demo-2024q1-faults-r0:llm_market": {
+      "openOrders": [],
+      "pendingSettlements": []
+    },
+    "pf:fi-demo-2024q1-faults-r0:llm_rag": {
+      "openOrders": [],
+      "pendingSettlements": []
+    },
+    "pf:fi-demo-2024q1-faults-r0:llm_team": {
+      "openOrders": [],
+      "pendingSettlements": []
+    },
+    "pf:fi-demo-2024q1-faults-r0:quant_duration": {
+      "openOrders": [],
+      "pendingSettlements": []
+    },
+    "pf:fi-demo-2024q1-faults-r0:static_ladder": {
+      "openOrders": [],
+      "pendingSettlements": []
+    }
+  },
+  "portfolios": {
+    "pf:fi-demo-2024q1-faults-r0:cash": {
+      "stateHash": "sha256:aa74b5e2e5f54ae3c908aec0c170328d472d8b9ed79d07007e280b3209318ca0",
+      "version": 20
+    },
+    "pf:fi-demo-2024q1-faults-r0:llm_graph": {
+      "stateHash": "sha256:a9e14977529061344f2318cea11812073c4838c1cb74b62bbc9ae9b210a92485",
+      "version": 26
+    },
+    "pf:fi-demo-2024q1-faults-r0:llm_market": {
+      "stateHash": "sha256:5d821aca35095e7ecdb60b143dbd7e3dfe4cda9220d7639c96f86f26f8d13d59",
+      "version": 27
+    },
+    "pf:fi-demo-2024q1-faults-r0:llm_rag": {
+      "stateHash": "sha256:c871141e78c46164817b2e9f68ada2858e758295d8915c60b827d01373d683c0",
+      "version": 26
+    },
+    "pf:fi-demo-2024q1-faults-r0:llm_team": {
+      "stateHash": "sha256:26bb80758836b3e634b620ce7d272b6d29567d3e9299973aa3ba76f53aca04d4",
+      "version": 26
+    },
+    "pf:fi-demo-2024q1-faults-r0:quant_duration": {
+      "stateHash": "sha256:3de1a053d703c459ddc7e16739c1649d7bd008867f98e47e02259654be06c133",
+      "version": 26
+    },
+    "pf:fi-demo-2024q1-faults-r0:static_ladder": {
+      "stateHash": "sha256:806e23b10b0e919315e3b9e43ff9ed85019220c6a54874d5e900d21d34892551",
+      "version": 24
+    }
+  },
+  "sessionDate": "2024-02-23",
+  "status": "completed"
+}

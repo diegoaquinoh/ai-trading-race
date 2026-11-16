@@ -42,9 +42,10 @@ public record AgentDecisionResult(
     string? ErrorMessage = null);
 
 /// <summary>
-/// Request to execute trades from agent decisions.
+/// Request to report (not execute) the trades AgentRunner already executed during
+/// the decision activities.
 /// </summary>
-public record ExecuteTradesRequest(
+public record ReportExecutedTradesRequest(
     List<AgentDecisionResult> Decisions,
     DateTimeOffset Timestamp);
 

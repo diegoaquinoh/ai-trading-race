@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# Credential Rotation Script (Phase 5)
+# Credential Rotation Script
 # Generates new secrets and updates all Azure environments.
-# Run after deploying Azure resources and completing Phase 4.
+# Run after deploying Azure resources and running secure-azure-infra.sh.
 
 set -e
 
-echo "Credential Rotation - Phase 5"
+echo "Credential Rotation"
 echo "=============================="
 echo ""
 
@@ -467,8 +467,11 @@ print('  Updated ConnectionStrings__TradingDb')
     echo ""
     echo -e "${YELLOW}Remember:${NC}"
     echo "  - Restart all services after rotating credentials"
-    echo "  - If using Docker, recreate SQL container with new password:"
-    echo "    docker compose down sqlserver && docker compose up -d sqlserver"
+    echo "  - If using Docker, apply the new SA password to the existing database volume"
+    echo "    (SQL Server only reads SA_PASSWORD when the volume is first created):"
+    echo "    docker exec -it ai-trading-sqlserver /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -C \\"
+    echo "      -P '<OLD_SA_PASSWORD>' -Q \"ALTER LOGIN sa WITH PASSWORD = '<NEW_SA_PASSWORD>'\""
+    echo "    or, to start from an empty database: docker compose down -v (deletes all local data)"
     echo "  - Re-run database setup: source .env && ./scripts/setup-database.sh"
     echo ""
     exit 0

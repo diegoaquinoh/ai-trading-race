@@ -6,6 +6,7 @@ using AiTradingRace.Infrastructure.DependencyInjection;
 using AiTradingRace.Web.Authentication;
 using AiTradingRace.Web.Components;
 using AiTradingRace.Web.Data;
+using AiTradingRace.Web.FixedIncome;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.IdentityModel.Tokens;
@@ -40,6 +41,9 @@ builder.Services.AddApplicationServices();
 // Register infrastructure services with real AI model routing
 // Each agent's ModelProvider determines which client is used
 builder.Services.AddInfrastructureServices(builder.Configuration);
+
+// Fixed income run queue (in-process background worker; executor arrives in a later wave)
+builder.Services.AddFixedIncomeRunQueue();
 
 builder.Services.AddSingleton<WeatherForecastService>();
 

@@ -1,0 +1,858 @@
+{
+  "artifacts": [
+    {
+      "checksum": "sha256:9fc4f7f7d809ac8489a5c140bf41e8484a635bc55b2a3050e4db4462464600ed",
+      "path": "commits.jsonl",
+      "role": "ledger_log"
+    },
+    {
+      "checksum": "sha256:2b3e778db5ecdc2de266dfc1289831ef99d6e3d1c0be65d06a28d4726de145c6",
+      "path": "outcomes.jsonl",
+      "role": "decision_outcomes"
+    }
+  ],
+  "bootstrapAllocation": [
+    {
+      "securityId": "SYN-USD-NOTE-003",
+      "weight": "0.150000"
+    },
+    {
+      "securityId": "SYN-USD-NOTE-006",
+      "weight": "0.150000"
+    },
+    {
+      "securityId": "SYN-USD-NOTE-007",
+      "weight": "0.170000"
+    },
+    {
+      "securityId": "SYN-USD-NOTE-008",
+      "weight": "0.170000"
+    },
+    {
+      "securityId": "SYN-USD-NOTE-009",
+      "weight": "0.300000"
+    },
+    {
+      "securityId": "CASH-USD",
+      "weight": "0.060000"
+    }
+  ],
+  "bootstrapAllocationVersion": "bootstrap-30-34-30-6-v2",
+  "calendarVersion": "us-gov-calendar-v1",
+  "cashReturnAssumption": "zero_cash_interest_v1",
+  "configHash": "sha256:36c068a4ee902024e030582059e9e7408cacb81ce93db07ef109e58900975203",
+  "configSchemaVersion": "replay-config-v1",
+  "conventionVersion": "conventions-v1",
+  "costSensitivityProfiles": [
+    "synthetic-half-spread-0.00-v1",
+    "synthetic-half-spread-0.02-v1",
+    "synthetic-half-spread-0.05-v1"
+  ],
+  "curveManifests": [
+    {
+      "contentHash": "sha256:89e4d02aba04d148273a5f18b8d44b9a430c51e9e056a9142a0a3089b5743a74",
+      "curveSnapshotId": "curve-0950c43cd2646f34",
+      "sessionDate": "2024-01-02",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:ff7f93ba2b211d2b9bf39882aa339a19828f42188f5c6509002fca33e58d5af4",
+      "curveSnapshotId": "curve-16b0f1bedf44d50c",
+      "sessionDate": "2024-01-03",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:806067014b95e43c54276c6b9f0c5117200af43ee25241110388968a5144e9bd",
+      "curveSnapshotId": "curve-4d076faeb31d1360",
+      "sessionDate": "2024-01-04",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:72aab9d101d2e2ffd3d0155e7eb0045deb13f14c0ffa690ef131537f43252d18",
+      "curveSnapshotId": "curve-0d30601361bfc49f",
+      "sessionDate": "2024-01-05",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:28c97d2d0bcee5b1db547f645dc1902da811ca1a17026fcaba91ab47260fb56f",
+      "curveSnapshotId": "curve-f085d170e9cf316e",
+      "sessionDate": "2024-01-08",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:a5f3b61df814448e6b57b5b4e92159088e4f5e22f3e001d7a12336f93c9c10db",
+      "curveSnapshotId": "curve-db8920f645c3c1b9",
+      "sessionDate": "2024-01-09",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:4993a01b08c47c21bc7be8e496f1cd90d7d3e1579bb91d7ff7d6af3fb0a82ef8",
+      "curveSnapshotId": "curve-9d1c203ef4c9eae0",
+      "sessionDate": "2024-01-10",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:e2793355cf3ea8280ceb12b0d831685ebb854a587e30fc1ca860ebe87213531d",
+      "curveSnapshotId": "curve-9dd7ffe8c214fa0b",
+      "sessionDate": "2024-01-11",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:0d3b76c91245225440e6cefa73bd36361380cad83ed46efdc7fddea9efc961eb",
+      "curveSnapshotId": "curve-2e00c7e54943cfef",
+      "sessionDate": "2024-01-12",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:7fb822383dcc32bcc94e36460af290d1f8e01b6ece3e6d858a26e764f5f59fbb",
+      "curveSnapshotId": "curve-cea081cf2e172df4",
+      "sessionDate": "2024-01-16",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:aa05c6290418577d9c8f83f1dc4844b2505b5ef9b5ee485a6bd9b996a3503dd3",
+      "curveSnapshotId": "curve-65129541da6ff96b",
+      "sessionDate": "2024-01-17",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:cb0982d46acf83ec078ab8141a6e9809cb0431e7630e2262aa4384376fccfbea",
+      "curveSnapshotId": "curve-d12d357c09fde769",
+      "sessionDate": "2024-01-18",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:864716003d4b376812bcf97114468fb8b5b659dc9aecadb9e5ebbd32acd67929",
+      "curveSnapshotId": "curve-6c279ff548d366ef",
+      "sessionDate": "2024-01-19",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:9f4b3496ae6a3a5f06effd2b3564be06f32f106d70c9da3433f95d3b198425d8",
+      "curveSnapshotId": "curve-1a9a4f03240f6356",
+      "sessionDate": "2024-01-22",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:153c2e77fd2d03788e15fe5f7885bb79f3bc519fe043e2f065d9aa7c8f5b05af",
+      "curveSnapshotId": "curve-0f4151a957e8bb86",
+      "sessionDate": "2024-01-23",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:0e5134caf7f3d7152defae41adb5d9758191398659db2a54eed927e39184fe6e",
+      "curveSnapshotId": "curve-8f8170741deb1ff1",
+      "sessionDate": "2024-01-24",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:d966c00a14acb0855b978ee4c4bc46765234ec45ba435fe101bea49f6b485064",
+      "curveSnapshotId": "curve-4b6d73bf026708ce",
+      "sessionDate": "2024-01-25",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:87c7a4b28e04926c4d29ad7f0b7bd3f8349820ce1908d4eae7f3dedaa5bbe832",
+      "curveSnapshotId": "curve-117c4103eaa1033c",
+      "sessionDate": "2024-01-26",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:3cc4e952a2474b6d7a4195f5d26c707d3ffca6f92a1cd26d32687abbb234bcb2",
+      "curveSnapshotId": "curve-bb0bc9fa1226dbbd",
+      "sessionDate": "2024-01-29",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:748357398647325ed170fb213b82c4d98707efe83e2706e352235b86167ab75e",
+      "curveSnapshotId": "curve-7e583294a4b2e508",
+      "sessionDate": "2024-01-30",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:d2f35564fdb1e6d348771f848858ec398670aa8274473aed87d75bef9fd653b5",
+      "curveSnapshotId": "curve-830eae84c6e24b31",
+      "sessionDate": "2024-01-31",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:86117d9c8d9f9491af33b496d87045afb65f2a9443b05baff90454750ed38418",
+      "curveSnapshotId": "curve-84ce031a6af1eb0b",
+      "sessionDate": "2024-02-01",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:7f9fc1f2905b0240eb8925a24f331fded71b992c59d733b2e6f7153060670f0b",
+      "curveSnapshotId": "curve-9d046a37a8d833ea",
+      "sessionDate": "2024-02-02",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:24883b1aa95fe90872abbc235a6b2e232555ca33b65bd3bf2c5c653858f86e2b",
+      "curveSnapshotId": "curve-4e9de24849a6c7bc",
+      "sessionDate": "2024-02-05",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:ec434aa17749876c584745bc9bb41bb47bb3c5ad0a73748074d676a86b326013",
+      "curveSnapshotId": "curve-c37b5654f8a3bf34",
+      "sessionDate": "2024-02-06",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:70889babd9fb404b8ad5b0b7ebc339d9dcd70829832913a93c76ffe5f099ac57",
+      "curveSnapshotId": "curve-aa7323a6258ac052",
+      "sessionDate": "2024-02-07",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:121499d2da025e04c4f5a17040bc5cf0d2cb1fd69563e63c1506216cf536ac5a",
+      "curveSnapshotId": "curve-27ac5a7181020291",
+      "sessionDate": "2024-02-08",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:b2abe5aa3c39fc5843d55fb0b864ea7b9578786a2eb362fb1b61517fec13c3af",
+      "curveSnapshotId": "curve-bbad0d364d59840d",
+      "sessionDate": "2024-02-09",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:0653d639c31a7dd09c234cb8bceff7a30f433cd80499ea6e9d58bb8b0e15b3e5",
+      "curveSnapshotId": "curve-77f2759b631b5802",
+      "sessionDate": "2024-02-12",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:8a84ed3689699c8019565de865f492f9aa89ba36c2dd9321fc916f3d57adff02",
+      "curveSnapshotId": "curve-5812556f8c6f033a",
+      "sessionDate": "2024-02-13",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:40ecb76861c8cef454ba57537031e4f7ebac4baeca9f43f8b3057abeafc877dd",
+      "curveSnapshotId": "curve-539bbfbd58634077",
+      "sessionDate": "2024-02-14",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:085f4ddd3591b37541276b0e46e47a6744fca47367fe9950a0ac430f2ce8c40a",
+      "curveSnapshotId": "curve-21138d533e65fa68",
+      "sessionDate": "2024-02-15",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:9cd1956d757b06b5639a85015e878d34dcd9446ae231a2e5322de1df5c67f92e",
+      "curveSnapshotId": "curve-39ae750d9f2b4b62",
+      "sessionDate": "2024-02-16",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:1407eaae5ace2722a9a2f07380ab37f6b5d57b0ea10f7ae59b3aeb91c385217c",
+      "curveSnapshotId": "curve-0b32c2b29f2dfde9",
+      "sessionDate": "2024-02-20",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:6f4ab3428f11a4a2c71404e67c39b98c681b4a84e7da744ff3bec0dc7e0bdfa0",
+      "curveSnapshotId": "curve-51dcb57ce928940a",
+      "sessionDate": "2024-02-21",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:9bbb605f023740c60dd2519560c4d88da3c4892100ac01827b4d7448e01da3f3",
+      "curveSnapshotId": "curve-744b9d4fb34369b0",
+      "sessionDate": "2024-02-22",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:baedf8167044c909355475531492cd3242f8dbef88cd215e76aaae9101e47694",
+      "curveSnapshotId": "curve-b69df7c59103856f",
+      "sessionDate": "2024-02-23",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:07a9983eb4434781956d2685ccc82d0ed789f11ed7441e711c0aa8ad8ad895b4",
+      "curveSnapshotId": "curve-053f7db46ad95761",
+      "sessionDate": "2024-02-26",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:2a6d624c1222df378677be37618b04bd5862254ae7b7af5bf92f222993b18a5b",
+      "curveSnapshotId": "curve-2393d9814214febc",
+      "sessionDate": "2024-02-27",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:abddcc936bcc6f4e5b9f66271364e80e4ef86be2ad19ef781ee55cd162b5dcbe",
+      "curveSnapshotId": "curve-0124c587f94d9870",
+      "sessionDate": "2024-02-28",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:1cfbb7790974a54c3969c9a8857ebd20c4eb37d526429f6b6d2cf1aac622bbc2",
+      "curveSnapshotId": "curve-876f89a5a5f17fab",
+      "sessionDate": "2024-02-29",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:66a1a628d908e343690077a4c4510d370b79f60036b78a10f22eaf6cb7e8fd6c",
+      "curveSnapshotId": "curve-fa5cd16cfcf27ae7",
+      "sessionDate": "2024-03-01",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:ccc80b5b8b2e7ebe6d7f0d5abcbdc1b2877cee2a33f46b6668c47525ece03e0a",
+      "curveSnapshotId": "curve-b48030801e32c75d",
+      "sessionDate": "2024-03-04",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:3680912a1864f36134dffb310e1fdfd578d040aab15ccc97dd09e7181be946e5",
+      "curveSnapshotId": "curve-e0f2057289922b74",
+      "sessionDate": "2024-03-05",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:92d04c5b5df59400f9fd6f6c53652fee8734a094756ce6b17e5310bcb666ab04",
+      "curveSnapshotId": "curve-0c0dd9c4f77ff69e",
+      "sessionDate": "2024-03-06",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:f492eb51da5c55cd6c3fe6eea73f61e3813ee98ad54594ba24c520bc1e7c3478",
+      "curveSnapshotId": "curve-27bc68422b75b88d",
+      "sessionDate": "2024-03-07",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:f3d1c0f894c2f2aee5dafc4a8318c9d0713bfdce2239b25be563be53ee56ef29",
+      "curveSnapshotId": "curve-167439e2b7edc215",
+      "sessionDate": "2024-03-08",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:b4ce420c9b54e7c3e65a481452ba47435fe68e015eef3eecb75558eae8d9065f",
+      "curveSnapshotId": "curve-2ec2b87201bbbd6d",
+      "sessionDate": "2024-03-11",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:f6cc2f41ed9c845ad6dff9813389766668fb4137873043e932ae9c6d711f6a61",
+      "curveSnapshotId": "curve-f8f0271d9cafa7fd",
+      "sessionDate": "2024-03-12",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:5a3b9a6b85b48ea33963d823c7b3066e3d508808d710e1c6de99c7bd4ed73ec0",
+      "curveSnapshotId": "curve-b07fb72da8c34c54",
+      "sessionDate": "2024-03-13",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:40838d7ff38791ebe833fd5d17fff67065630f6788b457fbe108cda6e289b2f3",
+      "curveSnapshotId": "curve-4c25d2562576fa06",
+      "sessionDate": "2024-03-14",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:934e90a7475ea42d6f104fc85f0e3e7c18925df8470b275ab0b8f258fa8e2e67",
+      "curveSnapshotId": "curve-381033608f322d1a",
+      "sessionDate": "2024-03-15",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:ecba9ebb84ea0285e6cd384aac598d714f4efe03bd8ed2075b59668d4af4d80e",
+      "curveSnapshotId": "curve-155adbef030d0cb7",
+      "sessionDate": "2024-03-18",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:5baf05451ba437b7564f22f474cf3371e2e0842056b0babb7413e0d011dc8bb3",
+      "curveSnapshotId": "curve-b4311cc3309ef007",
+      "sessionDate": "2024-03-19",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:86bf292baaaa15ff3fa471fa04d33beeac010d6c4ccbaedd9a34877c57244a84",
+      "curveSnapshotId": "curve-770c9494c91019b2",
+      "sessionDate": "2024-03-20",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:5f418ba63e3f3b9681ebd02bf7c62a64e7064fa7fa4e00466f5e3df561b6ba15",
+      "curveSnapshotId": "curve-9fe40f01e2e68930",
+      "sessionDate": "2024-03-21",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:03c7b9c6004b106bf5d4f1eefd925ef8cc3593cdfad91bfa9a6b9c8476cae59e",
+      "curveSnapshotId": "curve-c81dc5aecfcaa3b3",
+      "sessionDate": "2024-03-22",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:183238401b2bf52970c5b86bab8eb086da096ef375ab24a01b23538b9bb2a7e6",
+      "curveSnapshotId": "curve-1870ed7a32e0e3ee",
+      "sessionDate": "2024-03-25",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:df8aa150c580ce6fb03c3bcaa5a8338e143298f51b121f89210452939c194794",
+      "curveSnapshotId": "curve-996b501dfb8ef7de",
+      "sessionDate": "2024-03-26",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:172033929443b27050b50f91a96af4ff4ac4f9149bf3088d9811055930c5e8e4",
+      "curveSnapshotId": "curve-e2e9297164394192",
+      "sessionDate": "2024-03-27",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:4242dde4064d60bf5478277b138428bfa85bfd6e081e8918cb95b7286adf1790",
+      "curveSnapshotId": "curve-429a92f8252a150b",
+      "sessionDate": "2024-03-28",
+      "status": "READY"
+    }
+  ],
+  "dataMode": "synthetic_curve",
+  "decisionSessions": [
+    "2024-01-02",
+    "2024-01-03",
+    "2024-01-04",
+    "2024-01-05",
+    "2024-01-08",
+    "2024-01-09",
+    "2024-01-10",
+    "2024-01-11",
+    "2024-01-12",
+    "2024-01-16",
+    "2024-01-17",
+    "2024-01-18",
+    "2024-01-19",
+    "2024-01-22",
+    "2024-01-23",
+    "2024-01-24",
+    "2024-01-25",
+    "2024-01-26",
+    "2024-01-29",
+    "2024-01-30",
+    "2024-01-31",
+    "2024-02-01",
+    "2024-02-02",
+    "2024-02-05",
+    "2024-02-06",
+    "2024-02-07",
+    "2024-02-08",
+    "2024-02-09",
+    "2024-02-12",
+    "2024-02-13",
+    "2024-02-14",
+    "2024-02-15",
+    "2024-02-16",
+    "2024-02-20",
+    "2024-02-21",
+    "2024-02-22",
+    "2024-02-23",
+    "2024-02-26",
+    "2024-02-27",
+    "2024-02-28",
+    "2024-02-29",
+    "2024-03-01",
+    "2024-03-04",
+    "2024-03-05",
+    "2024-03-06",
+    "2024-03-07",
+    "2024-03-08",
+    "2024-03-11",
+    "2024-03-12",
+    "2024-03-13",
+    "2024-03-14",
+    "2024-03-15",
+    "2024-03-18",
+    "2024-03-19",
+    "2024-03-20",
+    "2024-03-21",
+    "2024-03-22",
+    "2024-03-25",
+    "2024-03-26",
+    "2024-03-27",
+    "2024-03-28"
+  ],
+  "dependencyLockHashes": {
+    "pyproject.toml": "sha256:2c161b94f8d12c54284793d02525532d108ba5d580e31661bdd634e6c91854be",
+    "requirements.txt": "sha256:23ca17d91a56c0d39a95ee22b9d285564832909aab2a381318390ebdacca5c1f"
+  },
+  "endDate": "2024-03-29",
+  "engineVersion": "research-engine/0.1.0+simulation-v1+pricing:1.0.0+quantlib-1.44",
+  "eventPriorityTable": "event-priority-v1",
+  "exclusions": [],
+  "executionModel": {
+    "batchPriority": "sells_first_then_security_id_v1",
+    "cashInterestRate": "0",
+    "commissionUsdPerMillionFace": "0",
+    "executionModelId": "synthetic-half-spread-0.02-v1",
+    "faceSizing": "fixed_at_submission_v1",
+    "fillTiming": "next_session_close_daily",
+    "fundingRule": "settled_cash_reserve_commitments_v1",
+    "halfSpreadPer100": "0.02",
+    "slippagePer100": "0",
+    "timeInForce": "next_session_only"
+  },
+  "experimentId": "fi-demo-2024q1",
+  "failures": [],
+  "fittedArtifacts": [],
+  "generatedAt": null,
+  "gitCommit": "7f5ad6498c9738cb18376387763983084d9b7254",
+  "informationPolicy": "reconstructed_publication_plus_lag_v1",
+  "lotMethod": "fifo_v1",
+  "manifestHash": "sha256:ace347a44774018261cca1c54b9a4c82e17cbb4272fc84dff1f9abb005964641",
+  "manifestVersion": "experiment-manifest-v1",
+  "postingTemplates": [
+    "capital_flow_v1",
+    "buy_fill_v1",
+    "buy_settlement_v1",
+    "sell_fill_v1",
+    "sell_settlement_v1",
+    "coupon_payment_v1",
+    "redemption_v1",
+    "mark_to_market_v1",
+    "cash_interest_v1"
+  ],
+  "pricingEngineVersion": "1.0.0+quantlib-1.44",
+  "realizedUsage": {
+    "cyclesCompleted": 61,
+    "decisions": 427,
+    "outcomes": {
+      "completed_hold": 413,
+      "completed_proposal": 14
+    },
+    "transitionsCommitted": 875
+  },
+  "repetitions": [
+    0
+  ],
+  "resourceLimits": {
+    "decisionBudget": {
+      "deadlineSeconds": 90,
+      "maxCostUsd": null,
+      "maxDelegationDepth": 1,
+      "maxEvidenceCalls": 3,
+      "maxEvidenceTokens": 8000,
+      "maxGenerationCalls": 6,
+      "maxInputTokens": 32000,
+      "maxOutputTokens": 12000,
+      "maxSpecialistInvocations": 2,
+      "maxToolCalls": 12,
+      "maxUniqueEvidenceChunks": 12,
+      "priceScheduleId": null
+    },
+    "track": "budget_matched"
+  },
+  "responseMode": "recorded_replay",
+  "responseSource": "recorded_provider_responses",
+  "retrievalVersions": {},
+  "riskPolicy": {
+    "bootstrapTurnoverExemption": true,
+    "breachPolicy": "block_risk_increasing_v1",
+    "initialCapitalUsd": "1000000",
+    "leverageAllowed": false,
+    "longOnly": true,
+    "maxDailyTurnoverRatio": "0.20",
+    "maxMarkAgeBusinessDays": 1,
+    "maxOrdersPerDecision": 6,
+    "maxParallelDv01UsdPerMillionNav": "600",
+    "maxSingleSecurityRatio": "0.40",
+    "minCashRatio": "0.05",
+    "minWeightChange": "0.02",
+    "policyId": "treasury-long-only-v1",
+    "projectionMode": "disabled",
+    "weightSumTolerance": "0.000001"
+  },
+  "runId": "fi-demo-2024q1-r0",
+  "schedule": {
+    "capitalFlow": "08:00:00",
+    "cashEvents": "09:00:00",
+    "dataAvailability": "18:00:00",
+    "decision": "19:00:00",
+    "executionObservation": "15:30:00",
+    "sessionEnd": "17:00:00",
+    "timezone": "America/New_York",
+    "valuation": "20:00:00",
+    "version": "schedule-ny-v1"
+  },
+  "schemaVersion": "1.0",
+  "seeds": {
+    "replay": 0
+  },
+  "settlementConfig": {
+    "SYN-USD-NOTE-002": "1",
+    "SYN-USD-NOTE-003": "1",
+    "SYN-USD-NOTE-005": "1",
+    "SYN-USD-NOTE-006": "1",
+    "SYN-USD-NOTE-007": "1",
+    "SYN-USD-NOTE-008": "1",
+    "SYN-USD-NOTE-009": "1",
+    "rule": "T+lag business days"
+  },
+  "sourceArtifacts": [],
+  "specVersion": "1.0",
+  "splits": {
+    "heldOut": null,
+    "role": "demonstration"
+  },
+  "startDate": "2024-01-02",
+  "status": "completed",
+  "strategies": [
+    {
+      "config": {
+        "version": "cash-v1"
+      },
+      "configHash": "sha256:e574780550641e1ff2151df48f9a701102f0817de5dbd08777c5b9ec67e83f6b",
+      "deterministic": true,
+      "evidenceSnapshotId": null,
+      "indexBuildId": null,
+      "invested": false,
+      "kind": "cash_reference",
+      "modelId": null,
+      "promptVersion": null,
+      "provider": null,
+      "responseSource": "deterministic_code",
+      "retrievalMode": "none",
+      "strategyId": "cash",
+      "toolSchemaVersion": null
+    },
+    {
+      "config": {
+        "evidenceSnapshotId": null,
+        "indexBuildId": "ib-c5ff36b8d6d057e4ab95",
+        "initialMaxChunks": 6,
+        "initialMaxEvidenceTokens": 4000,
+        "initialQueryTemplate": "policy-outlook-v1",
+        "mandatoryRetrieval": true,
+        "maxOutputTokensPerCall": 2048,
+        "maxProviderRetries": 1,
+        "maxRepairs": 2,
+        "maxToolTurns": 2,
+        "modelId": "reference-heuristic-v1",
+        "onContradictoryEvidence": "review",
+        "onInsufficientEvidence": "abstain",
+        "outputContract": "agent-output-v1",
+        "priceScheduleId": "reference-zero-cost-v1",
+        "promptVersion": "fi-agent-prompts-v1@d9bc062da834e51c",
+        "provider": "reference",
+        "requireQuotes": true,
+        "retrievalMode": "graph_rag_v1",
+        "strategyKind": "single_agent",
+        "supportClassifier": "support-lexical-v1",
+        "supportThreshold": "0.5",
+        "timing": "logical",
+        "toolSchemaVersion": "fi-agent-tools-v1",
+        "validationPipeline": "proposal-validation-v1",
+        "version": "llm-graph-v1"
+      },
+      "configHash": "sha256:28fafb2a477f96448cda47055108bcd60875211fb269371fc7c1b2c26e0e870d",
+      "deterministic": true,
+      "evidenceSnapshotId": null,
+      "indexBuildId": "ib-c5ff36b8d6d057e4ab95",
+      "invested": true,
+      "kind": "single_agent",
+      "modelId": "reference-heuristic-v1",
+      "promptVersion": "fi-agent-prompts-v1@d9bc062da834e51c",
+      "provider": "reference",
+      "responseSource": "recorded_responses:reference/reference-heuristic-v1",
+      "retrievalMode": "graph_rag_v1",
+      "strategyId": "llm_graph",
+      "toolSchemaVersion": "fi-agent-tools-v1"
+    },
+    {
+      "config": {
+        "evidenceSnapshotId": null,
+        "indexBuildId": null,
+        "initialMaxChunks": 6,
+        "initialMaxEvidenceTokens": 4000,
+        "initialQueryTemplate": "policy-outlook-v1",
+        "mandatoryRetrieval": false,
+        "maxOutputTokensPerCall": 2048,
+        "maxProviderRetries": 1,
+        "maxRepairs": 2,
+        "maxToolTurns": 2,
+        "modelId": "reference-heuristic-v1",
+        "onContradictoryEvidence": "review",
+        "onInsufficientEvidence": "abstain",
+        "outputContract": "agent-output-v1",
+        "priceScheduleId": "reference-zero-cost-v1",
+        "promptVersion": "fi-agent-prompts-v1@d9bc062da834e51c",
+        "provider": "reference",
+        "requireQuotes": true,
+        "retrievalMode": "none",
+        "strategyKind": "single_agent",
+        "supportClassifier": "support-lexical-v1",
+        "supportThreshold": "0.5",
+        "timing": "logical",
+        "toolSchemaVersion": "fi-agent-tools-v1",
+        "validationPipeline": "proposal-validation-v1",
+        "version": "llm-market-v1"
+      },
+      "configHash": "sha256:a723453b066abc34c25c0e2d98bb999d527e07582335ebd2c4dad058b5f65e5a",
+      "deterministic": true,
+      "evidenceSnapshotId": null,
+      "indexBuildId": null,
+      "invested": true,
+      "kind": "single_agent",
+      "modelId": "reference-heuristic-v1",
+      "promptVersion": "fi-agent-prompts-v1@d9bc062da834e51c",
+      "provider": "reference",
+      "responseSource": "recorded_responses:reference/reference-heuristic-v1",
+      "retrievalMode": "none",
+      "strategyId": "llm_market",
+      "toolSchemaVersion": "fi-agent-tools-v1"
+    },
+    {
+      "config": {
+        "evidenceSnapshotId": null,
+        "indexBuildId": "ib-c5ff36b8d6d057e4ab95",
+        "initialMaxChunks": 6,
+        "initialMaxEvidenceTokens": 4000,
+        "initialQueryTemplate": "policy-outlook-v1",
+        "mandatoryRetrieval": true,
+        "maxOutputTokensPerCall": 2048,
+        "maxProviderRetries": 1,
+        "maxRepairs": 2,
+        "maxToolTurns": 2,
+        "modelId": "reference-heuristic-v1",
+        "onContradictoryEvidence": "review",
+        "onInsufficientEvidence": "abstain",
+        "outputContract": "agent-output-v1",
+        "priceScheduleId": "reference-zero-cost-v1",
+        "promptVersion": "fi-agent-prompts-v1@d9bc062da834e51c",
+        "provider": "reference",
+        "requireQuotes": true,
+        "retrievalMode": "hybrid_rag_v1",
+        "strategyKind": "single_agent",
+        "supportClassifier": "support-lexical-v1",
+        "supportThreshold": "0.5",
+        "timing": "logical",
+        "toolSchemaVersion": "fi-agent-tools-v1",
+        "validationPipeline": "proposal-validation-v1",
+        "version": "llm-rag-v1"
+      },
+      "configHash": "sha256:fdc7ecf7d06d2e7f10933d50945b23d1e74024e42b6f13c52b61eda53abdad40",
+      "deterministic": true,
+      "evidenceSnapshotId": null,
+      "indexBuildId": "ib-c5ff36b8d6d057e4ab95",
+      "invested": true,
+      "kind": "single_agent",
+      "modelId": "reference-heuristic-v1",
+      "promptVersion": "fi-agent-prompts-v1@d9bc062da834e51c",
+      "provider": "reference",
+      "responseSource": "recorded_responses:reference/reference-heuristic-v1",
+      "retrievalMode": "hybrid_rag_v1",
+      "strategyId": "llm_rag",
+      "toolSchemaVersion": "fi-agent-tools-v1"
+    },
+    {
+      "config": {
+        "evidenceSnapshotId": null,
+        "indexBuildId": "ib-c5ff36b8d6d057e4ab95",
+        "initialMaxChunks": 6,
+        "initialMaxEvidenceTokens": 4000,
+        "initialQueryTemplate": "policy-outlook-v1",
+        "mandatoryRetrieval": true,
+        "maxOutputTokensPerCall": 2048,
+        "maxProviderRetries": 1,
+        "maxRepairs": 2,
+        "maxToolTurns": 2,
+        "modelId": "reference-heuristic-v1",
+        "onContradictoryEvidence": "review",
+        "onInsufficientEvidence": "abstain",
+        "outputContract": "agent-output-v1",
+        "priceScheduleId": "reference-zero-cost-v1",
+        "promptVersion": "fi-agent-prompts-v1@d9bc062da834e51c",
+        "provider": "reference",
+        "requireQuotes": true,
+        "retrievalMode": "graph_rag_v1",
+        "reviewerWorkflow": "parallel_v1",
+        "specialistRoles": [
+          "macro_researcher",
+          "critical_reviewer"
+        ],
+        "specialistToolTurns": 1,
+        "strategyKind": "specialist_team",
+        "supportClassifier": "support-lexical-v1",
+        "supportThreshold": "0.5",
+        "timing": "logical",
+        "toolSchemaVersion": "fi-agent-tools-v1",
+        "validationPipeline": "proposal-validation-v1",
+        "version": "llm-team-v1"
+      },
+      "configHash": "sha256:1f19f96560ba4ad0ac55af714c0bd1ee044f72cfea335f1cd3eba8c8aaa68a23",
+      "deterministic": true,
+      "evidenceSnapshotId": null,
+      "indexBuildId": "ib-c5ff36b8d6d057e4ab95",
+      "invested": true,
+      "kind": "specialist_team",
+      "modelId": "reference-heuristic-v1",
+      "promptVersion": "fi-agent-prompts-v1@d9bc062da834e51c",
+      "provider": "reference",
+      "responseSource": "recorded_responses:reference/reference-heuristic-v1",
+      "retrievalMode": "graph_rag_v1",
+      "strategyId": "llm_team",
+      "toolSchemaVersion": "fi-agent-tools-v1"
+    },
+    {
+      "config": {
+        "driftBandYears": "0.25",
+        "objective": "min_sq_duration_error_then_turnover_then_security_id",
+        "rebalance": "first_session_of_month_or_drift",
+        "safetyMargin": "0.01",
+        "targetDurationYears": "4.0",
+        "version": "quant-duration-v2"
+      },
+      "configHash": "sha256:218cbc1c100f3c2bc96b69484efc44b6707a2b8bddc30f7160f3f90c1193485e",
+      "deterministic": true,
+      "evidenceSnapshotId": null,
+      "indexBuildId": null,
+      "invested": true,
+      "kind": "quant_policy",
+      "modelId": null,
+      "promptVersion": null,
+      "provider": null,
+      "responseSource": "deterministic_code",
+      "retrievalMode": "none",
+      "strategyId": "quant_duration",
+      "toolSchemaVersion": null
+    },
+    {
+      "config": {
+        "couponTreatment": "retain_as_cash",
+        "redemptionTreatment": "retain_as_cash",
+        "version": "static-ladder-v1"
+      },
+      "configHash": "sha256:e814430d69352532975fe9afa96a306f16e426766a7f7b1815b55349475d0d01",
+      "deterministic": true,
+      "evidenceSnapshotId": null,
+      "indexBuildId": null,
+      "invested": true,
+      "kind": "quant_policy",
+      "modelId": null,
+      "promptVersion": null,
+      "provider": null,
+      "responseSource": "deterministic_code",
+      "retrievalMode": "none",
+      "strategyId": "static_ladder",
+      "toolSchemaVersion": null
+    }
+  ],
+  "termsVersions": {
+    "SYN-USD-NOTE-002": "SYN-USD-NOTE-002-terms-v1",
+    "SYN-USD-NOTE-003": "SYN-USD-NOTE-003-terms-v1",
+    "SYN-USD-NOTE-005": "SYN-USD-NOTE-005-terms-v1",
+    "SYN-USD-NOTE-006": "SYN-USD-NOTE-006-terms-v1",
+    "SYN-USD-NOTE-007": "SYN-USD-NOTE-007-terms-v1",
+    "SYN-USD-NOTE-008": "SYN-USD-NOTE-008-terms-v1",
+    "SYN-USD-NOTE-009": "SYN-USD-NOTE-009-terms-v1"
+  },
+  "universeVersion": "synthetic_universe_v1.0"
+}

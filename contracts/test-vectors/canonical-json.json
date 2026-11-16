@@ -1,0 +1,84 @@
+{
+  "description": "Canonical JSON vectors: sorted keys (code point order), compact separators, ASCII escaping, lowercase \\u escapes, no floats.",
+  "signingKeyUtf8": "test-vector-signing-key",
+  "vectors": [
+    {
+      "input": {
+        "b": 1,
+        "a": "x"
+      },
+      "canonical": "{\"a\":\"x\",\"b\":1}",
+      "sha256": "sha256:cdab067e9f3beb32d1252cfd63e492592fecbf591b0d08cadb24bb17f3864246",
+      "signature": "hmac-sha256:e9085c248f17c4f5b8f4181a555a40d7da1f59b0b95696933a8a279f3d554828"
+    },
+    {
+      "input": {
+        "nested": {
+          "z": [
+            3,
+            2,
+            1
+          ],
+          "a": null,
+          "t": true,
+          "f": false
+        }
+      },
+      "canonical": "{\"nested\":{\"a\":null,\"f\":false,\"t\":true,\"z\":[3,2,1]}}",
+      "sha256": "sha256:22d452596cbbb0bac11f3602bdb3398ee054cbcba122460d37a832f86a3e062f",
+      "signature": "hmac-sha256:7a1f62c8001150d0c794e7148ca7d49525c759517b05be7ab948560d00472b96"
+    },
+    {
+      "input": {
+        "unicode": "café – 東京 📈",
+        "quote": "say \"hi\"\\"
+      },
+      "canonical": "{\"quote\":\"say \\\"hi\\\"\\\\\",\"unicode\":\"caf\\u00e9 \\u2013 \\u6771\\u4eac \\ud83d\\udcc8\"}",
+      "sha256": "sha256:ebd1987ae7a66554226ba3b26c9114ecab18e3a90c67ea43edd2e78d4b733401",
+      "signature": "hmac-sha256:a7deac2352d4b07385e8ec0457a3ea513e46c4f4537e190ff07c894ac7fb6837"
+    },
+    {
+      "input": {
+        "control": "line1\nline2\ttab\r\u0001\u001f",
+        "slash": "a/b<c>&"
+      },
+      "canonical": "{\"control\":\"line1\\nline2\\ttab\\r\\u0001\\u001f\\u007f\",\"slash\":\"a/b<c>&\"}",
+      "sha256": "sha256:c0112adff70866a7336613f663af57e5f11788666a2a03f7c60501ba3403f653",
+      "signature": "hmac-sha256:85dd2bebba98a939a496a13240e0be554121f38d3ac0a8082293467917742d12"
+    },
+    {
+      "input": {
+        "money": "1234.56",
+        "neg": "-0.01",
+        "face": "1000000",
+        "weight": "0.30"
+      },
+      "canonical": "{\"face\":\"1000000\",\"money\":\"1234.56\",\"neg\":\"-0.01\",\"weight\":\"0.30\"}",
+      "sha256": "sha256:26a00f6d00b0ac6cae558f183aab4e42014cbb9ce8d525434eeb8435ffe8ce3a",
+      "signature": "hmac-sha256:cbb1dc83e4911d8fb9a95de4f21e00bb44387b4bcfbd1a09824d68f690d7ec44"
+    },
+    {
+      "input": {
+        "emptyObj": {},
+        "emptyArr": [],
+        "zero": 0,
+        "negInt": -42
+      },
+      "canonical": "{\"emptyArr\":[],\"emptyObj\":{},\"negInt\":-42,\"zero\":0}",
+      "sha256": "sha256:03c03c6c3cdae931cb09eae246af00ccb68ce78c2dd3beeb1fe5c97975a953aa",
+      "signature": "hmac-sha256:bc00b172deadd632b39e77c8cea0ef19d4c46687d855015c2805f5c4242d272d"
+    },
+    {
+      "input": {
+        "Zeta": 1,
+        "alpha": 2,
+        "Alpha": 3,
+        "_under": 4,
+        "1num": 5
+      },
+      "canonical": "{\"1num\":5,\"Alpha\":3,\"Zeta\":1,\"_under\":4,\"alpha\":2}",
+      "sha256": "sha256:05daf3a0881588c6559167300226f75f17d9cba3eccedf025388a095b3336783",
+      "signature": "hmac-sha256:0b35aa4477dd4786f035b0e0a3df351d1a63308370b13f45a2723a4edd794a0b"
+    }
+  ]
+}

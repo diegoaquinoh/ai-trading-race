@@ -3,7 +3,6 @@
 from datetime import datetime, timezone
 from decimal import Decimal
 
-import pytest
 
 from app.models.enums import SignalContribution, TradeSide
 from app.models.schemas import (

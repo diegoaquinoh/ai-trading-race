@@ -23,6 +23,23 @@ export function About() {
                 </p>
             </section>
 
+            {/* Fixed income research lab */}
+            <section className="about-section">
+                <h2><i className="fas fa-university"></i> Fixed Income Research Lab</h2>
+                <p>
+                    A separate research area compares a cash reference, deterministic quantitative policies, single AI agents
+                    and specialist teams on USD fixed-rate notes under matched inputs and one deterministic risk policy. The
+                    initial mode uses synthetic instruments priced from observed Treasury curves: those prices are curve-model
+                    values, not market quotes, so the mode tests pipeline correctness, risk management and evidence quality
+                    rather than achievable trading performance.
+                </p>
+                <p>
+                    Every decision keeps its frozen inputs, cited passages, policy checks, orders and ledger events, and failed
+                    or abstained decisions stay visible. Results are research outputs; no performance claims are made. Open it
+                    from <a href="/fi">Fixed Income Lab</a>.
+                </p>
+            </section>
+
             {/* Features */}
             <section className="about-section">
                 <h2><i className="fas fa-star"></i> Features</h2>
@@ -135,11 +152,11 @@ export function About() {
                     </div>
                     <div className="tech-row">
                         <span className="tech-label">Database</span>
-                        <span className="tech-value">Azure SQL, Redis 7, Neo4j (knowledge graph)</span>
+                        <span className="tech-value">Azure SQL, Redis 7</span>
                     </div>
                     <div className="tech-row">
                         <span className="tech-label">ML Service</span>
-                        <span className="tech-value">Python 3.11, FastAPI, scikit-learn, LangChain (planned)</span>
+                        <span className="tech-value">Python 3.11, FastAPI, scikit-learn</span>
                     </div>
                     <div className="tech-row">
                         <span className="tech-label">Frontend</span>
@@ -217,7 +234,7 @@ export function About() {
                     </div>
                     <div className="structure-item">
                         <code>Azure Container App</code>
-                        <span>Python ML service — FastAPI with scikit-learn, LangChain (planned), and Neo4j integration</span>
+                        <span>Python ML service — FastAPI with scikit-learn</span>
                     </div>
                     <div className="structure-item">
                         <code>Azure SQL</code>
@@ -226,10 +243,6 @@ export function About() {
                     <div className="structure-item">
                         <code>Redis</code>
                         <span>Caching layer — idempotency checks and response caching</span>
-                    </div>
-                    <div className="structure-item">
-                        <code>Neo4j</code>
-                        <span>Knowledge graph — trading rules, market regimes, and decision audit trail (GraphRAG)</span>
                     </div>
                     <div className="structure-item">
                         <code>GitHub Actions</code>

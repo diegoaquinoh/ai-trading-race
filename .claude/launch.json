@@ -1,0 +1,29 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "research-engine",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-c",
+        "cd ai-trading-race-ml && ENVIRONMENT=development ML_SERVICE_API_KEY=local-dev-api-key ML_SERVICE_SIGNING_KEY=local-dev-signing-key RESEARCH_SIGNING_KEY=local-dev-calc-key ML_SERVICE_EVIDENCE_AUTOLOAD=fixtures ML_SERVICE_STRATEGY_PROVIDER=reference .venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000"
+      ],
+      "port": 8000
+    },
+    {
+      "name": "api",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-c",
+        "ASPNETCORE_ENVIRONMENT=Development ConnectionStrings__TradingDb=' ' ResearchEngine__BaseUrl=http://127.0.0.1:8000 ResearchEngine__ApiKey=local-dev-api-key ResearchEngine__SigningKey=local-dev-signing-key dotnet run --project AiTradingRace.Web --urls http://localhost:5001"
+      ],
+      "port": 5001
+    },
+    {
+      "name": "web",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-c", "cd ai-trading-race-web && VITE_API_URL=http://localhost:5001 npm run dev -- --port 5173 --strictPort"],
+      "port": 5173
+    }
+  ]
+}

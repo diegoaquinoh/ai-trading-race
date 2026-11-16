@@ -1,0 +1,12 @@
+[flake8]
+max-line-length = 100
+# black-compatible slicing/operator rules
+extend-ignore = E203,W503
+exclude = .venv,.mypy_cache,__pycache__
+# Benchmark question/annotation literals are kept verbatim on one line so the dataset
+# text, tests and reports stay greppable and identical.
+per-file-ignores =
+    research_engine/retrieval/benchmark.py:E501
+    tests/evidence/test_neo4j_integration.py:E501
+    tests/evidence/test_retrieval.py:E501
+    tests/evidence/test_temporal.py:E501

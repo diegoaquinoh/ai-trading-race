@@ -1,0 +1,77 @@
+{
+  "counts": {
+    "cashFlows": 1,
+    "fills": 5,
+    "journals": 38,
+    "orders": 5,
+    "settlements": 5,
+    "valuations": 28
+  },
+  "finalStateHash": "sha256:4265e59e24cf3a145a46416894c0c527149859f49067465c8a485fdf6fbe1844",
+  "finalVersion": 32,
+  "ledgerTotals": {
+    "ACCRUED_INTEREST_PURCHASED": {
+      "creditUsd": "0.00",
+      "debitUsd": "7681.72"
+    },
+    "BOND_PRINCIPAL": {
+      "creditUsd": "0.00",
+      "debitUsd": "931745.75"
+    },
+    "CAPITAL": {
+      "creditUsd": "1000000.00",
+      "debitUsd": "0.00"
+    },
+    "CASH": {
+      "creditUsd": "939427.47",
+      "debitUsd": "1000000.00"
+    },
+    "MARK_ADJUSTMENT": {
+      "creditUsd": "36357.40",
+      "debitUsd": "29223.19"
+    },
+    "SETTLEMENT_PAYABLE": {
+      "creditUsd": "939427.47",
+      "debitUsd": "939427.47"
+    },
+    "UNREALIZED_GAIN_LOSS": {
+      "creditUsd": "29223.19",
+      "debitUsd": "36357.40"
+    }
+  },
+  "stateHashes": {
+    "0": "sha256:61ad8aa969687d64cd3a58afdd3f568f046a07e9f2b0f4405453b06673457e13",
+    "1": "sha256:824d44ecc211a54ae0e5f0b23f09b51ecc7c9827eb8c05ef703cbeb48b7b5a47",
+    "10": "sha256:68ba8d8d6e8a6d0777b5397e1348d4077c7ba845d90d84163137969052f12609",
+    "11": "sha256:57b5862a70a1c022458df10d6b658be2c21d0de051a8d1271506ef7a52c25bd9",
+    "12": "sha256:5148dd22b49620b85477678e0b3c78db3fdfff47f4e2bd82461c579fa0c1f7d6",
+    "13": "sha256:bdfd5fa7c30057ecaf32990e7c515cc3b064a2149a1d91d56ec54bc92a0036cf",
+    "14": "sha256:e95c62aca460ae87fbac433af226fed4ceb225de8b596c562dfc8280e20bafb2",
+    "15": "sha256:e5f8d4a2d3a098805d8b8122896c7e7ee219ae1102eb886cca1768912b29b657",
+    "16": "sha256:cf02ba19bd1574998eb0a5f1ac1f673f058173894414b9d25e4d386ba3a18374",
+    "17": "sha256:9c439f5bc8404fc7de81d3fe25896ed63b37e2cc35a3182b23e19c4edfbe39a8",
+    "18": "sha256:3ff85430e23cc27e622de6c184e1505bbd82405fa6f0befdbc68cad68849c5f6",
+    "19": "sha256:07cd991beb5b997f0ba60980bad480f9edf3eb7b50df5f18e6b032f64fb63c70",
+    "2": "sha256:a1233bf07412f0301d99de09cffc9301a81f13ec7c311773ab424007b768f165",
+    "20": "sha256:6d92c6c5c5342df37e753d8396085b55d6e073eab09724196361e29f75a6176a",
+    "21": "sha256:347df0196cb99e715dfcfb75ada4bfbae0d4d614f18e9da241a31acaecef78f7",
+    "22": "sha256:f58b147eb3f455a89a8b65517a31d03420314e39e3c2f19a1e7b4bcdd6cc9a14",
+    "23": "sha256:31652d309f29a225007f4a82b05143b4a47a999c7ca2d0e71421c806d157c624",
+    "24": "sha256:919a69a394ec19c633fdf00aa44365f9fc0df04da0eb8b870d77243248408c69",
+    "25": "sha256:6e0d3d85de86b563c7bb6d52cd3a49416e0a5bbd926236502352bddce4def2cb",
+    "26": "sha256:21dcf70e15436991209b481df18029de944b4b942c047c10c24634d3be6cbb83",
+    "27": "sha256:76e27d18ec4a234fbf4c7aa4838fb8c131f7bd362d48cd9dbc76bb7c2820f688",
+    "28": "sha256:e3da1bd2b489dc18a28b2695b46bbc87a6ae5c44dec802f76b070767233c091e",
+    "29": "sha256:fb3790de0da259e64965652669719f6dc42d9baf0d41a6ccf6a714a1fd249f80",
+    "3": "sha256:b8d7ad6b30fc75dcb20583527079b4ed0fa78a7de8256a1444907975e8374515",
+    "30": "sha256:f4de8787136f4a57bde1b2f86094a19086848be1f75571727e25de15c78be61b",
+    "31": "sha256:20d84c0a1f2e1e5e140bfe14e697f31868b187dda32c0e42bca19e2d2ca13c3d",
+    "32": "sha256:4265e59e24cf3a145a46416894c0c527149859f49067465c8a485fdf6fbe1844",
+    "4": "sha256:a131679078eabe7f8b8c8a2cd4a5279a7747f832fa0dbd52df6af9bb9d97161e",
+    "5": "sha256:c2d20a887fbce3fa446d34d4f163ea96174f1f30448fa78f2ef3adfdd0ee3d6b",
+    "6": "sha256:b401c1f61e1699a89c046e105aa6709ac8d41f6e2777063b3cbe0a1e7346950d",
+    "7": "sha256:0a6d5a342daa5b81367b1f3d83a6db38a8bd546faee8606c6082518f26b15b9c",
+    "8": "sha256:d958c9e5166b033afdbbb898e0b58497daf7ad373af325a33e6d55035084e188",
+    "9": "sha256:cd82b5a4ed9242ea7f2fb1705316b3687a1fccfbc1995b7c0be71e7833260818"
+  }
+}

@@ -12,6 +12,7 @@ from slowapi import Limiter
 from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
 
+from app import v1 as internal_v1
 from app.config import settings
 from app.middleware.auth import verify_api_key
 from app.middleware.idempotency import IdempotencyMiddleware
@@ -40,9 +41,13 @@ async def lifespan(app: FastAPI):
     predictor = TradingPredictor(model_path)
     decision_service = DecisionService(predictor)
 
+    # Internal research API v1: shared engine objects (ports, evidence index).
+    internal_v1.start(app, settings)
+
     yield
 
     # Cleanup
+    internal_v1.stop(app)
     cache_service.close()
     predictor = None
     decision_service = None
@@ -76,6 +81,9 @@ async def rate_limit_handler(request: Request, exc: RateLimitExceeded):
         content={"detail": f"Rate limit exceeded: {exc.detail}"},
     )
 
+
+# Internal research API v1 (/internal/v1/*, X-API-Key required)
+internal_v1.install(app)
 
 # Add idempotency middleware (must be before auth)
 app.add_middleware(IdempotencyMiddleware)

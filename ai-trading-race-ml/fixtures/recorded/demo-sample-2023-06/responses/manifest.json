@@ -1,0 +1,7 @@
+{
+  "disclosure": "reference-heuristic-v1 is a deterministic rule-based policy model used for offline demos and tests. It is not a hosted LLM and its outputs are not model inferences.",
+  "format": "recorded-responses-v1",
+  "model": "reference-heuristic-v1",
+  "provider": "reference",
+  "requestTextsStored": false
+}

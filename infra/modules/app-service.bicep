@@ -61,3 +61,5 @@ resource webApp 'Microsoft.Web/sites@2023-12-01' = {
 
 output defaultHostName string = webApp.properties.defaultHostName
 output outboundIpAddresses string = webApp.properties.outboundIpAddresses
+// Every IP the app may use, including after a scale change within its stamp (for the SQL firewall).
+output possibleOutboundIpAddresses string = webApp.properties.possibleOutboundIpAddresses

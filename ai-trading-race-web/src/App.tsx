@@ -6,6 +6,7 @@ import { Dashboard } from './pages/Dashboard';
 import { AgentList } from './pages/AgentList';
 import { AgentDetail } from './pages/AgentDetail';
 import { About } from './pages/About';
+import { FiApp } from './fi/FiApp';
 import './styles/variables.css';
 import './App.css';
 
@@ -38,6 +39,7 @@ function App() {
                 <Route path="/agents" element={<AgentList />} />
                 <Route path="/agents/:id" element={<AgentDetail />} />
                 <Route path="/about" element={<About />} />
+                <Route path="/fi/*" element={<FiApp />} />
               </Routes>
             </div>
           </main>

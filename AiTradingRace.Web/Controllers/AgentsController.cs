@@ -104,7 +104,7 @@ public class AgentsController : ControllerBase
     /// <param name="ct">Cancellation token.</param>
     /// <returns>The result of the agent run including portfolio state and executed orders.</returns>
     [HttpPost("{id:guid}/run")]
-    [Authorize(Policy = "RequireOperator")]  // ← Sprint 9.3: Only Operator/Admin can run agents
+    [Authorize(Policy = "RequireOperator")]  // Only Operator/Admin can run agents
     [ProducesResponseType(typeof(AgentRunResultDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

@@ -33,4 +33,3 @@ docker-compose.yml @diegoaquinoh
 
 # Documentation
 *.md @diegoaquinoh
-PLANNING_*.md @diegoaquinoh

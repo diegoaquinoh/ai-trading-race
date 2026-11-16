@@ -1,5 +1,6 @@
 # Python ML environment
 venv/
+.venv/
 __pycache__/
 *.py[cod]
 *.pyo

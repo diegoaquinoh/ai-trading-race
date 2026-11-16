@@ -71,7 +71,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         new
                         {
                             Id = new Guid("44444444-0000-4444-0000-444444444444"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 2, 20, 17, 25, 48, 213, DateTimeKind.Unspecified).AddTicks(1490), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 11, 8, 12, 37, 39, 293, DateTimeKind.Unspecified).AddTicks(8380), new TimeSpan(0, 0, 0, 0, 0)),
                             Instructions = "ML model using technical indicators for trading decisions with explainability signals.",
                             IsActive = true,
                             ModelProvider = "CustomML",
@@ -81,7 +81,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         new
                         {
                             Id = new Guid("55555555-0000-5555-0000-555555555555"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 2, 20, 17, 25, 48, 213, DateTimeKind.Unspecified).AddTicks(1490), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 11, 8, 12, 37, 39, 293, DateTimeKind.Unspecified).AddTicks(8380), new TimeSpan(0, 0, 0, 0, 0)),
                             DeploymentKey = "GPT4oMini",
                             Instructions = "You are a balanced trader. Combine fundamental analysis, market sentiment, and technical indicators to make well-rounded trading decisions.",
                             IsActive = true,
@@ -92,7 +92,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         new
                         {
                             Id = new Guid("66666666-0000-6666-0000-666666666666"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 2, 20, 17, 25, 48, 213, DateTimeKind.Unspecified).AddTicks(1500), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 11, 8, 12, 37, 39, 293, DateTimeKind.Unspecified).AddTicks(8390), new TimeSpan(0, 0, 0, 0, 0)),
                             DeploymentKey = "GPT41Nano",
                             Instructions = "You are a fast-acting trader. Use technical indicators to make quick, data-driven trading decisions. Favor clear signals over complex analysis.",
                             IsActive = true,
@@ -312,6 +312,1492 @@ namespace AiTradingRace.Infrastructure.Migrations
                     b.ToTable("EquitySnapshots", (string)null);
                 });
 
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.CashFlowEvent", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<decimal>("AmountUsd")
+                        .HasColumnType("decimal(19,2)");
+
+                    b.Property<string>("CashFlowId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<long>("CommittedVersion")
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal>("EntitledFace")
+                        .HasColumnType("decimal(19,2)");
+
+                    b.Property<string>("Kind")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
+
+                    b.Property<DateOnly>("PaymentDate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("PortfolioId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("SecurityId")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PortfolioId", "CashFlowId")
+                        .IsUnique();
+
+                    b.ToTable("CashFlowEvents", "fi");
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.CommandRecord", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CommandId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("CommandType")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<long?>("CommittedVersion")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("EngineVersion")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<long>("ExpectedVersion")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("PortfolioId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("ProposalHash")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("ProposalId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("Reason")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<string>("RequestHash")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("ResultJson")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CommandId")
+                        .IsUnique();
+
+                    b.HasIndex("PortfolioId");
+
+                    b.ToTable("CommandRecords", "fi");
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.Cycle", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CheckpointJson")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset?>("CompletedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("CurveSnapshotId")
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("CycleId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<DateTimeOffset>("DecisionAsOf")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("ErrorsJson")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("InputsJson")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MarketSnapshotHash")
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("MarketSnapshotId")
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("RunId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<int>("Sequence")
+                        .HasColumnType("int");
+
+                    b.Property<DateOnly>("SessionDate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("SkipReason")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<DateTimeOffset?>("StartedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RunId", "CycleId")
+                        .IsUnique();
+
+                    b.HasIndex("RunId", "Sequence")
+                        .IsUnique();
+
+                    b.ToTable("Cycles", "fi");
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.Decision", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Action")
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
+
+                    b.Property<DateTimeOffset>("CompletedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("CycleId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("DecisionId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("EngineVersion")
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<string>("EvidenceBundleIdsJson")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("InputHashesJson")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Integrity")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)");
+
+                    b.Property<string>("Model")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("Outcome")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<string>("PortfolioId")
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("ProposalJson")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Provider")
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<string>("ReasonsJson")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("RecordedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<int>("Repetition")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RequestHash")
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("ResearchNoteJson")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ResultHash")
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("ResultJson")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RunId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("Signature")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("SpecialistTasksJson")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StrategyId")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<string>("StrategyKind")
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<string>("ValidationJson")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VersionsJson")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DecisionId")
+                        .IsUnique();
+
+                    b.HasIndex("RunId", "Outcome");
+
+                    b.HasIndex("RunId", "CycleId", "StrategyId", "Repetition")
+                        .IsUnique();
+
+                    b.ToTable("Decisions", "fi");
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.DecisionAttempt", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("AgentRole")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<string>("AttemptId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<int>("AttemptNumber")
+                        .HasColumnType("int");
+
+                    b.Property<long>("DecisionDbId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("DurationMs")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Error")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<int>("InputTokens")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Model")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<int>("OutputTokens")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Provider")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<string>("Purpose")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<string>("RecordedResponseId")
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<DateTimeOffset>("StartedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DecisionDbId", "AttemptId")
+                        .IsUnique();
+
+                    b.ToTable("DecisionAttempts", "fi");
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.ExperimentDefinition", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("DataMode")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<string>("DefinitionHash")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("DefinitionJson")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(4000)
+                        .HasColumnType("nvarchar(4000)");
+
+                    b.Property<DateOnly>("EndDate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("ExecutionModelId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("ExperimentId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("InstrumentUniverseVersion")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("Repetitions")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RiskPolicyId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<DateOnly>("StartDate")
+                        .HasColumnType("date");
+
+                    b.Property<int>("Version")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExperimentId", "Version")
+                        .IsUnique();
+
+                    b.ToTable("ExperimentDefinitions", "fi", t =>
+                        {
+                            t.HasCheckConstraint("CK_FiExperimentDefinition_Version", "[Version] >= 1");
+                        });
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.ExperimentRun", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTimeOffset?>("CompletedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<int>("CompletedCycles")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("DataMode")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<string>("EngineVersion")
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<string>("ErrorsJson")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ExecutionModelId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<long>("ExperimentDefinitionId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ExperimentId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<int>("ExperimentVersion")
+                        .HasColumnType("int");
+
+                    b.Property<string>("JobState")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<DateTimeOffset?>("LastCheckpointAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("ManifestHash")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("ManifestJson")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RequestHash")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("RequestedBy")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("ResponseMode")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<string>("RiskPolicyId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("RunId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("RunType")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<DateTimeOffset?>("SimulatedClock")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset?>("StartedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("StatusReason")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<int?>("TotalCycles")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExperimentDefinitionId");
+
+                    b.HasIndex("JobState");
+
+                    b.HasIndex("ExperimentId", "ExperimentVersion");
+
+                    b.ToTable("ExperimentRuns", "fi", t =>
+                        {
+                            t.HasCheckConstraint("CK_FiExperimentRun_JobState", "[JobState] IN ('queued','running','completed','failed','cancelled')");
+
+                            t.HasCheckConstraint("CK_FiExperimentRun_ResponseMode", "[ResponseMode] IN ('recorded_replay','fresh_inference')");
+
+                            t.HasCheckConstraint("CK_FiExperimentRun_RunType", "[RunType] IN ('replay','forward')");
+                        });
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.FiPortfolio", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTimeOffset?>("BlockedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("BlockedByCommandId")
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("BlockedReason")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<Guid>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("CurrentStateHash")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<long>("CurrentVersion")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("DataMode")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<string>("PortfolioId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<int>("Repetition")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RiskPolicyId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("RunId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("StrategyId")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RunId", "StrategyId", "Repetition")
+                        .IsUnique();
+
+                    b.ToTable("Portfolios", "fi", t =>
+                        {
+                            t.HasCheckConstraint("CK_FiPortfolio_Version", "[CurrentVersion] >= 0");
+                        });
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.Fill", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<decimal>("AccruedPer100")
+                        .HasColumnType("decimal(28,12)");
+
+                    b.Property<long>("CommittedVersion")
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal>("ConsiderationUsd")
+                        .HasColumnType("decimal(19,2)");
+
+                    b.Property<decimal>("DirtyPricePer100")
+                        .HasColumnType("decimal(28,12)");
+
+                    b.Property<DateTimeOffset>("ExecutedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<decimal>("ExecutionCleanPricePer100")
+                        .HasColumnType("decimal(28,12)");
+
+                    b.Property<decimal>("Face")
+                        .HasColumnType("decimal(19,2)");
+
+                    b.Property<decimal>("FeesUsd")
+                        .HasColumnType("decimal(19,2)");
+
+                    b.Property<string>("FillId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("FillJson")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("HalfSpreadPer100")
+                        .HasColumnType("decimal(28,12)");
+
+                    b.Property<string>("ObservationId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("OrderId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("PortfolioId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("QuoteKind")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<decimal>("ReferenceCleanPricePer100")
+                        .HasColumnType("decimal(28,12)");
+
+                    b.Property<string>("SecurityId")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<DateOnly>("SettlementDate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Side")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
+
+                    b.Property<decimal>("SpreadCostUsd")
+                        .HasColumnType("decimal(28,8)");
+
+                    b.Property<string>("TimingLabel")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PortfolioId", "FillId")
+                        .IsUnique();
+
+                    b.HasIndex("PortfolioId", "OrderId")
+                        .IsUnique();
+
+                    b.ToTable("Fills", "fi");
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.Journal", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CommandId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<long>("CommittedVersion")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTimeOffset>("EffectiveAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("EventId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("EventType")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<string>("JournalId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("PortfolioId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("Template")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PortfolioId", "EventId");
+
+                    b.HasIndex("PortfolioId", "JournalId")
+                        .IsUnique();
+
+                    b.ToTable("Journals", "fi");
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.JournalEntry", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Account")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<decimal>("CreditUsd")
+                        .HasColumnType("decimal(19,2)");
+
+                    b.Property<decimal>("DebitUsd")
+                        .HasColumnType("decimal(19,2)");
+
+                    b.Property<long>("JournalDbId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("LineId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<int>("LineNumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Memo")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("PortfolioId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("SecurityId")
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("JournalDbId", "LineId")
+                        .IsUnique();
+
+                    b.HasIndex("PortfolioId", "Account");
+
+                    b.ToTable("JournalEntries", "fi", t =>
+                        {
+                            t.HasCheckConstraint("CK_FiJournalEntry_NonNegative", "[DebitUsd] >= 0 AND [CreditUsd] >= 0");
+                        });
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.OrderIntent", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("BatchPriority")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Bootstrap")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("CreatedInVersion")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("DecisionId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<DateOnly>("EligibleSessionDate")
+                        .HasColumnType("date");
+
+                    b.Property<DateTimeOffset>("ExpiresAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<decimal>("Face")
+                        .HasColumnType("decimal(19,2)");
+
+                    b.Property<long>("LastUpdatedVersion")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("OrderId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("OrderJson")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PortfolioId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<decimal>("ReservedCashUsd")
+                        .HasColumnType("decimal(28,8)");
+
+                    b.Property<string>("SecurityId")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<string>("Side")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
+
+                    b.Property<string>("StatusReason")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<DateTimeOffset>("SubmittedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DecisionId");
+
+                    b.HasIndex("PortfolioId", "OrderId")
+                        .IsUnique();
+
+                    b.HasIndex("PortfolioId", "Status");
+
+                    b.ToTable("OrderIntents", "fi", t =>
+                        {
+                            t.HasCheckConstraint("CK_FiOrderIntent_Side", "[Side] IN ('BUY','SELL')");
+
+                            t.HasCheckConstraint("CK_FiOrderIntent_Status", "[Status] IN ('ACCEPTED','FILLED','EXPIRED','CANCELLED','REJECTED')");
+                        });
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.PolicyEvaluation", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Action")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
+
+                    b.Property<bool>("BootstrapExemptionApplied")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("BreachMode")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("CommandId")
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<long?>("DecisionDbId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("DecisionId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("EvaluationJson")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OrderCount")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Passed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("PlatformRecheckPassed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PlatformRecheckReasonsJson")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PolicyId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("PortfolioId")
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<decimal?>("PostTradeCashRatio")
+                        .HasColumnType("decimal(28,12)");
+
+                    b.Property<decimal?>("PostTradeMaxSecurityRatio")
+                        .HasColumnType("decimal(28,12)");
+
+                    b.Property<decimal?>("PostTradeNavUsd")
+                        .HasColumnType("decimal(28,8)");
+
+                    b.Property<decimal?>("PostTradeParallelDv01Usd")
+                        .HasColumnType("decimal(28,8)");
+
+                    b.Property<DateTimeOffset>("RecordedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("RejectedReasonsJson")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Source")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)");
+
+                    b.Property<decimal?>("TurnoverRatio")
+                        .HasColumnType("decimal(28,12)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CommandId");
+
+                    b.HasIndex("DecisionDbId");
+
+                    b.HasIndex("DecisionId");
+
+                    b.ToTable("PolicyEvaluations", "fi");
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.PortfolioEvent", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CommandId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<long>("CommittedVersion")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTimeOffset?>("EffectiveAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("EventId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("EventJson")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EventType")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<string>("PortfolioId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<int?>("Priority")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PortfolioId", "CommittedVersion");
+
+                    b.HasIndex("PortfolioId", "EventId")
+                        .IsUnique();
+
+                    b.ToTable("PortfolioEvents", "fi");
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.PortfolioStateVersion", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTimeOffset>("AsOf")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("CommandId")
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("PortfolioId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("ProposalHash")
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("StateHash")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("StateJson")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("Version")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PortfolioId", "Version")
+                        .IsUnique();
+
+                    b.ToTable("PortfolioStateVersions", "fi");
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.Settlement", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<decimal>("CashUsd")
+                        .HasColumnType("decimal(19,2)");
+
+                    b.Property<long?>("CompletedInVersion")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("CreatedInVersion")
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal>("Face")
+                        .HasColumnType("decimal(19,2)");
+
+                    b.Property<string>("FillId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("PortfolioId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("SecurityId")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<DateOnly>("SettlementDate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("SettlementId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("SettlementJson")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Side")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PortfolioId", "FillId")
+                        .IsUnique();
+
+                    b.HasIndex("PortfolioId", "SettlementId")
+                        .IsUnique();
+
+                    b.ToTable("Settlements", "fi");
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.StrategyInstance", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Label")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("PortfolioId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<int>("Repetition")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RunId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("StrategyConfigId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("StrategyId")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<string>("StrategyKind")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PortfolioId")
+                        .IsUnique();
+
+                    b.HasIndex("RunId", "StrategyId", "Repetition")
+                        .IsUnique();
+
+                    b.ToTable("StrategyInstances", "fi");
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.ToolTrace", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("AgentRole")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<long>("DecisionDbId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("DurationMs")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Error")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<string>("OutputRef")
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("RequestJson")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ResponseSummaryJson")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("StartedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)");
+
+                    b.Property<string>("ToolName")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("TraceId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DecisionDbId", "TraceId")
+                        .IsUnique();
+
+                    b.ToTable("ToolTraces", "fi");
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.UsageRecord", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("BudgetExhausted")
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<long>("DecisionDbId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("DurationMs")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("EstimatedCostUsd")
+                        .HasColumnType("decimal(28,8)");
+
+                    b.Property<int>("EvidenceCalls")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EvidenceTokens")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GenerationCalls")
+                        .HasColumnType("int");
+
+                    b.Property<int>("InputTokens")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OutputTokens")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PriceScheduleId")
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<int>("ToolCalls")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UniqueEvidenceChunks")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DecisionDbId")
+                        .IsUnique();
+
+                    b.ToTable("UsageRecords", "fi");
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.ValuationSnapshot", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<decimal?>("BondValueUsd")
+                        .HasColumnType("decimal(28,8)");
+
+                    b.Property<decimal>("CashUsd")
+                        .HasColumnType("decimal(28,8)");
+
+                    b.Property<long>("CommittedVersion")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("Complete")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("CurveSnapshotId")
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("DataMode")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<decimal?>("EffectiveDurationYears")
+                        .HasColumnType("decimal(28,12)");
+
+                    b.Property<decimal?>("EquityUsd")
+                        .HasColumnType("decimal(28,8)");
+
+                    b.Property<string>("IncompleteReasonsJson")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MarkPolicy")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<decimal?>("ParallelDv01Usd")
+                        .HasColumnType("decimal(28,8)");
+
+                    b.Property<decimal?>("PayablesPvUsd")
+                        .HasColumnType("decimal(28,8)");
+
+                    b.Property<string>("PortfolioId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<decimal?>("ReceivablesPvUsd")
+                        .HasColumnType("decimal(28,8)");
+
+                    b.Property<long>("StateVersion")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTimeOffset>("ValuationAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("ValuationId")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("ValuationJson")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PortfolioId", "ValuationId")
+                        .IsUnique();
+
+                    b.ToTable("ValuationSnapshots", "fi");
+                });
+
             modelBuilder.Entity("AiTradingRace.Domain.Entities.Knowledge.RegimeNode", b =>
                 {
                     b.Property<string>("Id")
@@ -350,7 +1836,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         {
                             Id = "VOLATILE",
                             Condition = "volatility_7d > 0.05",
-                            CreatedAt = new DateTime(2026, 2, 20, 17, 25, 48, 213, DateTimeKind.Utc).AddTicks(1530),
+                            CreatedAt = new DateTime(2026, 11, 8, 12, 37, 39, 293, DateTimeKind.Utc).AddTicks(8430),
                             Description = "Daily volatility > 5%",
                             LookbackDays = 7,
                             Name = "Volatile Market"
@@ -359,7 +1845,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         {
                             Id = "BULLISH",
                             Condition = "ma_7d > ma_30d",
-                            CreatedAt = new DateTime(2026, 2, 20, 17, 25, 48, 213, DateTimeKind.Utc).AddTicks(1530),
+                            CreatedAt = new DateTime(2026, 11, 8, 12, 37, 39, 293, DateTimeKind.Utc).AddTicks(8430),
                             Description = "7-day MA > 30-day MA",
                             LookbackDays = 30,
                             Name = "Bullish Trend"
@@ -368,7 +1854,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         {
                             Id = "BEARISH",
                             Condition = "ma_7d < ma_30d",
-                            CreatedAt = new DateTime(2026, 2, 20, 17, 25, 48, 213, DateTimeKind.Utc).AddTicks(1530),
+                            CreatedAt = new DateTime(2026, 11, 8, 12, 37, 39, 293, DateTimeKind.Utc).AddTicks(8430),
                             Description = "7-day MA < 30-day MA",
                             LookbackDays = 30,
                             Name = "Bearish Trend"
@@ -377,7 +1863,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         {
                             Id = "STABLE",
                             Condition = "volatility_7d < 0.02",
-                            CreatedAt = new DateTime(2026, 2, 20, 17, 25, 48, 213, DateTimeKind.Utc).AddTicks(1530),
+                            CreatedAt = new DateTime(2026, 11, 8, 12, 37, 39, 293, DateTimeKind.Utc).AddTicks(8430),
                             Description = "Daily volatility < 2%",
                             LookbackDays = 7,
                             Name = "Stable Market"
@@ -426,7 +1912,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2026, 2, 20, 17, 25, 48, 213, DateTimeKind.Utc).AddTicks(1530),
+                            CreatedAt = new DateTime(2026, 11, 8, 12, 37, 39, 293, DateTimeKind.Utc).AddTicks(8430),
                             SourceNodeId = "VOLATILE",
                             TargetNodeId = "R003",
                             Type = 0
@@ -434,7 +1920,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2026, 2, 20, 17, 25, 48, 213, DateTimeKind.Utc).AddTicks(1530),
+                            CreatedAt = new DateTime(2026, 11, 8, 12, 37, 39, 293, DateTimeKind.Utc).AddTicks(8430),
                             Parameters = "{\"threshold\": 200.0}",
                             SourceNodeId = "VOLATILE",
                             TargetNodeId = "R002",
@@ -443,7 +1929,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2026, 2, 20, 17, 25, 48, 213, DateTimeKind.Utc).AddTicks(1530),
+                            CreatedAt = new DateTime(2026, 11, 8, 12, 37, 39, 293, DateTimeKind.Utc).AddTicks(8430),
                             Parameters = "{\"threshold\": 0.6}",
                             SourceNodeId = "BULLISH",
                             TargetNodeId = "R001",
@@ -452,7 +1938,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2026, 2, 20, 17, 25, 48, 213, DateTimeKind.Utc).AddTicks(1530),
+                            CreatedAt = new DateTime(2026, 11, 8, 12, 37, 39, 293, DateTimeKind.Utc).AddTicks(8430),
                             Parameters = "{\"threshold\": 0.3}",
                             SourceNodeId = "BEARISH",
                             TargetNodeId = "R001",
@@ -461,7 +1947,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2026, 2, 20, 17, 25, 48, 213, DateTimeKind.Utc).AddTicks(1530),
+                            CreatedAt = new DateTime(2026, 11, 8, 12, 37, 39, 293, DateTimeKind.Utc).AddTicks(8430),
                             SourceNodeId = "Asset:BTC",
                             TargetNodeId = "R001",
                             Type = 4
@@ -469,7 +1955,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2026, 2, 20, 17, 25, 48, 213, DateTimeKind.Utc).AddTicks(1530),
+                            CreatedAt = new DateTime(2026, 11, 8, 12, 37, 39, 293, DateTimeKind.Utc).AddTicks(8430),
                             SourceNodeId = "Asset:ETH",
                             TargetNodeId = "R001",
                             Type = 4
@@ -527,7 +2013,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         {
                             Id = "R001",
                             Category = 0,
-                            CreatedAt = new DateTime(2026, 2, 20, 17, 25, 48, 213, DateTimeKind.Utc).AddTicks(1530),
+                            CreatedAt = new DateTime(2026, 11, 8, 12, 37, 39, 293, DateTimeKind.Utc).AddTicks(8430),
                             Description = "No single position should exceed 50% of total portfolio value",
                             IsActive = true,
                             Name = "MaxPositionSize",
@@ -539,7 +2025,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         {
                             Id = "R002",
                             Category = 1,
-                            CreatedAt = new DateTime(2026, 2, 20, 17, 25, 48, 213, DateTimeKind.Utc).AddTicks(1530),
+                            CreatedAt = new DateTime(2026, 11, 8, 12, 37, 39, 293, DateTimeKind.Utc).AddTicks(8430),
                             Description = "Maintain minimum $100 cash buffer for trading costs",
                             IsActive = true,
                             Name = "MinCashReserve",
@@ -551,7 +2037,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         {
                             Id = "R003",
                             Category = 0,
-                            CreatedAt = new DateTime(2026, 2, 20, 17, 25, 48, 213, DateTimeKind.Utc).AddTicks(1530),
+                            CreatedAt = new DateTime(2026, 11, 8, 12, 37, 39, 293, DateTimeKind.Utc).AddTicks(8430),
                             Description = "Reduce exposure when daily volatility exceeds 5%",
                             IsActive = true,
                             Name = "VolatilityStop",
@@ -563,7 +2049,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         {
                             Id = "R004",
                             Category = 4,
-                            CreatedAt = new DateTime(2026, 2, 20, 17, 25, 48, 213, DateTimeKind.Utc).AddTicks(1530),
+                            CreatedAt = new DateTime(2026, 11, 8, 12, 37, 39, 293, DateTimeKind.Utc).AddTicks(8430),
                             Description = "Exit all positions if portfolio drops 20% from peak",
                             IsActive = true,
                             Name = "MaxDrawdown",
@@ -575,7 +2061,7 @@ namespace AiTradingRace.Infrastructure.Migrations
                         {
                             Id = "R005",
                             Category = 2,
-                            CreatedAt = new DateTime(2026, 2, 20, 17, 25, 48, 213, DateTimeKind.Utc).AddTicks(1530),
+                            CreatedAt = new DateTime(2026, 11, 8, 12, 37, 39, 293, DateTimeKind.Utc).AddTicks(8430),
                             Description = "Hold at least 2 different assets when invested",
                             IsActive = true,
                             Name = "DiversificationRule",
@@ -894,6 +2380,163 @@ namespace AiTradingRace.Infrastructure.Migrations
                     b.Navigation("Portfolio");
                 });
 
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.CashFlowEvent", b =>
+                {
+                    b.HasOne("AiTradingRace.Domain.Entities.FixedIncome.FiPortfolio", null)
+                        .WithMany()
+                        .HasForeignKey("PortfolioId")
+                        .HasPrincipalKey("PortfolioId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.Cycle", b =>
+                {
+                    b.HasOne("AiTradingRace.Domain.Entities.FixedIncome.ExperimentRun", null)
+                        .WithMany()
+                        .HasForeignKey("RunId")
+                        .HasPrincipalKey("RunId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.DecisionAttempt", b =>
+                {
+                    b.HasOne("AiTradingRace.Domain.Entities.FixedIncome.Decision", null)
+                        .WithMany("Attempts")
+                        .HasForeignKey("DecisionDbId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.ExperimentRun", b =>
+                {
+                    b.HasOne("AiTradingRace.Domain.Entities.FixedIncome.ExperimentDefinition", "ExperimentDefinition")
+                        .WithMany()
+                        .HasForeignKey("ExperimentDefinitionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("ExperimentDefinition");
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.Fill", b =>
+                {
+                    b.HasOne("AiTradingRace.Domain.Entities.FixedIncome.FiPortfolio", null)
+                        .WithMany()
+                        .HasForeignKey("PortfolioId")
+                        .HasPrincipalKey("PortfolioId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.Journal", b =>
+                {
+                    b.HasOne("AiTradingRace.Domain.Entities.FixedIncome.FiPortfolio", null)
+                        .WithMany()
+                        .HasForeignKey("PortfolioId")
+                        .HasPrincipalKey("PortfolioId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.JournalEntry", b =>
+                {
+                    b.HasOne("AiTradingRace.Domain.Entities.FixedIncome.Journal", "Journal")
+                        .WithMany("Entries")
+                        .HasForeignKey("JournalDbId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Journal");
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.OrderIntent", b =>
+                {
+                    b.HasOne("AiTradingRace.Domain.Entities.FixedIncome.FiPortfolio", null)
+                        .WithMany()
+                        .HasForeignKey("PortfolioId")
+                        .HasPrincipalKey("PortfolioId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.PolicyEvaluation", b =>
+                {
+                    b.HasOne("AiTradingRace.Domain.Entities.FixedIncome.Decision", null)
+                        .WithMany("PolicyEvaluations")
+                        .HasForeignKey("DecisionDbId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.PortfolioEvent", b =>
+                {
+                    b.HasOne("AiTradingRace.Domain.Entities.FixedIncome.FiPortfolio", null)
+                        .WithMany()
+                        .HasForeignKey("PortfolioId")
+                        .HasPrincipalKey("PortfolioId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.PortfolioStateVersion", b =>
+                {
+                    b.HasOne("AiTradingRace.Domain.Entities.FixedIncome.FiPortfolio", null)
+                        .WithMany()
+                        .HasForeignKey("PortfolioId")
+                        .HasPrincipalKey("PortfolioId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.Settlement", b =>
+                {
+                    b.HasOne("AiTradingRace.Domain.Entities.FixedIncome.FiPortfolio", null)
+                        .WithMany()
+                        .HasForeignKey("PortfolioId")
+                        .HasPrincipalKey("PortfolioId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.StrategyInstance", b =>
+                {
+                    b.HasOne("AiTradingRace.Domain.Entities.FixedIncome.ExperimentRun", null)
+                        .WithMany("Strategies")
+                        .HasForeignKey("RunId")
+                        .HasPrincipalKey("RunId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.ToolTrace", b =>
+                {
+                    b.HasOne("AiTradingRace.Domain.Entities.FixedIncome.Decision", null)
+                        .WithMany("ToolTraces")
+                        .HasForeignKey("DecisionDbId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.UsageRecord", b =>
+                {
+                    b.HasOne("AiTradingRace.Domain.Entities.FixedIncome.Decision", null)
+                        .WithOne("Usage")
+                        .HasForeignKey("AiTradingRace.Domain.Entities.FixedIncome.UsageRecord", "DecisionDbId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.ValuationSnapshot", b =>
+                {
+                    b.HasOne("AiTradingRace.Domain.Entities.FixedIncome.FiPortfolio", null)
+                        .WithMany()
+                        .HasForeignKey("PortfolioId")
+                        .HasPrincipalKey("PortfolioId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("AiTradingRace.Domain.Entities.MarketCandle", b =>
                 {
                     b.HasOne("AiTradingRace.Domain.Entities.MarketAsset", null)
@@ -956,6 +2599,27 @@ namespace AiTradingRace.Infrastructure.Migrations
             modelBuilder.Entity("AiTradingRace.Domain.Entities.Agent", b =>
                 {
                     b.Navigation("Portfolio");
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.Decision", b =>
+                {
+                    b.Navigation("Attempts");
+
+                    b.Navigation("PolicyEvaluations");
+
+                    b.Navigation("ToolTraces");
+
+                    b.Navigation("Usage");
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.ExperimentRun", b =>
+                {
+                    b.Navigation("Strategies");
+                });
+
+            modelBuilder.Entity("AiTradingRace.Domain.Entities.FixedIncome.Journal", b =>
+                {
+                    b.Navigation("Entries");
                 });
 
             modelBuilder.Entity("AiTradingRace.Domain.Entities.Portfolio", b =>

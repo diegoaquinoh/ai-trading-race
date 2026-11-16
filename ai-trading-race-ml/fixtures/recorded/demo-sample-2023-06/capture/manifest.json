@@ -1,0 +1,383 @@
+{
+  "artifacts": [
+    {
+      "checksum": "sha256:2d8395826f5b78a491c56ca3cd82ba0a02d80461a6c1d09b12a78f64e44c545b",
+      "path": "commits.jsonl",
+      "role": "ledger_log"
+    },
+    {
+      "checksum": "sha256:6b068edcfae6a45106d7c21e4adacb49f6fbcffcb4a707dd010382d4f82b5e5e",
+      "path": "outcomes.jsonl",
+      "role": "decision_outcomes"
+    }
+  ],
+  "bootstrapAllocation": [
+    {
+      "securityId": "SYN-USD-NOTE-002",
+      "weight": "0.150000"
+    },
+    {
+      "securityId": "SYN-USD-NOTE-005",
+      "weight": "0.150000"
+    },
+    {
+      "securityId": "SYN-USD-NOTE-006",
+      "weight": "0.170000"
+    },
+    {
+      "securityId": "SYN-USD-NOTE-007",
+      "weight": "0.170000"
+    },
+    {
+      "securityId": "SYN-USD-NOTE-008",
+      "weight": "0.150000"
+    },
+    {
+      "securityId": "SYN-USD-NOTE-009",
+      "weight": "0.150000"
+    },
+    {
+      "securityId": "CASH-USD",
+      "weight": "0.060000"
+    }
+  ],
+  "bootstrapAllocationVersion": "bootstrap-30-34-30-6-v2",
+  "calendarVersion": "us-gov-calendar-v1",
+  "cashReturnAssumption": "zero_cash_interest_v1",
+  "configHash": "sha256:3fcf2b2e9152bcba80ed52d02614fdfc4bf4d612e62755d21912b718309b2b7c",
+  "configSchemaVersion": "replay-config-v1",
+  "conventionVersion": "conventions-v1",
+  "costSensitivityProfiles": [
+    "synthetic-half-spread-0.00-v1",
+    "synthetic-half-spread-0.02-v1",
+    "synthetic-half-spread-0.05-v1"
+  ],
+  "curveManifests": [
+    {
+      "contentHash": "sha256:f063861307b879f0e1e367d015cedc4bfe89dd3b3189ac2f9ff6796e89e0fd74",
+      "curveSnapshotId": "curve-6de7647c990a0800",
+      "sessionDate": "2023-06-13",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:67cf8be1cc66089afee325a24aeb24ae95924227f8ea0d30f19b27085c6941bb",
+      "curveSnapshotId": "curve-547978dfdaccbcec",
+      "sessionDate": "2023-06-14",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:520d7f272aa74fb58dea3e4cb3656b2bf080bd6c99dced8e67e648d03c57e665",
+      "curveSnapshotId": "curve-87993be7b6e0319f",
+      "sessionDate": "2023-06-15",
+      "status": "READY"
+    },
+    {
+      "contentHash": "sha256:f1339a8151360e1e1e76134f62e418f70c812e94d1e30ec5ffef6a494cea6e4e",
+      "curveSnapshotId": "curve-494ca7874c9c4802",
+      "sessionDate": "2023-06-16",
+      "status": "READY"
+    }
+  ],
+  "dataMode": "synthetic_curve",
+  "decisionSessions": [
+    "2023-06-13",
+    "2023-06-14",
+    "2023-06-15",
+    "2023-06-16"
+  ],
+  "dependencyLockHashes": {
+    "pyproject.toml": "sha256:2c161b94f8d12c54284793d02525532d108ba5d580e31661bdd634e6c91854be",
+    "requirements.txt": "sha256:23ca17d91a56c0d39a95ee22b9d285564832909aab2a381318390ebdacca5c1f"
+  },
+  "endDate": "2023-06-16",
+  "engineVersion": "research-engine/0.1.0+simulation-v1+pricing:1.0.0+quantlib-1.44",
+  "eventPriorityTable": "event-priority-v1",
+  "exclusions": [],
+  "executionModel": {
+    "batchPriority": "sells_first_then_security_id_v1",
+    "cashInterestRate": "0",
+    "commissionUsdPerMillionFace": "0",
+    "executionModelId": "synthetic-half-spread-0.02-v1",
+    "faceSizing": "fixed_at_submission_v1",
+    "fillTiming": "next_session_close_daily",
+    "fundingRule": "settled_cash_reserve_commitments_v1",
+    "halfSpreadPer100": "0.02",
+    "slippagePer100": "0",
+    "timeInForce": "next_session_only"
+  },
+  "experimentId": "demo-sample-2023-06",
+  "failures": [],
+  "fittedArtifacts": [],
+  "generatedAt": null,
+  "gitCommit": "7f5ad6498c9738cb18376387763983084d9b7254",
+  "informationPolicy": "reconstructed_publication_plus_lag_v1",
+  "lotMethod": "fifo_v1",
+  "manifestHash": "sha256:968373bc532054cb3e382b43751cb1b59028596e735cc19efa85b3ad85906e99",
+  "manifestVersion": "experiment-manifest-v1",
+  "postingTemplates": [
+    "capital_flow_v1",
+    "buy_fill_v1",
+    "buy_settlement_v1",
+    "sell_fill_v1",
+    "sell_settlement_v1",
+    "coupon_payment_v1",
+    "redemption_v1",
+    "mark_to_market_v1",
+    "cash_interest_v1"
+  ],
+  "pricingEngineVersion": "1.0.0+quantlib-1.44",
+  "realizedUsage": {
+    "cyclesCompleted": 4,
+    "decisions": 16,
+    "outcomes": {
+      "completed_hold": 8,
+      "completed_proposal": 8
+    },
+    "transitionsCommitted": 44
+  },
+  "repetitions": [
+    0
+  ],
+  "resourceLimits": {},
+  "responseMode": "fresh_inference",
+  "responseSource": "fresh_provider_calls",
+  "retrievalVersions": {},
+  "riskPolicy": {
+    "bootstrapTurnoverExemption": true,
+    "breachPolicy": "block_risk_increasing_v1",
+    "initialCapitalUsd": "1000000",
+    "leverageAllowed": false,
+    "longOnly": true,
+    "maxDailyTurnoverRatio": "0.20",
+    "maxMarkAgeBusinessDays": 1,
+    "maxOrdersPerDecision": 6,
+    "maxParallelDv01UsdPerMillionNav": "600",
+    "maxSingleSecurityRatio": "0.40",
+    "minCashRatio": "0.05",
+    "minWeightChange": "0.02",
+    "policyId": "treasury-long-only-v1",
+    "projectionMode": "disabled",
+    "weightSumTolerance": "0.000001"
+  },
+  "runId": "demo-sample-2023-06-r0",
+  "schedule": {
+    "capitalFlow": "08:00:00",
+    "cashEvents": "09:00:00",
+    "dataAvailability": "18:00:00",
+    "decision": "19:00:00",
+    "executionObservation": "15:30:00",
+    "sessionEnd": "17:00:00",
+    "timezone": "America/New_York",
+    "valuation": "20:00:00",
+    "version": "schedule-ny-v1"
+  },
+  "schemaVersion": "1.0",
+  "seeds": {
+    "replay": 0
+  },
+  "settlementConfig": {
+    "SYN-USD-NOTE-001": "1",
+    "SYN-USD-NOTE-002": "1",
+    "SYN-USD-NOTE-005": "1",
+    "SYN-USD-NOTE-006": "1",
+    "SYN-USD-NOTE-007": "1",
+    "SYN-USD-NOTE-008": "1",
+    "SYN-USD-NOTE-009": "1",
+    "rule": "T+lag business days"
+  },
+  "sourceArtifacts": [],
+  "specVersion": "1.0",
+  "splits": {},
+  "startDate": "2023-06-13",
+  "status": "completed",
+  "strategies": [
+    {
+      "config": {
+        "evidenceSnapshotId": null,
+        "indexBuildId": "ib-c5ff36b8d6d057e4ab95",
+        "initialMaxChunks": 6,
+        "initialMaxEvidenceTokens": 4000,
+        "initialQueryTemplate": "policy-outlook-v1",
+        "mandatoryRetrieval": true,
+        "maxOutputTokensPerCall": 2048,
+        "maxProviderRetries": 1,
+        "maxRepairs": 2,
+        "maxToolTurns": 2,
+        "modelId": "reference-heuristic-v1",
+        "onContradictoryEvidence": "review",
+        "onInsufficientEvidence": "abstain",
+        "outputContract": "agent-output-v1",
+        "priceScheduleId": "reference-zero-cost-v1",
+        "promptVersion": "fi-agent-prompts-v1@d9bc062da834e51c",
+        "provider": "reference",
+        "requireQuotes": true,
+        "retrievalMode": "graph_rag_v1",
+        "strategyKind": "single_agent",
+        "supportClassifier": "support-lexical-v1",
+        "supportThreshold": "0.5",
+        "timing": "logical",
+        "toolSchemaVersion": "fi-agent-tools-v1",
+        "validationPipeline": "proposal-validation-v1",
+        "version": "llm-graph-v1"
+      },
+      "configHash": "sha256:28fafb2a477f96448cda47055108bcd60875211fb269371fc7c1b2c26e0e870d",
+      "deterministic": true,
+      "evidenceSnapshotId": null,
+      "indexBuildId": "ib-c5ff36b8d6d057e4ab95",
+      "invested": true,
+      "kind": "single_agent",
+      "modelId": "reference-heuristic-v1",
+      "promptVersion": "fi-agent-prompts-v1@d9bc062da834e51c",
+      "provider": "reference",
+      "responseSource": "provider_call:reference/reference-heuristic-v1:captured",
+      "retrievalMode": "graph_rag_v1",
+      "strategyId": "llm_graph",
+      "toolSchemaVersion": "fi-agent-tools-v1"
+    },
+    {
+      "config": {
+        "evidenceSnapshotId": null,
+        "indexBuildId": null,
+        "initialMaxChunks": 6,
+        "initialMaxEvidenceTokens": 4000,
+        "initialQueryTemplate": "policy-outlook-v1",
+        "mandatoryRetrieval": false,
+        "maxOutputTokensPerCall": 2048,
+        "maxProviderRetries": 1,
+        "maxRepairs": 2,
+        "maxToolTurns": 2,
+        "modelId": "reference-heuristic-v1",
+        "onContradictoryEvidence": "review",
+        "onInsufficientEvidence": "abstain",
+        "outputContract": "agent-output-v1",
+        "priceScheduleId": "reference-zero-cost-v1",
+        "promptVersion": "fi-agent-prompts-v1@d9bc062da834e51c",
+        "provider": "reference",
+        "requireQuotes": true,
+        "retrievalMode": "none",
+        "strategyKind": "single_agent",
+        "supportClassifier": "support-lexical-v1",
+        "supportThreshold": "0.5",
+        "timing": "logical",
+        "toolSchemaVersion": "fi-agent-tools-v1",
+        "validationPipeline": "proposal-validation-v1",
+        "version": "llm-market-v1"
+      },
+      "configHash": "sha256:a723453b066abc34c25c0e2d98bb999d527e07582335ebd2c4dad058b5f65e5a",
+      "deterministic": true,
+      "evidenceSnapshotId": null,
+      "indexBuildId": null,
+      "invested": true,
+      "kind": "single_agent",
+      "modelId": "reference-heuristic-v1",
+      "promptVersion": "fi-agent-prompts-v1@d9bc062da834e51c",
+      "provider": "reference",
+      "responseSource": "provider_call:reference/reference-heuristic-v1:captured",
+      "retrievalMode": "none",
+      "strategyId": "llm_market",
+      "toolSchemaVersion": "fi-agent-tools-v1"
+    },
+    {
+      "config": {
+        "evidenceSnapshotId": null,
+        "indexBuildId": "ib-c5ff36b8d6d057e4ab95",
+        "initialMaxChunks": 6,
+        "initialMaxEvidenceTokens": 4000,
+        "initialQueryTemplate": "policy-outlook-v1",
+        "mandatoryRetrieval": true,
+        "maxOutputTokensPerCall": 2048,
+        "maxProviderRetries": 1,
+        "maxRepairs": 2,
+        "maxToolTurns": 2,
+        "modelId": "reference-heuristic-v1",
+        "onContradictoryEvidence": "review",
+        "onInsufficientEvidence": "abstain",
+        "outputContract": "agent-output-v1",
+        "priceScheduleId": "reference-zero-cost-v1",
+        "promptVersion": "fi-agent-prompts-v1@d9bc062da834e51c",
+        "provider": "reference",
+        "requireQuotes": true,
+        "retrievalMode": "hybrid_rag_v1",
+        "strategyKind": "single_agent",
+        "supportClassifier": "support-lexical-v1",
+        "supportThreshold": "0.5",
+        "timing": "logical",
+        "toolSchemaVersion": "fi-agent-tools-v1",
+        "validationPipeline": "proposal-validation-v1",
+        "version": "llm-rag-v1"
+      },
+      "configHash": "sha256:fdc7ecf7d06d2e7f10933d50945b23d1e74024e42b6f13c52b61eda53abdad40",
+      "deterministic": true,
+      "evidenceSnapshotId": null,
+      "indexBuildId": "ib-c5ff36b8d6d057e4ab95",
+      "invested": true,
+      "kind": "single_agent",
+      "modelId": "reference-heuristic-v1",
+      "promptVersion": "fi-agent-prompts-v1@d9bc062da834e51c",
+      "provider": "reference",
+      "responseSource": "provider_call:reference/reference-heuristic-v1:captured",
+      "retrievalMode": "hybrid_rag_v1",
+      "strategyId": "llm_rag",
+      "toolSchemaVersion": "fi-agent-tools-v1"
+    },
+    {
+      "config": {
+        "evidenceSnapshotId": null,
+        "indexBuildId": "ib-c5ff36b8d6d057e4ab95",
+        "initialMaxChunks": 6,
+        "initialMaxEvidenceTokens": 4000,
+        "initialQueryTemplate": "policy-outlook-v1",
+        "mandatoryRetrieval": true,
+        "maxOutputTokensPerCall": 2048,
+        "maxProviderRetries": 1,
+        "maxRepairs": 2,
+        "maxToolTurns": 2,
+        "modelId": "reference-heuristic-v1",
+        "onContradictoryEvidence": "review",
+        "onInsufficientEvidence": "abstain",
+        "outputContract": "agent-output-v1",
+        "priceScheduleId": "reference-zero-cost-v1",
+        "promptVersion": "fi-agent-prompts-v1@d9bc062da834e51c",
+        "provider": "reference",
+        "requireQuotes": true,
+        "retrievalMode": "graph_rag_v1",
+        "reviewerWorkflow": "parallel_v1",
+        "specialistRoles": [
+          "macro_researcher",
+          "critical_reviewer"
+        ],
+        "specialistToolTurns": 1,
+        "strategyKind": "specialist_team",
+        "supportClassifier": "support-lexical-v1",
+        "supportThreshold": "0.5",
+        "timing": "logical",
+        "toolSchemaVersion": "fi-agent-tools-v1",
+        "validationPipeline": "proposal-validation-v1",
+        "version": "llm-team-v1"
+      },
+      "configHash": "sha256:1f19f96560ba4ad0ac55af714c0bd1ee044f72cfea335f1cd3eba8c8aaa68a23",
+      "deterministic": true,
+      "evidenceSnapshotId": null,
+      "indexBuildId": "ib-c5ff36b8d6d057e4ab95",
+      "invested": true,
+      "kind": "specialist_team",
+      "modelId": "reference-heuristic-v1",
+      "promptVersion": "fi-agent-prompts-v1@d9bc062da834e51c",
+      "provider": "reference",
+      "responseSource": "provider_call:reference/reference-heuristic-v1:captured",
+      "retrievalMode": "graph_rag_v1",
+      "strategyId": "llm_team",
+      "toolSchemaVersion": "fi-agent-tools-v1"
+    }
+  ],
+  "termsVersions": {
+    "SYN-USD-NOTE-001": "SYN-USD-NOTE-001-terms-v1",
+    "SYN-USD-NOTE-002": "SYN-USD-NOTE-002-terms-v1",
+    "SYN-USD-NOTE-005": "SYN-USD-NOTE-005-terms-v1",
+    "SYN-USD-NOTE-006": "SYN-USD-NOTE-006-terms-v1",
+    "SYN-USD-NOTE-007": "SYN-USD-NOTE-007-terms-v1",
+    "SYN-USD-NOTE-008": "SYN-USD-NOTE-008-terms-v1",
+    "SYN-USD-NOTE-009": "SYN-USD-NOTE-009-terms-v1"
+  },
+  "universeVersion": "synthetic_universe_v1.0"
+}

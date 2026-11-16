@@ -1,0 +1,25 @@
+{
+  "fixture_notice": "ILLUSTRATIVE TEST FIXTURE. Shaped like an ALFRED fred/series/observations JSON response (all vintages: realtime_start=1776-07-04, realtime_end=9999-12-31). The series id is fictitious and the values are hypothetical; they are NOT actual published data and must not be used for research conclusions.",
+  "series_id": "ILLUSTRATIVE_UNRATE",
+  "realtime_start": "1776-07-04",
+  "realtime_end": "9999-12-31",
+  "observation_start": "2022-12-01",
+  "observation_end": "2023-03-01",
+  "units": "Percent",
+  "output_type": 1,
+  "file_type": "json",
+  "order_by": "observation_date",
+  "sort_order": "asc",
+  "count": 7,
+  "offset": 0,
+  "limit": 100000,
+  "observations": [
+    {"realtime_start": "2023-01-06", "realtime_end": "2023-02-02", "date": "2022-12-01", "value": "3.5"},
+    {"realtime_start": "2023-02-03", "realtime_end": "9999-12-31", "date": "2022-12-01", "value": "3.6"},
+    {"realtime_start": "2023-02-03", "realtime_end": "2023-03-09", "date": "2023-01-01", "value": "3.4"},
+    {"realtime_start": "2023-03-10", "realtime_end": "9999-12-31", "date": "2023-01-01", "value": "3.5"},
+    {"realtime_start": "2023-03-10", "realtime_end": "2023-04-06", "date": "2023-02-01", "value": "3.6"},
+    {"realtime_start": "2023-04-07", "realtime_end": "9999-12-31", "date": "2023-02-01", "value": "3.7"},
+    {"realtime_start": "2023-04-07", "realtime_end": "9999-12-31", "date": "2023-03-01", "value": "."}
+  ]
+}

@@ -139,7 +139,7 @@ public sealed class LlamaAgentModelClient : IAgentModelClient
         sb.AppendLine("6. Never invest more than 50% of cash in a single trade");
         sb.AppendLine("7. Always keep a minimum cash reserve");
 
-        // Phase 10: Add knowledge graph rules if available
+        // Add knowledge graph rules if available
         if (context.KnowledgeGraph != null && context.DetectedRegime != null)
         {
             sb.AppendLine();
@@ -288,7 +288,7 @@ public sealed class LlamaAgentModelClient : IAgentModelClient
 
         _logger.LogInformation("Agent {AgentId} reasoning: {Reasoning}", agentId, reasoning);
 
-        // Phase 10: Extract cited rules if present
+        // Extract cited rules if present
         List<string>? citedRuleIds = null;
         if (root.TryGetProperty("cited_rules", out var citedRulesElement))
         {

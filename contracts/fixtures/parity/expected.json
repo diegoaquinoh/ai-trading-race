@@ -1,0 +1,83 @@
+{
+  "configHash": "sha256:135a3489c0cca817c390020c374e68a78de253ec4daedfe59ff50e001f4b024a",
+  "engineVersion": "research-engine/0.1.0+simulation-v1+pricing:1.0.0+quantlib-1.44",
+  "finalStates": {
+    "pf:run-parity:cash": {
+      "cashUsd": "1000000.00",
+      "stateHash": "sha256:a624dc5bda13141f4641489855dd867990233b43291f522e332e1f2d8d7d6ff7",
+      "version": 29
+    },
+    "pf:run-parity:quant_duration": {
+      "cashUsd": "119485.59",
+      "stateHash": "sha256:3ff140b7ca36b67d1e7ff0a8ff639f60bbe75897cdda3dc609454266597760bd",
+      "version": 37
+    },
+    "pf:run-parity:static_ladder": {
+      "cashUsd": "60572.53",
+      "stateHash": "sha256:4265e59e24cf3a145a46416894c0c527149859f49067465c8a485fdf6fbe1844",
+      "version": 32
+    }
+  },
+  "fixtureVersion": "parity-fixture-v1",
+  "lastValuations": {
+    "pf:run-parity:cash": {
+      "complete": true,
+      "equityUsd": "1000000.00",
+      "valuationId": "val:pf:run-parity:cash:20240210T010000Z"
+    },
+    "pf:run-parity:quant_duration": {
+      "complete": true,
+      "equityUsd": "993547.24",
+      "valuationId": "val:pf:run-parity:quant_duration:20240210T010000Z"
+    },
+    "pf:run-parity:static_ladder": {
+      "complete": true,
+      "equityUsd": "992865.79",
+      "valuationId": "val:pf:run-parity:static_ladder:20240210T010000Z"
+    }
+  },
+  "ledgerTotals": {
+    "pf:run-parity:cash": {
+      "ACCRUED_INTEREST_PURCHASED": "0",
+      "BOND_PRINCIPAL": "0",
+      "CAPITAL": "-1000000.00",
+      "CASH": "1000000.00",
+      "INTEREST_INCOME": "0",
+      "MARK_ADJUSTMENT": "0",
+      "REALIZED_GAIN_LOSS": "0",
+      "SETTLEMENT_PAYABLE": "0",
+      "SETTLEMENT_RECEIVABLE": "0",
+      "TRANSACTION_FEES": "0",
+      "UNREALIZED_GAIN_LOSS": "0"
+    },
+    "pf:run-parity:quant_duration": {
+      "ACCRUED_INTEREST_PURCHASED": "7070.13",
+      "BOND_PRINCIPAL": "872975.44",
+      "CAPITAL": "-1000000.00",
+      "CASH": "119485.59",
+      "INTEREST_INCOME": "-4.90",
+      "MARK_ADJUSTMENT": "-5983.92",
+      "REALIZED_GAIN_LOSS": "473.74",
+      "SETTLEMENT_PAYABLE": "0.00",
+      "SETTLEMENT_RECEIVABLE": "0.00",
+      "TRANSACTION_FEES": "0",
+      "UNREALIZED_GAIN_LOSS": "5983.92"
+    },
+    "pf:run-parity:static_ladder": {
+      "ACCRUED_INTEREST_PURCHASED": "7681.72",
+      "BOND_PRINCIPAL": "931745.75",
+      "CAPITAL": "-1000000.00",
+      "CASH": "60572.53",
+      "INTEREST_INCOME": "0",
+      "MARK_ADJUSTMENT": "-7134.21",
+      "REALIZED_GAIN_LOSS": "0",
+      "SETTLEMENT_PAYABLE": "0.00",
+      "SETTLEMENT_RECEIVABLE": "0",
+      "TRANSACTION_FEES": "0",
+      "UNREALIZED_GAIN_LOSS": "7134.21"
+    }
+  },
+  "runStatus": "completed",
+  "signingKeyUtf8": "parity-fixture-signing-key",
+  "transitionCount": 175
+}

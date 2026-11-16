@@ -1,0 +1,96 @@
+{
+  "additionalProperties": false,
+  "description": "Proposed initial controls (spec 9.3). Changing any value = new policy_id.",
+  "properties": {
+    "bootstrapTurnoverExemption": {
+      "default": true,
+      "title": "Bootstrapturnoverexemption",
+      "type": "boolean"
+    },
+    "breachPolicy": {
+      "const": "block_risk_increasing_v1",
+      "default": "block_risk_increasing_v1",
+      "title": "Breachpolicy",
+      "type": "string"
+    },
+    "initialCapitalUsd": {
+      "default": "1000000",
+      "pattern": "^-?\\d+(\\.\\d+)?$",
+      "title": "Initialcapitalusd",
+      "type": "string"
+    },
+    "leverageAllowed": {
+      "default": false,
+      "title": "Leverageallowed",
+      "type": "boolean"
+    },
+    "longOnly": {
+      "default": true,
+      "title": "Longonly",
+      "type": "boolean"
+    },
+    "maxDailyTurnoverRatio": {
+      "default": "0.20",
+      "pattern": "^-?\\d+(\\.\\d+)?$",
+      "title": "Maxdailyturnoverratio",
+      "type": "string"
+    },
+    "maxMarkAgeBusinessDays": {
+      "default": 1,
+      "title": "Maxmarkagebusinessdays",
+      "type": "integer"
+    },
+    "maxOrdersPerDecision": {
+      "default": 6,
+      "title": "Maxordersperdecision",
+      "type": "integer"
+    },
+    "maxParallelDv01UsdPerMillionNav": {
+      "default": "600",
+      "pattern": "^-?\\d+(\\.\\d+)?$",
+      "title": "Maxparalleldv01Usdpermillionnav",
+      "type": "string"
+    },
+    "maxSingleSecurityRatio": {
+      "default": "0.40",
+      "pattern": "^-?\\d+(\\.\\d+)?$",
+      "title": "Maxsinglesecurityratio",
+      "type": "string"
+    },
+    "minCashRatio": {
+      "default": "0.05",
+      "pattern": "^-?\\d+(\\.\\d+)?$",
+      "title": "Mincashratio",
+      "type": "string"
+    },
+    "minWeightChange": {
+      "default": "0.02",
+      "pattern": "^-?\\d+(\\.\\d+)?$",
+      "title": "Minweightchange",
+      "type": "string"
+    },
+    "policyId": {
+      "default": "treasury-long-only-v1",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+      "title": "Policyid",
+      "type": "string"
+    },
+    "projectionMode": {
+      "default": "disabled",
+      "enum": [
+        "disabled",
+        "deterministic_projection_v1"
+      ],
+      "title": "Projectionmode",
+      "type": "string"
+    },
+    "weightSumTolerance": {
+      "default": "0.000001",
+      "pattern": "^-?\\d+(\\.\\d+)?$",
+      "title": "Weightsumtolerance",
+      "type": "string"
+    }
+  },
+  "title": "RiskPolicy",
+  "type": "object"
+}

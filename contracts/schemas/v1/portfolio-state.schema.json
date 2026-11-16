@@ -1,0 +1,414 @@
+{
+  "$defs": {
+    "Lot": {
+      "additionalProperties": false,
+      "description": "FIFO tax lot. Remaining cost amounts shrink pro rata on partial sale.",
+      "properties": {
+        "accruedPurchasedUsd": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Accruedpurchasedusd",
+          "type": "string"
+        },
+        "cleanPricePer100": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Cleanpriceper100",
+          "type": "string"
+        },
+        "face": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Face",
+          "type": "string"
+        },
+        "lotId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Lotid",
+          "type": "string"
+        },
+        "principalCostUsd": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Principalcostusd",
+          "type": "string"
+        },
+        "securityId": {
+          "pattern": "^[A-Z0-9][A-Z0-9\\-\\.]{1,63}$",
+          "title": "Securityid",
+          "type": "string"
+        },
+        "settlementDate": {
+          "format": "date",
+          "title": "Settlementdate",
+          "type": "string"
+        },
+        "tradeDate": {
+          "format": "date",
+          "title": "Tradedate",
+          "type": "string"
+        }
+      },
+      "required": [
+        "lotId",
+        "securityId",
+        "face",
+        "tradeDate",
+        "settlementDate",
+        "cleanPricePer100",
+        "principalCostUsd",
+        "accruedPurchasedUsd"
+      ],
+      "title": "Lot",
+      "type": "object"
+    },
+    "OrderIntent": {
+      "additionalProperties": false,
+      "properties": {
+        "batchPriority": {
+          "default": 0,
+          "title": "Batchpriority",
+          "type": "integer"
+        },
+        "bootstrap": {
+          "default": false,
+          "title": "Bootstrap",
+          "type": "boolean"
+        },
+        "decisionId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Decisionid",
+          "type": "string"
+        },
+        "eligibleSessionDate": {
+          "format": "date",
+          "title": "Eligiblesessiondate",
+          "type": "string"
+        },
+        "expiresAt": {
+          "format": "date-time",
+          "title": "Expiresat",
+          "type": "string"
+        },
+        "face": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Face",
+          "type": "string"
+        },
+        "orderId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Orderid",
+          "type": "string"
+        },
+        "reservedCashUsd": {
+          "default": "0",
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Reservedcashusd",
+          "type": "string"
+        },
+        "securityId": {
+          "pattern": "^[A-Z0-9][A-Z0-9\\-\\.]{1,63}$",
+          "title": "Securityid",
+          "type": "string"
+        },
+        "side": {
+          "$ref": "#/$defs/Side"
+        },
+        "status": {
+          "$ref": "#/$defs/OrderStatus",
+          "default": "ACCEPTED"
+        },
+        "statusReason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Statusreason"
+        },
+        "submittedAt": {
+          "format": "date-time",
+          "title": "Submittedat",
+          "type": "string"
+        }
+      },
+      "required": [
+        "orderId",
+        "decisionId",
+        "securityId",
+        "side",
+        "face",
+        "submittedAt",
+        "eligibleSessionDate",
+        "expiresAt"
+      ],
+      "title": "OrderIntent",
+      "type": "object"
+    },
+    "OrderStatus": {
+      "enum": [
+        "ACCEPTED",
+        "FILLED",
+        "EXPIRED",
+        "CANCELLED",
+        "REJECTED"
+      ],
+      "title": "OrderStatus",
+      "type": "string"
+    },
+    "PendingSettlement": {
+      "additionalProperties": false,
+      "properties": {
+        "cashUsd": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Cashusd",
+          "type": "string"
+        },
+        "face": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Face",
+          "type": "string"
+        },
+        "fillId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Fillid",
+          "type": "string"
+        },
+        "securityId": {
+          "pattern": "^[A-Z0-9][A-Z0-9\\-\\.]{1,63}$",
+          "title": "Securityid",
+          "type": "string"
+        },
+        "settlementDate": {
+          "format": "date",
+          "title": "Settlementdate",
+          "type": "string"
+        },
+        "settlementId": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "title": "Settlementid",
+          "type": "string"
+        },
+        "side": {
+          "$ref": "#/$defs/Side"
+        }
+      },
+      "required": [
+        "settlementId",
+        "fillId",
+        "securityId",
+        "side",
+        "face",
+        "settlementDate",
+        "cashUsd"
+      ],
+      "title": "PendingSettlement",
+      "type": "object"
+    },
+    "Position": {
+      "additionalProperties": false,
+      "properties": {
+        "economicFace": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Economicface",
+          "type": "string"
+        },
+        "lots": {
+          "items": {
+            "$ref": "#/$defs/Lot"
+          },
+          "title": "Lots",
+          "type": "array"
+        },
+        "securityId": {
+          "pattern": "^[A-Z0-9][A-Z0-9\\-\\.]{1,63}$",
+          "title": "Securityid",
+          "type": "string"
+        },
+        "settledFace": {
+          "pattern": "^-?\\d+(\\.\\d+)?$",
+          "title": "Settledface",
+          "type": "string"
+        }
+      },
+      "required": [
+        "securityId",
+        "economicFace",
+        "settledFace"
+      ],
+      "title": "Position",
+      "type": "object"
+    },
+    "Side": {
+      "enum": [
+        "BUY",
+        "SELL"
+      ],
+      "title": "Side",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Versioned authoritative portfolio state (application-owned once committed).",
+  "properties": {
+    "asOf": {
+      "format": "date-time",
+      "title": "Asof",
+      "type": "string"
+    },
+    "blockedReason": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Blockedreason"
+    },
+    "bookedUnrealizedUsd": {
+      "default": "0",
+      "pattern": "^-?\\d+(\\.\\d+)?$",
+      "title": "Bookedunrealizedusd",
+      "type": "string"
+    },
+    "cashFlowsProcessedThrough": {
+      "anyOf": [
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Cashflowsprocessedthrough"
+    },
+    "cashUsd": {
+      "pattern": "^-?\\d+(\\.\\d+)?$",
+      "title": "Cashusd",
+      "type": "string"
+    },
+    "currency": {
+      "const": "USD",
+      "default": "USD",
+      "title": "Currency",
+      "type": "string"
+    },
+    "externalCapitalUsd": {
+      "default": "0",
+      "pattern": "^-?\\d+(\\.\\d+)?$",
+      "title": "Externalcapitalusd",
+      "type": "string"
+    },
+    "interestIncomeUsd": {
+      "default": "0",
+      "pattern": "^-?\\d+(\\.\\d+)?$",
+      "title": "Interestincomeusd",
+      "type": "string"
+    },
+    "lastValuationId": {
+      "anyOf": [
+        {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Lastvaluationid"
+    },
+    "openOrders": {
+      "items": {
+        "$ref": "#/$defs/OrderIntent"
+      },
+      "title": "Openorders",
+      "type": "array"
+    },
+    "pendingSettlements": {
+      "items": {
+        "$ref": "#/$defs/PendingSettlement"
+      },
+      "title": "Pendingsettlements",
+      "type": "array"
+    },
+    "portfolioId": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+      "title": "Portfolioid",
+      "type": "string"
+    },
+    "positions": {
+      "items": {
+        "$ref": "#/$defs/Position"
+      },
+      "title": "Positions",
+      "type": "array"
+    },
+    "realizedGainLossUsd": {
+      "default": "0",
+      "pattern": "^-?\\d+(\\.\\d+)?$",
+      "title": "Realizedgainlossusd",
+      "type": "string"
+    },
+    "reservedCashUsd": {
+      "default": "0",
+      "pattern": "^-?\\d+(\\.\\d+)?$",
+      "title": "Reservedcashusd",
+      "type": "string"
+    },
+    "riskBreaches": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Riskbreaches",
+      "type": "array"
+    },
+    "runId": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_\\-\\.:]{0,159}$",
+      "title": "Runid",
+      "type": "string"
+    },
+    "schemaVersion": {
+      "default": "1.0",
+      "title": "Schemaversion",
+      "type": "string"
+    },
+    "spreadCostUsd": {
+      "default": "0",
+      "pattern": "^-?\\d+(\\.\\d+)?$",
+      "title": "Spreadcostusd",
+      "type": "string"
+    },
+    "strategyId": {
+      "pattern": "^[a-z][a-z0-9_]{1,63}$",
+      "title": "Strategyid",
+      "type": "string"
+    },
+    "transactionFeesUsd": {
+      "default": "0",
+      "pattern": "^-?\\d+(\\.\\d+)?$",
+      "title": "Transactionfeesusd",
+      "type": "string"
+    },
+    "version": {
+      "minimum": 0,
+      "title": "Version",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "portfolioId",
+    "strategyId",
+    "runId",
+    "version",
+    "asOf",
+    "cashUsd"
+  ],
+  "title": "PortfolioState",
+  "type": "object"
+}

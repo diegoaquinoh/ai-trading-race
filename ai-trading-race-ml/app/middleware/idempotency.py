@@ -14,22 +14,22 @@ logger = logging.getLogger(__name__)
 class IdempotencyMiddleware(BaseHTTPMiddleware):
     """
     Middleware to handle request idempotency using Redis cache.
-    
+
     Clients can send an 'Idempotency-Key' header with a unique identifier.
     If the same key is seen within the TTL window (1 hour), the cached
     response is returned without re-processing the request.
-    
+
     This prevents duplicate processing of ML predictions which can be expensive.
     """
 
     async def dispatch(self, request: Request, call_next: Callable) -> Response:
         """
         Process request with idempotency check.
-        
+
         Args:
             request: FastAPI request
             call_next: Next middleware/handler
-            
+
         Returns:
             Response (either cached or freshly generated)
         """
@@ -39,7 +39,7 @@ class IdempotencyMiddleware(BaseHTTPMiddleware):
 
         # Get idempotency key from header
         idempotency_key = request.headers.get("Idempotency-Key")
-        
+
         if not idempotency_key:
             # No idempotency key provided, process normally
             logger.debug("No idempotency key provided, processing request")
@@ -48,7 +48,7 @@ class IdempotencyMiddleware(BaseHTTPMiddleware):
         # Check cache for existing response
         if cache_service.is_available:
             cached_response = cache_service.get(idempotency_key)
-            
+
             if cached_response:
                 logger.info(f"Returning cached response for key: {idempotency_key}")
                 return Response(

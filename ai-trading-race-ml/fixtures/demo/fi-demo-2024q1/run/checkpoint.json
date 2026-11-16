@@ -1,0 +1,162 @@
+{
+  "bootstrap": {
+    "buckets": {
+      "intermediate": [
+        "SYN-USD-NOTE-007",
+        "SYN-USD-NOTE-008"
+      ],
+      "longer": [
+        "SYN-USD-NOTE-009"
+      ],
+      "short": [
+        "SYN-USD-NOTE-003",
+        "SYN-USD-NOTE-006"
+      ]
+    },
+    "checked": true,
+    "session": "2024-01-02",
+    "submitted": {
+      "llm_graph": [
+        "ord:dec:fi-demo-2024q1-r0:llm_graph:2024-01-02:r0:SYN-USD-NOTE-003",
+        "ord:dec:fi-demo-2024q1-r0:llm_graph:2024-01-02:r0:SYN-USD-NOTE-006",
+        "ord:dec:fi-demo-2024q1-r0:llm_graph:2024-01-02:r0:SYN-USD-NOTE-007",
+        "ord:dec:fi-demo-2024q1-r0:llm_graph:2024-01-02:r0:SYN-USD-NOTE-008",
+        "ord:dec:fi-demo-2024q1-r0:llm_graph:2024-01-02:r0:SYN-USD-NOTE-009"
+      ],
+      "llm_market": [
+        "ord:dec:fi-demo-2024q1-r0:llm_market:2024-01-02:r0:SYN-USD-NOTE-003",
+        "ord:dec:fi-demo-2024q1-r0:llm_market:2024-01-02:r0:SYN-USD-NOTE-006",
+        "ord:dec:fi-demo-2024q1-r0:llm_market:2024-01-02:r0:SYN-USD-NOTE-007",
+        "ord:dec:fi-demo-2024q1-r0:llm_market:2024-01-02:r0:SYN-USD-NOTE-008",
+        "ord:dec:fi-demo-2024q1-r0:llm_market:2024-01-02:r0:SYN-USD-NOTE-009"
+      ],
+      "llm_rag": [
+        "ord:dec:fi-demo-2024q1-r0:llm_rag:2024-01-02:r0:SYN-USD-NOTE-003",
+        "ord:dec:fi-demo-2024q1-r0:llm_rag:2024-01-02:r0:SYN-USD-NOTE-006",
+        "ord:dec:fi-demo-2024q1-r0:llm_rag:2024-01-02:r0:SYN-USD-NOTE-007",
+        "ord:dec:fi-demo-2024q1-r0:llm_rag:2024-01-02:r0:SYN-USD-NOTE-008",
+        "ord:dec:fi-demo-2024q1-r0:llm_rag:2024-01-02:r0:SYN-USD-NOTE-009"
+      ],
+      "llm_team": [
+        "ord:dec:fi-demo-2024q1-r0:llm_team:2024-01-02:r0:SYN-USD-NOTE-003",
+        "ord:dec:fi-demo-2024q1-r0:llm_team:2024-01-02:r0:SYN-USD-NOTE-006",
+        "ord:dec:fi-demo-2024q1-r0:llm_team:2024-01-02:r0:SYN-USD-NOTE-007",
+        "ord:dec:fi-demo-2024q1-r0:llm_team:2024-01-02:r0:SYN-USD-NOTE-008",
+        "ord:dec:fi-demo-2024q1-r0:llm_team:2024-01-02:r0:SYN-USD-NOTE-009"
+      ],
+      "quant_duration": [
+        "ord:dec:fi-demo-2024q1-r0:quant_duration:2024-01-02:r0:SYN-USD-NOTE-003",
+        "ord:dec:fi-demo-2024q1-r0:quant_duration:2024-01-02:r0:SYN-USD-NOTE-006",
+        "ord:dec:fi-demo-2024q1-r0:quant_duration:2024-01-02:r0:SYN-USD-NOTE-007",
+        "ord:dec:fi-demo-2024q1-r0:quant_duration:2024-01-02:r0:SYN-USD-NOTE-008",
+        "ord:dec:fi-demo-2024q1-r0:quant_duration:2024-01-02:r0:SYN-USD-NOTE-009"
+      ],
+      "static_ladder": [
+        "ord:dec:fi-demo-2024q1-r0:static_ladder:2024-01-02:r0:SYN-USD-NOTE-003",
+        "ord:dec:fi-demo-2024q1-r0:static_ladder:2024-01-02:r0:SYN-USD-NOTE-006",
+        "ord:dec:fi-demo-2024q1-r0:static_ladder:2024-01-02:r0:SYN-USD-NOTE-007",
+        "ord:dec:fi-demo-2024q1-r0:static_ladder:2024-01-02:r0:SYN-USD-NOTE-008",
+        "ord:dec:fi-demo-2024q1-r0:static_ladder:2024-01-02:r0:SYN-USD-NOTE-009"
+      ]
+    },
+    "targets": [
+      {
+        "securityId": "SYN-USD-NOTE-003",
+        "weight": "0.150000"
+      },
+      {
+        "securityId": "SYN-USD-NOTE-006",
+        "weight": "0.150000"
+      },
+      {
+        "securityId": "SYN-USD-NOTE-007",
+        "weight": "0.170000"
+      },
+      {
+        "securityId": "SYN-USD-NOTE-008",
+        "weight": "0.170000"
+      },
+      {
+        "securityId": "SYN-USD-NOTE-009",
+        "weight": "0.300000"
+      },
+      {
+        "securityId": "CASH-USD",
+        "weight": "0.060000"
+      }
+    ],
+    "version": "bootstrap-30-34-30-6-v2"
+  },
+  "checkpointVersion": "checkpoint-v1",
+  "configHash": "sha256:36c068a4ee902024e030582059e9e7408cacb81ce93db07ef109e58900975203",
+  "cycleIndex": 60,
+  "eventPosition": 875,
+  "exclusions": [],
+  "failures": [],
+  "manifestRef": "manifest.json",
+  "outcomeCount": 427,
+  "pendingEvents": {
+    "pf:fi-demo-2024q1-r0:cash": {
+      "openOrders": [],
+      "pendingSettlements": []
+    },
+    "pf:fi-demo-2024q1-r0:llm_graph": {
+      "openOrders": [],
+      "pendingSettlements": []
+    },
+    "pf:fi-demo-2024q1-r0:llm_market": {
+      "openOrders": [],
+      "pendingSettlements": [
+        "stl:fill:ord:dec:fi-demo-2024q1-r0:llm_market:2024-03-27:r0:SYN-USD-NOTE-009"
+      ]
+    },
+    "pf:fi-demo-2024q1-r0:llm_rag": {
+      "openOrders": [],
+      "pendingSettlements": []
+    },
+    "pf:fi-demo-2024q1-r0:llm_team": {
+      "openOrders": [],
+      "pendingSettlements": []
+    },
+    "pf:fi-demo-2024q1-r0:quant_duration": {
+      "openOrders": [],
+      "pendingSettlements": []
+    },
+    "pf:fi-demo-2024q1-r0:static_ladder": {
+      "openOrders": [],
+      "pendingSettlements": []
+    }
+  },
+  "portfolios": {
+    "pf:fi-demo-2024q1-r0:cash": {
+      "stateHash": "sha256:645e9fb433c52430c09ac026b754a7a2f576baeab1ac8eda7d8b48563d8c77d6",
+      "version": 62
+    },
+    "pf:fi-demo-2024q1-r0:llm_graph": {
+      "stateHash": "sha256:5db1efe28d03169e4a7b2347651a00a14894b06b648caf249c61a98b6789d7a5",
+      "version": 69
+    },
+    "pf:fi-demo-2024q1-r0:llm_market": {
+      "stateHash": "sha256:01ccf2e5f87195b9a2df9fea9717c77f1e91c9f712b426d074c509581d41f06f",
+      "version": 72
+    },
+    "pf:fi-demo-2024q1-r0:llm_rag": {
+      "stateHash": "sha256:f12c22953cfbc53bd70ed1623922d460485d46b266dcc43509e6f758ed4a7188",
+      "version": 69
+    },
+    "pf:fi-demo-2024q1-r0:llm_team": {
+      "stateHash": "sha256:da132a70788d39d40db707cc2c9f72694d12ea36bc6732a0138423ce3284a91b",
+      "version": 69
+    },
+    "pf:fi-demo-2024q1-r0:quant_duration": {
+      "stateHash": "sha256:a231fb5473d6e35fedad7693a6002710485a0c5d1b72159bb4f8be9d208d184d",
+      "version": 75
+    },
+    "pf:fi-demo-2024q1-r0:static_ladder": {
+      "stateHash": "sha256:ac1010581b800ce3ceb7e2359fee165785f4b582d5f03c74a7098b48c2e40dad",
+      "version": 67
+    }
+  },
+  "sessionDate": "2024-03-28",
+  "status": "completed"
+}

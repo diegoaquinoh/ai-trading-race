@@ -38,7 +38,7 @@ public static class ServiceCollectionExtensions
         // Add common services
         services.AddCoreInfrastructureServices(configuration);
 
-        // AI Agent Integration (Phase 5 & 8)
+        // AI Agent Integration
         services.Configure<AzureOpenAiOptions>(configuration.GetSection(AzureOpenAiOptions.SectionName));
         services.Configure<CustomMlAgentOptions>(configuration.GetSection(CustomMlAgentOptions.SectionName));
         services.Configure<LlamaOptions>(configuration.GetSection(LlamaOptions.SectionName));
@@ -79,7 +79,7 @@ public static class ServiceCollectionExtensions
             client.Timeout = TimeSpan.FromSeconds(options.TimeoutSeconds);
         });
 
-        // Llama API client with rate limiting and resilience policies (Phase 8)
+        // Llama API client with rate limiting and resilience policies
         services.AddTransient<LlamaRateLimitingHandler>();
         services.AddHttpClient<LlamaAgentModelClient>((sp, client) =>
         {
@@ -182,10 +182,13 @@ public static class ServiceCollectionExtensions
         services.TryAddScoped<IAgentContextBuilder, AgentContextBuilder>();
         services.TryAddScoped<IAgentRunner, AgentRunner>();
 
-        // Phase 10: Knowledge Graph & Decision Logs
+        // Knowledge Graph & Decision Logs
         services.TryAddScoped<IKnowledgeGraphService, InMemoryKnowledgeGraphService>();
         services.TryAddScoped<IRegimeDetector, VolatilityBasedRegimeDetector>();
         services.TryAddScoped<IDecisionLogService, DecisionLogService>();
+
+        // Fixed income research platform (schema "fi", /api/v1)
+        services.AddFixedIncomeServices(configuration);
 
         return services;
     }
